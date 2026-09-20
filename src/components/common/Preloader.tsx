@@ -22,14 +22,23 @@ const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       return;
     }
 
-    // Skip if already loaded this session
-    if (
-      typeof sessionStorage !== 'undefined' &&
-      sessionStorage.getItem('portfolio_loaded')
-    ) {
-      onComplete();
-      return;
+    // Skip if already loaded this session (safe storage access)
+    try {
+      if (
+        typeof sessionStorage !== 'undefined' &&
+        sessionStorage.getItem('portfolio_loaded')
+      ) {
+        onComplete();
+        return;
+      }
+    } catch {
+      // Ignore sessionStorage errors
     }
+
+    // Safety fallback: guaranteed to call onComplete even if interval/animation stalls
+    const safetyTimeout = setTimeout(() => {
+      onComplete();
+    }, 2000);
 
     // Increment progress: ~7 per 16ms → reaches 100 in ~250ms
     const interval = setInterval(() => {
@@ -42,7 +51,10 @@ const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
       });
     }, 16);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      clearTimeout(safetyTimeout);
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Watch progress reaching 100 and trigger exit immediately
@@ -54,8 +66,12 @@ const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
 
       // Fast exit animation (300ms) then call onComplete
       const completeTimer = setTimeout(() => {
-        if (typeof sessionStorage !== 'undefined') {
-          sessionStorage.setItem('portfolio_loaded', '1');
+        try {
+          if (typeof sessionStorage !== 'undefined') {
+            sessionStorage.setItem('portfolio_loaded', '1');
+          }
+        } catch {
+          // Ignore sessionStorage errors
         }
         onComplete();
       }, 320);

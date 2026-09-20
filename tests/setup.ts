@@ -20,3 +20,18 @@ Object.defineProperty(window, 'scrollTo', {
   writable: true,
   value: () => {}
 });
+
+// Mock ResizeObserver
+global.ResizeObserver = class {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};
+
+// Mock IntersectionObserver
+global.IntersectionObserver = class {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+} as any;
+

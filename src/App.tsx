@@ -137,20 +137,18 @@ export const App: React.FC = () => {
       {/* Global Interactive Background: Dynamic Constellation & Nebula */}
       <InteractiveBackground />
 
-      {/* Preloader handles sessionStorage skip logic + prefers-reduced-motion internally */}
+      {/* Preloader overlay handles sessionStorage skip logic + prefers-reduced-motion internally */}
       {!appReady && <Preloader onComplete={() => setAppReady(true)} />}
 
-      {appReady && (
-        <SmoothScrollProvider>
-          <BrowserRouter basename={getBasename()}>
-            <ScrollManager />
-            <Layout>
-              <RoutesWithAnimation />
-            </Layout>
-            <BackToTop />
-          </BrowserRouter>
-        </SmoothScrollProvider>
-      )}
+      <SmoothScrollProvider>
+        <BrowserRouter basename={getBasename()}>
+          <ScrollManager />
+          <Layout>
+            <RoutesWithAnimation />
+          </Layout>
+          <BackToTop />
+        </BrowserRouter>
+      </SmoothScrollProvider>
     </ErrorBoundary>
   );
 };
