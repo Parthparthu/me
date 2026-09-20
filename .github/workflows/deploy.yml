@@ -40,7 +40,7 @@ jobs:
       - name: Build Production Bundle
         run: npm run build
         env:
-          VITE_BASE_PATH: './'
+          VITE_BASE_PATH: '/me/'
 
       - name: Upload GitHub Pages Artifact
         if: github.ref == 'refs/heads/main'

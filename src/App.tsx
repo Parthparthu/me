@@ -106,6 +106,12 @@ const RoutesWithAnimation: React.FC = () => {
   );
 };
 
+const getBasename = (): string => {
+  const base = import.meta.env.BASE_URL;
+  if (!base || base === './' || base === '.') return '/';
+  return base.endsWith('/') && base.length > 1 ? base.slice(0, -1) : base;
+};
+
 export const App: React.FC = () => {
   const [appReady, setAppReady] = useState(false);
 
@@ -136,7 +142,7 @@ export const App: React.FC = () => {
 
       {appReady && (
         <SmoothScrollProvider>
-          <BrowserRouter basename={import.meta.env.BASE_URL}>
+          <BrowserRouter basename={getBasename()}>
             <ScrollManager />
             <Layout>
               <RoutesWithAnimation />
