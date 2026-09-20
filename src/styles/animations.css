@@ -1,0 +1,258 @@
+/**
+ * ANIMATION TOKENS & UTILITIES
+ * Performance-focused CSS transitions using transform and opacity.
+ * Respects prefers-reduced-motion.
+ */
+
+.transition-all-fast {
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.transition-base {
+  transition: background-color var(--duration-normal) var(--ease-standard),
+              border-color var(--duration-normal) var(--ease-standard),
+              color var(--duration-normal) var(--ease-standard),
+              box-shadow var(--duration-normal) var(--ease-standard),
+              transform var(--duration-normal) var(--ease-standard),
+              opacity var(--duration-normal) var(--ease-standard);
+}
+
+.transition-transform {
+  transition: transform var(--duration-normal) var(--ease-standard);
+}
+
+.transition-colors {
+  transition: background-color var(--duration-fast) var(--ease-standard),
+              border-color var(--duration-fast) var(--ease-standard),
+              color var(--duration-fast) var(--ease-standard);
+}
+
+/* Subtle Hover Lift for Interactive Cards */
+.hover-lift {
+  transition: transform var(--duration-normal) var(--ease-standard),
+              box-shadow var(--duration-normal) var(--ease-standard),
+              border-color var(--duration-normal) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--border-medium);
+  }
+}
+
+/* Pulse animation for active status indicators */
+@keyframes status-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.15);
+  }
+}
+
+.animate-status-pulse {
+  animation: status-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Skeleton Loading Shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--bg-surface) 25%,
+    var(--bg-surface-elevated) 50%,
+    var(--bg-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Global Prefers-Reduced-Motion Reset */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hover-lift:hover {
+    transform: none !important;
+  }
+
+  .animate-status-pulse,
+  .animate-shimmer {
+    animation: none !important;
+  }
+}
+
+/* ─── Premium Gradient Text Shimmer ─────────────────────────────────────── */
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient-text {
+  background: linear-gradient(270deg, #5b7cf6, #06b6d4, #a78bfa, #5b7cf6);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 5s ease infinite;
+}
+
+/* ─── Floating Orb ───────────────────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-16px) rotate(2deg); }
+  66%       { transform: translateY(-8px) rotate(-1deg); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ─── Glow Pulse ─────────────────────────────────────────────────────────── */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(91, 124, 246, 0.15); }
+  50%       { box-shadow: 0 0 40px rgba(91, 124, 246, 0.4), 0 0 80px rgba(91, 124, 246, 0.2); }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* ─── Border Gradient Animation ──────────────────────────────────────────── */
+@keyframes border-rotate {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* ─── Count-up Number Roll ───────────────────────────────────────────────── */
+@keyframes count-in {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ─── Subtle Page Noise ──────────────────────────────────────────────────── */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9997;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ─── GPU Compositing Hints ──────────────────────────────────────────────── */
+.will-animate {
+  will-change: transform, opacity;
+}
+
+.will-animate-transform {
+  will-change: transform;
+}
+
+/* ─── Energetic Kinetic Keyframes ────────────────────────────────────────── */
+@keyframes rainbow-border-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes laser-beam {
+  0% { transform: translateY(-100%); opacity: 0; }
+  30% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: translateY(1000%); opacity: 0; }
+}
+
+@keyframes radar-pulse-multi {
+  0% { transform: scale(0.9); opacity: 0.9; box-shadow: 0 0 0 0 rgba(0, 240, 255, 0.6); }
+  50% { transform: scale(1.4); opacity: 0.35; box-shadow: 0 0 0 10px rgba(79, 107, 255, 0.25); }
+  100% { transform: scale(2); opacity: 0; box-shadow: 0 0 0 20px rgba(0, 240, 255, 0); }
+}
+
+@keyframes electric-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes levitate-3d {
+  0%, 100% { transform: translateY(0) rotateX(0deg) rotateY(0deg); }
+  25% { transform: translateY(-7px) rotateX(3deg) rotateY(-2deg); }
+  50% { transform: translateY(-12px) rotateX(-2deg) rotateY(3deg); }
+  75% { transform: translateY(-5px) rotateX(2deg) rotateY(-1deg); }
+}
+
+@keyframes spark-burst {
+  0% { transform: scale(0) rotate(0deg); opacity: 1; }
+  100% { transform: scale(1.6) rotate(180deg); opacity: 0; }
+}
+
+@keyframes click-shockwave {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(3.5); opacity: 0; }
+}
+
+.animate-radar {
+  animation: radar-pulse-multi 2.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+.animate-levitate {
+  animation: levitate-3d 6s ease-in-out infinite;
+}
+
+/* ─── Ambient Float — subtle sinusoidal levitation ──────────────────────────── */
+@keyframes float-ambient {
+  0%, 100% { transform: translateY(0px);  }
+  30%       { transform: translateY(-8px); }
+  60%       { transform: translateY(-4px); }
+}
+
+.animate-float-ambient {
+  animation: float-ambient 8s ease-in-out infinite;
+}
+
+.animate-rainbow-text,
+.animate-brand-text {
+  background: linear-gradient(135deg, #ffffff 10%, #c7d2fe 45%, #19D3E6 85%, #7C6CFF 100%);
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 5s ease infinite;
+}
+
+/* ─── Global prefers-reduced-motion — must be last to override ────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .animate-levitate,
+  .animate-float-ambient,
+  .animate-float,
+  .animate-gradient-text,
+  .animate-rainbow-text,
+  .animate-brand-text,
+  .animate-radar,
+  .animate-glow-pulse,
+  .animate-shimmer,
+  .animate-status-pulse,
+  .noise-overlay {
+    animation: none !important;
+  }
+}
