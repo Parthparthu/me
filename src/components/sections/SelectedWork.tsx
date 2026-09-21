@@ -8,8 +8,8 @@ import { ProjectPanelHorizontal } from '../projects/ProjectPanelHorizontal';
 import { SpotlightCard } from '../common/SpotlightCard';
 
 const PANEL_SPOTLIGHTS = [
-  { spotlight: 'rgba(79, 107, 255, 0.2)', border: 'rgba(79, 107, 255, 0.45)' },
-  { spotlight: 'rgba(0, 240, 255, 0.2)', border: 'rgba(0, 240, 255, 0.45)' },
+  { spotlight: 'rgba(99, 102, 241, 0.2)', border: 'rgba(99, 102, 241, 0.45)' },
+  { spotlight: 'rgba(56, 189, 248, 0.2)', border: 'rgba(56, 189, 248, 0.45)' },
   { spotlight: 'rgba(129, 140, 248, 0.2)', border: 'rgba(129, 140, 248, 0.45)' },
 ];
 
@@ -89,7 +89,7 @@ export const SelectedWork: React.FC = () => {
         >
           <div>
             <div className="section-label">
-              <Layers size={14} style={{ color: '#00f0ff' }} aria-hidden="true" />
+              <Layers size={14} style={{ color: 'var(--brand-sky)' }} aria-hidden="true" />
               <span className="animate-rainbow-text font-bold">Flagship Engineering</span>
             </div>
             <h2 id="selected-work-title" className="section-title">
@@ -105,7 +105,7 @@ export const SelectedWork: React.FC = () => {
             className="btn btn-ghost hero-btn-secondary"
             style={{ flexShrink: 0, gap: 'var(--space-2)' }}
           >
-            <Sparkles size={14} style={{ color: '#00f0ff' }} aria-hidden="true" />
+            <Sparkles size={14} style={{ color: 'var(--brand-indigo)' }} aria-hidden="true" />
             <span>All {projectsData.length} projects</span>
             <ArrowRight size={15} aria-hidden="true" />
           </Link>

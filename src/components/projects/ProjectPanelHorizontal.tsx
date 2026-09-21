@@ -106,7 +106,7 @@ export const ProjectPanelHorizontal: React.FC<ProjectPanelHorizontalProps> = ({ 
           borderRadius: 'inherit',
           border: '1px solid transparent',
           backgroundImage: isHovered
-            ? 'linear-gradient(var(--bg-surface), var(--bg-surface)), linear-gradient(135deg, rgba(79,124,255,0.4), rgba(25,211,230,0.3))'
+            ? 'linear-gradient(var(--bg-surface), var(--bg-surface)), linear-gradient(135deg, rgba(99,102,241,0.45), rgba(56,189,248,0.35))'
             : 'none',
           backgroundClip: 'padding-box, border-box',
           backgroundOrigin: 'padding-box, border-box',
@@ -181,11 +181,11 @@ export const ProjectPanelHorizontal: React.FC<ProjectPanelHorizontalProps> = ({ 
               data-cursor-label="DEMO"
               className="btn btn-primary"
               style={{
-                background: 'linear-gradient(135deg, #4F7CFF 0%, #19D3E6 100%)',
+                background: 'linear-gradient(135deg, #6366f1 0%, #38bdf8 100%)',
                 color: '#ffffff',
                 border: 'none',
                 fontWeight: 600,
-                boxShadow: '0 4px 20px rgba(79, 124, 255, 0.4)',
+                boxShadow: '0 4px 20px rgba(99, 102, 241, 0.4)',
                 gap: 'var(--space-2)',
               }}
             >

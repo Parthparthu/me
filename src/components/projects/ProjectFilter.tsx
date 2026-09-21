@@ -85,7 +85,7 @@ export const ProjectFilter: React.FC<ProjectFilterProps> = ({
             style={{
               position: 'absolute',
               left: '14px',
-              color: isFocused ? '#00f0ff' : 'var(--text-tertiary)',
+              color: isFocused ? 'var(--brand-sky)' : 'var(--text-tertiary)',
               transition: 'color 0.2s ease',
               pointerEvents: 'none',
             }}
@@ -106,8 +106,8 @@ export const ProjectFilter: React.FC<ProjectFilterProps> = ({
               paddingLeft: '42px',
               paddingRight: searchQuery ? '42px' : '52px',
               backgroundColor: 'rgba(18, 22, 34, 0.85)',
-              border: isFocused ? '1px solid #00f0ff' : '1px solid rgba(255, 255, 255, 0.12)',
-              boxShadow: isFocused ? '0 0 16px rgba(0, 240, 255, 0.2)' : 'none',
+              border: isFocused ? '1px solid var(--brand-sky)' : '1px solid var(--border-medium)',
+              boxShadow: isFocused ? '0 0 16px rgba(56, 189, 248, 0.25)' : 'none',
               borderRadius: 'var(--radius-md)',
               color: 'var(--text-primary)',
               fontSize: 'var(--text-sm)',
@@ -208,16 +208,16 @@ export const ProjectFilter: React.FC<ProjectFilterProps> = ({
             type="button"
             onClick={onReset}
             className="touch-target"
-            whileHover={{ scale: 1.04, borderColor: '#00f0ff' }}
+            whileHover={{ scale: 1.04, borderColor: 'var(--brand-sky)' }}
             whileTap={{ scale: 0.96 }}
             style={{
               fontSize: 'var(--text-xs)',
               fontWeight: 600,
-              color: '#00f0ff',
+              color: 'var(--brand-sky)',
               padding: '0 var(--space-3)',
               borderRadius: 'var(--radius-sm)',
-              border: '1px dashed rgba(0, 240, 255, 0.4)',
-              backgroundColor: 'rgba(0, 240, 255, 0.06)',
+              border: '1px dashed rgba(56, 189, 248, 0.4)',
+              backgroundColor: 'rgba(56, 189, 248, 0.08)',
               cursor: 'pointer',
             }}
           >

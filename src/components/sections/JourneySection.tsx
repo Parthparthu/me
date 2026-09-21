@@ -31,7 +31,7 @@ export const JourneySection: React.FC = () => {
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="section-label">
-            <Milestone size={14} style={{ color: '#00f0ff' }} aria-hidden="true" />
+            <Milestone size={14} style={{ color: 'var(--brand-sky)' }} aria-hidden="true" />
             <span className="animate-rainbow-text font-bold">Growth &amp; Trajectory</span>
           </div>
           <h2 id="journey-title" className="section-title">Engineering Journey</h2>
@@ -66,11 +66,11 @@ export const JourneySection: React.FC = () => {
               top: '8px',
               bottom: '8px',
               width: '3px',
-              background: 'linear-gradient(to bottom, #00f0ff 0%, #4f6bff 60%, #818cf8 100%)',
+              background: 'linear-gradient(to bottom, #38bdf8 0%, #6366f1 60%, #818cf8 100%)',
               borderRadius: '2px',
               transformOrigin: 'top',
               scaleY: spineScale,
-              boxShadow: '0 0 16px rgba(0, 240, 255, 0.6), 0 0 32px rgba(79, 107, 255, 0.4)',
+              boxShadow: '0 0 16px rgba(56, 189, 248, 0.6), 0 0 32px rgba(99, 102, 241, 0.4)',
             }}
           >
             {/* Travelling Neon Laser Pulse */}
@@ -129,7 +129,7 @@ export const JourneySection: React.FC = () => {
                     <motion.span
                       key={tech}
                       className="journey-tech-pill"
-                      whileHover={{ scale: 1.1, color: '#00f0ff', borderColor: '#00f0ff' }}
+                      whileHover={{ scale: 1.1, color: '#38bdf8', borderColor: '#38bdf8' }}
                     >
                       {tech}
                     </motion.span>
@@ -160,7 +160,7 @@ export const JourneySection: React.FC = () => {
           left: -2px;
           width: 7px;
           height: 90px;
-          background: linear-gradient(to bottom, transparent, #ffffff, #00f0ff, transparent);
+          background: linear-gradient(to bottom, transparent, #ffffff, #38bdf8, transparent);
           border-radius: var(--radius-full);
           filter: blur(1px);
           animation: laser-beam 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;

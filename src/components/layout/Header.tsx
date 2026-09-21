@@ -194,7 +194,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCommandPalette }) => {
               left: 0,
               right: 0,
               height: '2px',
-              background: 'linear-gradient(90deg, #4F7CFF, #19D3E6)',
+              background: 'linear-gradient(90deg, #6366f1, #38bdf8)',
               borderRadius: '0 0 9999px 9999px',
               transformOrigin: '0%',
               scaleX,
@@ -290,7 +290,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenCommandPalette }) => {
 
         .spatial-nav-island.is-scrolled {
           box-shadow: 0 16px 36px -8px rgba(0, 0, 0, 0.75), 0 0 0 1px var(--border-specular);
-          border-color: rgba(91, 124, 246, 0.3);
+          border-color: rgba(99, 102, 241, 0.35);
         }
 
         /* Brand */

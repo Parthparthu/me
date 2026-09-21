@@ -17,7 +17,7 @@ interface CanvasParticle {
   radius?: number;
 }
 
-const SPARK_PALETTE = ['#19D3E6', '#4F7CFF', '#7C6CFF', '#38bdf8'];
+const SPARK_PALETTE = ['#38BDF8', '#6366F1', '#818CF8', '#A855F7'];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export const CustomCursor: React.FC = () => {
@@ -252,19 +252,19 @@ export const CustomCursor: React.FC = () => {
         <span
           style={{
             display: 'inline-block',
-            background: 'rgba(6, 8, 13, 0.88)',
+            background: 'rgba(8, 9, 14, 0.88)',
             backdropFilter: 'blur(12px)',
-            border: '1px solid rgba(79, 124, 255, 0.4)',
+            border: '1px solid rgba(99, 102, 241, 0.4)',
             borderRadius: '4px',
             padding: '3px 8px',
             fontFamily: 'var(--font-mono)',
             fontSize: '10px',
             fontWeight: 700,
             letterSpacing: '0.1em',
-            color: '#19D3E6',
+            color: '#38BDF8',
             textTransform: 'uppercase',
             whiteSpace: 'nowrap',
-            boxShadow: '0 0 12px rgba(25, 211, 230, 0.25)',
+            boxShadow: '0 0 12px rgba(56, 189, 248, 0.25)',
           }}
         >
           {cursorLabel}
@@ -282,13 +282,13 @@ export const CustomCursor: React.FC = () => {
           height: 28,
           borderRadius: '50%',
           border: isHovering
-            ? '1.5px solid #19D3E6'
+            ? '1.5px solid #38BDF8'
             : isCanvas
-            ? '1.5px dashed rgba(79, 124, 255, 0.6)'
-            : '1.5px solid rgba(79, 124, 255, 0.5)',
+            ? '1.5px dashed rgba(99, 102, 241, 0.6)'
+            : '1.5px solid rgba(99, 102, 241, 0.5)',
           boxShadow: isHovering
-            ? '0 0 20px rgba(25, 211, 230, 0.5), inset 0 0 8px rgba(25, 211, 230, 0.1)'
-            : '0 0 8px rgba(79, 124, 255, 0.2)',
+            ? '0 0 20px rgba(56, 189, 248, 0.5), inset 0 0 8px rgba(56, 189, 248, 0.1)'
+            : '0 0 8px rgba(99, 102, 241, 0.2)',
           pointerEvents: 'none',
           zIndex: 9998,
           x: springX,
@@ -315,9 +315,9 @@ export const CustomCursor: React.FC = () => {
           height: 6,
           borderRadius: '50%',
           background: isHovering
-            ? 'linear-gradient(135deg, #19D3E6, #4F7CFF)'
-            : 'linear-gradient(135deg, #4F7CFF, #7C6CFF)',
-          boxShadow: isHovering ? '0 0 10px #19D3E6' : '0 0 6px #4F7CFF',
+            ? 'linear-gradient(135deg, #38BDF8, #6366F1)'
+            : 'linear-gradient(135deg, #6366F1, #818CF8)',
+          boxShadow: isHovering ? '0 0 10px #38BDF8' : '0 0 6px #6366F1',
           pointerEvents: 'none',
           zIndex: 9999,
           x: dotX,

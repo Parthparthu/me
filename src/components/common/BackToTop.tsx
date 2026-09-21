@@ -46,15 +46,15 @@ export const BackToTop: React.FC = () => {
           initial={{ opacity: 0, scale: 0.7, y: 16 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.7, y: 16 }}
-          whileHover={{ scale: 1.12, boxShadow: '0 0 25px rgba(25, 211, 230, 0.45)' }}
+          whileHover={{ scale: 1.12, boxShadow: '0 0 25px rgba(99, 102, 241, 0.45)' }}
           whileTap={{ scale: 0.9 }}
           transition={{ type: 'spring', stiffness: 400, damping: 25 }}
         >
           <svg className="progress-ring" width="46" height="46" viewBox="0 0 46 46">
             <defs>
               <linearGradient id="backToTopGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#4F7CFF" />
-                <stop offset="100%" stopColor="#19D3E6" />
+                <stop offset="0%" stopColor="#6366f1" />
+                <stop offset="100%" stopColor="#38bdf8" />
               </linearGradient>
             </defs>
             {/* Background Track */}
@@ -90,7 +90,7 @@ export const BackToTop: React.FC = () => {
               width: 46px;
               height: 46px;
               border-radius: 50%;
-              background: rgba(12, 14, 21, 0.88);
+              background: rgba(14, 18, 27, 0.88);
               backdrop-filter: blur(16px);
               -webkit-backdrop-filter: blur(16px);
               border: 1px solid rgba(255, 255, 255, 0.12);
@@ -105,7 +105,7 @@ export const BackToTop: React.FC = () => {
             }
 
             .back-to-top-btn:focus-visible {
-              outline: 2px solid #00f0ff;
+              outline: 2px solid #6366f1;
               outline-offset: 3px;
             }
 
@@ -137,7 +137,7 @@ export const BackToTop: React.FC = () => {
 
             .back-to-top-btn:hover .back-to-top-icon-wrapper {
               transform: translateY(-2px);
-              color: #00f0ff;
+              color: #38bdf8;
             }
 
             @media (max-width: 640px) {

@@ -1350,8 +1350,8 @@ body::after {
   background: conic-gradient(
     from 0deg,
     transparent 0deg,
-    #4f6bff 80deg,
-    #00f0ff 180deg,
+    #6366f1 80deg,
+    #38bdf8 180deg,
     #818cf8 260deg,
     transparent 360deg
   );
@@ -1386,8 +1386,8 @@ body::after {
 }
 
 .spotlight-card:hover {
-  border-color: rgba(0, 240, 255, 0.35);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(0, 240, 255, 0.08);
+  border-color: rgba(99, 102, 241, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 24px rgba(99, 102, 241, 0.12);
 }
 
 .spotlight-card-content {
@@ -1411,17 +1411,17 @@ body::after {
 /* ─── Cohesive Brand Badges ──────────────────────────────────────────────── */
 .badge-neon-pink,
 .badge-neon-cyan {
-  background: rgba(0, 240, 255, 0.1);
-  border-color: rgba(0, 240, 255, 0.3);
-  color: #00f0ff;
-  box-shadow: 0 0 12px -2px rgba(0, 240, 255, 0.25);
+  background: rgba(56, 189, 248, 0.1);
+  border-color: rgba(56, 189, 248, 0.3);
+  color: #38bdf8;
+  box-shadow: 0 0 12px -2px rgba(56, 189, 248, 0.25);
 }
 
 .badge-neon-purple,
 .badge-neon-amber,
 .badge-neon-emerald {
-  background: rgba(79, 107, 255, 0.1);
-  border-color: rgba(79, 107, 255, 0.3);
+  background: rgba(99, 102, 241, 0.1);
+  border-color: rgba(99, 102, 241, 0.3);
   color: #818cf8;
   box-shadow: 0 0 12px -2px rgba(79, 107, 255, 0.25);
 }

@@ -163,8 +163,8 @@ export const LiveDemoModal: React.FC<LiveDemoModalProps> = ({
                     padding: '5px 8px',
                     borderRadius: 'var(--radius-sm)',
                     border: 'none',
-                    background: device === 'desktop' ? 'rgba(79, 107, 255, 0.25)' : 'transparent',
-                    color: device === 'desktop' ? '#00f0ff' : 'var(--text-tertiary)',
+                    background: device === 'desktop' ? 'rgba(99, 102, 241, 0.25)' : 'transparent',
+                    color: device === 'desktop' ? 'var(--brand-sky)' : 'var(--text-tertiary)',
                     cursor: 'pointer',
                   }}
                 >
@@ -178,8 +178,8 @@ export const LiveDemoModal: React.FC<LiveDemoModalProps> = ({
                     padding: '5px 8px',
                     borderRadius: 'var(--radius-sm)',
                     border: 'none',
-                    background: device === 'tablet' ? 'rgba(79, 107, 255, 0.25)' : 'transparent',
-                    color: device === 'tablet' ? '#00f0ff' : 'var(--text-tertiary)',
+                    background: device === 'tablet' ? 'rgba(99, 102, 241, 0.25)' : 'transparent',
+                    color: device === 'tablet' ? 'var(--brand-sky)' : 'var(--text-tertiary)',
                     cursor: 'pointer',
                   }}
                 >
@@ -193,8 +193,8 @@ export const LiveDemoModal: React.FC<LiveDemoModalProps> = ({
                     padding: '5px 8px',
                     borderRadius: 'var(--radius-sm)',
                     border: 'none',
-                    background: device === 'mobile' ? 'rgba(79, 107, 255, 0.25)' : 'transparent',
-                    color: device === 'mobile' ? '#00f0ff' : 'var(--text-tertiary)',
+                    background: device === 'mobile' ? 'rgba(99, 102, 241, 0.25)' : 'transparent',
+                    color: device === 'mobile' ? 'var(--brand-sky)' : 'var(--text-tertiary)',
                     cursor: 'pointer',
                   }}
                 >
@@ -206,31 +206,28 @@ export const LiveDemoModal: React.FC<LiveDemoModalProps> = ({
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-cursor-label="TAB"
                 className="btn btn-secondary"
-                style={{ height: '30px', padding: '0 10px', fontSize: '12px', gap: '5px' }}
+                style={{
+                  height: '32px',
+                  padding: '0 var(--space-3)',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  gap: 'var(--space-1-5)',
+                }}
                 title="Open in new window"
               >
-                <span>Open Tab</span>
+                <span>Open in Tab</span>
                 <ExternalLink size={12} />
               </a>
 
               <button
                 type="button"
                 onClick={onClose}
-                aria-label="Close modal"
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--text-secondary)',
-                  cursor: 'pointer',
-                  padding: '6px',
-                  borderRadius: 'var(--radius-sm)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
+                className="modal-close-btn"
+                aria-label="Close live demo modal"
               >
-                <X size={18} />
+                <X size={16} />
               </button>
             </div>
           </div>
@@ -258,9 +255,10 @@ export const LiveDemoModal: React.FC<LiveDemoModalProps> = ({
                   flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '12px',
-                  backgroundColor: '#0c0f17',
+                  gap: 'var(--space-3)',
                   zIndex: 2,
+                  background: 'rgba(7, 9, 14, 0.85)',
+                  backdropFilter: 'blur(8px)',
                 }}
               >
                 <motion.div
@@ -269,8 +267,8 @@ export const LiveDemoModal: React.FC<LiveDemoModalProps> = ({
                   style={{
                     width: 32,
                     height: 32,
-                    border: '2px solid rgba(0, 240, 255, 0.2)',
-                    borderTopColor: '#00f0ff',
+                    border: '2px solid rgba(56, 189, 248, 0.2)',
+                    borderTopColor: 'var(--brand-sky)',
                     borderRadius: '50%',
                   }}
                 />

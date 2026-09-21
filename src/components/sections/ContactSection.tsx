@@ -114,7 +114,7 @@ export const ContactSection: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="outreach-github-banner"
-                whileHover={{ scale: 1.02, y: -2, borderColor: '#00f0ff', boxShadow: '0 0 20px rgba(0, 240, 255, 0.25)' }}
+                whileHover={{ scale: 1.02, y: -2, borderColor: '#6366f1', boxShadow: '0 0 20px rgba(99, 102, 241, 0.25)' }}
                 whileTap={{ scale: 0.99 }}
               >
                 <div className="github-banner-icon" aria-hidden="true">
@@ -153,7 +153,7 @@ export const ContactSection: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="outreach-social-item"
-                    whileHover={{ x: 4, color: '#00f0ff' }}
+                    whileHover={{ x: 4, color: '#38bdf8' }}
                   >
                     <span>{s.platform}: <strong>@{s.username}</strong></span>
                     <ExternalLink size={13} aria-hidden="true" />
@@ -508,8 +508,8 @@ export const ContactSection: React.FC = () => {
 
         .field-input:focus,
         .field-textarea:focus {
-          border-color: #00f0ff;
-          box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.25), 0 0 15px rgba(0, 240, 255, 0.15);
+          border-color: #6366f1;
+          box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25), 0 0 15px rgba(99, 102, 241, 0.15);
         }
 
         .field-input.is-error {
@@ -523,11 +523,11 @@ export const ContactSection: React.FC = () => {
         }
 
         .contact-submit-btn {
-          background: linear-gradient(135deg, #00f0ff 0%, #ff2d75 100%);
+          background: linear-gradient(135deg, #6366f1 0%, #38bdf8 100%);
           border: none;
           color: #ffffff;
           font-weight: 700;
-          box-shadow: 0 4px 20px -2px rgba(0, 240, 255, 0.4);
+          box-shadow: 0 4px 20px -2px rgba(99, 102, 241, 0.4);
         }
       `}</style>
     </section>

@@ -58,11 +58,11 @@ export const InteractiveBackground: React.FC = () => {
     const scales = new Float32Array(particleCount);
 
     const PALETTE_VEC = [
-      new THREE.Color('#19D3E6'), // Ice Cyan
-      new THREE.Color('#4F7CFF'), // Electric Cobalt
-      new THREE.Color('#7C6CFF'), // Violet
-      new THREE.Color('#38bdf8'), // Sky Cyan
-      new THREE.Color('#e2e8f0'), // Platinum Starlight
+      new THREE.Color('#38BDF8'), // Sky Ice
+      new THREE.Color('#6366F1'), // Electric Indigo
+      new THREE.Color('#818CF8'), // Soft Iris
+      new THREE.Color('#A855F7'), // Violet
+      new THREE.Color('#E0E7FF'), // Platinum Starlight
     ];
 
     for (let i = 0; i < particleCount; i++) {
@@ -95,8 +95,8 @@ export const InteractiveBackground: React.FC = () => {
     if (ctx) {
       const grad = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
       grad.addColorStop(0, 'rgba(255, 255, 255, 1)');
-      grad.addColorStop(0.25, 'rgba(0, 240, 255, 0.85)');
-      grad.addColorStop(0.6, 'rgba(79, 107, 255, 0.35)');
+      grad.addColorStop(0.25, 'rgba(56, 189, 248, 0.85)');
+      grad.addColorStop(0.6, 'rgba(99, 102, 241, 0.35)');
       grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
       ctx.fillStyle = grad;
       ctx.beginPath();
@@ -122,7 +122,7 @@ export const InteractiveBackground: React.FC = () => {
     // Mesh 1: Torus Knot at Upper-Right (Hero / Projects transition)
     const geoTorus = new THREE.TorusKnotGeometry(55, 14, 120, 16);
     const matTorus = new THREE.MeshBasicMaterial({
-      color: 0x4f6bff,
+      color: 0x6366f1,
       wireframe: true,
       transparent: true,
       opacity: 0.22,
@@ -134,7 +134,7 @@ export const InteractiveBackground: React.FC = () => {
     // Mesh 2: Icosahedron at Mid-Left (Projects / About transition)
     const geoIco = new THREE.IcosahedronGeometry(75, 1);
     const matIco = new THREE.MeshBasicMaterial({
-      color: 0x00f0ff,
+      color: 0x38bdf8,
       wireframe: true,
       transparent: true,
       opacity: 0.18,

@@ -12,16 +12,16 @@ interface StratumTheme {
 
 const STRATA_THEMES: Record<string, StratumTheme> = {
   languages: {
-    spotlight: 'rgba(0, 240, 255, 0.18)',
-    border: 'rgba(0, 240, 255, 0.45)',
-    accent: '#00f0ff',
-    bgSubtle: 'rgba(0, 240, 255, 0.10)',
+    spotlight: 'rgba(56, 189, 248, 0.18)',
+    border: 'rgba(56, 189, 248, 0.45)',
+    accent: '#38bdf8',
+    bgSubtle: 'rgba(56, 189, 248, 0.10)',
   },
   frontend: {
-    spotlight: 'rgba(79, 107, 255, 0.18)',
-    border: 'rgba(79, 107, 255, 0.45)',
-    accent: '#4f6bff',
-    bgSubtle: 'rgba(79, 107, 255, 0.10)',
+    spotlight: 'rgba(99, 102, 241, 0.18)',
+    border: 'rgba(99, 102, 241, 0.45)',
+    accent: '#6366f1',
+    bgSubtle: 'rgba(99, 102, 241, 0.10)',
   },
   backend: {
     spotlight: 'rgba(129, 140, 248, 0.18)',
@@ -30,10 +30,10 @@ const STRATA_THEMES: Record<string, StratumTheme> = {
     bgSubtle: 'rgba(129, 140, 248, 0.10)',
   },
   tooling: {
-    spotlight: 'rgba(56, 189, 248, 0.18)',
-    border: 'rgba(56, 189, 248, 0.45)',
-    accent: '#38bdf8',
-    bgSubtle: 'rgba(56, 189, 248, 0.10)',
+    spotlight: 'rgba(16, 185, 129, 0.18)',
+    border: 'rgba(16, 185, 129, 0.45)',
+    accent: '#10b981',
+    bgSubtle: 'rgba(16, 185, 129, 0.10)',
   },
 };
 
@@ -125,10 +125,10 @@ export const SkillsSection: React.FC = () => {
         >
           {TECH_STRATA.map((stratum) => {
             const theme = STRATA_THEMES[stratum.id] || {
-              spotlight: 'rgba(0, 240, 255, 0.2)',
-              border: 'rgba(0, 240, 255, 0.5)',
-              accent: '#00f0ff',
-              bgSubtle: 'rgba(0, 240, 255, 0.12)',
+              spotlight: 'rgba(99, 102, 241, 0.2)',
+              border: 'rgba(99, 102, 241, 0.5)',
+              accent: '#6366f1',
+              bgSubtle: 'rgba(99, 102, 241, 0.12)',
             };
 
             return (

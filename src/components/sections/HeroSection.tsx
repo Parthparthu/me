@@ -8,11 +8,11 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
 import { useMagneticButton } from '../../hooks/useMagneticButton';
 
 const ROTATING_ROLES = [
-  { text: 'CSE (AI/ML) Undergraduate', color: '#00f0ff' },
-  { text: 'Full-Stack Web Architect', color: '#4f6bff' },
-  { text: 'Real-Time Systems & WebSocket Developer', color: '#818cf8' },
-  { text: '3D Spatial & WebGL Builder', color: '#38bdf8' },
-  { text: 'WMC Bronze Memory Athlete', color: '#e0f2fe' },
+  { text: 'CSE (AI/ML) Undergraduate', color: '#818cf8' },
+  { text: 'Full-Stack Web Architect', color: '#6366f1' },
+  { text: 'Real-Time Systems & WebSocket Developer', color: '#38bdf8' },
+  { text: '3D Spatial & WebGL Builder', color: '#a855f7' },
+  { text: 'WMC Bronze Memory Athlete', color: '#e0e7ff' },
 ];
 
 // ─── Animation Variants ────────────────────────────────────────────────────────
@@ -107,26 +107,10 @@ export const HeroSection: React.FC = () => {
             <span className="animate-rainbow-text font-bold">Creative Technologist &amp; Software Developer</span>
           </motion.div>
 
-          {/* Primary Name Display — Vibrant split-text per character */}
+          {/* Primary Name Display — High-contrast, reliably rendered across all mobile browsers */}
           <motion.h1 variants={itemVariants} className="hero-spatial-title">
-            <span className="hero-title-text animate-rainbow-text" style={{ whiteSpace: 'nowrap', display: 'inline-block' }}>
-              {profileData.name.split('').map((char, charIndex) => (
-                <motion.span
-                  key={charIndex}
-                  className="hero-title-char"
-                  initial={{ opacity: 0, y: 34, rotateX: -70 }}
-                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                  transition={{
-                    delay: 0.22 + charIndex * 0.03,
-                    type: 'spring',
-                    stiffness: 440,
-                    damping: 28,
-                  }}
-                  style={{ display: 'inline-block', transformOrigin: 'bottom' }}
-                >
-                  {char === ' ' ? '\u00A0' : char}
-                </motion.span>
-              ))}
+            <span className="hero-title-text animate-rainbow-text">
+              {profileData.name}
             </span>
           </motion.h1>
 
@@ -158,12 +142,12 @@ export const HeroSection: React.FC = () => {
           {/* Academic & Geographic Alignment */}
           <motion.div variants={itemVariants} className="hero-spatial-meta">
             <span className="hero-meta-item">
-              <GraduationCap size={15} style={{ color: 'var(--neon-cyan)' }} aria-hidden="true" />
+              <GraduationCap size={15} style={{ color: 'var(--brand-indigo)' }} aria-hidden="true" />
               <span>GL Bajaj Institute of Technology &amp; Management</span>
             </span>
             <span className="hero-meta-sep" aria-hidden="true">·</span>
             <span className="hero-meta-item">
-              <MapPin size={15} style={{ color: 'var(--neon-pink)' }} aria-hidden="true" />
+              <MapPin size={15} style={{ color: 'var(--brand-sky)' }} aria-hidden="true" />
               <span>Greater Noida, India</span>
             </span>
           </motion.div>
@@ -184,7 +168,7 @@ export const HeroSection: React.FC = () => {
               href="#projects"
               data-cursor-label="EXPLORE"
               className="btn btn-primary hero-btn-flagship"
-              whileHover={{ scale: 1.05, boxShadow: '0 0 32px rgba(25, 211, 230, 0.5), 0 0 60px rgba(79, 124, 255, 0.3)' }}
+              whileHover={{ scale: 1.05, boxShadow: '0 0 32px rgba(99, 102, 241, 0.5), 0 0 60px rgba(56, 189, 248, 0.3)' }}
               whileTap={{ scale: 0.96 }}
             >
               <Zap size={16} aria-hidden="true" style={{ color: '#fbbf24' }} />
@@ -216,11 +200,11 @@ export const HeroSection: React.FC = () => {
           >
             <span className="hero-stack-label">Core Stack:</span>
             {[
-              { name: 'TypeScript', color: '#00f0ff' },
-              { name: 'Python', color: '#4f6bff' },
-              { name: 'React 19', color: '#00f0ff' },
+              { name: 'TypeScript', color: '#38bdf8' },
+              { name: 'Python', color: '#6366f1' },
+              { name: 'React 19', color: '#38bdf8' },
               { name: 'FastAPI', color: '#818cf8' },
-              { name: 'Three.js', color: '#5b7cf6' },
+              { name: 'Three.js', color: '#6366f1' },
               { name: 'PWA', color: '#38bdf8' },
             ].map((tech) => (
               <motion.span
@@ -251,7 +235,7 @@ export const HeroSection: React.FC = () => {
               style={{ animationDelay: '0s' }}
               whileHover={{ scale: 1.15, rotate: -4 }}
             >
-              <Zap size={13} style={{ color: '#00f0ff' }} />
+              <Zap size={13} style={{ color: '#38bdf8' }} />
               <span>React 19 &middot; Concurrent</span>
             </motion.div>
 
@@ -260,7 +244,7 @@ export const HeroSection: React.FC = () => {
               style={{ animationDelay: '1.5s' }}
               whileHover={{ scale: 1.15, rotate: 3 }}
             >
-              <Flame size={13} style={{ color: '#4f6bff' }} />
+              <Flame size={13} style={{ color: '#6366f1' }} />
               <span>FastAPI &middot; Async</span>
             </motion.div>
 
@@ -295,19 +279,28 @@ export const HeroSection: React.FC = () => {
           position: relative;
           min-height: calc(100vh - 80px);
           display: flex;
+          flex-direction: column;
+          justify-content: center;
           align-items: center;
-          padding-top: clamp(var(--space-12), 8vw, var(--space-24));
-          padding-bottom: clamp(var(--space-16), 10vw, var(--space-28));
+          padding-top: clamp(var(--space-10), 6vw, var(--space-20));
+          padding-bottom: clamp(var(--space-12), 8vw, var(--space-24));
           overflow: hidden;
-          background: radial-gradient(circle at 50% 0%, rgba(20, 26, 48, 0.6) 0%, var(--bg-app) 75%);
+          background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, var(--bg-app) 75%);
         }
 
         /* Vivid Atmospheric Lighting Layers */
+        .hero-atmosphere-parallax-wrap {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          z-index: 1;
+        }
+
         .hero-atmosphere {
           position: absolute;
           inset: 0;
           pointer-events: none;
-          background: radial-gradient(ellipse 70% 50% at 50% 15%, rgba(0, 240, 255, 0.09) 0%, transparent 80%);
+          background: radial-gradient(ellipse 70% 50% at 50% 15%, rgba(99, 102, 241, 0.08) 0%, transparent 80%);
         }
 
         .hero-radial-glow {
@@ -317,7 +310,7 @@ export const HeroSection: React.FC = () => {
           width: 50vw;
           max-width: 650px;
           height: 520px;
-          background: radial-gradient(circle, rgba(79, 107, 255, 0.14) 0%, transparent 65%);
+          background: radial-gradient(circle, rgba(99, 102, 241, 0.14) 0%, transparent 65%);
           filter: blur(55px);
           pointer-events: none;
         }
@@ -329,7 +322,7 @@ export const HeroSection: React.FC = () => {
           width: 35vw;
           max-width: 440px;
           height: 440px;
-          background: radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(56, 189, 248, 0.10) 0%, transparent 70%);
           filter: blur(60px);
           pointer-events: none;
         }
@@ -341,7 +334,7 @@ export const HeroSection: React.FC = () => {
           width: 40vw;
           max-width: 480px;
           height: 480px;
-          background: radial-gradient(circle, rgba(79, 107, 255, 0.12) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(99, 102, 241, 0.10) 0%, transparent 70%);
           filter: blur(70px);
           pointer-events: none;
         }
@@ -353,7 +346,7 @@ export const HeroSection: React.FC = () => {
           width: 30vw;
           max-width: 360px;
           height: 360px;
-          background: radial-gradient(circle, rgba(129, 140, 248, 0.09) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(129, 140, 248, 0.08) 0%, transparent 70%);
           filter: blur(60px);
           pointer-events: none;
         }
@@ -369,6 +362,7 @@ export const HeroSection: React.FC = () => {
           mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, black 20%, transparent 85%);
           -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 40%, black 20%, transparent 85%);
           pointer-events: none;
+          z-index: 1;
         }
 
         /* Spatial Grid Layout */
@@ -450,12 +444,12 @@ export const HeroSection: React.FC = () => {
         }
 
         .hero-sparkle-icon {
-          color: #00f0ff;
-          filter: drop-shadow(0 0 6px #00f0ff);
+          color: var(--brand-indigo);
+          filter: drop-shadow(0 0 6px var(--brand-indigo));
         }
 
         .hero-spatial-title {
-          font-size: clamp(2.4rem, 5.5vw, 5.2rem);
+          font-size: clamp(2.4rem, 6.2vw, 5.2rem);
           font-weight: 900;
           letter-spacing: var(--tracking-tighter);
           line-height: 1.05;
@@ -466,14 +460,8 @@ export const HeroSection: React.FC = () => {
 
         .hero-title-text {
           display: inline-block;
-          white-space: nowrap;
-          filter: drop-shadow(0 0 35px rgba(0, 240, 255, 0.35));
-        }
-
-        .hero-title-char {
-          display: inline-block;
-          transform-origin: bottom center;
-          perspective: 400px;
+          color: var(--text-primary);
+          filter: drop-shadow(0 0 35px rgba(99, 102, 241, 0.35));
         }
 
         /* Dynamic Role Cycler */
@@ -542,20 +530,20 @@ export const HeroSection: React.FC = () => {
         }
 
         .hero-btn-flagship {
-          background: linear-gradient(135deg, #4f6bff 0%, #00f0ff 100%);
+          background: linear-gradient(135deg, #6366f1 0%, #38bdf8 100%);
           border: none;
           color: #ffffff;
           font-weight: 700;
-          box-shadow: 0 4px 25px -2px rgba(79, 107, 255, 0.45);
+          box-shadow: 0 4px 25px -2px rgba(99, 102, 241, 0.45);
         }
 
         .hero-btn-secondary {
-          border-color: rgba(79, 107, 255, 0.35);
+          border-color: rgba(99, 102, 241, 0.35);
         }
 
         .hero-btn-secondary:hover {
-          border-color: #5b7cf6;
-          box-shadow: 0 0 20px rgba(91, 124, 246, 0.25);
+          border-color: #818cf8;
+          box-shadow: 0 0 20px rgba(99, 102, 241, 0.25);
         }
 
         .hero-stack-preview {
@@ -618,7 +606,7 @@ export const HeroSection: React.FC = () => {
           width: 360px;
           height: 360px;
           border-radius: var(--radius-full);
-          background: radial-gradient(circle, rgba(0, 240, 255, 0.16) 0%, rgba(79, 107, 255, 0.12) 45%, transparent 70%);
+          background: radial-gradient(circle, rgba(99, 102, 241, 0.16) 0%, rgba(56, 189, 248, 0.12) 45%, transparent 70%);
           filter: blur(50px);
           pointer-events: none;
           z-index: 0;
@@ -633,7 +621,7 @@ export const HeroSection: React.FC = () => {
           gap: var(--space-1-5);
           padding: 6px 14px;
           border-radius: var(--radius-full);
-          background: rgba(12, 16, 28, 0.85);
+          background: rgba(14, 18, 27, 0.88);
           backdrop-filter: blur(16px);
           -webkit-backdrop-filter: blur(16px);
           border: 1px solid rgba(255, 255, 255, 0.14);
@@ -649,15 +637,15 @@ export const HeroSection: React.FC = () => {
         .badge-top-left {
           top: 12%;
           left: -4%;
-          border-color: rgba(0, 240, 255, 0.4);
-          box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
+          border-color: rgba(56, 189, 248, 0.4);
+          box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
         }
 
         .badge-top-right {
           top: 16%;
           right: -2%;
-          border-color: rgba(79, 107, 255, 0.4);
-          box-shadow: 0 0 20px rgba(79, 107, 255, 0.25);
+          border-color: rgba(99, 102, 241, 0.4);
+          box-shadow: 0 0 20px rgba(99, 102, 241, 0.25);
         }
 
         .badge-bottom-left {
@@ -681,14 +669,16 @@ export const HeroSection: React.FC = () => {
         @media (max-width: 640px) {
           .hero-spatial-section {
             min-height: auto;
-            padding-top: var(--space-16);
+            padding-top: var(--space-8);
+            padding-bottom: var(--space-12);
           }
           .hero-meta-sep { display: none; }
           .hero-spatial-meta { flex-direction: column; align-items: flex-start; gap: var(--space-1-5); }
           .hero-spatial-actions { flex-direction: column; align-items: flex-start; width: 100%; }
           .hero-spatial-actions .btn { width: 100%; justify-content: center; }
-          .hero-3d-visual-column { min-height: 300px; order: -1; }
-          .hero-canvas-wrapper { min-height: 300px; }
+          .hero-editorial-column { order: 1; }
+          .hero-3d-visual-column { min-height: 220px; order: 2; margin-top: var(--space-4); }
+          .hero-canvas-wrapper { min-height: 220px; }
         }
       `}</style>
     </section>

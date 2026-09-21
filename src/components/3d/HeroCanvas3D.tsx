@@ -76,7 +76,7 @@ export const HeroCanvas3D: React.FC<HeroCanvas3DProps> = ({ className }) => {
     if (tier !== 'low') {
       const torusKnotWireGeo = new THREE.TorusKnotGeometry(1.65, 0.42, tkTubularSegs, tkRadialSegs);
       const torusKnotWireMat = new THREE.MeshBasicMaterial({
-        color: 0x19d3e6,
+        color: 0x38bdf8,
         wireframe: true,
         transparent: true,
         opacity: 0.18,
@@ -113,11 +113,11 @@ export const HeroCanvas3D: React.FC<HeroCanvas3DProps> = ({ className }) => {
       varying float vDisplacement;
 
       void main() {
-        // Cobalt #4F7CFF, Cyan #19D3E6, Violet #7C6CFF, Ice #E0F2FE
-        vec3 colCyan   = vec3(0.098, 0.827, 0.902);  // #19D3E6
-        vec3 colCobalt = vec3(0.310, 0.486, 1.0);    // #4F7CFF
-        vec3 colViolet = vec3(0.486, 0.424, 1.0);    // #7C6CFF
-        vec3 colIce    = vec3(0.878, 0.949, 0.996);  // #E0F2FE
+        // Electric Indigo #6366F1, Sky Ice #38BDF8, Soft Iris #818CF8, Ice Platinum #E0E7FF
+        vec3 colCyan   = vec3(0.220, 0.741, 0.973);  // #38BDF8
+        vec3 colCobalt = vec3(0.388, 0.400, 0.945);  // #6366F1
+        vec3 colViolet = vec3(0.506, 0.549, 0.973);  // #818CF8
+        vec3 colIce    = vec3(0.878, 0.906, 1.000);  // #E0E7FF
 
         vec3 viewDir = normalize(-vPosition);
         float fresnel = pow(1.0 - max(dot(vNormal, viewDir), 0.0), 2.2);
@@ -153,10 +153,10 @@ export const HeroCanvas3D: React.FC<HeroCanvas3DProps> = ({ className }) => {
     const satellites: Satellite[] = [];
 
     const satDefs = [
-      { geo: new THREE.OctahedronGeometry(0.22),   color: 0x19d3e6, emissive: 0x19d3e6, r: 2.5,  speed:  0.018, angle: 0,           tilt:  0.4 },
-      { geo: new THREE.DodecahedronGeometry(0.22),  color: 0x4f7cff, emissive: 0x4f7cff, r: 3.2,  speed: -0.014, angle: Math.PI*0.5, tilt: -0.5 },
-      { geo: new THREE.TetrahedronGeometry(0.24),   color: 0x7c6cff, emissive: 0x7c6cff, r: 3.9,  speed:  0.011, angle: Math.PI*1.2, tilt:  0.7 },
-      { geo: new THREE.IcosahedronGeometry(0.17),   color: 0xe0f2fe, emissive: 0x19d3e6, r: 2.9,  speed:  0.021, angle: Math.PI*1.8, tilt: -0.3 },
+      { geo: new THREE.OctahedronGeometry(0.22),   color: 0x38bdf8, emissive: 0x38bdf8, r: 2.5,  speed:  0.018, angle: 0,           tilt:  0.4 },
+      { geo: new THREE.DodecahedronGeometry(0.22),  color: 0x6366f1, emissive: 0x6366f1, r: 3.2,  speed: -0.014, angle: Math.PI*0.5, tilt: -0.5 },
+      { geo: new THREE.TetrahedronGeometry(0.24),   color: 0x818cf8, emissive: 0x818cf8, r: 3.9,  speed:  0.011, angle: Math.PI*1.2, tilt:  0.7 },
+      { geo: new THREE.IcosahedronGeometry(0.17),   color: 0xe0e7ff, emissive: 0x38bdf8, r: 2.9,  speed:  0.021, angle: Math.PI*1.8, tilt: -0.3 },
     ].slice(0, config.satCount);
 
     for (const def of satDefs) {
@@ -194,13 +194,13 @@ export const HeroCanvas3D: React.FC<HeroCanvas3DProps> = ({ className }) => {
         return new THREE.Points(geo, mat);
       };
 
-      const ring1 = buildRing(120, 3.0, 0x19d3e6);
+      const ring1 = buildRing(120, 3.0, 0x38bdf8);
       rootGroup.add(ring1);
       rings.push(ring1);
       ringBases.push((ring1.geometry.attributes.position as THREE.BufferAttribute).array.slice() as Float32Array);
 
       if (config.ringCount >= 2) {
-        const ring2 = buildRing(120, 4.1, 0x4f7cff);
+        const ring2 = buildRing(120, 4.1, 0x6366f1);
         rootGroup.add(ring2);
         rings.push(ring2);
         ringBases.push((ring2.geometry.attributes.position as THREE.BufferAttribute).array.slice() as Float32Array);
@@ -212,8 +212,8 @@ export const HeroCanvas3D: React.FC<HeroCanvas3DProps> = ({ className }) => {
     const dustPositions = new Float32Array(dustCount * 3);
     const dustColors = new Float32Array(dustCount * 3);
     const colorOptions = [
-      new THREE.Color(0x19d3e6), new THREE.Color(0x4f7cff),
-      new THREE.Color(0x7c6cff), new THREE.Color(0x38bdf8), new THREE.Color(0xe0f2fe),
+      new THREE.Color(0x38bdf8), new THREE.Color(0x6366f1),
+      new THREE.Color(0x818cf8), new THREE.Color(0xa855f7), new THREE.Color(0xe0e7ff),
     ];
 
     for (let i = 0; i < dustCount; i++) {
@@ -249,13 +249,13 @@ export const HeroCanvas3D: React.FC<HeroCanvas3DProps> = ({ className }) => {
     // ─── 6. Lighting ──────────────────────────────────────────────────────────
     scene.add(new THREE.AmbientLight(0xffffff, 0.4));
 
-    const cobaltLight = new THREE.PointLight(0x4f7cff, 7, 20);
+    const cobaltLight = new THREE.PointLight(0x6366f1, 7, 20);
     scene.add(cobaltLight);
-    const cyanLight = new THREE.PointLight(0x19d3e6, 6, 18);
+    const cyanLight = new THREE.PointLight(0x38bdf8, 6, 18);
     scene.add(cyanLight);
-    const platinumLight = new THREE.PointLight(0xe0f2fe, 3, 14);
+    const platinumLight = new THREE.PointLight(0xe0e7ff, 3, 14);
     scene.add(platinumLight);
-    const violetLight = new THREE.PointLight(0x7c6cff, 4, 15);
+    const violetLight = new THREE.PointLight(0x818cf8, 4, 15);
     scene.add(violetLight);
 
     // ─── Mouse tracking ───────────────────────────────────────────────────────

@@ -64,7 +64,7 @@ export const ProjectVisualizer: React.FC<ProjectVisualizerProps> = ({ slug }) =>
             }}>
               <div style={{ background: 'var(--bg-app)', padding: '6px 8px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
                 <span style={{ color: 'var(--text-tertiary)', display: 'block', fontSize: '10px' }}>Total</span>
-                <strong style={{ color: '#00f0ff' }}>₹1,200.00</strong>
+                <strong style={{ color: 'var(--brand-sky)' }}>₹1,200.00</strong>
               </div>
               <div style={{ background: 'var(--bg-app)', padding: '6px 8px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }}>
                 <span style={{ color: 'var(--text-tertiary)', display: 'block', fontSize: '10px' }}>Split</span>
