@@ -10,6 +10,7 @@ import { skillCategories } from '@/data/skills';
 import { projects } from '@/data/projects';
 import { verifiedCertificates } from '@/data/achievements';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
+import { getAssetPath } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Resume: Pradyuma',
@@ -33,7 +34,7 @@ export default function ResumePage() {
         </Link>
 
         <a
-          href="/resume.pdf"
+          href={getAssetPath('/resume.pdf')}
           download="Pradyuma_Resume.pdf"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[var(--accent-primary)] text-white text-xs font-semibold shadow-md hover:bg-[var(--accent-primary-hover)] transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
         >
@@ -135,7 +136,7 @@ export default function ResumePage() {
                   </p>
                 </div>
                 <a
-                  href={cert.documentUrl}
+                  href={getAssetPath(cert.documentUrl)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-xs text-[var(--accent-primary)] hover:underline flex items-center gap-1 flex-shrink-0 min-h-[36px] p-1 font-mono"

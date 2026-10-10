@@ -25,6 +25,12 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH
+  ? (process.env.NEXT_PUBLIC_BASE_PATH.endsWith('/')
+      ? process.env.NEXT_PUBLIC_BASE_PATH.slice(0, -1)
+      : process.env.NEXT_PUBLIC_BASE_PATH)
+  : '';
+
 export const metadata: Metadata = {
   title: {
     default: 'Pradyuma: Software Developer',
@@ -52,12 +58,12 @@ export const metadata: Metadata = {
   creator: 'Pradyuma',
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: '32x32' },
-      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: `${basePath}/favicon.ico`, sizes: '32x32' },
+      { url: `${basePath}/favicon.svg`, type: 'image/svg+xml' },
     ],
-    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+    apple: [{ url: `${basePath}/apple-touch-icon.png`, sizes: '180x180' }],
   },
-  manifest: '/manifest.webmanifest',
+  manifest: `${basePath}/manifest.webmanifest`,
   openGraph: {
     type: 'website',
     locale: 'en_IN',

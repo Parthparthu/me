@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Trophy, GraduationCap, Github, Medal, Star, Brain, ExternalLink, X, FileCheck, Award, type LucideIcon } from 'lucide-react';
 import { achievements, verifiedCertificates, type VerifiedCertificate } from '@/data/achievements';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
+import { getAssetPath } from '@/lib/utils';
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Trophy,
@@ -79,7 +80,7 @@ export function AchievementsSection() {
                   aria-label="View World Memory Championship Bronze Medal certificate photograph"
                 >
                   <Image
-                    src="/certificates/wmc-2023-bronze-medal.jpg"
+                    src={getAssetPath(featured.image || '/certificates/wmc-2023-bronze-medal.jpg')}
                     alt="World Memory Championship 2023 Bronze Medal and Top Amateur Certificate photograph"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
@@ -208,7 +209,7 @@ export function AchievementsSection() {
                   aria-label={`View full certificate: ${cert.title}`}
                 >
                   <Image
-                    src={cert.imagePreview}
+                    src={getAssetPath(cert.imagePreview)}
                     alt={cert.title}
                     fill
                     className="object-cover object-top group-hover:scale-105 transition-transform duration-200"
@@ -247,7 +248,7 @@ export function AchievementsSection() {
                 </button>
 
                 <a
-                  href={cert.documentUrl}
+                  href={getAssetPath(cert.documentUrl)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-white transition-colors min-h-[44px] p-1 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
@@ -305,7 +306,7 @@ export function AchievementsSection() {
               <div className="flex-1 overflow-auto p-4 sm:p-6 flex items-center justify-center bg-black/60">
                 <div className="relative w-full max-h-[65vh] min-h-[300px] flex items-center justify-center">
                   <Image
-                    src={activeModal.imagePreview}
+                    src={getAssetPath(activeModal.imagePreview)}
                     alt={activeModal.title}
                     width={1000}
                     height={800}
@@ -322,7 +323,7 @@ export function AchievementsSection() {
 
                 <div className="flex items-center gap-3">
                   <a
-                    href={activeModal.documentUrl}
+                    href={getAssetPath(activeModal.documentUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--accent-primary)] text-white font-semibold hover:bg-[var(--accent-primary-hover)] transition-colors min-h-[36px]"

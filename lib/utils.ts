@@ -33,3 +33,19 @@ export function getInitials(name: string): string {
     .toUpperCase()
     .slice(0, 2);
 }
+
+/**
+ * Resolves static public assets (images, pdfs) with basePath support for GitHub Pages
+ */
+export function getAssetPath(path: string): string {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://')) return path;
+  const rawBasePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+  const basePath = rawBasePath.endsWith('/') ? rawBasePath.slice(0, -1) : rawBasePath;
+  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  if (basePath && (cleanPath === basePath || cleanPath.startsWith(`${basePath}/`))) {
+    return cleanPath;
+  }
+  return `${basePath}${cleanPath}`;
+}
+

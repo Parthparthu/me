@@ -1,3 +1,5 @@
+import { getAssetPath } from '@/lib/utils';
+
 export interface Achievement {
   id: string;
   icon: string;
@@ -33,7 +35,7 @@ export const achievements: Achievement[] = [
     highlight: true,
     category: 'Competitive',
     details: 'Sanctioned by IAM & Brain Infinite. Arbiters: Charifa Souissi (IAM Chief Arbiter), Corinna Draschl (WMC Main Arbiter), Amrut Jadhav (Founder Brain Infinite).',
-    image: '/certificates/wmc-2023-bronze-medal.jpg',
+    image: getAssetPath('/certificates/wmc-2023-bronze-medal.jpg'),
   },
   {
     id: 'btech-scholar',
@@ -65,8 +67,8 @@ export const verifiedCertificates: VerifiedCertificate[] = [
     date: '25th - 26th November 2023',
     category: 'Competition',
     description: 'Top Amateur Certificate of Achievement and Bronze Medal in the Amateur Category at Cidco Exhibition Centre, Navi Mumbai, India.',
-    imagePreview: '/certificates/wmc-2023-bronze-medal.jpg',
-    documentUrl: '/certificates/wmc-2023-bronze-medal.jpg',
+    imagePreview: getAssetPath('/certificates/wmc-2023-bronze-medal.jpg'),
+    documentUrl: getAssetPath('/certificates/wmc-2023-bronze-medal.jpg'),
     recipient: 'Pradyumna Singh',
   },
   {
@@ -76,8 +78,8 @@ export const verifiedCertificates: VerifiedCertificate[] = [
     year: '2024',
     category: 'Certification',
     description: 'Certificate of Completion for successfully completing the Generative AI Mastermind curriculum, awarded by Founder Vaibhav Sisinty.',
-    imagePreview: '/certificates/generative-ai-outskill.png',
-    documentUrl: '/certificates/generative-ai-outskill.pdf',
+    imagePreview: getAssetPath('/certificates/generative-ai-outskill.png'),
+    documentUrl: getAssetPath('/certificates/generative-ai-outskill.pdf'),
     recipient: 'Pradyumna Singh',
   },
   {
@@ -87,8 +89,8 @@ export const verifiedCertificates: VerifiedCertificate[] = [
     year: '2020',
     category: 'Certification',
     description: 'Certificate of Appreciation for exceptional performance in Core Programming, Design Thinking, and Advanced Application Development.',
-    imagePreview: '/certificates/certified-app-developer-2020.png',
-    documentUrl: '/certificates/certified-app-developer-2020.pdf',
+    imagePreview: getAssetPath('/certificates/certified-app-developer-2020.png'),
+    documentUrl: getAssetPath('/certificates/certified-app-developer-2020.pdf'),
     recipient: 'Pradyumna',
   },
   {
@@ -98,8 +100,8 @@ export const verifiedCertificates: VerifiedCertificate[] = [
     year: '2020',
     category: 'Certification',
     description: 'Certified Game Developer credential awarded for game development with deep UI/UX interface architecture.',
-    imagePreview: '/certificates/certified-game-developer-2020.png',
-    documentUrl: '/certificates/certified-game-developer-2020.pdf',
+    imagePreview: getAssetPath('/certificates/certified-game-developer-2020.png'),
+    documentUrl: getAssetPath('/certificates/certified-game-developer-2020.pdf'),
     recipient: 'Pradyumna',
   },
   {
@@ -109,8 +111,8 @@ export const verifiedCertificates: VerifiedCertificate[] = [
     year: '2020',
     category: 'Competition',
     description: 'Certificate of Participation in the global Kids Logic & Coding Championship.',
-    imagePreview: '/certificates/logic-coding-championship-2020.png',
-    documentUrl: '/certificates/logic-coding-championship-2020.pdf',
+    imagePreview: getAssetPath('/certificates/logic-coding-championship-2020.png'),
+    documentUrl: getAssetPath('/certificates/logic-coding-championship-2020.pdf'),
     recipient: 'Pradyumna',
   },
   {
@@ -120,8 +122,8 @@ export const verifiedCertificates: VerifiedCertificate[] = [
     year: '2020',
     category: 'Certification',
     description: 'Certificate of Completion for completing the introductory programming course under the Learn2Code program.',
-    imagePreview: '/certificates/intro-coding-eupheus.png',
-    documentUrl: '/certificates/intro-coding-eupheus.pdf',
+    imagePreview: getAssetPath('/certificates/intro-coding-eupheus.png'),
+    documentUrl: getAssetPath('/certificates/intro-coding-eupheus.pdf'),
     recipient: 'Singh Pradyumna',
   },
   {
@@ -132,8 +134,9 @@ export const verifiedCertificates: VerifiedCertificate[] = [
     date: 'November 2019',
     category: 'Academic',
     description: '1st level SOF National Science Olympiad Certificate of Participation representing Apeejay International School, Greater Noida.',
-    imagePreview: '/certificates/nso-science-olympiad-2019.png',
-    documentUrl: '/certificates/nso-science-olympiad-2019.pdf',
+    imagePreview: getAssetPath('/certificates/nso-science-olympiad-2019.png'),
+    documentUrl: getAssetPath('/certificates/nso-science-olympiad-2019.pdf'),
     recipient: 'Pradyumna Singh',
   },
 ];
+
