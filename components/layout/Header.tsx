@@ -15,6 +15,7 @@ import { Menu, X, Command, House, Folder, User, BookOpen, Mail, FileText } from 
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { useScrollStore } from '@/store/useScrollStore';
+import { POINTER_REACTIVE_3D } from '@/lib/config';
 import { cn } from '@/lib/utils';
 
 const NAV_LINKS = [
@@ -85,7 +86,7 @@ export function Header() {
           elevation={3}
           tint="neutral"
           radius={12}
-          dynamicLight={false}
+          dynamicLight={POINTER_REACTIVE_3D}
           className="px-2 py-1.5"
         >
           <nav

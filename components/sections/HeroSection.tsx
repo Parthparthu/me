@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
 import { GlassButton } from '@/components/glass/GlassVariants';
+import { POINTER_REACTIVE_3D } from '@/lib/config';
 import { cn } from '@/lib/utils';
 
 const TECH_BADGES = ['React', 'TypeScript', 'Python', 'Next.js', 'Three.js', 'FastAPI', 'PostgreSQL'];
@@ -42,7 +43,7 @@ export function HeroSection() {
             elevation={2}
             tint="neutral"
             radius={8}
-            dynamicLight={false}
+            dynamicLight={POINTER_REACTIVE_3D}
             className="border border-emerald-500/20 bg-emerald-500/5 p-0"
           >
             <div className="relative z-10 inline-flex items-center gap-2.5 px-3.5 py-1.5">
@@ -115,7 +116,6 @@ export function HeroSection() {
                 elevation={1}
                 tint="neutral"
                 radius={6}
-                dynamicLight={false}
                 className="px-2.5 py-1"
               >
                 <span className="text-xs font-mono text-[var(--text-secondary)]">

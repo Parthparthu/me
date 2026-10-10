@@ -63,7 +63,6 @@ export function AboutSection() {
             elevation={3}
             tint="amber"
             radius={14}
-            dynamicLight={false}
             className="p-6"
           >
             <div className="flex items-start gap-4">
@@ -124,8 +123,7 @@ export function AboutSection() {
                   elevation={2}
                   tint={cfg.tint as 'cyan' | 'amber'}
                   radius={14}
-                  dynamicLight={false}
-                  className="p-5 h-full flex flex-col gap-3"
+                        className="p-5 h-full flex flex-col gap-3"
                 >
                   <div
                     className="w-10 h-10 rounded-lg flex items-center justify-center"

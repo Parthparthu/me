@@ -122,7 +122,6 @@ export function JourneySection() {
                       elevation={3}
                       tint={tint}
                       radius={14}
-                      dynamicLight={false}
                       className="p-6 md:p-7 relative group"
                     >
                       {/* Top info row */}

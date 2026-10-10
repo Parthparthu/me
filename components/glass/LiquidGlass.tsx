@@ -22,6 +22,7 @@ import React, {
   type HTMLAttributes,
 } from 'react';
 import { useSceneStore } from '@/store/useSceneStore';
+import { POINTER_REACTIVE_3D } from '@/lib/config';
 import { cn } from '@/lib/utils';
 
 // Types
@@ -177,7 +178,7 @@ export const LiquidGlass = forwardRef<HTMLDivElement, LiquidGlassProps>(
 
     // Specular highlight responds to pointer movement on the element itself
     useEffect(() => {
-      if (!dynamicLight) return;
+      if (!dynamicLight || !POINTER_REACTIVE_3D) return;
       const el = ref.current;
       if (!el) return;
 

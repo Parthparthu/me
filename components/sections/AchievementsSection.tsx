@@ -64,7 +64,6 @@ export function AchievementsSection() {
             elevation={4}
             tint="amber"
             radius={14}
-            dynamicLight={false}
             className="p-7 md:p-9 relative overflow-hidden"
           >
             <div className="relative z-10 flex flex-col lg:flex-row gap-8 items-start lg:items-center">
@@ -143,8 +142,7 @@ export function AchievementsSection() {
                 elevation={2}
                 tint="neutral"
                 radius={14}
-                dynamicLight={false}
-                className="h-full p-6 flex items-start gap-4"
+                  className="h-full p-6 flex items-start gap-4"
               >
                 <div className="p-2.5 rounded-lg bg-white/5 border border-white/10 text-[var(--accent-primary)] flex-shrink-0">
                   <Icon size={20} aria-hidden="true" />
@@ -197,7 +195,6 @@ export function AchievementsSection() {
               elevation={2}
               tint="neutral"
               radius={14}
-              dynamicLight={false}
               className="p-5 flex flex-col justify-between group hover:border-white/20 transition-colors"
             >
               <div>

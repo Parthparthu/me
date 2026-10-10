@@ -44,7 +44,7 @@ export default function ResumePage() {
       </div>
 
       {/* Main Resume Sheet */}
-      <LiquidGlass elevation={3} tint="neutral" radius={14} dynamicLight={false} className="p-8 md:p-12 space-y-12">
+      <LiquidGlass elevation={3} tint="neutral" radius={14} className="p-8 md:p-12 space-y-12">
         {/* Header Block */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-8 border-b border-white/10">
           <div>

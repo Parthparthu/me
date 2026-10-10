@@ -133,12 +133,11 @@ export function GitHubSection() {
                   elevation={2}
                   tint="neutral"
                   radius={14}
-                  dynamicLight={false}
                   className="p-5 text-center"
                 >
                   <Icon size={20} className="mx-auto mb-2" style={{ color: stat.color }} aria-hidden="true" />
                   <div className="text-2xl md:text-3xl font-bold font-mono text-white tabular-nums">
-                    {loading ? '...' : stat.value}
+                    {loading ? '…' : stat.value}
                   </div>
                   <div className="text-xs text-[var(--text-tertiary)] uppercase tracking-wider font-semibold font-mono mt-1">
                     {stat.label}
@@ -179,7 +178,6 @@ export function GitHubSection() {
                     elevation={2}
                     tint="neutral"
                     radius={14}
-                    dynamicLight={false}
                     className="p-5 h-full flex flex-col justify-between"
                   >
                     <div>

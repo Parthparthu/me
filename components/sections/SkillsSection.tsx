@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Terminal, Layout, Server, Database, Brain, Wrench, type LucideIcon } from 'lucide-react';
 import { skillCategories } from '@/data/skills';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
+import { POINTER_REACTIVE_3D } from '@/lib/config';
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Terminal,
@@ -71,8 +72,8 @@ export function SkillsSection() {
                 elevation={3}
                 tint="neutral"
                 radius={14}
-                dynamicLight={false}
-                className="h-full p-6 flex flex-col"
+                dynamicLight={POINTER_REACTIVE_3D}
+                className="h-full p-6 flex flex-col group hover:border-white/20 transition-colors"
               >
                 {/* Category header */}
                 <div className="flex items-center gap-3 mb-4">

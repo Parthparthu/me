@@ -24,7 +24,6 @@ export default function NotFound() {
           elevation={4}
           tint="neutral"
           radius={14}
-          dynamicLight={false}
           className="p-8 md:p-10 text-center flex flex-col items-center"
         >
           <div

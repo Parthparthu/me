@@ -1,15 +1,21 @@
 /**
  * ProjectsPageClient: Full catalog of all projects with Liquid Glass styling.
- * Supports search, category filtering, and tier segmentation.
+ * Features:
+ * - Real-time category and tier filtering with animated layout transitions
+ * - Card 3D tilt and light response
+ * - Expanded media & architectural inspection modal
+ * - Zero em dashes and zero emojis
  */
 'use client';
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Filter, X, ArrowUpRight, Github, ArrowRight } from 'lucide-react';
+import { Search, Filter, X, ArrowUpRight, Github, ArrowRight, Maximize2, Layers, CheckCircle2 } from 'lucide-react';
 import { projects } from '@/data/projects';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
+import { POINTER_REACTIVE_3D } from '@/lib/config';
+import type { Project } from '@/types/project';
 
 const CATEGORIES = [
   'All',
@@ -28,6 +34,7 @@ export default function ProjectsPageClient() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedTier, setSelectedTier] = useState('All');
+  const [expandedProject, setExpandedProject] = useState<Project | null>(null);
 
   const filteredProjects = useMemo(() => {
     return projects.filter((project) => {
@@ -66,7 +73,7 @@ export default function ProjectsPageClient() {
         </div>
 
         {/* Filter bar */}
-        <LiquidGlass elevation={2} tint="neutral" radius={14} className="p-4 md:p-5">
+        <LiquidGlass elevation={2} tint="neutral" radius={14} dynamicLight={POINTER_REACTIVE_3D} className="p-4 md:p-5">
           <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
             {/* Search Input: 8px radius */}
             <div className="relative w-full lg:max-w-md">
@@ -157,22 +164,32 @@ export default function ProjectsPageClient() {
                 elevation={3}
                 tint="neutral"
                 radius={14}
-                dynamicLight={false}
+                dynamicLight={POINTER_REACTIVE_3D}
                 className="h-full p-6 md:p-7 flex flex-col justify-between group hover:border-white/20 transition-colors"
               >
                 <div>
                   <div className="flex justify-between items-center gap-2 mb-4 font-mono">
                     <span className="badge">{project.category}</span>
-                    <span className="px-2 py-0.5 rounded-sm text-[10px] font-semibold bg-white/6 border border-white/10 text-[var(--text-muted)]">
-                      {project.tier}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setExpandedProject(project)}
+                        className="p-1 rounded text-[var(--text-muted)] hover:text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                        aria-label={`Inspect ${project.name}`}
+                      >
+                        <Maximize2 size={13} aria-hidden="true" />
+                      </button>
+                      <span className="px-2 py-0.5 rounded-sm text-[10px] font-semibold bg-white/6 border border-white/10 text-[var(--text-muted)]">
+                        {project.tier}
+                      </span>
+                    </div>
                   </div>
 
                   <h2 className="text-xl font-display font-bold text-white mb-2 group-hover:text-[var(--accent-primary)] transition-colors leading-snug">
                     {project.name}
                   </h2>
 
-                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-6">
+                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-6 font-medium">
                     {project.tagline}
                   </p>
 
@@ -238,6 +255,93 @@ export default function ProjectsPageClient() {
           No projects found matching your criteria.
         </div>
       )}
+
+      {/* Expanded Modal */}
+      <AnimatePresence>
+        {expandedProject && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${expandedProject.name} inspection preview`}
+            className="fixed inset-0 z-[var(--z-modal)] flex items-center justify-center p-4 sm:p-6"
+          >
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setExpandedProject(null)}
+              className="fixed inset-0 bg-black/75 backdrop-blur-md"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.94, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.94, y: 16 }}
+              transition={SPRING}
+              className="relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-[#0b101b] border border-white/15 shadow-2xl p-6 md:p-8"
+            >
+              <div className="flex items-start justify-between gap-4 mb-6">
+                <div>
+                  <span className="badge mb-2">{expandedProject.category}</span>
+                  <h2 className="text-2xl font-display font-bold text-white">
+                    {expandedProject.name}
+                  </h2>
+                  <p className="text-xs text-[var(--accent-primary)] font-mono mt-1">
+                    {expandedProject.tagline}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setExpandedProject(null)}
+                  className="p-2 rounded-lg text-[var(--text-muted)] hover:text-white hover:bg-white/10 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  aria-label="Close dialog"
+                >
+                  <X size={18} aria-hidden="true" />
+                </button>
+              </div>
+
+              {/* Architecture schematic box */}
+              <div className="rounded-xl p-4 mb-5 border border-white/10 bg-slate-900/60">
+                <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-muted)] uppercase mb-2">
+                  <Layers size={13} className="text-[var(--accent-primary)]" aria-hidden="true" />
+                  <span>Architecture Pipeline</span>
+                </div>
+                <p className="text-xs font-mono text-white/90 leading-relaxed">
+                  {expandedProject.caseStudy.architecture}
+                </p>
+              </div>
+
+              {/* Highlights */}
+              <div className="space-y-3 mb-6 text-xs text-[var(--text-secondary)] leading-relaxed">
+                <p><strong>Problem:</strong> {expandedProject.caseStudy.problem}</p>
+                <p><strong>Solution:</strong> {expandedProject.caseStudy.solution}</p>
+              </div>
+
+              {/* Footer */}
+              <div className="flex items-center justify-between pt-4 border-t border-white/10">
+                <Link
+                  href={`/projects/${expandedProject.slug}`}
+                  onClick={() => setExpandedProject(null)}
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[var(--accent-primary)] text-white text-xs font-semibold hover:bg-[var(--accent-primary-hover)] transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                >
+                  <span>Full Case Study</span>
+                  <ArrowRight size={13} aria-hidden="true" />
+                </Link>
+                {expandedProject.liveUrl && (
+                  <a
+                    href={expandedProject.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-white/10 text-xs text-[var(--text-secondary)] hover:text-white transition-colors min-h-[44px]"
+                  >
+                    <span>Live App</span>
+                    <ArrowUpRight size={13} aria-hidden="true" />
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

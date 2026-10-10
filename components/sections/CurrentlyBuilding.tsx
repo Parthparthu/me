@@ -88,7 +88,6 @@ export function CurrentlyBuilding() {
                 elevation={2}
                 tint="neutral"
                 radius={14}
-                dynamicLight={false}
                 className="h-full p-6 flex flex-col justify-between"
               >
                 <div>

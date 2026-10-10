@@ -126,7 +126,6 @@ export function ContactSection() {
             elevation={3}
             tint="neutral"
             radius={14}
-            dynamicLight={false}
             className="p-6 md:p-8"
           >
             <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
@@ -246,7 +245,6 @@ export function ContactSection() {
             elevation={2}
             tint="neutral"
             radius={14}
-            dynamicLight={false}
             className="p-6 md:p-7"
           >
             <h3 className="text-lg font-display font-bold text-white mb-2">
