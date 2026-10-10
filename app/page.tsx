@@ -6,8 +6,6 @@ import { JourneySection } from '@/components/sections/JourneySection';
 import { AchievementsSection } from '@/components/sections/AchievementsSection';
 import { CurrentlyBuilding } from '@/components/sections/CurrentlyBuilding';
 import { GitHubSection } from '@/components/sections/GitHubSection';
-import { LinkedInSection } from '@/components/sections/LinkedInSection';
-import { InstagramSection } from '@/components/sections/InstagramSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 
 export default function HomePage() {
@@ -21,8 +19,6 @@ export default function HomePage() {
       <AchievementsSection />
       <CurrentlyBuilding />
       <GitHubSection />
-      <LinkedInSection />
-      <InstagramSection />
       <ContactSection />
     </>
   );
