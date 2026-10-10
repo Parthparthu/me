@@ -1,0 +1,175 @@
+{
+  "matrixChecks": [
+    {
+      "name": "320px-se",
+      "width": 320,
+      "height": 568,
+      "passed": true,
+      "docW": 310,
+      "winW": 320,
+      "offending": []
+    },
+    {
+      "name": "360px-galaxy",
+      "width": 360,
+      "height": 640,
+      "passed": true,
+      "docW": 350,
+      "winW": 360,
+      "offending": []
+    },
+    {
+      "name": "390px-iphone14",
+      "width": 390,
+      "height": 844,
+      "passed": true,
+      "docW": 380,
+      "winW": 390,
+      "offending": []
+    },
+    {
+      "name": "414px-iphone-xr",
+      "width": 414,
+      "height": 896,
+      "passed": true,
+      "docW": 404,
+      "winW": 414,
+      "offending": []
+    },
+    {
+      "name": "480px-large-mobile",
+      "width": 480,
+      "height": 854,
+      "passed": true,
+      "docW": 470,
+      "winW": 480,
+      "offending": []
+    },
+    {
+      "name": "600px-small-tablet",
+      "width": 600,
+      "height": 960,
+      "passed": true,
+      "docW": 590,
+      "winW": 600,
+      "offending": []
+    },
+    {
+      "name": "768px-ipad-portrait",
+      "width": 768,
+      "height": 1024,
+      "passed": true,
+      "docW": 758,
+      "winW": 768,
+      "offending": []
+    },
+    {
+      "name": "820px-ipad-air",
+      "width": 820,
+      "height": 1180,
+      "passed": true,
+      "docW": 810,
+      "winW": 820,
+      "offending": []
+    },
+    {
+      "name": "1024px-ipad-landscape",
+      "width": 1024,
+      "height": 768,
+      "passed": true,
+      "docW": 1014,
+      "winW": 1024,
+      "offending": []
+    },
+    {
+      "name": "1180px-air-landscape",
+      "width": 1180,
+      "height": 820,
+      "passed": true,
+      "docW": 1170,
+      "winW": 1180,
+      "offending": []
+    },
+    {
+      "name": "1280px-compact-laptop",
+      "width": 1280,
+      "height": 800,
+      "passed": true,
+      "docW": 1270,
+      "winW": 1280,
+      "offending": []
+    },
+    {
+      "name": "1440px-macbook",
+      "width": 1440,
+      "height": 900,
+      "passed": true,
+      "docW": 1430,
+      "winW": 1440,
+      "offending": []
+    },
+    {
+      "name": "1920px-fhd-desktop",
+      "width": 1920,
+      "height": 1080,
+      "passed": true,
+      "docW": 1910,
+      "winW": 1920,
+      "offending": []
+    },
+    {
+      "name": "2560px-2k-display",
+      "width": 2560,
+      "height": 1440,
+      "passed": true,
+      "docW": 2550,
+      "winW": 2560,
+      "offending": []
+    },
+    {
+      "name": "3440px-ultrawide",
+      "width": 3440,
+      "height": 1440,
+      "passed": true,
+      "docW": 3430,
+      "winW": 3440,
+      "offending": []
+    },
+    {
+      "name": "667x375-phone-landscape",
+      "width": 667,
+      "height": 375,
+      "passed": true,
+      "docW": 657,
+      "winW": 667,
+      "offending": []
+    }
+  ],
+  "lightModeDefects": [],
+  "touchTargetDefects": [],
+  "contrastScores": {
+    "H1 Hero Title": {
+      "color": "rgb(15, 23, 42)",
+      "ratio": 16.78,
+      "aaPassed": true
+    },
+    "Section Subtitle": {
+      "color": "rgb(30, 41, 59)",
+      "ratio": 13.75,
+      "aaPassed": true
+    },
+    "Primary Button": {
+      "color": "rgb(255, 255, 255)",
+      "ratio": 1.06,
+      "aaPassed": false
+    },
+    "Body/Card Text": {
+      "color": "rgb(75, 85, 99)",
+      "ratio": 7.1,
+      "aaPassed": true
+    }
+  },
+  "menuTrapPassed": true,
+  "themeTogglePassed": true,
+  "webglCanvasActive": true
+}
