@@ -64,7 +64,7 @@ export default function ProjectsPageClient() {
             <span aria-hidden="true">#</span>
             Catalog
           </span>
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-[var(--text-primary)] tracking-tight">
             All Projects
           </h1>
           <p className="text-[var(--text-secondary)] text-lg max-w-2xl leading-relaxed">
@@ -87,13 +87,13 @@ export default function ProjectsPageClient() {
                 placeholder="Search projects, technologies…"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-white/5 border border-white/10 rounded-lg py-2.5 pl-10 pr-9 text-sm text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] min-h-[44px]"
+                className="w-full bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-lg py-2.5 pl-10 pr-9 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] min-h-[44px]"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
                   aria-label="Clear search"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-white p-1 min-h-[32px] min-w-[32px] flex items-center justify-center rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1 min-h-[32px] min-w-[32px] flex items-center justify-center rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
                 >
                   <X size={14} aria-hidden="true" />
                 </button>
@@ -111,10 +111,10 @@ export default function ProjectsPageClient() {
                   id="cat-select"
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="bg-[#111827] border border-white/12 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] min-h-[40px]"
+                  className="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-lg px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] min-h-[40px]"
                 >
                   {CATEGORIES.map((cat) => (
-                    <option key={cat} value={cat} className="bg-[#111827] text-white">
+                    <option key={cat} value={cat} className="bg-[var(--bg-surface-raised)] text-[var(--text-primary)]">
                       {cat}
                     </option>
                   ))}
@@ -129,10 +129,10 @@ export default function ProjectsPageClient() {
                   id="tier-select"
                   value={selectedTier}
                   onChange={(e) => setSelectedTier(e.target.value)}
-                  className="bg-[#111827] border border-white/12 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] min-h-[40px]"
+                  className="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-lg px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] min-h-[40px]"
                 >
                   {TIERS.map((tier) => (
-                    <option key={tier} value={tier} className="bg-[#111827] text-white">
+                    <option key={tier} value={tier} className="bg-[var(--bg-surface-raised)] text-[var(--text-primary)]">
                       {tier}
                     </option>
                   ))}
@@ -143,7 +143,7 @@ export default function ProjectsPageClient() {
         </LiquidGlass>
 
         <div className="text-xs font-mono text-[var(--text-muted)]">
-          Showing <strong className="text-white">{filteredProjects.length}</strong> of{' '}
+          Showing <strong className="text-[var(--text-primary)]">{filteredProjects.length}</strong> of{' '}
           {projects.length} projects
         </div>
       </div>
@@ -165,7 +165,7 @@ export default function ProjectsPageClient() {
                 tint="neutral"
                 radius={14}
                 dynamicLight={POINTER_REACTIVE_3D}
-                className="h-full p-6 md:p-7 flex flex-col justify-between group hover:border-white/20 transition-colors"
+                className="h-full p-6 md:p-7 flex flex-col justify-between group hover:border-[var(--border-strong)] transition-colors"
               >
                 <div>
                   <div className="flex justify-between items-center gap-2 mb-4 font-mono">
@@ -174,18 +174,18 @@ export default function ProjectsPageClient() {
                       <button
                         type="button"
                         onClick={() => setExpandedProject(project)}
-                        className="p-1 rounded text-[var(--text-muted)] hover:text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                        className="p-1 rounded text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
                         aria-label={`Inspect ${project.name}`}
                       >
                         <Maximize2 size={13} aria-hidden="true" />
                       </button>
-                      <span className="px-2 py-0.5 rounded-sm text-[10px] font-semibold bg-white/6 border border-white/10 text-[var(--text-muted)]">
+                      <span className="px-2 py-0.5 rounded-sm text-[10px] font-semibold bg-[var(--bg-surface-active)] border border-[var(--border-subtle)] text-[var(--text-muted)]">
                         {project.tier}
                       </span>
                     </div>
                   </div>
 
-                  <h2 className="text-xl font-display font-bold text-white mb-2 group-hover:text-[var(--accent-primary)] transition-colors leading-snug">
+                  <h2 className="text-xl font-display font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors leading-snug">
                     {project.name}
                   </h2>
 
@@ -197,23 +197,23 @@ export default function ProjectsPageClient() {
                     {project.technologies.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
-                        className="text-[11px] px-2 py-0.5 rounded-sm bg-white/5 border border-white/8 text-[var(--text-muted)]"
+                        className="text-[11px] px-2 py-0.5 rounded-sm bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-muted)]"
                       >
                         {tech}
                       </span>
                     ))}
                     {project.technologies.length > 4 && (
-                      <span className="text-[11px] px-2 py-0.5 rounded-sm bg-white/5 border border-white/8 text-[var(--text-muted)]">
+                      <span className="text-[11px] px-2 py-0.5 rounded-sm bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-muted)]">
                         +{project.technologies.length - 4}
                       </span>
                     )}
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-4 border-t border-white/8">
+                <div className="flex items-center justify-between pt-4 border-t border-[var(--border-subtle)]">
                   <Link
                     href={`/projects/${project.slug}`}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-white hover:text-[var(--accent-primary)] transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] p-1 rounded"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--text-primary)] hover:text-[var(--accent-primary)] transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] p-1 rounded"
                   >
                     <span>Read Case Study</span>
                     <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />
@@ -225,7 +225,7 @@ export default function ProjectsPageClient() {
                         href={project.repositoryUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 rounded-lg text-[var(--text-muted)] hover:text-white hover:bg-white/5 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                        className="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
                         aria-label={`GitHub repo for ${project.name}`}
                       >
                         <Github size={16} aria-hidden="true" />
@@ -236,7 +236,7 @@ export default function ProjectsPageClient() {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 rounded-lg text-[var(--text-muted)] hover:text-white hover:bg-white/5 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                        className="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
                         aria-label={`Live site for ${project.name}`}
                       >
                         <ArrowUpRight size={16} aria-hidden="true" />
@@ -278,12 +278,12 @@ export default function ProjectsPageClient() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.94, y: 16 }}
               transition={SPRING}
-              className="relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-[#0b101b] border border-white/15 shadow-2xl p-6 md:p-8"
+              className="relative z-10 w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-medium)] shadow-2xl p-6 md:p-8"
             >
               <div className="flex items-start justify-between gap-4 mb-6">
                 <div>
                   <span className="badge mb-2">{expandedProject.category}</span>
-                  <h2 className="text-2xl font-display font-bold text-white">
+                  <h2 className="text-2xl font-display font-bold text-[var(--text-primary)]">
                     {expandedProject.name}
                   </h2>
                   <p className="text-xs text-[var(--accent-primary)] font-mono mt-1">
@@ -292,7 +292,7 @@ export default function ProjectsPageClient() {
                 </div>
                 <button
                   onClick={() => setExpandedProject(null)}
-                  className="p-2 rounded-lg text-[var(--text-muted)] hover:text-white hover:bg-white/10 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  className="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] min-h-[44px] min-w-[44px] flex items-center justify-center"
                   aria-label="Close dialog"
                 >
                   <X size={18} aria-hidden="true" />
@@ -300,12 +300,12 @@ export default function ProjectsPageClient() {
               </div>
 
               {/* Architecture schematic box */}
-              <div className="rounded-xl p-4 mb-5 border border-white/10 bg-slate-900/60">
+              <div className="rounded-xl p-4 mb-5 border border-[var(--border-subtle)] bg-[var(--bg-surface-active)]">
                 <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-muted)] uppercase mb-2">
                   <Layers size={13} className="text-[var(--accent-primary)]" aria-hidden="true" />
                   <span>Architecture Pipeline</span>
                 </div>
-                <p className="text-xs font-mono text-white/90 leading-relaxed">
+                <p className="text-xs font-mono text-[var(--text-secondary)] leading-relaxed">
                   {expandedProject.caseStudy.architecture}
                 </p>
               </div>
@@ -317,11 +317,11 @@ export default function ProjectsPageClient() {
               </div>
 
               {/* Footer */}
-              <div className="flex items-center justify-between pt-4 border-t border-white/10">
+              <div className="flex items-center justify-between pt-4 border-t border-[var(--border-subtle)]">
                 <Link
                   href={`/projects/${expandedProject.slug}`}
                   onClick={() => setExpandedProject(null)}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[var(--accent-primary)] text-white text-xs font-semibold hover:bg-[var(--accent-primary-hover)] transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[var(--accent-primary)] text-[var(--text-on-accent)] text-xs font-semibold hover:bg-[var(--accent-hover)] transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
                 >
                   <span>Full Case Study</span>
                   <ArrowRight size={13} aria-hidden="true" />
@@ -331,7 +331,7 @@ export default function ProjectsPageClient() {
                     href={expandedProject.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-white/10 text-xs text-[var(--text-secondary)] hover:text-white transition-colors min-h-[44px]"
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[var(--border-subtle)] text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors min-h-[44px]"
                   >
                     <span>Live App</span>
                     <ArrowUpRight size={13} aria-hidden="true" />

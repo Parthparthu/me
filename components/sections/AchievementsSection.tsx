@@ -43,7 +43,7 @@ export function AchievementsSection() {
           <span aria-hidden="true">#</span>
           Recognition
         </span>
-        <h2 className="section-title text-white mt-1">
+        <h2 className="section-title text-[var(--text-primary)] mt-1">
           Honours &amp; Verified Evidence
         </h2>
         <p className="section-subtitle mt-2">
@@ -75,7 +75,7 @@ export function AchievementsSection() {
                     const wmcCert = verifiedCertificates.find((c) => c.id === 'wmc-2023');
                     if (wmcCert) setActiveModal(wmcCert);
                   }}
-                  className="group relative w-full h-56 rounded-lg overflow-hidden border border-amber-500/30 bg-black/40 block text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                  className="group relative w-full h-56 rounded-lg overflow-hidden border border-amber-500/30 bg-black/40 block text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] min-h-[44px]"
                   aria-label="View World Memory Championship Bronze Medal certificate photograph"
                 >
                   <Image
@@ -101,12 +101,12 @@ export function AchievementsSection() {
                     <Award size={13} aria-hidden="true" />
                     <span>Competitive Honour</span>
                   </span>
-                  <span className="text-xs font-mono font-bold text-white/60 tabular-nums">
+                  <span className="text-xs font-mono font-bold text-[var(--text-muted)] tabular-nums">
                     {featured.year}
                   </span>
                 </div>
 
-                <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-2 leading-tight">
+                <h3 className="text-2xl md:text-3xl font-display font-bold text-[var(--text-primary)] mb-2 leading-tight">
                   {featured.title}
                 </h3>
                 <p className="text-sm md:text-base text-[var(--text-secondary)] leading-relaxed mb-4">
@@ -144,12 +144,12 @@ export function AchievementsSection() {
                 radius={14}
                   className="h-full p-6 flex items-start gap-4"
               >
-                <div className="p-2.5 rounded-lg bg-white/5 border border-white/10 text-[var(--accent-primary)] flex-shrink-0">
+                <div className="p-2.5 rounded-lg bg-[var(--bg-surface-2)] border border-[var(--border-subtle)] text-[var(--accent-primary)] flex-shrink-0">
                   <Icon size={20} aria-hidden="true" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1.5">
-                    <h4 className="text-base font-bold text-white leading-tight">
+                    <h4 className="text-base font-bold text-[var(--text-primary)] leading-tight">
                       {achievement.title}
                     </h4>
                     <span className="text-xs font-mono text-[var(--text-muted)] tabular-nums">
@@ -174,9 +174,9 @@ export function AchievementsSection() {
         transition={SPRING}
         className="space-y-6"
       >
-        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-white/10 pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-[var(--border-subtle)] pb-4">
           <div>
-            <h3 className="text-xl font-display font-bold text-white">
+            <h3 className="text-xl font-display font-bold text-[var(--text-primary)]">
               Documented Certificates &amp; Credentials
             </h3>
             <p className="text-xs text-[var(--text-secondary)] mt-1 font-mono">
@@ -195,14 +195,14 @@ export function AchievementsSection() {
               elevation={2}
               tint="neutral"
               radius={14}
-              className="p-5 flex flex-col justify-between group hover:border-white/20 transition-colors"
+              className="p-5 flex flex-col justify-between group hover:border-[var(--border-medium)] transition-colors"
             >
               <div>
                 {/* Thumbnail */}
                 <button
                   type="button"
                   onClick={() => setActiveModal(cert)}
-                  className="relative w-full h-36 rounded-lg overflow-hidden bg-black/30 border border-white/10 mb-4 block group-hover:border-white/25 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                  className="relative w-full h-36 rounded-lg overflow-hidden bg-[var(--bg-surface-2)] border border-[var(--border-subtle)] mb-4 block group-hover:border-[var(--border-medium)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] min-h-[44px]"
                   aria-label={`View full certificate: ${cert.title}`}
                 >
                   <Image
@@ -224,7 +224,7 @@ export function AchievementsSection() {
                   </span>
                 </div>
 
-                <h4 className="text-sm font-bold text-white leading-snug mb-2 font-sans">
+                <h4 className="text-sm font-bold text-[var(--text-primary)] leading-snug mb-2 font-sans">
                   {cert.title}
                 </h4>
 
@@ -234,7 +234,7 @@ export function AchievementsSection() {
               </div>
 
               {/* Action Buttons: 8px radius */}
-              <div className="pt-3 border-t border-white/8 flex items-center justify-between gap-2">
+              <div className="pt-3 border-t border-[var(--border-subtle)] flex items-center justify-between gap-2">
                 <button
                   type="button"
                   onClick={() => setActiveModal(cert)}
@@ -248,7 +248,7 @@ export function AchievementsSection() {
                   href={getAssetPath(cert.documentUrl)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-white transition-colors min-h-[44px] p-1 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                  className="inline-flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors min-h-[44px] p-1 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
                   aria-label={`Open document for ${cert.title}`}
                 >
                   <span>Raw File</span>
@@ -276,12 +276,12 @@ export function AchievementsSection() {
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-3xl w-full max-h-[90vh] bg-[#0b0f17] border border-white/15 rounded-[14px] shadow-2xl flex flex-col overflow-hidden"
+              className="relative max-w-3xl w-full max-h-[90vh] bg-[var(--bg-surface)] border border-[var(--border-specular)] rounded-[14px] shadow-2xl flex flex-col overflow-hidden"
             >
               {/* Modal header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#111827]">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--border-subtle)] bg-[var(--bg-surface-2)]">
                 <div>
-                  <h4 className="text-base font-bold text-white font-sans">
+                  <h4 className="text-base font-bold text-[var(--text-primary)] font-sans">
                     {activeModal.title}
                   </h4>
                   <p className="text-xs text-[var(--text-muted)] font-mono">
@@ -292,7 +292,7 @@ export function AchievementsSection() {
                 <button
                   type="button"
                   onClick={() => setActiveModal(null)}
-                  className="p-2 text-[var(--text-muted)] hover:text-white rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                  className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
                   aria-label="Close document modal"
                 >
                   <X size={18} aria-hidden="true" />
@@ -313,9 +313,9 @@ export function AchievementsSection() {
               </div>
 
               {/* Modal footer */}
-              <div className="px-6 py-3.5 border-t border-white/10 bg-[#111827] flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+              <div className="px-6 py-3.5 border-t border-[var(--border-subtle)] bg-[var(--bg-surface-2)] flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
                 <span className="text-[var(--text-secondary)]">
-                  Awarded to: <strong className="text-white font-sans">{activeModal.recipient}</strong>
+                  Awarded to: <strong className="text-[var(--text-primary)] font-sans">{activeModal.recipient}</strong>
                 </span>
 
                 <div className="flex items-center gap-3">
@@ -323,7 +323,7 @@ export function AchievementsSection() {
                     href={getAssetPath(activeModal.documentUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--accent-primary)] text-white font-semibold hover:bg-[var(--accent-primary-hover)] transition-colors min-h-[36px]"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[var(--accent-primary)] text-[var(--text-on-accent)] font-semibold hover:bg-[var(--accent-primary-hover)] transition-colors min-h-[44px] flex items-center justify-center"
                   >
                     <span>Open Original Document</span>
                     <ExternalLink size={12} aria-hidden="true" />

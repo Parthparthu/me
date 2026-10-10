@@ -41,17 +41,17 @@ export function HeroSection() {
           {/* Status badge: 8px radius */}
           <LiquidGlass
             elevation={2}
-            tint="neutral"
+            tint="emerald"
             radius={8}
             dynamicLight={POINTER_REACTIVE_3D}
-            className="border border-emerald-500/20 bg-emerald-500/5 p-0"
+            className="border border-[var(--accent-emerald-border)] bg-[var(--accent-emerald-subtle)] p-0"
           >
             <div className="relative z-10 inline-flex items-center gap-2.5 px-3.5 py-1.5">
               <span className="relative flex h-2 w-2 shrink-0 items-center justify-center" aria-hidden="true">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent-emerald)] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--accent-emerald)]" />
               </span>
-              <span className="text-xs font-medium leading-none text-emerald-400">
+              <span className="text-xs font-medium leading-none text-[var(--accent-emerald)]">
                 Open to Internships: Greater Noida, Noida, Delhi NCR &amp; Remote
               </span>
             </div>
@@ -60,7 +60,7 @@ export function HeroSection() {
           {/* Name: Crisp high-contrast display */}
           <h1
             className={cn(
-              'font-display font-bold tracking-tight text-white',
+              'font-display font-bold tracking-tight text-[var(--text-primary)]',
               'text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-none'
             )}
           >

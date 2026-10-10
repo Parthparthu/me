@@ -27,12 +27,12 @@ export default function NotFound() {
           className="p-8 md:p-10 text-center flex flex-col items-center"
         >
           <div
-            className="text-6xl md:text-7xl font-display font-bold text-white tracking-tighter mb-4 font-mono"
+            className="text-6xl md:text-7xl font-display font-bold text-[var(--text-primary)] tracking-tighter mb-4 font-mono"
           >
             404
           </div>
 
-          <h1 className="text-xl md:text-2xl font-display font-bold text-white mb-2">
+          <h1 className="text-xl md:text-2xl font-display font-bold text-[var(--text-primary)] mb-2">
             Page Not Found
           </h1>
 

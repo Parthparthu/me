@@ -1,13 +1,13 @@
 /**
  * Header: Floating glass navigation bar.
  * Desktop: Centered glass nav with restrained geometry (radius 12px).
- * Mobile: Bottom glass nav with core links; menu dialog for full navigation.
+ * Mobile: Bottom glass nav with core links; full menu modal with focus trap.
  * Active section indicator via useScrollStore.
  * Command palette trigger (Ctrl/Cmd+K) accessible.
  */
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -47,8 +47,8 @@ function NavItem({
           'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]',
           'touch-action-manipulation',
           isActive
-            ? 'text-white bg-white/10'
-            : 'text-[var(--text-secondary)] hover:text-white hover:bg-white/5'
+            ? 'text-[var(--text-primary)] font-semibold bg-[var(--accent-primary-subtle)]'
+            : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)]'
         )}
       >
         <Icon size={16} strokeWidth={isActive ? 2.25 : 1.75} aria-hidden="true" />
@@ -66,6 +66,9 @@ export function Header() {
   const pathname = usePathname();
   const activeRoom = useScrollStore((s) => s.activeRoom);
 
+  const menuTriggerRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+
   const openCommandPalette = () => {
     window.dispatchEvent(
       new KeyboardEvent('keydown', { key: 'k', metaKey: true, bubbles: true })
@@ -77,6 +80,52 @@ export function Header() {
     if (!link.section && pathname === link.href) return true;
     return false;
   };
+
+  // Focus trap, body scroll lock, and escape key listener for mobile menu
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    // Lock body scroll
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    // Handle Escape and Tab keys
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+        menuTriggerRef.current?.focus();
+      } else if (e.key === 'Tab' && dialogRef.current) {
+        const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Initial focus on close button or first interactive
+    const timer = setTimeout(() => {
+      const firstBtn = dialogRef.current?.querySelector<HTMLElement>('button, [href]');
+      firstBtn?.focus();
+    }, 50);
+
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+      clearTimeout(timer);
+    };
+  }, [mobileMenuOpen]);
 
   return (
     <>
@@ -96,13 +145,13 @@ export function Header() {
             {/* Logo */}
             <Link
               href="/"
-              className="px-3 py-1.5 font-display font-bold text-sm text-white hover:text-[var(--accent-primary)] transition-colors tracking-tight mr-1 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+              className="px-3 py-1.5 font-display font-bold text-sm text-[var(--text-primary)] hover:text-[var(--accent-primary)] transition-colors tracking-tight mr-1 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
               aria-label="Pradyumna: home"
             >
               P<span className="text-[var(--accent-primary)]">.</span>
             </Link>
 
-            <div className="w-px h-5 bg-white/10 mr-1" aria-hidden="true" />
+            <div className="w-px h-5 bg-[var(--border-subtle)] mr-1" aria-hidden="true" />
 
             {NAV_LINKS.map((link) => (
               <NavItem
@@ -112,12 +161,12 @@ export function Header() {
               />
             ))}
 
-            <div className="w-px h-5 bg-white/10 mx-1" aria-hidden="true" />
+            <div className="w-px h-5 bg-[var(--border-subtle)] mx-1" aria-hidden="true" />
 
             {/* Ctrl/Cmd+K trigger */}
             <button
               onClick={openCommandPalette}
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-mono text-[var(--text-muted)] hover:text-white hover:bg-white/5 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] min-h-[36px]"
               aria-label="Open command palette (Ctrl+K or Cmd+K)"
             >
               <Command size={12} aria-hidden="true" />
@@ -131,11 +180,10 @@ export function Header() {
 
       {/* Mobile bottom nav */}
       <div
-        className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[var(--z-header)] md:hidden"
-        style={{ maxWidth: 'calc(100vw - 32px)' }}
+        className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[var(--z-header)] md:hidden w-auto max-w-[calc(100vw-20px)]"
       >
-        <LiquidGlass elevation={3} tint="neutral" radius={12} className="px-2 py-1.5">
-          <nav aria-label="Mobile navigation" className="flex items-center gap-1">
+        <LiquidGlass elevation={3} tint="neutral" radius={12} className="px-1.5 py-1">
+          <nav aria-label="Mobile navigation" className="flex items-center gap-0.5">
             {NAV_LINKS.slice(0, 4).map((link) => {
               const Icon = link.icon;
               const active = getIsActive(link);
@@ -146,28 +194,29 @@ export function Header() {
                   aria-label={link.name}
                   aria-current={active ? 'page' : undefined}
                   className={cn(
-                    'flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg min-h-[44px] min-w-[44px] justify-center',
-                    'text-[10px] font-medium transition-colors',
-                    'touch-action-manipulation',
+                    'flex flex-col items-center gap-0.5 px-2.5 py-1 rounded-lg min-h-[44px] min-w-[44px] justify-center',
+                    'text-[10px] font-medium transition-colors touch-action-manipulation',
+                    'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]',
                     active
-                      ? 'text-white bg-white/10'
-                      : 'text-[var(--text-secondary)] hover:text-white'
+                      ? 'text-[var(--text-primary)] font-semibold bg-[var(--accent-primary-subtle)]'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                   )}
                 >
-                  <Icon size={18} aria-hidden="true" />
-                  <span>{link.name}</span>
+                  <Icon size={17} aria-hidden="true" />
+                  <span className="leading-tight">{link.name}</span>
                 </Link>
               );
             })}
 
             <button
+              ref={menuTriggerRef}
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Open full menu"
               aria-expanded={mobileMenuOpen}
-              className="flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg min-h-[44px] min-w-[44px] justify-center text-[10px] font-medium text-[var(--text-secondary)] hover:text-white transition-colors touch-action-manipulation"
+              className="flex flex-col items-center gap-0.5 px-2.5 py-1 rounded-lg min-h-[44px] min-w-[44px] justify-center text-[10px] font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors touch-action-manipulation focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
             >
-              <Menu size={18} aria-hidden="true" />
-              <span>More</span>
+              <Menu size={17} aria-hidden="true" />
+              <span className="leading-tight">More</span>
             </button>
           </nav>
         </LiquidGlass>
@@ -181,33 +230,41 @@ export function Header() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setMobileMenuOpen(false)}
-              className="fixed inset-0 z-[var(--z-modal-backdrop)] bg-black/70 backdrop-blur-md md:hidden"
+              onClick={() => {
+                setMobileMenuOpen(false);
+                menuTriggerRef.current?.focus();
+              }}
+              className="fixed inset-0 z-[var(--z-modal-backdrop)] bg-black/60 backdrop-blur-md md:hidden"
             />
 
             <motion.div
+              ref={dialogRef}
               initial={{ y: '100%', opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: '100%', opacity: 0 }}
               transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed inset-x-4 bottom-4 z-[var(--z-modal)] md:hidden rounded-xl overflow-hidden"
+              className="fixed inset-x-3 bottom-3 z-[var(--z-modal)] md:hidden rounded-xl overflow-hidden"
               style={{ overscrollBehavior: 'contain' }}
               role="dialog"
               aria-modal="true"
               aria-label="Navigation menu"
             >
-              <LiquidGlass elevation={5} tint="neutral" radius={14} className="p-6">
-                <button
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="absolute top-4 right-4 p-2 rounded-lg text-[var(--text-muted)] hover:text-white min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
-                  aria-label="Close menu"
-                >
-                  <X size={20} aria-hidden="true" />
-                </button>
-
-                <p className="text-xs text-[var(--text-muted)] tracking-wider uppercase mb-5 font-mono">
-                  Navigation
-                </p>
+              <LiquidGlass elevation={5} tint="neutral" radius={14} className="p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-xs text-[var(--text-muted)] tracking-wider uppercase font-mono">
+                    Navigation
+                  </p>
+                  <button
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      menuTriggerRef.current?.focus();
+                    }}
+                    className="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                    aria-label="Close menu"
+                  >
+                    <X size={20} aria-hidden="true" />
+                  </button>
+                </div>
 
                 <nav className="flex flex-col gap-1">
                   {NAV_LINKS.map((link) => {
@@ -220,10 +277,11 @@ export function Header() {
                         onClick={() => setMobileMenuOpen(false)}
                         className={cn(
                           'flex items-center gap-3.5 px-4 py-3 rounded-lg text-sm font-medium',
-                          'transition-colors min-h-[48px]',
+                          'transition-colors min-h-[48px] touch-action-manipulation',
+                          'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]',
                           active
-                            ? 'text-white bg-white/10'
-                            : 'text-[var(--text-secondary)] hover:text-white hover:bg-white/5'
+                            ? 'text-[var(--text-primary)] font-semibold bg-[var(--accent-primary-subtle)]'
+                            : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)]'
                         )}
                       >
                         <Icon size={18} aria-hidden="true" />
@@ -233,10 +291,13 @@ export function Header() {
                   })}
                 </nav>
 
-                <div className="mt-4 pt-4 border-t border-white/10 flex items-center gap-3">
+                <div className="mt-4 pt-4 border-t border-[var(--border-subtle)] flex items-center gap-3">
                   <button
-                    onClick={() => { openCommandPalette(); setMobileMenuOpen(false); }}
-                    className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-xs font-medium text-[var(--text-secondary)] hover:text-white bg-white/5 hover:bg-white/10 min-h-[44px] transition-colors"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      openCommandPalette();
+                    }}
+                    className="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium text-[var(--text-primary)] bg-[var(--bg-surface-2)] hover:bg-[var(--bg-surface-raised)] border border-[var(--border-subtle)] min-h-[44px] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
                   >
                     <Command size={14} aria-hidden="true" />
                     <span>Command Palette</span>

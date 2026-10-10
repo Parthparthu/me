@@ -22,12 +22,12 @@ export default function ResumePage() {
   const featuredProjects = projects.filter((p) => p.featured);
 
   return (
-    <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-white">
+    <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-[var(--text-primary)]">
       {/* Navigation & Actions */}
       <div className="flex items-center justify-between gap-4 mb-8">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-white transition-colors min-h-[44px] p-1 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+          className="inline-flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors min-h-[44px] p-1 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
         >
           <ArrowLeft size={16} aria-hidden="true" />
           <span>Back to Portfolio</span>
@@ -36,7 +36,7 @@ export default function ResumePage() {
         <a
           href={getAssetPath('/resume.pdf')}
           download="Pradyuma_Resume.pdf"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[var(--accent-primary)] text-white text-xs font-semibold shadow-md hover:bg-[var(--accent-primary-hover)] transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[var(--accent-primary)] text-[var(--text-on-accent)] text-xs font-semibold shadow-md hover:bg-[var(--accent-hover)] transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
         >
           <Download size={14} aria-hidden="true" />
           <span>Download PDF</span>
@@ -46,9 +46,9 @@ export default function ResumePage() {
       {/* Main Resume Sheet */}
       <LiquidGlass elevation={3} tint="neutral" radius={14} className="p-8 md:p-12 space-y-12">
         {/* Header Block */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-8 border-b border-white/10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-8 border-b border-[var(--border-subtle)]">
           <div>
-            <h1 className="text-3xl sm:text-4xl font-display font-bold text-white mb-2 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-display font-bold text-[var(--text-primary)] mb-2 tracking-tight">
               {profile.name}
             </h1>
             <p className="text-base text-[var(--accent-primary)] font-medium mb-3">
@@ -63,7 +63,7 @@ export default function ResumePage() {
           <div className="flex flex-col gap-2 text-xs font-mono text-[var(--text-secondary)]">
             <a
               href="mailto:pradyumna05@outlook.in"
-              className="hover:text-white flex items-center gap-2 transition-colors min-h-[36px]"
+              className="hover:text-[var(--text-primary)] flex items-center gap-2 transition-colors min-h-[36px]"
             >
               <Mail size={14} className="text-[var(--accent-primary)]" aria-hidden="true" />
               <span>pradyumna05@outlook.in</span>
@@ -72,7 +72,7 @@ export default function ResumePage() {
               href="https://github.com/Parthparthu"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white flex items-center gap-2 transition-colors min-h-[36px]"
+              className="hover:text-[var(--text-primary)] flex items-center gap-2 transition-colors min-h-[36px]"
             >
               <Github size={14} aria-hidden="true" />
               <span>github.com/Parthparthu</span>
@@ -81,7 +81,7 @@ export default function ResumePage() {
               href="https://www.linkedin.com/in/pradyumna05"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white flex items-center gap-2 transition-colors min-h-[36px]"
+              className="hover:text-[var(--text-primary)] flex items-center gap-2 transition-colors min-h-[36px]"
             >
               <Linkedin size={14} className="text-[var(--accent-primary)]" aria-hidden="true" />
               <span>linkedin.com/in/pradyumna05</span>
@@ -91,12 +91,12 @@ export default function ResumePage() {
 
         {/* Education & Key Distinction */}
         <section className="space-y-4">
-          <h2 className="font-display font-bold text-white uppercase tracking-wider text-xs font-mono">
+          <h2 className="font-display font-bold text-[var(--text-primary)] uppercase tracking-wider text-xs font-mono">
             Education and Honours
           </h2>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="p-5 rounded-lg bg-white/5 border border-white/8">
-              <div className="flex items-center gap-2 font-bold text-white mb-1">
+            <div className="p-5 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-subtle)]">
+              <div className="flex items-center gap-2 font-bold text-[var(--text-primary)] mb-1">
                 <GraduationCap size={16} className="text-[var(--accent-primary)]" aria-hidden="true" />
                 <span>{profile.education.degree} ({profile.education.year})</span>
               </div>
@@ -106,11 +106,11 @@ export default function ResumePage() {
             </div>
 
             <div className="p-5 rounded-lg bg-amber-500/10 border border-amber-500/20">
-              <div className="flex items-center gap-2 font-bold text-amber-300 mb-1">
-                <Trophy size={16} className="text-amber-400" aria-hidden="true" />
+              <div className="flex items-center gap-2 font-bold text-amber-700 dark:text-amber-300 mb-1">
+                <Trophy size={16} className="text-amber-600 dark:text-amber-400" aria-hidden="true" />
                 <span>World Memory Championship 2023</span>
               </div>
-              <p className="text-xs text-amber-200/90 mb-1">Bronze Medalist (Top Amateur)</p>
+              <p className="text-xs text-amber-800 dark:text-amber-200/90 mb-1">Bronze Medalist (Top Amateur)</p>
               <p className="text-xs text-[var(--text-secondary)]">
                 IAM World Memory Championship 2023 (Navi Mumbai). Verified by official medal and arbiters certificate.
               </p>
@@ -120,17 +120,17 @@ export default function ResumePage() {
 
         {/* Documented Credentials and Certificates */}
         <section className="space-y-4">
-          <h2 className="font-display font-bold text-white uppercase tracking-wider text-xs font-mono">
+          <h2 className="font-display font-bold text-[var(--text-primary)] uppercase tracking-wider text-xs font-mono">
             Documented Credentials and Certificates
           </h2>
           <div className="grid sm:grid-cols-2 gap-3">
             {verifiedCertificates.map((cert) => (
               <div
                 key={cert.id}
-                className="p-3.5 rounded-lg bg-white/5 border border-white/8 flex items-center justify-between gap-3 hover:border-white/15 transition-colors"
+                className="p-3.5 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-subtle)] flex items-center justify-between gap-3 hover:border-[var(--border-strong)] transition-colors"
               >
                 <div>
-                  <h3 className="text-xs font-bold text-white leading-snug">{cert.title}</h3>
+                  <h3 className="text-xs font-bold text-[var(--text-primary)] leading-snug">{cert.title}</h3>
                   <p className="text-[11px] text-[var(--text-muted)] font-mono">
                     {cert.issuer} &middot; {cert.year}
                   </p>
@@ -152,18 +152,18 @@ export default function ResumePage() {
 
         {/* Technical Competencies */}
         <section className="space-y-4">
-          <h2 className="font-display font-bold text-white uppercase tracking-wider text-xs font-mono">
+          <h2 className="font-display font-bold text-[var(--text-primary)] uppercase tracking-wider text-xs font-mono">
             Technical Competencies
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {skillCategories.map((category) => (
-              <div key={category.id} className="p-4 rounded-lg bg-white/5 border border-white/8">
-                <h3 className="text-xs font-bold text-white mb-2">{category.title}</h3>
+              <div key={category.id} className="p-4 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-subtle)]">
+                <h3 className="text-xs font-bold text-[var(--text-primary)] mb-2">{category.title}</h3>
                 <div className="flex flex-wrap gap-1.5">
                   {category.skills.map((skill) => (
                     <span
                       key={skill.name}
-                      className="text-[11px] px-2 py-0.5 rounded-sm bg-white/6 text-[var(--text-secondary)] border border-white/6"
+                      className="text-[11px] px-2 py-0.5 rounded-sm bg-[var(--bg-surface-active)] text-[var(--text-secondary)] border border-[var(--border-subtle)]"
                     >
                       {skill.name}
                     </span>
@@ -176,16 +176,16 @@ export default function ResumePage() {
 
         {/* Featured Production Systems */}
         <section className="space-y-4">
-          <h2 className="font-display font-bold text-white uppercase tracking-wider text-xs font-mono">
+          <h2 className="font-display font-bold text-[var(--text-primary)] uppercase tracking-wider text-xs font-mono">
             Flagship Engineering Systems
           </h2>
           <div className="space-y-4">
             {featuredProjects.map((project) => (
-              <div key={project.id} className="p-5 rounded-lg bg-white/5 border border-white/8 space-y-2">
+              <div key={project.id} className="p-5 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-subtle)] space-y-2">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-2 font-mono">
-                    <h3 className="font-bold text-sm text-white font-sans">{project.name}</h3>
-                    <span className="text-[10px] px-2 py-0.5 rounded-sm bg-white/8 text-[var(--accent-primary)] font-mono">
+                    <h3 className="font-bold text-sm text-[var(--text-primary)] font-sans">{project.name}</h3>
+                    <span className="text-[10px] px-2 py-0.5 rounded-sm bg-[var(--bg-surface-active)] text-[var(--accent-primary)] font-mono">
                       {project.category}
                     </span>
                   </div>
@@ -195,7 +195,7 @@ export default function ResumePage() {
                         href={project.repositoryUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs text-[var(--text-muted)] hover:text-white flex items-center gap-1"
+                        className="text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] flex items-center gap-1"
                       >
                         <span>GitHub</span>
                         <ExternalLink size={10} aria-hidden="true" />
@@ -223,7 +223,7 @@ export default function ResumePage() {
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="text-[10px] px-1.5 py-0.5 rounded-xs bg-white/5 text-[var(--text-muted)] border border-white/6"
+                      className="text-[10px] px-1.5 py-0.5 rounded-xs bg-[var(--bg-surface)] text-[var(--text-muted)] border border-[var(--border-subtle)]"
                     >
                       {tech}
                     </span>

@@ -52,7 +52,7 @@ export function JourneySection() {
           <span aria-hidden="true">#</span>
           Journey
         </span>
-        <h2 className="section-title text-white mt-1">
+        <h2 className="section-title text-[var(--text-primary)] mt-1">
           The Path So Far
         </h2>
         <p className="section-subtitle mt-2">
@@ -62,7 +62,7 @@ export function JourneySection() {
 
       <div ref={containerRef} className="relative">
         {/* Timeline spine */}
-        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-white/10 -translate-x-1/2">
+        <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-[var(--border-subtle)] -translate-x-1/2">
           <motion.div
             className="absolute top-0 w-full bg-[var(--accent-primary)] origin-top"
             style={{ scaleY, height: '100%' }}
@@ -85,7 +85,7 @@ export function JourneySection() {
               >
                 {/* Timeline node */}
                 <div
-                  className="absolute left-4 md:left-1/2 w-3 h-3 rounded-full -translate-x-1/2 mt-3.5 z-10 border border-white/60 bg-[var(--accent-primary)]"
+                  className="absolute left-4 md:left-1/2 w-3 h-3 rounded-full -translate-x-1/2 mt-3.5 z-10 border border-[var(--border-strong)] bg-[var(--accent-primary)]"
                   aria-hidden="true"
                 />
 
@@ -104,7 +104,7 @@ export function JourneySection() {
                     className="flex items-center gap-2"
                   >
                     <Calendar size={15} className="text-[var(--text-muted)]" aria-hidden="true" />
-                    <span className="text-lg font-bold font-mono tracking-tight text-white/80">
+                    <span className="text-lg font-bold font-mono tracking-tight text-[var(--text-primary)]">
                       {milestone.year}
                     </span>
                   </motion.div>
@@ -130,9 +130,9 @@ export function JourneySection() {
                           <span
                             className="px-2.5 py-0.5 text-xs font-semibold rounded-sm border"
                             style={{
-                              backgroundColor: tint === 'amber' ? 'rgba(245,158,11,0.15)' : 'rgba(14,165,233,0.15)',
-                              borderColor: tint === 'amber' ? 'rgba(245,158,11,0.35)' : 'rgba(14,165,233,0.35)',
-                              color: tint === 'amber' ? '#fbbf24' : '#38bdf8',
+                              backgroundColor: tint === 'amber' ? 'var(--accent-amber-subtle)' : 'var(--accent-primary-subtle)',
+                              borderColor: tint === 'amber' ? 'var(--accent-amber-border)' : 'var(--accent-primary-border)',
+                              color: tint === 'amber' ? 'var(--accent-amber)' : 'var(--accent-primary)',
                             }}
                           >
                             {milestone.badge.label}
@@ -145,7 +145,7 @@ export function JourneySection() {
                       </div>
 
                       {/* Title and Subtitle */}
-                      <h3 className="text-xl font-display font-bold text-white mb-1 leading-snug">
+                      <h3 className="text-xl font-display font-bold text-[var(--text-primary)] mb-1 leading-snug">
                         {milestone.title}
                       </h3>
                       <p className="text-sm font-medium text-[var(--accent-primary)] mb-3">
@@ -159,7 +159,7 @@ export function JourneySection() {
 
                       {/* Highlights */}
                       {milestone.highlights && milestone.highlights.length > 0 && (
-                        <div className="pt-3 border-t border-white/8 space-y-2">
+                        <div className="pt-3 border-t border-[var(--border-subtle)] space-y-2">
                           {milestone.highlights.map((highlight: string, i: number) => (
                             <div key={i} className="flex items-start gap-2 text-xs text-[var(--text-secondary)] leading-relaxed">
                               <ChevronRight size={14} className="text-[var(--accent-primary)] mt-0.5 flex-shrink-0" aria-hidden="true" />

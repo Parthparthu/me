@@ -64,7 +64,7 @@ export function CurrentlyBuilding() {
           <span aria-hidden="true">#</span>
           Now
         </span>
-        <h2 className="section-title text-white mt-1">
+        <h2 className="section-title text-[var(--text-primary)] mt-1">
           Currently Building
         </h2>
         <p className="section-subtitle mt-2">
@@ -92,7 +92,7 @@ export function CurrentlyBuilding() {
               >
                 <div>
                   <div className="flex justify-between items-start mb-4">
-                    <div className="p-2.5 rounded-lg bg-white/5 border border-white/10 text-[var(--accent-primary)]">
+                    <div className="p-2.5 rounded-lg bg-[var(--bg-surface-active)] border border-[var(--border-subtle)] text-[var(--accent-primary)]">
                       <Icon size={20} aria-hidden="true" />
                     </div>
                     {project.url !== '#' && (
@@ -100,7 +100,7 @@ export function CurrentlyBuilding() {
                         href={project.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 text-[var(--text-tertiary)] hover:text-white hover:bg-white/5 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                        className="p-2 text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
                         aria-label={`View ${project.name} on GitHub`}
                       >
                         <ExternalLink size={16} aria-hidden="true" />
@@ -108,7 +108,7 @@ export function CurrentlyBuilding() {
                     )}
                   </div>
 
-                  <h3 className="text-lg font-bold text-white mb-2 leading-tight">
+                  <h3 className="text-lg font-bold text-[var(--text-primary)] mb-2 leading-tight">
                     {project.name}
                   </h3>
                   <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">
@@ -117,7 +117,7 @@ export function CurrentlyBuilding() {
                 </div>
 
                 {/* Status indicator */}
-                <div className="flex items-center gap-2 pt-4 border-t border-white/8 font-mono">
+                <div className="flex items-center gap-2 pt-4 border-t border-[var(--border-subtle)] font-mono">
                   <div className="relative flex h-2 w-2 shrink-0 items-center justify-center" aria-hidden="true">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />

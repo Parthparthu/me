@@ -117,7 +117,7 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
           tint="neutral"
           radius={16}
           dynamicLight={POINTER_REACTIVE_3D}
-          className="overflow-hidden border border-white/12 group-hover:border-white/25 transition-colors"
+          className="overflow-hidden border border-[var(--border-subtle)] group-hover:border-[var(--border-medium)] transition-colors"
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
             {/* Visual preview column */}
@@ -180,10 +180,10 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
                 <button
                   type="button"
                   onClick={() => onExpand(project)}
-                  className="inline-flex items-center gap-1 text-[11px] font-mono text-white/80 hover:text-white px-2.5 py-1 rounded bg-black/40 border border-white/10 hover:border-white/20 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                  className="inline-flex items-center gap-1.5 text-[11px] font-mono text-white/90 hover:text-white px-3 py-2 rounded bg-black/40 border border-white/10 hover:border-white/20 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] min-h-[44px] min-w-[44px]"
                   aria-label={`Open expanded preview for ${project.name}`}
                 >
-                  <Maximize2 size={11} aria-hidden="true" />
+                  <Maximize2 size={12} aria-hidden="true" />
                   <span>Inspect</span>
                 </button>
               </div>
@@ -206,7 +206,7 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
                 </div>
 
                 {/* Name */}
-                <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-2 leading-tight group-hover:text-[var(--accent-primary)] transition-colors">
+                <h3 className="text-xl md:text-2xl font-display font-bold text-[var(--text-primary)] mb-2 leading-tight group-hover:text-[var(--accent-primary)] transition-colors">
                   {project.name}
                 </h3>
 
@@ -227,7 +227,7 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
                   {project.technologies.slice(0, 5).map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-0.5 rounded-sm text-[11px] font-mono text-[var(--text-secondary)] bg-white/5 border border-white/8"
+                      className="px-2 py-0.5 rounded-sm text-[11px] font-mono text-[var(--text-secondary)] bg-[var(--bg-surface-2)] border border-[var(--border-subtle)]"
                     >
                       {tech}
                     </span>
@@ -243,7 +243,7 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
                 <div className="flex flex-wrap items-center gap-3">
                   <Link
                     href={`/projects/${project.slug}`}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white text-slate-900 text-xs md:text-sm font-semibold hover:bg-slate-100 transition-all shadow-md min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[var(--accent-primary)] text-[var(--text-on-accent)] text-xs md:text-sm font-semibold hover:bg-[var(--accent-primary-hover)] transition-all shadow-md min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
                   >
                     <Eye size={15} aria-hidden="true" />
                     <span>Case Study</span>
@@ -256,7 +256,7 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`View ${project.name} source repository on GitHub`}
-                      className="p-2.5 rounded-lg border border-white/10 text-[var(--text-secondary)] hover:text-white hover:bg-white/5 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                      className="p-2.5 rounded-lg border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
                     >
                       <Github size={18} aria-hidden="true" />
                     </a>
@@ -268,7 +268,7 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Open ${project.name} live deployment`}
-                      className="p-2.5 rounded-lg border border-white/10 text-[var(--text-secondary)] hover:text-white hover:bg-white/5 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                      className="p-2.5 rounded-lg border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
                     >
                       <ExternalLink size={18} aria-hidden="true" />
                     </a>
@@ -317,17 +317,17 @@ function ExpandedProjectModal({
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.94, y: 16 }}
         transition={SPRING}
-        className="relative z-10 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl bg-[#0b101b] border border-white/15 shadow-2xl p-6 md:p-8"
+        className="relative z-10 w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-specular)] shadow-2xl p-6 md:p-8"
       >
         <div className="flex items-start justify-between gap-4 mb-6">
           <div>
             <div className="flex items-center gap-2 mb-2 font-mono">
               <span className="badge">{project.category}</span>
-              <span className="px-2 py-0.5 rounded-sm text-xs bg-white/6 text-[var(--text-muted)] border border-white/10">
+              <span className="px-2 py-0.5 rounded-sm text-xs bg-[var(--bg-surface-2)] text-[var(--text-muted)] border border-[var(--border-subtle)]">
                 {project.tier}
               </span>
             </div>
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-white">
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-[var(--text-primary)]">
               {project.name}
             </h2>
             <p className="text-sm text-[var(--accent-primary)] font-mono mt-1">
@@ -337,7 +337,7 @@ function ExpandedProjectModal({
 
           <button
             onClick={onClose}
-            className="p-2 rounded-lg text-[var(--text-muted)] hover:text-white hover:bg-white/10 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Close modal"
           >
             <X size={20} aria-hidden="true" />
@@ -346,7 +346,7 @@ function ExpandedProjectModal({
 
         {/* Architecture schematic box */}
         <div
-          className="rounded-xl p-5 mb-6 border border-white/10 bg-slate-900/60"
+          className="rounded-xl p-5 mb-6 border border-[var(--border-subtle)] bg-[var(--bg-surface-2)]"
           style={{
             boxShadow: `inset 0 0 20px ${style.accent}10`,
           }}
@@ -355,7 +355,7 @@ function ExpandedProjectModal({
             <Layers size={14} style={{ color: style.accent }} aria-hidden="true" />
             <span>Architectural Pipeline</span>
           </div>
-          <p className="text-sm font-mono text-white/90 leading-relaxed">
+          <p className="text-sm font-mono text-[var(--text-primary)] leading-relaxed">
             {project.caseStudy.architecture}
           </p>
         </div>
@@ -384,7 +384,7 @@ function ExpandedProjectModal({
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
             {project.caseStudy.keyFeatures.map((feat) => (
               <li key={feat} className="flex items-start gap-2 text-xs text-[var(--text-secondary)]">
-                <CheckCircle2 size={14} className="text-emerald-400 shrink-0 mt-0.5" aria-hidden="true" />
+                <CheckCircle2 size={14} className="text-[var(--accent-emerald)] shrink-0 mt-0.5" aria-hidden="true" />
                 <span>{feat}</span>
               </li>
             ))}
@@ -392,11 +392,11 @@ function ExpandedProjectModal({
         </div>
 
         {/* Footer actions */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/10">
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[var(--border-subtle)]">
           <Link
             href={`/projects/${project.slug}`}
             onClick={onClose}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-white text-xs font-semibold transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--text-on-accent)] text-xs font-semibold transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] shadow-sm"
           >
             <span>Read Full Case Study</span>
             <ArrowRight size={14} aria-hidden="true" />
@@ -408,7 +408,7 @@ function ExpandedProjectModal({
                 href={project.repositoryUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-lg border border-white/10 text-[var(--text-secondary)] hover:text-white hover:bg-white/5 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                className="p-2.5 rounded-lg border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
                 aria-label={`View ${project.name} on GitHub`}
               >
                 <Github size={18} aria-hidden="true" />
@@ -419,7 +419,7 @@ function ExpandedProjectModal({
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-lg border border-white/10 text-[var(--text-secondary)] hover:text-white hover:bg-white/5 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                className="p-2.5 rounded-lg border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
                 aria-label={`Open ${project.name} live deployment`}
               >
                 <ExternalLink size={18} aria-hidden="true" />
@@ -456,7 +456,7 @@ export function SelectedWork() {
               <span aria-hidden="true">#</span>
               Selected Work
             </span>
-            <h2 className="section-title text-white mt-1">
+            <h2 className="section-title text-[var(--text-primary)] mt-1">
               Featured Projects
             </h2>
             <p className="section-subtitle mt-2">
@@ -466,7 +466,7 @@ export function SelectedWork() {
 
           <Link
             href="/projects"
-            className="group inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-white transition-colors whitespace-nowrap p-1 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+            className="group inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors whitespace-nowrap px-3 py-2 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] min-h-[44px]"
           >
             <span>View All {projects.length} Projects</span>
             <ArrowRight
@@ -493,7 +493,7 @@ export function SelectedWork() {
         <div className="mt-14 flex justify-center">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-white/12 text-sm text-[var(--text-secondary)] hover:text-white hover:bg-white/5 transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] shadow-md"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[var(--border-subtle)] text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-medium)] hover:bg-[var(--bg-surface-hover)] transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] shadow-sm"
           >
             <span>Browse all {projects.length} projects</span>
             <ArrowRight size={15} aria-hidden="true" />

@@ -196,7 +196,7 @@ export function CommandPalette() {
               <input
                 type="text"
                 autoFocus
-                placeholder="Type a command or search projects..."
+                placeholder="Type a command or search projects…"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleKeyDown}

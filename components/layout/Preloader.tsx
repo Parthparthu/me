@@ -82,7 +82,7 @@ export function Preloader() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 0.98 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-0 z-[var(--z-toast)] flex items-center justify-center bg-[#070b12]"
+          className="fixed inset-0 z-[var(--z-toast)] flex items-center justify-center bg-[var(--bg-app)]"
           aria-live="polite"
           aria-label="Loading portfolio"
         >
@@ -110,11 +110,11 @@ export function Preloader() {
               elevation={4}
               tint="cyan"
               radius={16}
-              className="w-full px-8 py-10 flex flex-col items-center text-center border border-white/12 shadow-2xl"
+              className="w-full px-8 py-10 flex flex-col items-center text-center border border-[var(--border-subtle)] shadow-2xl"
             >
               {/* Monogram Badge */}
               <div
-                className="w-14 h-14 rounded-xl border border-white/20 flex items-center justify-center mb-5 text-2xl font-display font-bold text-white shadow-lg"
+                className="w-14 h-14 rounded-xl border border-[var(--border-medium)] flex items-center justify-center mb-5 text-2xl font-display font-bold text-[var(--text-primary)] shadow-lg"
                 style={{
                   background: 'linear-gradient(135deg, rgba(14,165,233,0.25), rgba(2,132,199,0.15))',
                 }}
@@ -123,15 +123,15 @@ export function Preloader() {
                 P<span className="text-[var(--accent-primary)]">.</span>
               </div>
 
-              <h1 className="text-xl font-display font-bold text-white mb-1 tracking-tight">
+              <div role="heading" aria-level={2} className="text-xl font-display font-bold text-[var(--text-primary)] mb-1 tracking-tight">
                 Pradyuma
-              </h1>
+              </div>
               <p className="text-xs text-[var(--text-tertiary)] font-mono tracking-wider uppercase mb-6">
                 {phase === 'loading' ? 'Loading Experience…' : 'Ready'}
               </p>
 
               {/* Progress bar */}
-              <div className="w-full h-1.5 rounded-sm bg-white/10 mb-6 overflow-hidden">
+              <div className="w-full h-1.5 rounded-sm bg-[var(--bg-surface-active)] mb-6 overflow-hidden">
                 <motion.div
                   className="h-full rounded-sm"
                   style={{
@@ -149,14 +149,14 @@ export function Preloader() {
                     initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     onClick={handleEnter}
-                    className="w-full py-2.5 px-4 rounded-xl font-semibold text-xs text-white bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] transition-all shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                    className="w-full min-h-[44px] py-2.5 px-4 rounded-xl font-semibold text-xs text-[var(--text-on-accent)] bg-[var(--accent-primary)] hover:bg-[var(--accent-hover)] transition-all shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] flex items-center justify-center"
                   >
                     Enter Site
                   </motion.button>
                 ) : (
                   <button
                     onClick={handleEnter}
-                    className="text-[11px] font-mono text-[var(--text-muted)] hover:text-white transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] p-1 rounded"
+                    className="text-[11px] font-mono text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] p-2 min-h-[44px] flex items-center justify-center"
                   >
                     Press Space to Skip
                   </button>

@@ -13,11 +13,11 @@ export function Footer() {
         </p>
 
         {/* Center: legal links */}
-        <nav aria-label="Legal" className="flex items-center gap-6 text-sm text-[var(--text-tertiary)]">
-          <Link href="/privacy" className="hover:text-[var(--text-secondary)] transition-colors">
+        <nav aria-label="Legal" className="flex items-center gap-4 text-sm text-[var(--text-tertiary)]">
+          <Link href="/privacy" className="hover:text-[var(--text-secondary)] transition-colors min-h-[44px] flex items-center px-2 rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]">
             Privacy Policy
           </Link>
-          <Link href="/terms" className="hover:text-[var(--text-secondary)] transition-colors">
+          <Link href="/terms" className="hover:text-[var(--text-secondary)] transition-colors min-h-[44px] flex items-center px-2 rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]">
             Terms
           </Link>
         </nav>

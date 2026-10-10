@@ -92,7 +92,7 @@ export function GitHubSection() {
             <span aria-hidden="true">#</span>
             Open Source
           </span>
-          <h2 className="section-title text-white mt-1">
+          <h2 className="section-title text-[var(--text-primary)] mt-1">
             GitHub Activity
           </h2>
           <p className="section-subtitle mt-2">
@@ -104,7 +104,7 @@ export function GitHubSection() {
           href="https://github.com/Parthparthu"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/12 text-sm text-[var(--text-secondary)] hover:text-white hover:bg-white/5 transition-colors w-fit min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-[var(--border-subtle)] text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors w-fit min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
         >
           <Github size={16} aria-hidden="true" />
           <span>@Parthparthu</span>
@@ -136,7 +136,7 @@ export function GitHubSection() {
                   className="p-5 text-center"
                 >
                   <Icon size={20} className="mx-auto mb-2" style={{ color: stat.color }} aria-hidden="true" />
-                  <div className="text-2xl md:text-3xl font-bold font-mono text-white tabular-nums">
+                  <div className="text-2xl md:text-3xl font-bold font-mono text-[var(--text-primary)] tabular-nums">
                     {loading ? '…' : stat.value}
                   </div>
                   <div className="text-xs text-[var(--text-tertiary)] uppercase tracking-wider font-semibold font-mono mt-1">
@@ -155,7 +155,7 @@ export function GitHubSection() {
           ? Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="h-44 rounded-xl bg-white/5 border border-white/8 animate-pulse"
+                className="h-44 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] animate-pulse"
               />
             ))
           : repos.map((repo, i) => {
@@ -182,10 +182,10 @@ export function GitHubSection() {
                   >
                     <div>
                       <div className="flex items-start justify-between gap-2 mb-2">
-                        <h3 className="font-semibold text-white group-hover:text-[var(--accent-primary)] transition-colors truncate text-sm md:text-base">
+                        <h3 className="font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors truncate text-sm md:text-base">
                           {repo.name}
                         </h3>
-                        <ArrowUpRight size={14} className="text-[var(--text-muted)] group-hover:text-white transition-colors flex-shrink-0" aria-hidden="true" />
+                        <ArrowUpRight size={14} className="text-[var(--text-muted)] group-hover:text-[var(--text-primary)] transition-colors flex-shrink-0" aria-hidden="true" />
                       </div>
 
                       <p className="text-xs text-[var(--text-tertiary)] line-clamp-2 leading-relaxed mb-4">
@@ -193,7 +193,7 @@ export function GitHubSection() {
                       </p>
                     </div>
 
-                    <div className="flex items-center justify-between text-xs text-[var(--text-muted)] pt-3 border-t border-white/8 font-mono">
+                    <div className="flex items-center justify-between text-xs text-[var(--text-muted)] pt-3 border-t border-[var(--border-subtle)] font-mono">
                       {repo.language && (
                         <span className="flex items-center gap-1.5 font-medium">
                           <span

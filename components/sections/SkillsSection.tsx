@@ -46,7 +46,7 @@ export function SkillsSection() {
           <span aria-hidden="true">#</span>
           Skills
         </span>
-        <h2 className="section-title text-white mt-1">
+        <h2 className="section-title text-[var(--text-primary)] mt-1">
           Technologies Used in Projects
         </h2>
         <p className="section-subtitle mt-2">
@@ -73,7 +73,7 @@ export function SkillsSection() {
                 tint="neutral"
                 radius={14}
                 dynamicLight={POINTER_REACTIVE_3D}
-                className="h-full p-6 flex flex-col group hover:border-white/20 transition-colors"
+                className="h-full p-6 flex flex-col group hover:border-[var(--border-medium)] transition-colors"
               >
                 {/* Category header */}
                 <div className="flex items-center gap-3 mb-4">
@@ -91,7 +91,7 @@ export function SkillsSection() {
                     />
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-white">{category.title}</h3>
+                    <h3 className="text-base font-bold text-[var(--text-primary)]">{category.title}</h3>
                     <p className="text-[11px] text-[var(--text-muted)] font-mono">{category.subtitle}</p>
                   </div>
                 </div>
@@ -101,10 +101,10 @@ export function SkillsSection() {
                   {category.skills.map((skill) => (
                     <div
                       key={skill.name}
-                      className="p-2.5 rounded-lg bg-white/4 border border-white/6 hover:border-white/12 transition-colors"
+                      className="p-2.5 rounded-lg bg-[var(--bg-surface-2)] border border-[var(--border-subtle)] hover:border-[var(--border-medium)] transition-colors"
                     >
                       <div className="flex justify-between items-baseline gap-2 mb-1">
-                        <span className="text-xs font-semibold text-white font-mono">
+                        <span className="text-xs font-semibold text-[var(--text-primary)] font-mono">
                           {skill.name}
                         </span>
                         <span className="text-[10px] text-[var(--text-tertiary)] font-sans text-right">
@@ -118,7 +118,7 @@ export function SkillsSection() {
                           {skill.verifiedIn.map((proj) => (
                             <span
                               key={proj}
-                              className="text-[9px] px-1.5 py-0.5 rounded-xs bg-white/5 text-[var(--text-secondary)] font-mono border border-white/6"
+                              className="text-[9px] px-1.5 py-0.5 rounded-xs bg-[var(--bg-surface-raised)] text-[var(--text-secondary)] font-mono border border-[var(--border-subtle)]"
                             >
                               {proj}
                             </span>

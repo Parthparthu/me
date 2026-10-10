@@ -105,7 +105,7 @@ export function ContactSection() {
           <span aria-hidden="true">#</span>
           Contact
         </span>
-        <h2 className="section-title text-white mt-1">
+        <h2 className="section-title text-[var(--text-primary)] mt-1">
           Get in Touch
         </h2>
         <p className="section-subtitle mt-2">
@@ -183,7 +183,7 @@ export function ContactSection() {
                     initial={{ opacity: 0, y: -6 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -6 }}
-                    className="p-3.5 rounded-lg bg-red-500/15 border border-red-500/30 text-red-300 text-sm flex items-center gap-2"
+                    className="p-3.5 rounded-lg bg-red-500/15 border border-red-500/30 text-red-700 dark:text-red-300 text-sm flex items-center gap-2"
                     role="alert"
                     aria-live="polite"
                   >
@@ -197,7 +197,7 @@ export function ContactSection() {
                     initial={{ opacity: 0, y: -6 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -6 }}
-                    className="p-3.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-sm flex items-center gap-2"
+                    className="p-3.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-sm flex items-center gap-2"
                     role="status"
                     aria-live="polite"
                   >
@@ -247,7 +247,7 @@ export function ContactSection() {
             radius={14}
             className="p-6 md:p-7"
           >
-            <h3 className="text-lg font-display font-bold text-white mb-2">
+            <h3 className="text-lg font-display font-bold text-[var(--text-primary)] mb-2">
               Direct Channels
             </h3>
             <p className="text-sm text-[var(--text-tertiary)] leading-relaxed mb-6">
@@ -272,14 +272,14 @@ export function ContactSection() {
                     href={social.url}
                     target={social.platform === 'Email' ? undefined : '_blank'}
                     rel={social.platform === 'Email' ? undefined : 'noopener noreferrer'}
-                    className="group flex items-center justify-between p-3.5 rounded-lg bg-white/5 border border-white/8 hover:bg-white/10 hover:border-white/15 transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                    className="group flex items-center justify-between p-3.5 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:bg-[var(--bg-surface-hover)] hover:border-[var(--border-strong)] transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-md bg-white/6 text-[var(--accent-primary)] group-hover:text-white transition-colors">
+                      <div className="p-2 rounded-md bg-[var(--bg-surface-active)] text-[var(--accent-primary)] group-hover:text-[var(--accent-hover)] transition-colors">
                         <Icon size={18} aria-hidden="true" />
                       </div>
                       <div>
-                        <div className="text-sm font-semibold text-white group-hover:text-[var(--accent-primary)] transition-colors">
+                        <div className="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
                           {social.platform}
                         </div>
                         <div className="text-xs text-[var(--text-muted)] font-mono truncate max-w-[200px]">

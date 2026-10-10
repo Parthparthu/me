@@ -44,7 +44,7 @@ export function AboutSection() {
           <span aria-hidden="true">#</span>
           About
         </span>
-        <h2 className="section-title text-white mt-1">
+        <h2 className="section-title text-[var(--text-primary)] mt-1">
           Background and Engineering Focus
         </h2>
       </motion.div>
@@ -66,17 +66,17 @@ export function AboutSection() {
             className="p-6"
           >
             <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center">
-                <Trophy size={22} className="text-amber-400" aria-hidden="true" />
+              <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-[var(--accent-amber-subtle)] border border-[var(--accent-amber-border)] flex items-center justify-center">
+                <Trophy size={22} className="text-[var(--accent-amber)]" aria-hidden="true" />
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs font-bold tracking-wider uppercase font-mono text-amber-400">
+                  <span className="text-xs font-bold tracking-wider uppercase font-mono text-[var(--accent-amber)]">
                     World Memory Championship: 2023
                   </span>
-                  <Award size={14} className="text-amber-400" aria-hidden="true" />
+                  <Award size={14} className="text-[var(--accent-amber)]" aria-hidden="true" />
                 </div>
-                <p className="text-white font-semibold text-base leading-snug">
+                <p className="text-[var(--text-primary)] font-semibold text-base leading-snug">
                   Bronze Medalist: Applying systematic spatial loci, speed recall, and pattern recognition directly to system architecture, debugging, and data modeling.
                 </p>
               </div>
@@ -92,7 +92,7 @@ export function AboutSection() {
             </div>
 
             {/* Education and status */}
-            <div className="mt-6 pt-5 border-t border-white/10 flex flex-wrap gap-4 text-xs md:text-sm text-[var(--text-muted)] font-mono">
+            <div className="mt-6 pt-5 border-t border-[var(--border-subtle)] flex flex-wrap gap-4 text-xs md:text-sm text-[var(--text-muted)] font-mono">
               <span className="flex items-center gap-1.5 text-[var(--text-secondary)]">
                 <Brain size={14} className="text-[var(--accent-primary)]" aria-hidden="true" />
                 <span>{profile.education.degree} ({profile.education.year})</span>
@@ -123,7 +123,7 @@ export function AboutSection() {
                   elevation={2}
                   tint={cfg.tint as 'cyan' | 'amber'}
                   radius={14}
-                        className="p-5 h-full flex flex-col gap-3"
+                  className="p-5 h-full flex flex-col gap-3"
                 >
                   <div
                     className="w-10 h-10 rounded-lg flex items-center justify-center"
@@ -139,7 +139,7 @@ export function AboutSection() {
                     />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-sm text-white mb-1">
+                    <h3 className="font-semibold text-sm text-[var(--text-primary)] mb-1">
                       {area.label}
                     </h3>
                     <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
