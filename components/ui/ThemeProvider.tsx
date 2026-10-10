@@ -1,7 +1,7 @@
 /**
  * ThemeProvider: Bridges the Zustand theme store with the DOM data-theme attribute.
- * Also syncs the Zustand store with localStorage on mount for SSR hydration safety.
- * Maintains the existing ThemeContext for backward compatibility.
+ * Syncs the Zustand store with localStorage on mount for SSR hydration safety.
+ * Handles system preference listeners, favicon swapping, and theme-color meta updates.
  */
 'use client';
 
@@ -11,6 +11,7 @@ import {
   useEffect,
   useState,
   useCallback,
+  useRef,
   type ReactNode,
 } from 'react';
 import { useSceneStore } from '@/store/useSceneStore';
@@ -21,6 +22,7 @@ interface ThemeContextValue {
   theme: Theme;
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
+  isManualOverride: boolean;
 }
 
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
@@ -28,49 +30,86 @@ const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const { theme: zustandTheme, setTheme: setZustandTheme } = useSceneStore();
   const [mounted, setMounted] = useState(false);
+  const isManualRef = useRef(false);
 
   useEffect(() => {
-    // On mount, check localStorage (from old storage key) + system preference
-    const oldStored = localStorage.getItem('portfolio-theme') as Theme | null;
-    if (oldStored && (oldStored === 'dark' || oldStored === 'light')) {
-      setZustandTheme(oldStored);
-    } else if (
-      !localStorage.getItem('portfolio-scene-store') &&
-      window.matchMedia('(prefers-color-scheme: light)').matches
-    ) {
-      setZustandTheme('light');
+    // Check localStorage on mount
+    const stored = localStorage.getItem('portfolio-theme') as Theme | null;
+    if (stored === 'dark' || stored === 'light') {
+      isManualRef.current = true;
+      setZustandTheme(stored);
+    } else {
+      const systemIsLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      setZustandTheme(systemIsLight ? 'light' : 'dark');
     }
     setMounted(true);
+
+    // Listen to system preference changes
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+    const handleSystemChange = (e: MediaQueryListEvent) => {
+      // If user has not explicitly set a manual preference in this session, follow system
+      if (!isManualRef.current) {
+        const newTheme: Theme = e.matches ? 'light' : 'dark';
+        setZustandTheme(newTheme);
+      }
+    };
+
+    mediaQuery.addEventListener('change', handleSystemChange);
+    return () => mediaQuery.removeEventListener('change', handleSystemChange);
   }, [setZustandTheme]);
 
-  // Apply theme to <html> data-theme attribute
+  // Synchronize DOM attributes, color-scheme, meta theme-color, and favicon
   useEffect(() => {
     if (!mounted) return;
+
+    // Apply data-theme to <html>
     document.documentElement.setAttribute('data-theme', zustandTheme);
-    // Set meta theme-color for mobile browser chrome
-    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
-    if (metaThemeColor) {
-      metaThemeColor.setAttribute(
-        'content',
-        zustandTheme === 'dark' ? '#0b0f17' : '#f8fafc'
-      );
+    document.documentElement.style.colorScheme = zustandTheme;
+
+    // Update meta theme-color
+    const themeColor = zustandTheme === 'dark' ? '#0b0f17' : '#f6f8fb';
+    const metaThemeColors = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
+    if (metaThemeColors.length > 0) {
+      metaThemeColors.forEach((m) => m.setAttribute('content', themeColor));
+    } else {
+      const meta = document.createElement('meta');
+      meta.setAttribute('name', 'theme-color');
+      meta.setAttribute('content', themeColor);
+      document.head.appendChild(meta);
+    }
+
+    // Update SVG favicon to match theme
+    const svgFavicon = document.querySelector<HTMLLinkElement>('link[rel="icon"][type="image/svg+xml"]');
+    if (svgFavicon) {
+      svgFavicon.href = zustandTheme === 'dark' ? '/favicon.svg' : '/favicon-light.svg';
     }
   }, [zustandTheme, mounted]);
 
-  const setTheme = useCallback((t: Theme) => setZustandTheme(t), [setZustandTheme]);
-  const toggleTheme = useCallback(
-    () => setZustandTheme(zustandTheme === 'dark' ? 'light' : 'dark'),
-    [zustandTheme, setZustandTheme]
+  const setTheme = useCallback(
+    (t: Theme) => {
+      isManualRef.current = true;
+      localStorage.setItem('portfolio-theme', t);
+      setZustandTheme(t);
+    },
+    [setZustandTheme]
   );
 
+  const toggleTheme = useCallback(() => {
+    isManualRef.current = true;
+    const nextTheme: Theme = zustandTheme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('portfolio-theme', nextTheme);
+    setZustandTheme(nextTheme);
+  }, [zustandTheme, setZustandTheme]);
+
   return (
-    <ThemeContext.Provider value={{ theme: zustandTheme, setTheme, toggleTheme }}>
-      {/* Anti-FOUC script: runs synchronously before paint */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `(function(){try{var s=localStorage.getItem('portfolio-scene-store');var t=s?JSON.parse(s)?.state?.theme:null;if(!t){t=localStorage.getItem('portfolio-theme')}if(!t){t=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark'}document.documentElement.setAttribute('data-theme',t)}catch(e){document.documentElement.setAttribute('data-theme','dark')}})()`,
-        }}
-      />
+    <ThemeContext.Provider
+      value={{
+        theme: zustandTheme,
+        setTheme,
+        toggleTheme,
+        isManualOverride: isManualRef.current,
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   );

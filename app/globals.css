@@ -188,47 +188,47 @@
 [data-theme='light'] {
   color-scheme: light;
 
-  --bg-app: #f8fafc;
+  --bg-app: #f6f8fb;
   --bg-surface: #ffffff;
-  --bg-surface-2: #f1f5f9;
+  --bg-surface-2: #eef2f6;
   --bg-surface-raised: #e2e8f0;
-  --bg-surface-hover: #cbd5e1;
-  --bg-surface-active: #94a3b8;
-  --bg-glass: rgba(248, 250, 252, 0.90);
+  --bg-surface-hover: rgba(15, 23, 42, 0.05);
+  --bg-surface-active: rgba(15, 23, 42, 0.08);
+  --bg-glass: rgba(255, 255, 255, 0.82);
   --bg-glass-island: rgba(255, 255, 255, 0.92);
 
   --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-tertiary: #64748b;
-  --text-muted: #94a3b8;
+  --text-secondary: #1e293b;
+  --text-tertiary: #374151;
+  --text-muted: #4b5563;
   --text-inverse: #f8fafc;
   --text-on-accent: #ffffff;
 
-  --border-specular: rgba(0, 0, 0, 0.12);
-  --border-subtle: rgba(0, 0, 0, 0.07);
-  --border-medium: rgba(0, 0, 0, 0.12);
-  --border-strong: rgba(0, 0, 0, 0.20);
+  --border-specular: rgba(15, 23, 42, 0.12);
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-medium: rgba(15, 23, 42, 0.14);
+  --border-strong: rgba(15, 23, 42, 0.22);
   --border-focus: #0284c7;
 
   --accent-primary: #0284c7;
   --accent-primary-hover: #0369a1;
-  --accent-primary-subtle: rgba(2, 132, 199, 0.08);
-  --accent-primary-border: rgba(2, 132, 199, 0.22);
-  --accent-emerald: #059669;
-  --accent-emerald-subtle: rgba(5, 150, 105, 0.08);
-  --accent-emerald-border: rgba(5, 150, 105, 0.22);
-  --accent-amber: #d97706;
-  --accent-amber-subtle: rgba(217, 119, 6, 0.08);
+  --accent-primary-subtle: rgba(2, 132, 199, 0.09);
+  --accent-primary-border: rgba(2, 132, 199, 0.24);
+  --accent-emerald: #047857;
+  --accent-emerald-subtle: rgba(4, 120, 87, 0.08);
+  --accent-emerald-border: rgba(4, 120, 87, 0.24);
+  --accent-amber: #b45309;
+  --accent-amber-subtle: rgba(180, 83, 9, 0.08);
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.10);
-  --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.12);
-  --shadow-glow: 0 0 0 1px rgba(2, 132, 199, 0.15), 0 8px 24px rgba(2, 132, 199, 0.10);
-  --shadow-card-hover: 0 16px 32px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(2, 132, 199, 0.12);
-  --shadow-spatial: 0 20px 40px -10px rgba(0, 0, 0, 0.10);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05), 0 1px 2px rgba(15, 23, 42, 0.03);
+  --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 28px -4px rgba(15, 23, 42, 0.10), 0 4px 12px -2px rgba(15, 23, 42, 0.05);
+  --shadow-xl: 0 24px 48px -8px rgba(15, 23, 42, 0.14), 0 8px 20px -4px rgba(15, 23, 42, 0.06);
+  --shadow-glow: 0 0 0 1px rgba(2, 132, 199, 0.20), 0 8px 24px rgba(2, 132, 199, 0.12);
+  --shadow-card-hover: 0 20px 36px -6px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(2, 132, 199, 0.20);
+  --shadow-spatial: 0 24px 52px -12px rgba(15, 23, 42, 0.16);
 
-  --bg-grid-line: rgba(0, 0, 0, 0.04);
+  --bg-grid-line: rgba(15, 23, 42, 0.04);
 }
 
 /* ==========================================================================
@@ -569,21 +569,43 @@ ul, ol { list-style: none; }
 .animated-underline:hover::after { width: 100%; }
 
 /* ==========================================================================
-   SCROLLBAR
+   SCROLLBAR & SELECTION
    ========================================================================== */
 
 :root {
   scrollbar-width: thin;
-  scrollbar-color: rgba(14, 165, 233, 0.25) transparent;
+  scrollbar-color: var(--border-medium) transparent;
 }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.25); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(14, 165, 233, 0.45); }
+::-webkit-scrollbar-thumb { background: var(--border-medium); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-strong); }
 
 /* Selection */
 ::selection {
-  background-color: rgba(14, 165, 233, 0.25);
+  background-color: var(--accent-primary-subtle);
+  color: var(--text-primary);
+}
+
+/* ==========================================================================
+   CODE & PRE
+   ========================================================================== */
+
+code:not(pre code) {
+  padding: 0.15em 0.35em;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-surface-active);
+  color: var(--accent-primary);
+  border: 1px solid var(--border-subtle);
+  font-size: 0.875em;
+}
+
+pre {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  overflow-x: auto;
   color: var(--text-primary);
 }
 

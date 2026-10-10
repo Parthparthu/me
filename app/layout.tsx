@@ -193,9 +193,8 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
 
-        {/* Dual-mode theme colors matching design palette */}
-        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b0f17" />
-        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f8fafc" />
+        {/* Theme color and color-scheme */}
+        <meta name="theme-color" content="#0b0f17" />
         <meta name="color-scheme" content="dark light" />
 
         {/* Viewport: safe areas, never disable user zoom */}
@@ -203,15 +202,21 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
+        {/* Anti-FOUC theme initialization script */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('portfolio-theme');if(!t){var s=localStorage.getItem('portfolio-scene-store');if(s){t=JSON.parse(s)?.state?.theme;}}if(!t){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);document.documentElement.style.colorScheme=t;}catch(e){}})()`,
+          }}
+        />
       </head>
       <body suppressHydrationWarning>
-        {/* Branded first-visit preloader */}
-        <Preloader />
-
-        {/* 3D canvas: persistent, ambient, behind everything */}
-        <SceneCanvas />
-
         <ThemeProvider>
+          {/* Branded first-visit preloader */}
+          <Preloader />
+
+          {/* 3D canvas: persistent, ambient, behind everything */}
+          <SceneCanvas />
+
           <SmoothScrollProvider>
             {/* SVG refraction filter definitions */}
             <GlassSVGFilter />

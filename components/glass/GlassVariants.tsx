@@ -134,9 +134,9 @@ export function GlassButton({
         'transition-colors duration-150',
         'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
         'focus-visible:outline-[var(--border-focus)]',
-        variant === 'primary' && 'text-white bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)]',
-        variant === 'secondary' && 'text-[var(--text-primary)] hover:text-white',
-        variant === 'ghost' && 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]',
+        variant === 'primary' && 'text-[var(--text-on-accent)] bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] shadow-sm',
+        variant === 'secondary' && 'text-[var(--text-primary)] hover:text-[var(--accent-primary)] hover:bg-[var(--bg-surface-hover)]',
+        variant === 'ghost' && 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)]',
         className
       )}
       {...(props as unknown as React.HTMLAttributes<HTMLDivElement>)}
