@@ -27,13 +27,13 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Pradyumna: Software Developer',
-    template: '%s | Pradyumna',
+    default: 'Pradyuma: Software Developer',
+    template: '%s | Pradyuma',
   },
   description:
-    'First-year B.Tech CSE (AI/ML) student building production-grade full-stack, financial data, and AI/ML applications. World Memory Championship Bronze Medalist (2023). Open to software engineering internships.',
+    'First-year B.Tech CSE (AI/ML) student at GL Bajaj ITM building practical web applications, data tools, and systems. World Memory Championship Bronze Medalist (2023).',
   keywords: [
-    'Pradyumna',
+    'Pradyuma',
     'developer',
     'portfolio',
     'full-stack',
@@ -48,8 +48,8 @@ export const metadata: Metadata = {
     'World Memory Championship',
     'internship',
   ],
-  authors: [{ name: 'Pradyumna', url: 'https://github.com/Parthparthu' }],
-  creator: 'Pradyumna',
+  authors: [{ name: 'Pradyuma', url: 'https://github.com/Parthparthu' }],
+  creator: 'Pradyuma',
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: '32x32' },
@@ -62,16 +62,16 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_IN',
     url: 'https://parthparthu.github.io/me/',
-    title: 'Pradyumna: Software Developer',
+    title: 'Pradyuma: Software Developer',
     description:
-      'First-year B.Tech CSE (AI/ML) student building production-grade applications. World Memory Championship Bronze Medalist.',
-    siteName: 'Pradyumna',
+      'First-year B.Tech CSE (AI/ML) student at GL Bajaj ITM building practical applications. World Memory Championship Bronze Medalist.',
+    siteName: 'Pradyuma',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Pradyumna: Software Developer',
+    title: 'Pradyuma: Software Developer',
     description:
-      'B.Tech CSE (AI/ML) student. Full-stack developer. World Memory Championship Bronze Medalist (2023).',
+      'B.Tech CSE (AI/ML) student. Software and web developer. World Memory Championship Bronze Medalist (2023).',
     creator: '@Parthparthu',
   },
   robots: { index: true, follow: true },
@@ -96,7 +96,7 @@ export default function RootLayout({
             __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'Person',
-              name: 'Pradyumna',
+              name: 'Pradyuma',
               url: 'https://parthparthu.github.io/me/',
               sameAs: [
                 'https://github.com/Parthparthu',
@@ -106,7 +106,7 @@ export default function RootLayout({
               jobTitle: 'Software Developer',
               email: 'pradyumna05@outlook.in',
               description:
-                'First-year B.Tech CSE (AI/ML) student and full-stack developer. World Memory Championship Bronze Medalist (2023).',
+                'First-year B.Tech CSE (AI/ML) student at GL Bajaj ITM. World Memory Championship Bronze Medalist (2023).',
               knowsAbout: [
                 'React',
                 'TypeScript',

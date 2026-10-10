@@ -4,7 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Terms and Conditions',
-  description: 'Terms and conditions for Pradyumna\'s personal developer portfolio.',
+  description: 'Terms and conditions for Pradyuma\'s personal developer portfolio.',
 };
 
 export default function TermsPage() {
@@ -44,7 +44,7 @@ export default function TermsPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-semibold text-white">3. Intellectual Property</h2>
           <p>
-            All original text, technical write-ups, case study analyses, and design assets on this website are the intellectual property of Pradyumna, unless indicated otherwise.
+            All original text, technical write-ups, case study analyses, and design assets on this website are the intellectual property of Pradyuma, unless indicated otherwise.
           </p>
           <p>
             Source code repositories linked from this site (such as on GitHub) are subject to their respective open-source licenses as stated in their repositories. Third-party brand names, trademarks, and logos (such as React, Python, or Next.js) belong to their respective owners.

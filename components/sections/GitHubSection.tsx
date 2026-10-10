@@ -36,16 +36,10 @@ const LANG_COLORS: Record<string, string> = {
   Rust: '#dea584',
 };
 
-const FALLBACK_USER: GitHubUser = {
-  public_repos: 9,
-  followers: 5,
-  following: 5,
-};
-
 const SPRING = { type: 'spring', stiffness: 280, damping: 28 } as const;
 
 export function GitHubSection() {
-  const [user, setUser] = useState<GitHubUser>(FALLBACK_USER);
+  const [user, setUser] = useState<GitHubUser | null>(null);
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -71,7 +65,7 @@ export function GitHubSection() {
           setRepos(reposData);
         }
       } catch {
-        // Fallback already set
+        // Retain null user without displaying fabricated figures
       } finally {
         setLoading(false);
       }
@@ -119,40 +113,42 @@ export function GitHubSection() {
       </div>
 
       {/* Stats row */}
-      <div className="grid grid-cols-3 gap-4 mb-10">
-        {[
-          { icon: BookOpen, label: 'Repositories', value: user.public_repos, color: 'var(--accent-primary)' },
-          { icon: Activity, label: 'Followers', value: user.followers, color: 'var(--accent-primary)' },
-          { icon: Github, label: 'Following', value: user.following, color: 'var(--text-secondary)' },
-        ].map((stat, i) => {
-          const Icon = stat.icon;
-          return (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ ...SPRING, delay: i * 0.06 }}
-            >
-              <LiquidGlass
-                elevation={2}
-                tint="neutral"
-                radius={14}
-                dynamicLight={false}
-                className="p-5 text-center"
+      {user && (
+        <div className="grid grid-cols-3 gap-4 mb-10">
+          {[
+            { icon: BookOpen, label: 'Repositories', value: user.public_repos, color: 'var(--accent-primary)' },
+            { icon: Activity, label: 'Followers', value: user.followers, color: 'var(--accent-primary)' },
+            { icon: Github, label: 'Following', value: user.following, color: 'var(--text-secondary)' },
+          ].map((stat, i) => {
+            const Icon = stat.icon;
+            return (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ ...SPRING, delay: i * 0.06 }}
               >
-                <Icon size={20} className="mx-auto mb-2" style={{ color: stat.color }} aria-hidden="true" />
-                <div className="text-2xl md:text-3xl font-bold font-mono text-white tabular-nums">
-                  {loading ? '...' : stat.value}
-                </div>
-                <div className="text-xs text-[var(--text-tertiary)] uppercase tracking-wider font-semibold font-mono mt-1">
-                  {stat.label}
-                </div>
-              </LiquidGlass>
-            </motion.div>
-          );
-        })}
-      </div>
+                <LiquidGlass
+                  elevation={2}
+                  tint="neutral"
+                  radius={14}
+                  dynamicLight={false}
+                  className="p-5 text-center"
+                >
+                  <Icon size={20} className="mx-auto mb-2" style={{ color: stat.color }} aria-hidden="true" />
+                  <div className="text-2xl md:text-3xl font-bold font-mono text-white tabular-nums">
+                    {loading ? '...' : stat.value}
+                  </div>
+                  <div className="text-xs text-[var(--text-tertiary)] uppercase tracking-wider font-semibold font-mono mt-1">
+                    {stat.label}
+                  </div>
+                </LiquidGlass>
+              </motion.div>
+            );
+          })}
+        </div>
+      )}
 
       {/* Recent repositories grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

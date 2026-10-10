@@ -9,7 +9,7 @@ export function Footer() {
 
         {/* Left: copyright */}
         <p className="text-[var(--text-tertiary)] text-sm">
-          &copy; {new Date().getFullYear()} Pradyumna
+          &copy; {new Date().getFullYear()} Pradyuma
         </p>
 
         {/* Center: legal links */}

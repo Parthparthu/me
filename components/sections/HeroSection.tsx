@@ -50,7 +50,7 @@ export function HeroSection() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
             <span className="text-xs font-medium text-emerald-400">
-              Open to Software Engineering Internships
+              Open to Internships: Greater Noida, Noida, Delhi NCR &amp; Remote
             </span>
           </LiquidGlass>
 
@@ -61,17 +61,17 @@ export function HeroSection() {
               'text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-none'
             )}
           >
-            Pradyumna
+            Pradyuma
           </h1>
 
           {/* Role and Identity */}
           <p className="text-lg md:text-xl font-medium text-[var(--accent-primary)] font-mono">
-            B.Tech CSE (AI/ML) &middot; Full-Stack &amp; Systems Developer
+            B.Tech CSE (AI/ML) &middot; Software &amp; Web Developer
           </p>
 
           {/* Concrete Hero Copy */}
           <p className="text-base md:text-lg text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
-            First-year Computer Science student at GL Bajaj ITM building offline-first web applications, financial data pipelines, and applied machine learning tools. World Memory Championship Bronze Medalist (2023).
+            First-year Computer Science and Engineering (AI/ML) student at GL Bajaj ITM, Greater Noida (graduating 2030), with approximately five years of self-directed coding. Building practical web applications, data tools, and progressive web apps.
           </p>
 
           {/* CTAs */}

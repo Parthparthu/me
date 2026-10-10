@@ -7,7 +7,7 @@ export type ProjectCategory =
 
 export type ProjectTier = 'Tier A' | 'Tier B' | 'Tier C';
 
-export type ProjectStatus = 'Production' | 'Active Development' | 'Completed' | 'Prototype';
+export type ProjectStatus = 'Production' | 'Active Development' | 'Completed' | 'Prototype' | 'Product Concept';
 
 export interface CaseStudy {
   problem: string;

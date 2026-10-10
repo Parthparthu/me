@@ -4,7 +4,7 @@ import { ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Privacy policy for Pradyumna\'s personal developer portfolio.',
+  description: 'Privacy policy for Pradyuma\'s personal developer portfolio.',
 };
 
 export default function PrivacyPage() {
@@ -30,7 +30,7 @@ export default function PrivacyPage() {
         <section className="space-y-3">
           <h2 className="text-lg font-semibold text-white">Overview</h2>
           <p>
-            This website is a personal portfolio operated by Pradyumna. I value privacy and maintain minimal data collection. This document explains what information is collected, how it is handled, and your rights.
+            This website is a personal portfolio operated by Pradyuma. I value privacy and maintain minimal data collection. This document explains what information is collected, how it is handled, and your rights.
           </p>
         </section>
 

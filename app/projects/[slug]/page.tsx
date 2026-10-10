@@ -66,12 +66,9 @@ export default async function ProjectPage({ params }: Props) {
             <span className="px-2.5 py-0.5 rounded-sm text-xs bg-white/6 border border-white/10 text-[var(--text-muted)]">
               {project.tier}
             </span>
-            {project.status === 'Active Development' && (
-              <span className="flex items-center gap-1.5 text-xs font-medium px-2.5 py-0.5 rounded-sm bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
-                <span>Active Development</span>
-              </span>
-            )}
+            <span className="px-2.5 py-0.5 rounded-sm text-xs bg-white/6 border border-white/10 text-[var(--accent-primary)]">
+              {project.status}
+            </span>
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4 text-white tracking-tight leading-tight">

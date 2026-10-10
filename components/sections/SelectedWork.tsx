@@ -24,6 +24,7 @@ const PROJECT_GRADIENTS: Record<string, { from: string; to: string; accent: stri
 const STATUS_STYLES: Record<string, string> = {
   Production: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
   Prototype: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+  'Product Concept': 'bg-amber-500/10 text-amber-400 border-amber-500/20',
   'Active Development': 'bg-sky-500/10 text-sky-400 border-sky-500/20',
   Completed: 'bg-slate-500/10 text-slate-400 border-slate-500/20',
 };

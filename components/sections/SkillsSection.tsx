@@ -1,6 +1,3 @@
-/**
- * SkillsSection: Technical capabilities categorized with proficiency indicators and repository references.
- */
 'use client';
 
 import React from 'react';
@@ -19,15 +16,13 @@ const ICON_MAP: Record<string, LucideIcon> = {
 };
 
 const CATEGORY_ACCENTS = [
-  '#0ea5e9', // Core Languages: sky
-  '#0284c7', // Frontend: blue
+  '#0ea5e9', // Languages: sky
+  '#0284c7', // Frameworks: blue
   '#10b981', // Backend: emerald
-  '#f59e0b', // Databases: amber
-  '#0ea5e9', // AI/ML: sky
-  '#64748b', // DevTools: slate
+  '#f59e0b', // Storage: amber
+  '#0ea5e9', // Academic: sky
+  '#64748b', // Tools: slate
 ];
-
-const LEVEL_LABELS = ['Foundational', 'Working Knowledge', 'Proficient', 'Core Strength'];
 
 const SPRING = { type: 'spring', stiffness: 280, damping: 28 } as const;
 
@@ -51,10 +46,10 @@ export function SkillsSection() {
           Skills
         </span>
         <h2 className="section-title text-white mt-1">
-          Technical Stack
+          Technologies Used in Projects
         </h2>
         <p className="section-subtitle mt-2">
-          Technologies applied in production-grade projects, algorithms, and coursework.
+          Classified by direct implementation evidence across codebases, academic coursework, and active study.
         </p>
       </motion.div>
 
@@ -80,7 +75,7 @@ export function SkillsSection() {
                 className="h-full p-6 flex flex-col"
               >
                 {/* Category header */}
-                <div className="flex items-center gap-3 mb-5">
+                <div className="flex items-center gap-3 mb-4">
                   <div
                     className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
                     style={{
@@ -94,48 +89,35 @@ export function SkillsSection() {
                       style={{ color: accent }}
                     />
                   </div>
-                  <h3 className="text-base font-bold text-white">{category.title}</h3>
+                  <div>
+                    <h3 className="text-base font-bold text-white">{category.title}</h3>
+                    <p className="text-[11px] text-[var(--text-muted)] font-mono">{category.subtitle}</p>
+                  </div>
                 </div>
 
                 {/* Skills list */}
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-3 mt-2">
                   {category.skills.map((skill) => (
-                    <div key={skill.name}>
-                      <div className="flex justify-between items-center mb-1">
-                        <span className="text-sm font-medium text-[var(--text-secondary)]">
+                    <div
+                      key={skill.name}
+                      className="p-2.5 rounded-lg bg-white/4 border border-white/6 hover:border-white/12 transition-colors"
+                    >
+                      <div className="flex justify-between items-baseline gap-2 mb-1">
+                        <span className="text-xs font-semibold text-white font-mono">
                           {skill.name}
                         </span>
-                        <span className="text-[10px] text-[var(--text-muted)] font-mono uppercase tracking-wider">
-                          {LEVEL_LABELS[(skill.level || 1) - 1]}
+                        <span className="text-[10px] text-[var(--text-tertiary)] font-sans text-right">
+                          {skill.context}
                         </span>
                       </div>
 
-                      {/* Proficiency bar: 2px height, 2px radius */}
-                      <div
-                        className="w-full h-1.5 rounded-xs bg-white/8 overflow-hidden"
-                        role="progressbar"
-                        aria-valuenow={skill.level}
-                        aria-valuemin={1}
-                        aria-valuemax={4}
-                        aria-label={`${skill.name}: ${LEVEL_LABELS[(skill.level || 1) - 1]}`}
-                      >
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${((skill.level || 1) / 4) * 100}%` }}
-                          viewport={{ once: true }}
-                          transition={{ duration: 0.6, delay: catIndex * 0.04, ease: 'easeOut' }}
-                          className="h-full rounded-xs"
-                          style={{ background: accent }}
-                        />
-                      </div>
-
-                      {/* Project references */}
+                      {/* Project evidence tags */}
                       {skill.verifiedIn && skill.verifiedIn.length > 0 && (
                         <div className="flex flex-wrap gap-1 mt-1.5">
-                          {skill.verifiedIn.slice(0, 2).map((proj) => (
+                          {skill.verifiedIn.map((proj) => (
                             <span
                               key={proj}
-                              className="text-[9px] px-1.5 py-0.5 rounded-xs bg-white/5 text-[var(--text-muted)] font-mono border border-white/5"
+                              className="text-[9px] px-1.5 py-0.5 rounded-xs bg-white/5 text-[var(--text-secondary)] font-mono border border-white/6"
                             >
                               {proj}
                             </span>

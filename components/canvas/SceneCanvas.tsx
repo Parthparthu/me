@@ -1,29 +1,54 @@
-/**
- * SceneCanvas: Persistent, full-viewport ambient 3D canvas.
- * Mounts once at the layout level and never unmounts between route changes.
- * Stays fixed behind all DOM content (z-index: 0, pointer-events: none).
- *
- * Architecture:
- * - Single RAF via @react-three/fiber
- * - Ambient-only: no scroll-driven camera, no pinned sections
- * - DPR capped at 2 for performance
- * - Disabled entirely when quality === 'none' or prefers-reduced-motion
- *
- * Deliberately minimal: the canvas provides depth and atmosphere,
- * not spectacle. DOM content is the primary communication layer.
- */
 'use client';
 
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { AdaptiveDpr, PerformanceMonitor } from '@react-three/drei';
 import { useSceneStore } from '@/store/useSceneStore';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import * as THREE from 'three';
+import { HeroGlassCore } from './HeroGlassCore';
+import { InteractiveParticleField } from './InteractiveParticleField';
 
-// A single soft ambient light + one point light: no geometry, no camera rig.
-// Geometry can be added here later (hero glass object, etc.) after audit approval.
-function AmbientScene() {
+/**
+ * DynamicCursorLight: Soft point light that tracks the pointer position.
+ * Casts moving specular highlights and caustic refractions across the glass facets.
+ */
+function DynamicCursorLight() {
+  const lightRef = useRef<THREE.PointLight>(null);
+  const targetPos = useRef(new THREE.Vector3(0, 0, 3));
+
+  useEffect(() => {
+    const onPointerMove = (e: PointerEvent) => {
+      const nx = (e.clientX / window.innerWidth) * 2 - 1;
+      const ny = -(e.clientY / window.innerHeight) * 2 + 1;
+      targetPos.current.set(nx * 4, ny * 3, 3.5);
+    };
+
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    return () => window.removeEventListener('pointermove', onPointerMove);
+  }, []);
+
+  useFrame((_, delta) => {
+    if (!lightRef.current) return;
+    lightRef.current.position.lerp(targetPos.current, delta * 4);
+  });
+
+  return (
+    <pointLight
+      ref={lightRef}
+      color="#38bdf8"
+      intensity={1.2}
+      distance={10}
+      decay={2}
+    />
+  );
+}
+
+/**
+ * SceneContent: Assembles the lighting, interactive 3D crystal core,
+ * and dynamic particle field.
+ */
+function SceneContent() {
   const setCanvasReady = useSceneStore((s) => s.setCanvasReady);
-  const setQuality = useSceneStore((s) => s.setQuality);
 
   useEffect(() => {
     setCanvasReady(true);
@@ -32,27 +57,54 @@ function AmbientScene() {
 
   return (
     <>
-      {/* Base ambient fill: keeps dark bg from being pure black */}
-      <ambientLight intensity={0.4} />
-      {/* Soft key light from upper-right */}
-      <pointLight position={[6, 8, 4]} intensity={1.2} color="#c8d8f0" />
-      {/* Subtle fill from lower-left */}
-      <pointLight position={[-4, -3, 2]} intensity={0.3} color="#d0e8e0" />
+      {/* Base ambient fill: Keeps background readable without pitch black */}
+      <ambientLight intensity={0.65} color="#0f172a" />
+
+      {/* Key directional light for crisp facet edge highlights */}
+      <directionalLight position={[6, 8, 5]} intensity={2.0} color="#f0f9ff" />
+
+      {/* Rim light from lower-left for liquid-glass silhouette definition */}
+      <directionalLight position={[-6, -4, -2]} intensity={1.4} color="#0284c7" />
+
+      {/* Interactive cursor light */}
+      <DynamicCursorLight />
+
+      {/* Central Interactive 3D Liquid-Glass Prism */}
+      <HeroGlassCore />
+
+      {/* Interactive 3D Particle Constellation */}
+      <InteractiveParticleField />
     </>
   );
 }
 
 export function SceneCanvas() {
   const { quality, setQuality } = useSceneStore();
-  const prefersReducedMotion = useRef(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    prefersReducedMotion.current = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReducedMotion(mediaQuery.matches);
+
+    const onMotionChange = (e: MediaQueryListEvent) => {
+      setReducedMotion(e.matches);
+    };
+
+    const onVisibilityChange = () => {
+      setIsVisible(!document.hidden);
+    };
+
+    mediaQuery.addEventListener('change', onMotionChange);
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
+    return () => {
+      mediaQuery.removeEventListener('change', onMotionChange);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    };
   }, []);
 
-  // Don't render canvas for 'none' quality tier or reduced motion
+  // Do not render canvas if disabled by performance monitor or user preference
   if (quality === 'none') return null;
 
   return (
@@ -66,7 +118,7 @@ export function SceneCanvas() {
       }}
     >
       <Canvas
-        camera={{ position: [0, 0, 8], fov: 50, near: 0.1, far: 100 }}
+        camera={{ position: [0, 0, 7.5], fov: 45, near: 0.1, far: 80 }}
         dpr={[1, 2]}
         gl={{
           antialias: true,
@@ -76,7 +128,7 @@ export function SceneCanvas() {
           depth: true,
         }}
         style={{ background: 'transparent' }}
-        frameloop={prefersReducedMotion.current ? 'never' : 'demand'}
+        frameloop={!isVisible || reducedMotion ? 'never' : 'always'}
       >
         <AdaptiveDpr pixelated />
         <PerformanceMonitor
@@ -85,15 +137,12 @@ export function SceneCanvas() {
             else if (quality === 'medium') setQuality('low');
             else setQuality('none');
           }}
-          onIncline={() => {
-            // Do not auto-upgrade to avoid oscillation
-          }}
           flipflops={3}
           factor={1}
           step={0.2}
           ms={200}
         >
-          <AmbientScene />
+          <SceneContent />
         </PerformanceMonitor>
       </Canvas>
     </div>

@@ -8,12 +8,13 @@ import { ArrowLeft, Download, Mail, Github, Linkedin, ExternalLink, Trophy, Grad
 import { profile } from '@/data/profile';
 import { skillCategories } from '@/data/skills';
 import { projects } from '@/data/projects';
+import { verifiedCertificates } from '@/data/achievements';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
 
 export const metadata: Metadata = {
-  title: 'Resume: Pradyumna',
+  title: 'Resume: Pradyuma',
   description:
-    'Curriculum Vitae and technical resume of Pradyumna, CSE (AI/ML) student, full-stack engineer, and World Memory Championship Bronze Medalist.',
+    'Curriculum Vitae and technical resume of Pradyuma, CSE (AI/ML) student at GL Bajaj ITM, software and web developer.',
 };
 
 export default function ResumePage() {
@@ -33,7 +34,7 @@ export default function ResumePage() {
 
         <a
           href="/resume.pdf"
-          download="Pradyumna_Resume.pdf"
+          download="Pradyuma_Resume.pdf"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[var(--accent-primary)] text-white text-xs font-semibold shadow-md hover:bg-[var(--accent-primary-hover)] transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
         >
           <Download size={14} aria-hidden="true" />
@@ -108,11 +109,43 @@ export default function ResumePage() {
                 <Trophy size={16} className="text-amber-400" aria-hidden="true" />
                 <span>World Memory Championship 2023</span>
               </div>
-              <p className="text-xs text-amber-200/90 mb-1">Bronze Medalist</p>
+              <p className="text-xs text-amber-200/90 mb-1">Bronze Medalist (Top Amateur)</p>
               <p className="text-xs text-[var(--text-secondary)]">
-                International mental discipline competition applying spatial loci and systematic recall to complex information.
+                IAM World Memory Championship 2023 (Navi Mumbai). Verified by official medal and arbiters certificate.
               </p>
             </div>
+          </div>
+        </section>
+
+        {/* Documented Credentials and Certificates */}
+        <section className="space-y-4">
+          <h2 className="font-display font-bold text-white uppercase tracking-wider text-xs font-mono">
+            Documented Credentials and Certificates
+          </h2>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {verifiedCertificates.map((cert) => (
+              <div
+                key={cert.id}
+                className="p-3.5 rounded-lg bg-white/5 border border-white/8 flex items-center justify-between gap-3 hover:border-white/15 transition-colors"
+              >
+                <div>
+                  <h3 className="text-xs font-bold text-white leading-snug">{cert.title}</h3>
+                  <p className="text-[11px] text-[var(--text-muted)] font-mono">
+                    {cert.issuer} &middot; {cert.year}
+                  </p>
+                </div>
+                <a
+                  href={cert.documentUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-[var(--accent-primary)] hover:underline flex items-center gap-1 flex-shrink-0 min-h-[36px] p-1 font-mono"
+                  aria-label={`View evidence for ${cert.title}`}
+                >
+                  <span>Evidence</span>
+                  <ExternalLink size={11} aria-hidden="true" />
+                </a>
+              </div>
+            ))}
           </div>
         </section>
 

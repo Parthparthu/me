@@ -28,8 +28,8 @@ const CURRENT_PROJECTS: CurrentProject[] = [
   {
     id: 'codeclash',
     name: 'CodeClash AI',
-    task: 'Integrating real-time Monaco WebSocket collaborative sandbox',
-    status: 'Active Development',
+    task: 'Designing sandboxed Python code evaluation and WebSocket match synchronization',
+    status: 'Product Concept',
     icon: Terminal,
     url: 'https://github.com/Parthparthu/CodeClash-AI',
   },
