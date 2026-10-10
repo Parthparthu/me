@@ -2,38 +2,38 @@ import type { Metadata } from 'next';
 import { Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/ui/ThemeProvider';
-import { SmoothScrollProvider } from '@/components/common/SmoothScrollProvider';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ClientOverlays } from '@/components/common/ClientOverlays';
 import { GlassSVGFilter } from '@/components/glass/GlassSVGFilter';
-import { SceneCanvas } from '@/components/canvas/SceneCanvas';
-import { Preloader } from '@/components/layout/Preloader';
 
-// Configure fonts with CSS variables
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
 });
+
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   variable: '--font-space-grotesk',
   display: 'swap',
 });
+
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-jetbrains-mono',
   display: 'swap',
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://parthparthu.github.io/me';
+
 export const metadata: Metadata = {
   title: {
-    default: 'Pradyumna — Software Developer & Product Builder',
+    default: 'Pradyumna: Software Developer and Product Builder',
     template: '%s | Pradyumna',
   },
   description:
-    'B.Tech CSE (AI/ML) student and full-stack developer building production-grade applications. World Memory Championship Bronze Medalist. Open to Software Engineering internships.',
+    'Computer Science student and full-stack software engineer building offline-first applications and financial data pipelines. World Memory Championship Bronze Medalist.',
   keywords: [
     'Pradyumna',
     'developer',
@@ -42,33 +42,38 @@ export const metadata: Metadata = {
     'React',
     'Next.js',
     'TypeScript',
-    'AI',
-    'ML',
-    'Three.js',
     'FastAPI',
     'Python',
+    'Three.js',
     'World Memory Championship',
   ],
   authors: [{ name: 'Pradyumna', url: 'https://github.com/Parthparthu' }],
   creator: 'Pradyumna',
+  metadataBase: new URL(siteUrl),
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
+  },
+  manifest: '/manifest.webmanifest',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://pradyumna.dev',
-    title: 'Pradyumna — Software Developer & Product Builder',
+    url: siteUrl,
+    title: 'Pradyumna: Software Developer and Product Builder',
     description:
-      'B.Tech CSE (AI/ML) student building production-grade applications. World Memory Championship Bronze Medalist.',
+      'Computer Science student and full-stack software engineer building offline-first applications and financial data pipelines.',
     siteName: 'Pradyumna Portfolio',
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'Pradyumna — Software Developer & Product Builder',
+    card: 'summary',
+    title: 'Pradyumna: Software Developer and Product Builder',
     description:
-      'B.Tech CSE (AI/ML) student. Full-stack developer. World Memory Championship Bronze Medalist.',
-    creator: '@Parthparthu',
+      'Computer Science student and full-stack software engineer building offline-first applications and financial data pipelines.',
   },
   robots: { index: true, follow: true },
-  // JSON-LD via metadata is limited — full JSON-LD added via script in layout body
 };
 
 export default function RootLayout({
@@ -91,14 +96,16 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'Person',
               name: 'Pradyumna',
-              url: 'https://pradyumna.dev',
+              url: siteUrl,
+              email: 'pradyumna05@outlook.in',
               sameAs: [
                 'https://github.com/Parthparthu',
-                'https://linkedin.com/in/pradyumna',
+                'https://www.linkedin.com/in/pradyumna05',
+                'https://www.instagram.com/pradyumna_in_/',
               ],
               jobTitle: 'Software Developer',
               description:
-                'B.Tech CSE (AI/ML) student and full-stack developer. World Memory Championship Bronze Medalist.',
+                'Computer Science student and full-stack developer. World Memory Championship Bronze Medalist.',
               knowsAbout: [
                 'React',
                 'TypeScript',
@@ -106,7 +113,7 @@ export default function RootLayout({
                 'Next.js',
                 'Three.js',
                 'FastAPI',
-                'Machine Learning',
+                'Offline-first architecture',
                 'Full-Stack Development',
               ],
             }),
@@ -122,58 +129,38 @@ export default function RootLayout({
         />
 
         {/* Theme color for mobile browser UI */}
-        <meta name="theme-color" content="#05060a" />
+        <meta name="theme-color" content="#0a0c10" />
         <meta name="color-scheme" content="dark light" />
 
-        {/* Viewport — never disable zoom */}
+        {/* Viewport: never disable zoom */}
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
       </head>
-      <body suppressHydrationWarning>
-        {/*
-         * Architecture:
-         * SceneCanvas — fixed, full-viewport, z-index: 0, pointer-events: none
-         *   ↕ DOM sections float above the canvas ↕
-         * ThemeProvider / SmoothScrollProvider — context only, no DOM overhead
-         * Preloader — z-index: 9999, exits and reveals hero
-         * GlassSVGFilter — invisible <svg> with <defs>, mounted once
-         * Header — fixed, z-index: 200, glass dock nav
-         * main — scroll container with all sections
-         * Footer — bottom of scroll
-         * ClientOverlays — cursor, command palette, easter egg
-         */}
-
-        {/* 3D canvas — persistent, behind everything */}
-        <SceneCanvas />
-
+      <body suppressHydrationWarning className="bg-[var(--bg-app)] text-[var(--text-primary)] antialiased">
         <ThemeProvider>
-          <SmoothScrollProvider>
-            {/* SVG refraction filter definitions */}
-            <GlassSVGFilter />
+          {/* SVG refraction filter definition */}
+          <GlassSVGFilter />
 
-            {/* Branded preloader with "Enter Site" */}
-            <Preloader />
+          {/* Skip link for keyboard users */}
+          <a href="#main-content" className="skip-link">
+            Skip to content
+          </a>
 
-            {/* Skip to main content for keyboard/screen reader users */}
-            <a href="#main-content" className="skip-link">
-              Skip to content
-            </a>
+          {/* Top navigation */}
+          <Header />
 
-            {/* Glass dock navigation */}
-            <Header />
+          {/* Main content */}
+          <main id="main-content" className="flex-1">
+            {children}
+          </main>
 
-            {/* Main content — sections scroll over the fixed canvas */}
-            <main id="main-content" className="flex-1 relative">
-              {children}
-            </main>
+          {/* Footer */}
+          <Footer />
 
-            <Footer />
-
-            {/* Cursor, command palette, toast, easter egg */}
-            <ClientOverlays />
-          </SmoothScrollProvider>
+          {/* UI Utilities: ScrollProgress, BackToTop, CommandPalette */}
+          <ClientOverlays />
         </ThemeProvider>
       </body>
     </html>

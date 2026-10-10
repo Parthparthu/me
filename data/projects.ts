@@ -19,11 +19,11 @@ export const projects: Project[] = [
     role: 'Solo Developer & Designer',
     date: '2025',
     caseStudy: {
-      problem: 'Most expense tracking apps fail silently when offline, leading to data loss. Users in areas with unreliable connectivity need an app that works seamlessly regardless of network state.',
+      problem: 'Most expense tracking apps fail silently when offline, leading to data loss. Users in areas with unreliable connectivity need an app that operates reliably regardless of network state.',
       solution: 'Built an offline-first architecture using IndexedDB as the primary data store, with Firebase Firestore as the sync layer. Implemented optimistic UI updates and a custom last-write-wins conflict resolution strategy.',
       architecture: 'React 19 → Zustand (state) → IndexedDB (local persistence) → Firebase Firestore (cloud sync) → Service Worker (offline caching)',
       keyFeatures: [
-        'True offline-first — full CRUD without any network connection',
+        'True offline-first : full CRUD without any network connection',
         'Automatic background sync when connectivity is restored',
         'Custom conflict resolution engine for multi-device scenarios',
         'Installable PWA with service worker caching strategies',
@@ -38,18 +38,18 @@ export const projects: Project[] = [
       engineeringDecisions: [
         {
           decision: 'IndexedDB over localStorage for client-side persistence',
-          rationale: 'IndexedDB supports structured data, indexing, and significantly larger storage limits — essential for an expense tracking app that accumulates data over time.',
+          rationale: 'IndexedDB supports structured data, indexing, and significantly larger storage limits : essential for an expense tracking app that accumulates data over time.',
           tradeoff: 'More complex API compared to localStorage, but the Zustand middleware abstraction hides this complexity from components.',
         },
         {
           decision: 'Last-write-wins conflict resolution',
           rationale: 'For a personal expense tracker, data conflicts are rare and the cost of a lost edit is low compared to the complexity of CRDT-based merging.',
-          tradeoff: 'Occasional overwrites in rare multi-device simultaneous edit scenarios — acceptable for the use case.',
+          tradeoff: 'Occasional overwrites in rare multi-device simultaneous edit scenarios : acceptable for the use case.',
         },
       ],
       lessonsLearned: [
-        'Offline-first architecture should be designed from day one — retrofitting it is significantly harder.',
-        'Service Worker testing requires dedicated tooling — the browser DevTools alone are insufficient for edge cases.',
+        'Offline-first architecture should be designed from day one : retrofitting it is significantly harder.',
+        'Service Worker testing requires dedicated tooling : the browser DevTools alone are insufficient for edge cases.',
         'Optimistic UI dramatically improves perceived performance but requires careful rollback handling.',
       ],
       futurePlans: [
@@ -57,11 +57,7 @@ export const projects: Project[] = [
         'Implement budget limits with threshold notifications',
         'Add data export (CSV/PDF) for tax reporting',
       ],
-      metrics: [
-        { label: 'Lighthouse PWA', value: '95+' },
-        { label: 'Offline Capability', value: '100%' },
-        { label: 'First Contentful Paint', value: '<1.2s' },
-      ],
+      
     },
   },
   {
@@ -70,7 +66,7 @@ export const projects: Project[] = [
     name: 'Numora',
     tagline: 'Pure TypeScript numerology engine with 3D visualization',
     shortDescription: 'Mobile-number numerology PWA with a custom calculation engine, 3D phone field visualization, and detailed personality reports.',
-    longDescription: 'Numora is a numerology Progressive Web App that analyzes mobile phone numbers to generate detailed personality and compatibility reports. Built with a pure TypeScript calculation engine (no external numerology libraries), interactive Three.js visualizations, and Framer Motion animations.',
+    longDescription: 'Numora is a numerology Progressive Web App that analyzes mobile phone numbers to generate detailed personality and compatibility reports. Engineered using a pure TypeScript calculation engine (no external numerology libraries), interactive Three.js visualizations, and Framer Motion animations.',
     category: 'Web / PWA',
     tier: 'Tier A',
     status: 'Production',
@@ -85,7 +81,7 @@ export const projects: Project[] = [
       solution: 'Built a completely transparent calculation engine in pure TypeScript, where every step of the numerological analysis is traceable. Added 3D visualizations using Three.js to make the analysis visually engaging.',
       architecture: 'React 19 → Custom Numerology Engine (TypeScript) → Three.js/R3F (3D visualization) → Framer Motion (transitions) → PWA (installable)',
       keyFeatures: [
-        'Pure TypeScript numerology calculation engine — no black-box libraries',
+        'Pure TypeScript numerology calculation engine : no black-box libraries',
         'Interactive 3D phone number field visualization with Three.js',
         'Detailed personality reports with trait breakdowns',
         'Compatibility analysis between two numbers',
@@ -106,12 +102,12 @@ export const projects: Project[] = [
         {
           decision: 'Three.js for 3D visualizations over CSS-only animations',
           rationale: 'Three.js provides genuine 3D depth and camera control that CSS transforms cannot achieve, making the phone field visualization feel spatial and immersive.',
-          tradeoff: 'Larger bundle size and higher GPU requirements — mitigated with lazy loading and performance detection.',
+          tradeoff: 'Larger bundle size and higher GPU requirements : mitigated with lazy loading and performance detection.',
         },
       ],
       lessonsLearned: [
         'Building domain-specific calculation engines from scratch provides unmatched flexibility but requires deep domain understanding.',
-        '3D performance on mobile requires aggressive optimization — reduce polygon count, use instanced rendering, and provide 2D fallbacks.',
+        '3D performance on mobile requires aggressive optimization : reduce polygon count, use instanced rendering, and provide 2D fallbacks.',
         'PWA manifest and service worker configuration has subtle cross-browser differences that require extensive testing.',
       ],
       futurePlans: [
@@ -127,7 +123,7 @@ export const projects: Project[] = [
     name: 'InsiderTracker',
     tagline: 'SEC EDGAR insider trading data, visualized',
     shortDescription: 'Real-time SEC EDGAR insider trading data pipeline with FastAPI backend and React visualization dashboard.',
-    longDescription: 'InsiderTracker provides real-time visualization of SEC EDGAR Form 4 filings — the mandatory disclosures when corporate insiders buy or sell company stock. The system includes a FastAPI data pipeline that fetches, parses, and normalizes EDGAR XML filings, and a React frontend with interactive charts and filtering.',
+    longDescription: 'InsiderTracker provides real-time visualization of SEC EDGAR Form 4 filings : the mandatory disclosures when corporate insiders buy or sell company stock. The system includes a FastAPI data pipeline that fetches, parses, and normalizes EDGAR XML filings, and a React frontend with interactive charts and filtering.',
     category: 'Real-Time / Financial',
     tier: 'Tier A',
     status: 'Production',
@@ -150,14 +146,14 @@ export const projects: Project[] = [
         'Historical filing trend analysis',
       ],
       challenges: [
-        'SEC EDGAR XML format is inconsistent across different filing versions — required robust error handling and format detection',
+        'SEC EDGAR XML format is inconsistent across different filing versions : required robust error handling and format detection',
         'Rate limiting compliance with SEC EDGAR API (10 requests/second) while maintaining responsive user experience',
         'Normalizing disparate data formats into a consistent schema across thousands of filings',
       ],
       engineeringDecisions: [
         {
           decision: 'FastAPI over Flask/Django for the backend',
-          rationale: 'FastAPI provides automatic OpenAPI documentation, built-in request validation via Pydantic, and async support — critical for external API integration.',
+          rationale: 'FastAPI provides automatic OpenAPI documentation, built-in request validation via Pydantic, and async support : critical for external API integration.',
           tradeoff: 'Smaller ecosystem than Django, but the focused scope of this project doesn\'t require Django\'s batteries.',
         },
         {
@@ -166,14 +162,14 @@ export const projects: Project[] = [
         },
       ],
       lessonsLearned: [
-        'Government APIs often have inconsistent data formats — build parsers that degrade gracefully rather than fail hard.',
+        'Government APIs often have inconsistent data formats : build parsers that degrade gracefully rather than fail hard.',
         'Rate limiting must be implemented as a first-class concern, not an afterthought.',
         'Financial data visualization requires careful attention to decimal precision and timezone handling.',
       ],
       futurePlans: [
         'Add email alerts for specific insider transactions',
         'Implement ML-based anomaly detection for unusual trading patterns',
-        'Add portfolio tracking — correlate insider activity with stock price movements',
+        'Add portfolio tracking : correlate insider activity with stock price movements',
       ],
     },
   },
@@ -207,25 +203,25 @@ export const projects: Project[] = [
       ],
       challenges: [
         'Synchronizing game state between two players in real-time with WebSocket while handling disconnections and reconnections',
-        'Sandboxing code execution securely — preventing malicious code from affecting the server',
+        'Sandboxing code execution securely : preventing malicious code from affecting the server',
         'Designing an ELO system that accounts for problem difficulty and time-to-solve',
       ],
       engineeringDecisions: [
         {
           decision: 'WebSocket over polling for real-time sync',
-          rationale: 'Sub-100ms latency is critical for competitive coding — polling introduces unacceptable delays and server load.',
-          tradeoff: 'WebSocket connections are stateful and harder to scale horizontally — acceptable for the current user scale.',
+          rationale: 'Sub-100ms latency is critical for competitive coding : polling introduces unacceptable delays and server load.',
+          tradeoff: 'WebSocket connections are stateful and harder to scale horizontally : acceptable for the current user scale.',
         },
         {
           decision: 'Supabase over custom auth + database',
-          rationale: 'Supabase provides auth, real-time subscriptions, and PostgreSQL in one service — significantly reducing infrastructure complexity for an MVP.',
+          rationale: 'Supabase provides auth, real-time subscriptions, and PostgreSQL in one service : significantly reducing infrastructure complexity for an MVP.',
           tradeoff: 'Vendor lock-in and less control over database queries, but the development speed gain is worth it for a prototype.',
         },
       ],
       lessonsLearned: [
-        'Real-time multiplayer systems require extensive state reconciliation logic — optimistic updates alone aren\'t sufficient.',
-        'Code execution sandboxing is a deep security challenge — start with containerized solutions rather than building from scratch.',
-        'ELO rating systems need careful calibration — the initial K-factor significantly affects ranking stability.',
+        'Real-time multiplayer systems require extensive state reconciliation logic : optimistic updates alone aren\'t sufficient.',
+        'Code execution sandboxing is a deep security challenge : start with containerized solutions rather than building from scratch.',
+        'ELO rating systems need careful calibration : the initial K-factor significantly affects ranking stability.',
       ],
       futurePlans: [
         'Add AI opponents with varying difficulty levels',
@@ -240,7 +236,7 @@ export const projects: Project[] = [
     name: 'Real-Time Stock Screener',
     tagline: 'WebSocket-powered financial screening engine',
     shortDescription: 'Real-time stock screening platform with WebSocket market data feeds, customizable filters, and live updating dashboards.',
-    longDescription: 'A real-time stock screening platform that connects to market data feeds via WebSocket, allowing users to set custom screening criteria and receive live updates as market conditions change. Built with Python 3.13 and FastAPI for the backend, React for the frontend.',
+    longDescription: 'A real-time stock screening platform that connects to market data feeds via WebSocket, allowing users to set custom screening criteria and receive live updates as market conditions change. Implemented using Python 3.13 and FastAPI for the backend, React for the frontend.',
     category: 'Real-Time / Financial',
     tier: 'Tier A',
     status: 'Active Development',
@@ -275,12 +271,12 @@ export const projects: Project[] = [
         },
         {
           decision: 'Client-side state management with Zustand over Redux',
-          rationale: 'Zustand provides simpler API with better performance for high-frequency state updates — critical when market data updates multiple times per second.',
+          rationale: 'Zustand provides simpler API with better performance for high-frequency state updates : critical when market data updates multiple times per second.',
         },
       ],
       lessonsLearned: [
-        'High-frequency data streams require careful throttling on the frontend — updating React state on every WebSocket message causes frame drops.',
-        'Financial calculations require decimal precision libraries — floating-point arithmetic introduces unacceptable rounding errors.',
+        'High-frequency data streams require careful throttling on the frontend : updating React state on every WebSocket message causes frame drops.',
+        'Financial calculations require decimal precision libraries : floating-point arithmetic introduces unacceptable rounding errors.',
         'WebSocket reconnection logic needs exponential backoff with jitter to prevent thundering herd problems.',
       ],
       futurePlans: [
@@ -296,7 +292,7 @@ export const projects: Project[] = [
     name: 'BreakoutScanner',
     tagline: '3D stock data visualization with Three.js',
     shortDescription: 'Interactive 3D visualization of stock price breakout patterns using Three.js, React, and Express.',
-    longDescription: 'BreakoutScanner provides an immersive 3D visualization of stock price data, helping traders identify breakout patterns through spatial data representation. Built with Three.js for rendering, React for the UI layer, and Express for the data API.',
+    longDescription: 'BreakoutScanner provides an immersive 3D visualization of stock price data, helping traders identify breakout patterns through spatial data representation. Engineered with Three.js for rendering, React for the UI layer, and Express for the data API.',
     category: 'Real-Time / Financial',
     tier: 'Tier B',
     status: 'Completed',
@@ -328,8 +324,8 @@ export const projects: Project[] = [
         },
       ],
       lessonsLearned: [
-        '3D data visualization adds cognitive overhead — spatial axes must map intuitively to data dimensions.',
-        'Camera controls significantly affect usability — constrain orbit to prevent disorienting orientations.',
+        '3D data visualization adds cognitive overhead : spatial axes must map intuitively to data dimensions.',
+        'Camera controls significantly affect usability : constrain orbit to prevent disorienting orientations.',
       ],
       futurePlans: [
         'Add real-time data streaming',
@@ -343,7 +339,7 @@ export const projects: Project[] = [
     name: 'BilingSystem',
     tagline: 'Desktop billing software for small businesses',
     shortDescription: 'Python desktop billing application with SQLite database, PDF invoice generation, and inventory management.',
-    longDescription: 'BilingSystem is a desktop billing application built with Python, designed for small businesses to manage invoicing, inventory, and customer records. Features include PDF invoice generation, SQLite-backed persistence, and a clean Tkinter-based GUI.',
+    longDescription: 'BilingSystem is a desktop billing application implemented in Python, designed for small businesses to manage invoicing, inventory, and customer records. Features include PDF invoice generation, SQLite-backed persistence, and a clean Tkinter-based GUI.',
     category: 'Software / Tools',
     tier: 'Tier B',
     status: 'Completed',
@@ -372,16 +368,16 @@ export const projects: Project[] = [
       engineeringDecisions: [
         {
           decision: 'SQLite over MySQL/PostgreSQL',
-          rationale: 'Zero-configuration, file-based database is ideal for a single-user desktop application — no server setup required.',
+          rationale: 'Zero-configuration, file-based database is ideal for a single-user desktop application : no server setup required.',
         },
         {
           decision: 'Tkinter over PyQt/Electron',
-          rationale: 'Tkinter ships with Python standard library — zero external dependencies for the GUI layer, simplifying distribution.',
+          rationale: 'Tkinter ships with Python standard library : zero external dependencies for the GUI layer, simplifying distribution.',
           tradeoff: 'Less polished appearance compared to PyQt, but dramatically simpler deployment.',
         },
       ],
       lessonsLearned: [
-        'Desktop application UX requires different patterns than web applications — users expect instant feedback and native OS integration.',
+        'Desktop application UX requires different patterns than web applications : users expect instant feedback and native OS integration.',
         'Database schema design at the start saves enormous refactoring effort later.',
       ],
       futurePlans: [
@@ -395,8 +391,8 @@ export const projects: Project[] = [
     slug: 'aura-ecommerce',
     name: 'AURA E-Commerce',
     tagline: 'Luxury e-commerce storefront with Next.js 15',
-    shortDescription: 'Premium e-commerce storefront built with Next.js 15, featuring server components, SQLite-backed product catalog, and luxury-tier UI design.',
-    longDescription: 'AURA is a luxury-tier e-commerce storefront built with Next.js 15, demonstrating advanced patterns like React Server Components, streaming SSR, and optimistic UI updates. Features a curated product catalog backed by SQLite and a design language inspired by high-end fashion retailers.',
+    shortDescription: 'Premium e-commerce storefront developed with Next.js 15, featuring server components, SQLite-backed product catalog, and luxury-tier UI design.',
+    longDescription: 'AURA is a luxury-tier e-commerce storefront developed with Next.js 15, demonstrating advanced patterns like React Server Components, streaming SSR, and optimistic UI updates. Features a curated product catalog backed by SQLite and a design language inspired by high-end fashion retailers.',
     category: 'Full-Stack / Systems',
     tier: 'Tier B',
     status: 'Completed',
@@ -420,7 +416,7 @@ export const projects: Project[] = [
       ],
       challenges: [
         'Achieving luxury visual quality while maintaining fast page loads',
-        'Understanding the React Server Components mental model — what to render where',
+        'Understanding the React Server Components mental model : what to render where',
       ],
       engineeringDecisions: [
         {
@@ -429,8 +425,8 @@ export const projects: Project[] = [
         },
       ],
       lessonsLearned: [
-        'React Server Components fundamentally change how you think about data fetching — co-locating data access with rendering is powerful.',
-        'Luxury UI design requires extreme attention to spacing, typography, and animation timing — the difference between "good" and "premium" is in the details.',
+        'React Server Components fundamentally change how you think about data fetching : co-locating data access with rendering is powerful.',
+        'Luxury UI design requires extreme attention to spacing, typography, and animation timing : the difference between "good" and "premium" is in the details.',
       ],
       futurePlans: [
         'Add Stripe payment integration',
@@ -456,7 +452,7 @@ export const projects: Project[] = [
     date: '2023-Present',
     caseStudy: {
       problem: 'Algorithmic problem-solving skills require systematic practice. Random problem selection leads to gaps in fundamental concepts and inconsistent progress.',
-      solution: 'Following the NeetCode 150 roadmap — a curated progression through core algorithmic patterns — with detailed solutions documenting multiple approaches, complexity analysis, and key insights.',
+      solution: 'Following the NeetCode 150 roadmap : a curated progression through core algorithmic patterns : with detailed solutions documenting multiple approaches, complexity analysis, and key insights.',
       architecture: 'NeetCode 150 Roadmap → Python Solutions → Complexity Analysis → Pattern Documentation',
       keyFeatures: [
         'Structured progression through algorithmic patterns',
@@ -476,7 +472,7 @@ export const projects: Project[] = [
         },
       ],
       lessonsLearned: [
-        'Algorithmic thinking is a transferable skill — pattern recognition from DSA directly improves system design decisions.',
+        'Algorithmic thinking is a transferable skill : pattern recognition from DSA directly improves system design decisions.',
         'Documenting solutions thoroughly forces deeper understanding than simply getting the test cases to pass.',
       ],
       futurePlans: [

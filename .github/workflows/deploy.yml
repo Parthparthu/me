@@ -36,6 +36,7 @@ jobs:
       - name: Build Next.js Static Export
         run: npm run build
         env:
+          STATIC_EXPORT: 'true'
           NEXT_PUBLIC_BASE_PATH: '/me'
           NEXT_PUBLIC_SITE_URL: 'https://parthparthu.github.io/me'
 

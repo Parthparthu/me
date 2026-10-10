@@ -7,7 +7,7 @@
 
 <!-- Animated Dynamic Typing Title -->
 <a href="https://github.com/Parthparthu">
-  <img src="https://readme-typing-svg.demolab.com?font=Space+Grotesk&weight=700&size=26&pause=1000&color=00F0FF&center=true&vCenter=true&multiline=false&random=false&width=850&height=65&lines=B.Tech+CSE+(AI%2FML)+Undergraduate+%F0%9F%8E%93;Full-Stack+Architect+%26+Next.js+15+Builder+%E2%9A%A1;3D+Spatial+Multi-Room+WebGL+Engineer+%F0%9F%8C%90;Liquid+Glass+Design+System+Architect+%F0%9F%A7%AA;World+Memory+Championship+Bronze+Medalist+%F0%9F%A7%A0" alt="Typing SVG Animation" />
+  <img src="https://readme-typing-svg.demolab.com?font=Space+Grotesk&weight=700&size=26&pause=1000&color=00F0FF&center=true&vCenter=true&multiline=false&random=false&width=850&height=65&lines=B.Tech+CSE+(AI%2FML)+Undergraduate+%F0%9F%8E%93;Full-Stack+Architect+%26+Next.js+15+Builder+%E2%9A%A1;3D+Spatial+Glass+%26+WebGL+Engineer+%F0%9F%8C%90;Liquid+Glass+Design+System+Architect+%F0%9F%A7%AA;World+Memory+Championship+Bronze+Medalist+%F0%9F%A7%A0" alt="Typing SVG Animation" />
 </a>
 
 <br/>
@@ -43,7 +43,7 @@
 <!-- ═══════════════════════════════════════════════════════════════════════════ -->
 <div align="center">
 
-| 🌐 [**Live Portfolio**](#-overview--philosophy) | 📖 [**Features**](#-features-breakdown) | 🔬 [**How It Works**](#-how-it-works-architecture) | 🚀 [**How To Use**](#-how-to-use-step-by-step-guide) | 🏆 [**Projects**](#-featured-projects-showcased) | 🎮 [**Easter Egg**](#-secret-konami-easter-egg--keyboard-shortcuts) |
+| 🌐 [**Live Portfolio**](#-overview--philosophy) | 📖 [**Features**](#-features-breakdown) | 🔬 [**How It Works**](#-how-it-works-architecture) | 🚀 [**How To Use**](#-how-to-use-step-by-step-guide) | 🏆 [**Projects**](#-featured-projects-showcased) | 🧪 [**Quality Standards**](#-code-quality--verification-gates) |
 |:---:|:---:|:---:|:---:|:---:|:---:|
 
 </div>
@@ -59,9 +59,9 @@
 
 > *"Building software from first principles — understanding how bits flow through protocols, how graphics compute in parallel on the GPU, while obsessing over client performance, fluid micro-interactions, and pristine accessibility."*
 
-This repository houses **Pradyumna's v2.0 Developer Portfolio** — a production-grade, spatial web experience engineered with **Next.js 15 (App Router & Turbopack)**, **React 19**, **Three.js / React Three Fiber**, and **Tailwind CSS**.
+This repository houses **Pradyumna's v2.0 Developer Portfolio** — a production-grade web experience engineered with **Next.js 15 (App Router & Turbopack)**, **React 19**, **Three.js / React Three Fiber**, and **Tailwind CSS**.
 
-Far more than a simple showcase, it functions as a **living technical benchmark**: featuring a 3D spatial multi-room canvas, custom SVG liquid glass displacement shaders, adaptive GPU tier scaling, a hardware-accelerated magnetic cursor, a global keyboard command palette (`Cmd + K`), an interactive secret Konami code Easter Egg, dynamic case study routes (`/projects/[slug]`), a live Design System Showroom (`/design-board`), and an Edge-compatible contact dispatch pipeline powered by **Resend** and **Zod**.
+Far more than a simple showcase, it functions as a **living technical benchmark**: featuring a 3D glass prism (`HeroGlassPrism`) with physical transmission optics, custom SVG liquid glass displacement shaders, a global keyboard command palette (`Cmd + K`), an interactive reading progress bar, dynamic static-generated case study routes (`/projects/[slug]`), a live Design System Showroom (`/design-board`), a dedicated printable resume (`/resume`), privacy/terms compliance pages, and an Edge-compatible contact dispatch pipeline powered by **Resend** and **Zod**.
 
 <!-- Animated Rainbow Divider Line -->
 <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png" width="100%" alt="Rainbow Divider" />
@@ -82,37 +82,36 @@ Far more than a simple showcase, it functions as a **living technical benchmark*
 <tr>
 <td width="50%">
 
-#### 🌐 3D Spatial Multi-Room Canvas
-- Immersive 3D scene built with **React Three Fiber** and **Drei**.
-- **Cinematic CameraRig**: Smooth camera interpolation tracking viewport scroll through themed spatial rooms:
-  - 🦸 `HeroRoom`: Floating spatial centerpiece
-  - 💼 `WorkRoom`: Interactive 3D project showcase
-  - ⚡ `SkillsRoom`: Floating spatial skill nodes
-  - 🗺️ `JourneyRoom`: 3D milestone path
-  - 📡 `ContactRoom`: Holographic signal beacon
-- Ambient `ParticleDust` atmospheric field and optional post-processing (Bloom, Chromatic Aberration).
+#### 💎 3D Hero Glass Prism (`HeroGlassPrism.tsx`)
+- Refined floating 3D spatial centerpiece built with **React Three Fiber**, **Drei**, and **Three.js**.
+- High-end physical transmission optics (`meshPhysicalMaterial`) featuring:
+  - `transmission: 0.92` with physical refractive index (`ior: 1.48`)
+  - Specular cyan edge highlights (`#38bdf8`) with clearcoat sheen
+  - Smooth floating animation via `<Float>` with Delta-time rotation
+- **Automatic Fallback**: Detects WebGL context availability and respects `prefers-reduced-motion` media queries.
 
-#### 🧪 Liquid Glass Design System
+#### 🧪 Liquid Glass Design System (`components/glass/`)
 - Proprietary frosted glass shaders (`LiquidGlass.tsx`) utilizing SVG turbulence displacement filters (`GlassSVGFilter.tsx`).
-- 5 distinct elevation tiers, chromatic refraction, specular edge highlights, and color tinting.
+- 5 distinct elevation tiers, chromatic refraction, specular edge highlights, and color tinting (`violet`, `cyan`, `emerald`, `amber`, `rose`, `neutral`).
 - Interactive component showroom accessible at **`/design-board`**.
 
 </td>
 <td width="50%">
 
-#### 🎛️ Adaptive GPU Quality Scaling (`QualityToggle`)
-- Real-time GPU quality controller with user override selector (High, Medium, Low, Off) managed via Zustand (`useSceneStore`).
-- Automatic fallback from WebGL post-processing down to lightweight CSS glass on low-power devices.
-
-#### 🧲 Magnetic Physics Cursor
-- Custom cursor with spring-physics smoothing and fine-pointer (`@media (pointer: fine)`) detection.
-- Automatically morphs, expands, and snaps to interactive targets.
-
-#### 🃏 Dynamic Spotlight Cards
-- Mouse-tracked radial gradient illumination (`rgba(99, 102, 241, 0.25)`) that calculates pointer coordinates in real-time.
-
-#### 📜 Viewport Reading Progress Bar
+#### 📜 Viewport Reading Progress Bar (`ScrollProgress.tsx`)
 - High-precision reading progress bar positioned along the top viewport edge.
+- Dynamically calculates scroll percentage without causing layout thrashing.
+
+#### 🃏 Dynamic Spotlight Cards (`SpotlightCard.tsx`)
+- Mouse-tracked radial gradient illumination that calculates pointer coordinates in real-time.
+- Brings subtle depth and tactile feedback to project and skill cards.
+
+#### 🔝 Scroll-Aware Back to Top (`BackToTop.tsx`)
+- Floating return-to-top trigger that animates smoothly into view once the user scrolls past the threshold.
+
+#### 🌓 Dual Theme Engine (`ThemeProvider.tsx`)
+- Seamless dark and light modes with system preference detection and `localStorage` persistence.
+- Fluid typography and color tokens specified with CSS custom variables.
 
 </td>
 </tr>
@@ -130,7 +129,7 @@ Far more than a simple showcase, it functions as a **living technical benchmark*
 
 #### ⚡ Next.js 15 & Turbopack
 - Built with the bleeding-edge Next.js 15 App Router architecture.
-- Blazing hot module replacement (HMR) powered by Rust-based Turbopack.
+- Blazing fast hot module replacement (HMR) powered by Rust-based Turbopack.
 - Strict TypeScript 5.7+ typing across all domain entities, props, and server actions.
 
 #### 🌊 Lenis Smooth Scrolling Engine
@@ -143,16 +142,15 @@ Far more than a simple showcase, it functions as a **living technical benchmark*
 </td>
 <td width="50%">
 
-#### 🌓 Dual Theme Engine (Dark & Light)
-- First-class dark and light themes with system preference detection and `localStorage` persistence.
-- Fluid typography and color tokens specified with CSS custom variables.
-
 #### 📬 Type-Safe Contact Pipeline (Resend + Zod)
 - Dedicated `/api/contact` route running with schema validation via **Zod**.
 - Transactional email delivery powered by **Resend** with rate-limiting resilience and graceful development fallbacks.
 
-#### 📑 Interactive Resume Route (`/resume`)
-- Dedicated `/resume` page featuring timeline breakdown, section jumping, skill badges, and one-click PDF printing.
+#### 📑 Interactive & Printable Resume (`/resume`)
+- Dedicated `/resume` page featuring timeline breakdown, section jumping, skill badges, and a one-click **Print to PDF** button.
+
+#### 🔒 Privacy & Legal Compliance (`/privacy`, `/terms`)
+- Strict privacy-first architecture with zero third-party tracking cookies, zero ads, and transparent data policies.
 
 </td>
 </tr>
@@ -174,11 +172,12 @@ Far more than a simple showcase, it functions as a **living technical benchmark*
 | **Core Framework** | `Next.js 15.0.3` · `React 19` | App Router, Server Components & Streaming SSR | ![Active](https://img.shields.io/badge/Production-00FF88?style=flat-square) |
 | **Language** | `TypeScript 5.7.2` | 100% strict type safety and interface modeling | ![Verified](https://img.shields.io/badge/Strict%20Mode-3178C6?style=flat-square) |
 | **Styling & Design System** | `Tailwind CSS 3.4` · `@tailwindcss/typography` | Utility-first responsive design, fluid clamp typography | ![Responsive](https://img.shields.io/badge/Fluid-38BDF8?style=flat-square) |
-| **3D & Canvas Graphics** | `Three.js` · `@react-three/fiber` · `@react-three/drei` | WebGL multi-room spatial scene & interactive canvas | ![GPU](https://img.shields.io/badge/WebGL%2060fps-FF007A?style=flat-square) |
+| **3D & Canvas Graphics** | `Three.js` · `@react-three/fiber` · `@react-three/drei` | 3D glass prism with physical transmission optics | ![GPU](https://img.shields.io/badge/WebGL%2060fps-FF007A?style=flat-square) |
 | **Liquid Glass Shaders** | SVG Displacement Filter · CSS Backdrop Filter | Chromatic dispersion, refractive specular highlights | ![Shaders](https://img.shields.io/badge/Liquid%20Glass-7928CA?style=flat-square) |
-| **State Management** | `Zustand v5` | Lightweight reactive store for 3D scene & GPU tier | ![Store](https://img.shields.io/badge/Zustand%20Store-F59E0B?style=flat-square) |
-| **Animation & Physics** | `Framer Motion 11` · `GSAP 3.12` | Layout transitions, spring physics, scroll-linked parallax | ![Smooth](https://img.shields.io/badge/Spring%20Physics-6366F1?style=flat-square) |
+| **State Management** | `Zustand v5` | Lightweight reactive store for application state | ![Store](https://img.shields.io/badge/Zustand%20Store-F59E0B?style=flat-square) |
+| **Animation & Physics** | `Framer Motion 11` · `GSAP 3.15` · `@gsap/react` | Micro-interactions, spring physics, scroll-linked parallax | ![Smooth](https://img.shields.io/badge/Spring%20Physics-6366F1?style=flat-square) |
 | **Smooth Scrolling** | `Lenis 1.1.18` | Inertial momentum scrolling engine | ![Inertial](https://img.shields.io/badge/Lenis%20Sync-00F0FF?style=flat-square) |
+| **Hardware Detection** | `detect-gpu 5.0` | Client-side GPU capability benchmarking | ![Hardware](https://img.shields.io/badge/GPU%20Detect-38BDF8?style=flat-square) |
 | **Icons & Typography** | `Lucide React` · Google Fonts (`Inter`, `Space Grotesk`, `JetBrains Mono`) | Vector UI iconography & variable typography | ![Typography](https://img.shields.io/badge/Variable%20Fonts-E0E7FF?style=flat-square) |
 | **Forms & Validation** | `React Hook Form 7` · `Zod 3.23` · `@hookform/resolvers` | Client & server schema validation | ![Type-Safe](https://img.shields.io/badge/Schema%20Safe-10B981?style=flat-square) |
 | **Email API** | `Resend 4.0.1` | Transactional email transmission for contact queries | ![Edge](https://img.shields.io/badge/Edge%20Ready-38BDF8?style=flat-square) |
@@ -204,7 +203,7 @@ Far more than a simple showcase, it functions as a **living technical benchmark*
 
 </div>
 
-The portfolio is structured around a decoupled, reactive layer system separating **Presentation (Server & Client)**, **Global Overlays & 3D Spatial Canvas**, and **Static Data Ingestion**.
+The portfolio is structured around a decoupled, reactive layer system separating **Presentation (Server & Client)**, **Global Overlays & 3D Glass Optics**, and **Static Data Ingestion**.
 
 ### 🏗️ System Hierarchy & Data Flow
 
@@ -224,12 +223,14 @@ graph TD
     end
 
     subgraph Overlays ["✨ Client Interactive Overlays (ClientOverlays.tsx)"]
-        D["InteractiveBackground & SceneCanvas (R3F Multi-Room 3D)"]:::three
-        E["CustomCursor (Magnetic Spring Follower)"]:::client
+        E["CommandPalette (Cmd + K Modal Dialog)"]:::client
         F["ScrollProgress (Top Viewport Reading Bar)"]:::client
-        G["CommandPalette (Cmd + K Modal Dialog)"]:::client
-        H["EasterEgg (Konami Sequence Observer)"]:::client
-        I["QualityToggle (Adaptive GPU Tier Selector)"]:::client
+        I["BackToTop (Scroll-Aware Floating Button)"]:::client
+    end
+
+    subgraph Hero ["💎 3D Optics (HeroSection.tsx)"]
+        H1["HeroGlassPrism (R3F Canvas & Physical Transmission)"]:::three
+        H2["Plain-Words Bio & Status Badge"]:::client
     end
 
     subgraph Pages ["📄 App Router View Layer"]
@@ -238,6 +239,7 @@ graph TD
         P3["CaseStudy ('/projects/[slug]')"]:::client
         P4["Resume ('/resume')"]:::client
         P5["DesignBoard ('/design-board')"]:::client
+        P6["Privacy & Terms ('/privacy', '/terms')"]:::client
     end
 
     subgraph Backend ["⚡ Server Services & Edge APIs"]
@@ -257,6 +259,7 @@ graph TD
     A --> B --> C
     C --> Pages
     C --> Overlays
+    P1 --> Hero
     P1 --> StaticData
     P2 --> StaticData
     P3 --> StaticData
@@ -276,30 +279,30 @@ sequenceDiagram
     participant Browser as 🌐 Client Browser
     participant Layout as ⚙️ Next.js RootLayout
     participant Lenis as 🌊 Lenis Scroll
-    participant WebGL as 🌌 Three.js SceneCanvas
+    participant WebGL as 💎 HeroGlassPrism
     participant View as 🖥️ Page Component
 
     User->>Browser: Requests URL (e.g. /)
     Browser->>Layout: Ingests HTML & Google Variable Fonts (Inter, Space Grotesk)
     Layout->>Layout: Resolves Theme Preference (dark/light)
     Layout->>Lenis: Mounts SmoothScrollProvider & initiates RAF loop
-    Layout->>WebGL: Mounts SceneCanvas with CameraRig (SSR: false)
-    WebGL->>WebGL: Assesses GPU Tier (useSceneStore) & builds 3D Rooms
+    Layout->>WebGL: Mounts HeroGlassPrism (SSR: false)
+    WebGL->>WebGL: Evaluates WebGL Context & Prefers-Reduced-Motion
+    WebGL->>WebGL: Renders RoundedBox with meshPhysicalMaterial
     Layout->>View: Hydrates HomePage sections with Framer Motion triggers
     User->>Browser: Moves mouse / scrolls page
-    Browser->>WebGL: CameraRig smoothly transitions camera coordinates between Rooms
-    Browser->>Lenis: Interpolates scroll offset for smooth camera & parallax
+    Browser->>Lenis: Interpolates scroll offset for smooth inertial scrolling
 ```
 
 ---
 
 ### 🧪 Liquid Glass Refraction & Shader Architecture
 
-The `LiquidGlass` system creates physical depth without standard heavyweight shaders:
+The `LiquidGlass` system creates physical depth without heavyweight compute pipelines:
 1. **SVG Displacement Map**: `GlassSVGFilter.tsx` defines an SVG filter `<feTurbulence type="fractalNoise">` feeding into `<feDisplacementMap>` to simulate micro-imperfections in polished glass.
 2. **Backdrop Blur & Dual Border**: Uses modern `backdrop-filter: blur(16px)` combined with semi-transparent specular edges (`rgba(255, 255, 255, 0.16)`).
 3. **Dynamic Elevation Tiers**: Supports 5 elevation levels scaling shadow spread and refraction index.
-4. **Hardware Adaptation**: Automatically scales back to simplified CSS opacity when `QualityToggle` is set to Low or Off.
+4. **Interactive Showroom**: Explore all tiers and color tints interactively at **`/design-board`**.
 
 ---
 
@@ -448,7 +451,21 @@ pnpm lint
 
 ---
 
-### 6️⃣ Build & Run for Production
+### 6️⃣ Run Quality Verification Gates
+
+This project includes custom automated verification scripts to ensure code cleanliness and compliance:
+
+```bash
+# Audit standards (em-dash, banned AI phrases, color tokens, emojis)
+node scripts/verify-standards.cjs
+
+# Scan for residual branding watermarks
+node scripts/scan-branding.cjs
+```
+
+---
+
+### 7️⃣ Build & Run for Production
 
 Compile optimized production server bundles and test locally:
 
@@ -462,7 +479,7 @@ pnpm start
 
 ---
 
-### 7️⃣ Deployment Guidelines
+### 8️⃣ Deployment Guidelines
 
 #### Deploying to **Vercel** (Recommended)
 1. Push your repository to GitHub.
@@ -693,20 +710,19 @@ Status: Prototype  •  Tier: Tier A  •  Role: Systems Architect
 
 <div align="center">
 
-## 🎮 Secret Konami Easter Egg & Keyboard Shortcuts
+## ⌨️ Keyboard Shortcuts & Accessibility
 
 </div>
 
-This portfolio is packed with hidden developer easter eggs and power-user keyboard shortcuts!
+This portfolio is built with first-class keyboard navigation and WAI-ARIA APG compliance:
 
 <div align="center">
 
 | Shortcut | Action | Description |
 |:---:|:---|:---|
 | <kbd>Cmd</kbd> + <kbd>K</kbd> / <kbd>Ctrl</kbd> + <kbd>K</kbd> | **Command Palette** | Opens global spotlight search to jump to pages, projects, or switch themes. |
-| <kbd>↑</kbd> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> <kbd>←</kbd> <kbd>→</kbd> <kbd>B</kbd> <kbd>A</kbd> | **Konami Secret Code** | Triggers celebratory modal honoring the **World Memory Championship Bronze Medal**! |
-| <kbd>Esc</kbd> | **Close Modal** | Instantly dismisses Command Palette or Easter Egg overlays. |
-| <kbd>Tab</kbd> | **Skip to Content** | APG-compliant accessible keyboard navigation bypass. |
+| <kbd>Esc</kbd> | **Close Modal** | Instantly dismisses Command Palette dialog. |
+| <kbd>Tab</kbd> | **Skip to Content** | APG-compliant accessible keyboard navigation bypass (`#main-content`). |
 
 </div>
 
@@ -727,6 +743,8 @@ Portfolio/
 │   │       └── route.ts               # Edge-compatible contact API via Resend & Zod
 │   ├── 📁 design-board/
 │   │   └── page.tsx                   # Liquid Glass showroom & design token explorer
+│   ├── 📁 privacy/
+│   │   └── page.tsx                   # Strict privacy-first policy documentation
 │   ├── 📁 projects/
 │   │   ├── 📁 [slug]/
 │   │   │   └── page.tsx               # Dynamic Static-Generated Case Studies
@@ -734,6 +752,8 @@ Portfolio/
 │   │   └── ProjectsPageClient.tsx     # Filterable project gallery with active tags
 │   ├── 📁 resume/
 │   │   └── page.tsx                   # Interactive & printable developer resume
+│   ├── 📁 terms/
+│   │   └── page.tsx                   # Terms of service and usage guidelines
 │   ├── globals.css                    # Fluid typography clamp scale, theme tokens & keyframes
 │   ├── layout.tsx                     # RootLayout (Fonts, Metadata, Shell & Overlays)
 │   ├── loading.tsx                    # Suspense loading boundary
@@ -743,17 +763,9 @@ Portfolio/
 │   └── sitemap.ts                     # Dynamic XML sitemap generator
 ├── 📁 components/                      # Modular Component Hierarchy
 │   ├── 📁 3d/
-│   │   └── InteractiveBackground.tsx  # Fallback WebGL particle constellation canvas
-│   ├── 📁 canvas/                      # Multi-Room R3F 3D Canvas
-│   │   ├── CameraRig.tsx              # Scroll-interpolated cinematic camera rig
-│   │   ├── HeroRoom.tsx               # Hero spatial 3D centerpiece
-│   │   ├── WorkRoom.tsx               # 3D project gallery room
-│   │   ├── SkillsRoom.tsx             # 3D skill node cloud
-│   │   ├── JourneyRoom.tsx            # 3D career timeline path
-│   │   ├── ContactRoom.tsx            # 3D signal beacon
-│   │   ├── ParticleDust.tsx           # Floating ambient particle dust
-│   │   ├── PostProcessing.tsx         # Bloom, chromatic aberration & vignette
-│   │   └── SceneCanvas.tsx            # Main R3F Canvas controller
+│   │   └── HeroGlassPrism.tsx         # 3D glass prism with physical transmission optics
+│   ├── 📁 canvas/
+│   │   └── SceneCanvas.tsx            # Inert stub preserving module resolution
 │   ├── 📁 common/
 │   │   ├── ClientOverlays.tsx         # Lazy client overlay loader
 │   │   └── SmoothScrollProvider.tsx   # Lenis smooth inertial scrolling wrapper
@@ -763,10 +775,11 @@ Portfolio/
 │   │   └── LiquidGlass.tsx            # Core glass component with 5 elevation tiers
 │   ├── 📁 layout/
 │   │   ├── Header.tsx                 # Dynamic sticky blur navbar with mobile menu
-│   │   ├── Footer.tsx                 # Site footer with social links & copyright
-│   │   └── Preloader.tsx              # Cinematic boot sequence preloader
+│   │   └── Footer.tsx                 # Site footer with social links & copyright
+│   ├── 📁 resume/
+│   │   └── PrintResumeButton.tsx      # One-click browser PDF print trigger
 │   ├── 📁 sections/                   # Home Page Section Blocks
-│   │   ├── HeroSection.tsx            # Animated Hero with rotating roles & magnetic CTAs
+│   │   ├── HeroSection.tsx            # Animated Hero with concrete summary & 3D Glass Prism
 │   │   ├── AboutSection.tsx           # Philosophy & background narrative
 │   │   ├── SkillsSection.tsx          # 6-category verified skill grid
 │   │   ├── SelectedWork.tsx           # Featured project showcases
@@ -778,9 +791,6 @@ Portfolio/
 │   └── 📁 ui/                         # Atomic Reusable UI Primitives
 │       ├── BackToTop.tsx              # Scroll-aware return to top trigger
 │       ├── CommandPalette.tsx         # Cmd+K fuzzy navigation dialog
-│       ├── CustomCursor.tsx           # Magnetic spring-physics cursor follower
-│       ├── EasterEgg.tsx              # Konami code modal activator
-│       ├── QualityToggle.tsx          # Real-time GPU quality tier controller
 │       ├── ScrollProgress.tsx         # Viewport top reading progress bar
 │       ├── SpotlightCard.tsx          # Mouse-tracked radial gradient card
 │       ├── ThemeProvider.tsx          # Dark/Light theme provider with local storage
@@ -795,6 +805,10 @@ Portfolio/
 ├── 📁 lib/                            # Shared Utilities & External Services
 │   ├── github.ts                      # GitHub API fetching with ISR revalidation
 │   └── utils.ts                       # Classnames merger & text formatting helpers
+├── 📁 scripts/                        # Automated Standards & Quality Gates
+│   ├── scan-branding.cjs              # Zero-watermark scanner
+│   ├── verify-live.cjs                # Live endpoints & header auditor
+│   └── verify-standards.cjs           # AST and rule compliance gate checker
 ├── 📁 store/                          # Global Client State Management
 │   └── useSceneStore.ts               # Zustand store for 3D scene & GPU tier overrides
 ├── 📁 types/                          # Global TypeScript Definitions
@@ -802,8 +816,11 @@ Portfolio/
 │   └── project.ts                     # CaseStudy, Metric & Project interfaces
 ├── 📁 public/                         # Static Assets
 │   ├── favicon.svg                    # Vector brand mark
+│   ├── manifest.webmanifest           # Progressive web app manifest
+│   ├── apple-touch-icon.png           # iOS touch icon
 │   └── resume.pdf                     # Downloadable developer resume
 ├── .env.example                       # Environment template documentation
+├── next.config.ts                     # Next.js 15 build & security header config
 ├── package.json                       # Next.js 15, React 19, dependencies & scripts
 ├── postcss.config.mjs                 # PostCSS plugin configurations
 ├── tailwind.config.ts                 # Tailwind design tokens, colors & plugins
@@ -832,14 +849,13 @@ Yes! All brand and accent colors are configured as CSS custom variables in <code
 </details>
 
 <details>
-<summary><b>📱 How does the GPU Quality Tier system work?</b></summary>
+<summary><b>🛡️ What are the verification scripts in <code>scripts/</code>?</b></summary>
 <br/>
-The portfolio features an adaptive GPU tier management system built into <code>store/useSceneStore.ts</code> and exposed via <code>QualityToggle.tsx</code>. It detects device capabilities and lets users manually toggle between:
+The repository includes three automated quality scripts:
 <ul>
-  <li><b>High</b>: Full 3D multi-room canvas, post-processing shaders, bloom & particle dust.</li>
-  <li><b>Medium</b>: Simplified 3D geometry without post-processing.</li>
-  <li><b>Low</b>: Pure CSS liquid glass without WebGL rendering.</li>
-  <li><b>Off</b>: Completely static view with zero animations for battery saving.</li>
+  <li><code>node scripts/verify-standards.cjs</code>: Verifies zero em-dashes, no banned AI cliches, no illicit color tokens, zero unescaped emojis, and strict APG adherence.</li>
+  <li><code>node scripts/scan-branding.cjs</code>: Ensures no unwanted vendor watermarks exist across project files.</li>
+  <li><code>node scripts/verify-live.cjs</code>: Audits live HTTP endpoints and ensures security headers (no <code>X-Powered-By</code>) are preserved.</li>
 </ul>
 </details>
 

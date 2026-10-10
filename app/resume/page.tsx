@@ -1,21 +1,20 @@
 /**
- * /resume — Interactive Curriculum Vitae with Liquid Glass styling.
- * Displays education, WMC bronze medal, technical skills, and core engineering projects.
+ * /resume: Curriculum Vitae for Pradyumna.
+ * Displays education, WMC distinction, technical competencies, and verified engineering projects.
  */
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowLeft, Download, Mail, Github, Linkedin, ExternalLink, Trophy, GraduationCap, MapPin, Sparkles } from 'lucide-react';
+import { ArrowLeft, Mail, Github, Linkedin, ExternalLink, Trophy, GraduationCap, MapPin } from 'lucide-react';
 import { profile } from '@/data/profile';
 import { skillCategories } from '@/data/skills';
 import { projects } from '@/data/projects';
-import { milestones } from '@/data/journey';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
-import { GlassButton } from '@/components/glass/GlassVariants';
+import { PrintResumeButton } from '@/components/resume/PrintResumeButton';
 
 export const metadata: Metadata = {
   title: 'Resume | Pradyumna',
   description:
-    'Curriculum Vitae and technical resume of Pradyumna, CSE (AI/ML) student, full-stack engineer, and World Memory Championship Bronze Medalist.',
+    'Curriculum Vitae and technical background of Pradyumna, B.Tech CSE (AI/ML) student, full-stack engineer, and World Memory Championship Bronze Medalist.',
 };
 
 export default function ResumePage() {
@@ -23,8 +22,8 @@ export default function ResumePage() {
 
   return (
     <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-white">
-      {/* Navigation & Actions */}
-      <div className="flex items-center justify-between gap-4 mb-8">
+      {/* Navigation and Actions */}
+      <div className="flex items-center justify-between gap-4 mb-8 print:hidden">
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-sm font-medium text-[var(--text-secondary)] hover:text-white transition-colors min-h-[44px]"
@@ -33,18 +32,11 @@ export default function ResumePage() {
           Back to Portfolio
         </Link>
 
-        <a
-          href="/resume.pdf"
-          download="Pradyumna_Resume.pdf"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--accent-primary)] text-white text-xs font-semibold shadow-md hover:bg-[var(--accent-primary)]/90 transition-all min-h-[44px]"
-        >
-          <Download size={14} />
-          Download PDF
-        </a>
+        <PrintResumeButton />
       </div>
 
       {/* Main Resume Sheet */}
-      <LiquidGlass elevation={3} tint="neutral" radius={32} dynamicLight className="p-8 md:p-12 space-y-12">
+      <LiquidGlass elevation={2} tint="neutral" radius={12} className="p-8 md:p-12 space-y-10 print:border-none print:p-0">
         {/* Header Block */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-8 border-b border-white/10">
           <div>
@@ -62,11 +54,11 @@ export default function ResumePage() {
 
           <div className="flex flex-col gap-2 text-xs font-mono text-[var(--text-secondary)]">
             <a
-              href="mailto:pradyumna@example.com"
+              href="mailto:pradyumna05@outlook.in"
               className="hover:text-white flex items-center gap-2 transition-colors min-h-[36px]"
             >
               <Mail size={14} className="text-[var(--accent-cyan)]" />
-              pradyumna@example.com
+              pradyumna05@outlook.in
             </a>
             <a
               href="https://github.com/Parthparthu"
@@ -78,24 +70,24 @@ export default function ResumePage() {
               github.com/Parthparthu
             </a>
             <a
-              href="https://linkedin.com/in/pradyumna"
+              href="https://www.linkedin.com/in/pradyumna05"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white flex items-center gap-2 transition-colors min-h-[36px]"
             >
-              <Linkedin size={14} className="text-[var(--accent-violet)]" />
-              linkedin.com/in/pradyumna
+              <Linkedin size={14} className="text-[var(--accent-cyan)]" />
+              linkedin.com/in/pradyumna05
             </a>
           </div>
         </div>
 
-        {/* Education & Key Distinction */}
+        {/* Education and Key Distinction */}
         <section className="space-y-4">
-          <h2 className="text-lg font-display font-bold text-white uppercase tracking-wider text-xs">
-            Education & Honours
+          <h2 className="font-display font-bold text-white uppercase tracking-wider text-xs">
+            Education and Honors
           </h2>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="p-5 rounded-2xl bg-white/5 border border-white/8">
+            <div className="p-5 rounded-[12px] bg-white/5 border border-white/8">
               <div className="flex items-center gap-2 font-bold text-white mb-1">
                 <GraduationCap size={16} className="text-[var(--accent-cyan)]" />
                 <span>{profile.education.degree}</span>
@@ -105,7 +97,7 @@ export default function ResumePage() {
               <p className="text-[11px] font-mono text-[var(--text-muted)] mt-2">{profile.education.period}</p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-amber-500/10 border border-amber-500/20">
+            <div className="p-5 rounded-[12px] bg-amber-500/10 border border-amber-500/20">
               <div className="flex items-center gap-2 font-bold text-amber-300 mb-1">
                 <Trophy size={16} className="text-amber-400" />
                 <span>World Memory Championship 2021</span>
@@ -120,18 +112,18 @@ export default function ResumePage() {
 
         {/* Technical Competencies */}
         <section className="space-y-4">
-          <h2 className="text-lg font-display font-bold text-white uppercase tracking-wider text-xs">
+          <h2 className="font-display font-bold text-white uppercase tracking-wider text-xs">
             Technical Competencies
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {skillCategories.map((category) => (
-              <div key={category.id} className="p-4 rounded-xl bg-white/5 border border-white/8">
+              <div key={category.id} className="p-4 rounded-[12px] bg-white/5 border border-white/8">
                 <h3 className="text-xs font-bold text-white mb-2">{category.title}</h3>
                 <div className="flex flex-wrap gap-1.5">
                   {category.skills.map((skill) => (
                     <span
                       key={skill.name}
-                      className="text-[11px] px-2 py-0.5 rounded bg-white/6 text-[var(--text-secondary)] border border-white/6"
+                      className="text-[11px] px-2 py-0.5 rounded-[6px] bg-white/6 text-[var(--text-secondary)] border border-white/6"
                     >
                       {skill.name}
                     </span>
@@ -142,18 +134,18 @@ export default function ResumePage() {
           </div>
         </section>
 
-        {/* Featured Production Systems */}
+        {/* Featured Engineering Projects */}
         <section className="space-y-4">
-          <h2 className="text-lg font-display font-bold text-white uppercase tracking-wider text-xs">
+          <h2 className="font-display font-bold text-white uppercase tracking-wider text-xs">
             Flagship Engineering Systems
           </h2>
           <div className="space-y-4">
             {featuredProjects.map((project) => (
-              <div key={project.id} className="p-5 rounded-2xl bg-white/5 border border-white/8 space-y-2">
+              <div key={project.id} className="p-5 rounded-[12px] bg-white/5 border border-white/8 space-y-2">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
                     <h3 className="font-bold text-sm text-white">{project.name}</h3>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/8 text-[var(--accent-cyan)] font-mono">
+                    <span className="text-[10px] px-2 py-0.5 rounded-[6px] bg-white/8 text-[var(--accent-cyan)] font-mono">
                       {project.category}
                     </span>
                   </div>
@@ -163,7 +155,7 @@ export default function ResumePage() {
                         href={project.repositoryUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs text-[var(--text-muted)] hover:text-white flex items-center gap-1"
+                        className="text-xs text-[var(--text-muted)] hover:text-white flex items-center gap-1 min-h-[36px]"
                       >
                         GitHub <ExternalLink size={10} />
                       </a>
@@ -173,7 +165,7 @@ export default function ResumePage() {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs text-[var(--accent-primary)] hover:underline flex items-center gap-1"
+                        className="text-xs text-[var(--accent-primary)] hover:underline flex items-center gap-1 min-h-[36px]"
                       >
                         Live <ExternalLink size={10} />
                       </a>
@@ -189,7 +181,7 @@ export default function ResumePage() {
                   {project.technologies.map((tech) => (
                     <span
                       key={tech}
-                      className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-white/5 text-[var(--text-muted)]"
+                      className="text-[10px] font-mono px-1.5 py-0.5 rounded-[6px] bg-white/5 text-[var(--text-muted)]"
                     >
                       {tech}
                     </span>

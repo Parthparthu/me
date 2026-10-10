@@ -1,5 +1,5 @@
 /**
- * ThemeProvider — Bridges the Zustand theme store with the DOM data-theme attribute.
+ * ThemeProvider: Bridges the Zustand theme store with the DOM data-theme attribute.
  * Also syncs the Zustand store with localStorage on mount for SSR hydration safety.
  * Maintains the existing ThemeContext for backward compatibility.
  */
@@ -30,9 +30,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // On mount, check localStorage (from old storage key) + system preference
-    // Zustand persist handles 'portfolio-scene-store' key
-    // But also check old 'portfolio-theme' key for backwards compat
     const oldStored = localStorage.getItem('portfolio-theme') as Theme | null;
     if (oldStored && (oldStored === 'dark' || oldStored === 'light')) {
       setZustandTheme(oldStored);
@@ -54,7 +51,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     if (metaThemeColor) {
       metaThemeColor.setAttribute(
         'content',
-        zustandTheme === 'dark' ? '#05060a' : '#f0f4ff'
+        zustandTheme === 'dark' ? '#090a0f' : '#f8fafc'
       );
     }
   }, [zustandTheme, mounted]);
@@ -67,7 +64,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   return (
     <ThemeContext.Provider value={{ theme: zustandTheme, setTheme, toggleTheme }}>
-      {/* Anti-FOUC script — runs synchronously before paint */}
+      {/* Anti-FOUC script: runs synchronously before paint */}
       <script
         dangerouslySetInnerHTML={{
           __html: `(function(){try{var s=localStorage.getItem('portfolio-scene-store');var t=s?JSON.parse(s)?.state?.theme:null;if(!t){t=localStorage.getItem('portfolio-theme')}if(!t){t=window.matchMedia('(prefers-color-scheme:light)').matches?'light':'dark'}document.documentElement.setAttribute('data-theme',t)}catch(e){document.documentElement.setAttribute('data-theme','dark')}})()`,

@@ -1,5 +1,5 @@
 /**
- * GlassSVGFilter — Mounts the refractive SVG displacement filter once
+ * GlassSVGFilter: Mounts the refractive SVG displacement filter once
  * at the document root. Used by LiquidGlass via backdrop-filter: url(#glass-distort).
  * Feature-detected: only Chromium supports backdrop-filter with SVG url().
  * Safari/Firefox receive the blur+saturate fallback without distortion.
@@ -30,7 +30,7 @@ export function GlassSVGFilter() {
       style={{ position: 'absolute', overflow: 'hidden', pointerEvents: 'none' }}
     >
       <defs>
-        {/* Primary glass distortion — gentle edge lensing */}
+        {/* Primary glass distortion: gentle edge lensing */}
         <filter id="glass-distort" colorInterpolationFilters="sRGB">
           <feTurbulence
             type="fractalNoise"
@@ -48,7 +48,7 @@ export function GlassSVGFilter() {
           />
         </filter>
 
-        {/* Stronger distortion for hero sculpture overlay panels */}
+        {/* Stronger distortion for overlay panels */}
         <filter id="glass-distort-strong" colorInterpolationFilters="sRGB">
           <feTurbulence
             type="fractalNoise"
@@ -66,7 +66,7 @@ export function GlassSVGFilter() {
           />
         </filter>
 
-        {/* Gooey merge filter — for metaball nav dock effect */}
+        {/* Gooey merge filter */}
         <filter id="glass-goo" colorInterpolationFilters="sRGB">
           <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
           <feColorMatrix

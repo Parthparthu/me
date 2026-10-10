@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 
-/** Concatenate class names — simple implementation without clsx dep for now */
+/** Concatenate class names: simple implementation without clsx dep for now */
 export function cn(...classes: (string | undefined | null | false)[]) {
   return classes.filter(Boolean).join(' ');
 }
