@@ -1,54 +1,58 @@
 'use client';
 
-import { Canvas, useFrame } from '@react-three/fiber';
-import { AdaptiveDpr, PerformanceMonitor } from '@react-three/drei';
+import dynamic from 'next/dynamic';
+import { Canvas } from '@react-three/fiber';
+import { Suspense, useEffect, useState } from 'react';
+import { PerformanceMonitor, AdaptiveDpr } from '@react-three/drei';
 import { useSceneStore } from '@/store/useSceneStore';
-import { useEffect, useRef, useState } from 'react';
-import * as THREE from 'three';
-import { HeroGlassCore } from './HeroGlassCore';
-import { InteractiveParticleField } from './InteractiveParticleField';
+import { useGPUTier } from '@/hooks/useGPUTier';
+import { QUALITY_CONFIG } from '@/lib/config';
+import { SceneLighting } from './SceneLighting';
+import { CameraRig } from './CameraRig';
+import { ParticleDust } from './ParticleDust';
 
-/**
- * DynamicCursorLight: Soft point light that tracks the pointer position.
- * Casts moving specular highlights and caustic refractions across the glass facets.
- */
-function DynamicCursorLight() {
-  const lightRef = useRef<THREE.PointLight>(null);
-  const targetPos = useRef(new THREE.Vector3(0, 0, 3));
-
-  useEffect(() => {
-    const onPointerMove = (e: PointerEvent) => {
-      const nx = (e.clientX / window.innerWidth) * 2 - 1;
-      const ny = -(e.clientY / window.innerHeight) * 2 + 1;
-      targetPos.current.set(nx * 4, ny * 3, 3.5);
-    };
-
-    window.addEventListener('pointermove', onPointerMove, { passive: true });
-    return () => window.removeEventListener('pointermove', onPointerMove);
-  }, []);
-
-  useFrame((_, delta) => {
-    if (!lightRef.current) return;
-    lightRef.current.position.lerp(targetPos.current, delta * 4);
-  });
-
-  return (
-    <pointLight
-      ref={lightRef}
-      color="#38bdf8"
-      intensity={1.2}
-      distance={10}
-      decay={2}
-    />
-  );
+// Suppress Three.js r186 deprecation notice for Clock triggered internally by R3F store
+if (typeof window !== 'undefined') {
+  const origWarn = console.warn;
+  console.warn = (...args: unknown[]) => {
+    if (
+      typeof args[0] === 'string' &&
+      args[0].includes('THREE.Clock: This module has been deprecated')
+    ) {
+      return;
+    }
+    origWarn.apply(console, args);
+  };
 }
 
-/**
- * SceneContent: Assembles the lighting, interactive 3D crystal core,
- * and dynamic particle field.
- */
-function SceneContent() {
-  const setCanvasReady = useSceneStore((s) => s.setCanvasReady);
+// Dynamically load room components
+const HeroRoom = dynamic(
+  () => import('./HeroRoom').then((m) => ({ default: m.HeroRoom })),
+  { ssr: false }
+);
+
+const WorkRoom = dynamic(
+  () => import('./WorkRoom').then((m) => ({ default: m.WorkRoom })),
+  { ssr: false }
+);
+
+const SkillsRoom = dynamic(
+  () => import('./SkillsRoom').then((m) => ({ default: m.SkillsRoom })),
+  { ssr: false }
+);
+
+const ContactRoom = dynamic(
+  () => import('./ContactRoom').then((m) => ({ default: m.ContactRoom })),
+  { ssr: false }
+);
+
+const PostProcessingEffects = dynamic(
+  () => import('./PostProcessing').then((m) => ({ default: m.PostProcessingEffects })),
+  { ssr: false }
+);
+
+function SceneInner() {
+  const { quality, setCanvasReady } = useSceneStore();
 
   useEffect(() => {
     setCanvasReady(true);
@@ -57,55 +61,66 @@ function SceneContent() {
 
   return (
     <>
-      {/* Base ambient fill: Keeps background readable without pitch black */}
-      <ambientLight intensity={0.65} color="#0f172a" />
-
-      {/* Key directional light for crisp facet edge highlights */}
-      <directionalLight position={[6, 8, 5]} intensity={2.0} color="#f0f9ff" />
-
-      {/* Rim light from lower-left for liquid-glass silhouette definition */}
-      <directionalLight position={[-6, -4, -2]} intensity={1.4} color="#0284c7" />
-
-      {/* Interactive cursor light */}
-      <DynamicCursorLight />
-
-      {/* Central Interactive 3D Liquid-Glass Prism */}
-      <HeroGlassCore />
-
-      {/* Interactive 3D Particle Constellation */}
-      <InteractiveParticleField />
+      <CameraRig />
+      <SceneLighting />
+      <Suspense fallback={null}>
+        <HeroRoom />
+        <WorkRoom />
+        <SkillsRoom />
+        <ContactRoom />
+        {quality === 'high' && <ParticleDust />}
+        {quality === 'high' && <PostProcessingEffects />}
+      </Suspense>
     </>
+  );
+}
+
+/**
+ * WebGLFallback: Polished static geometric glass fallback
+ * rendered when WebGL is unsupported or disabled.
+ */
+function WebGLFallback() {
+  return (
+    <div
+      aria-hidden="true"
+      className="fixed inset-0 z-0 pointer-events-none overflow-hidden opacity-40"
+    >
+      <div
+        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(14,165,233,0.15) 0%, transparent 70%)',
+        }}
+      />
+      <div
+        className="absolute top-2/3 left-1/3 w-80 h-80 rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%)',
+        }}
+      />
+    </div>
   );
 }
 
 export function SceneCanvas() {
   const { quality, setQuality } = useSceneStore();
-  const [reducedMotion, setReducedMotion] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
+  // Initialize GPU capability detection
+  useGPUTier();
+
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReducedMotion(mediaQuery.matches);
-
-    const onMotionChange = (e: MediaQueryListEvent) => {
-      setReducedMotion(e.matches);
-    };
-
     const onVisibilityChange = () => {
       setIsVisible(!document.hidden);
     };
 
-    mediaQuery.addEventListener('change', onMotionChange);
     document.addEventListener('visibilitychange', onVisibilityChange);
-
-    return () => {
-      mediaQuery.removeEventListener('change', onMotionChange);
-      document.removeEventListener('visibilitychange', onVisibilityChange);
-    };
+    return () => document.removeEventListener('visibilitychange', onVisibilityChange);
   }, []);
 
-  // Do not render canvas if disabled by performance monitor or user preference
-  if (quality === 'none') return null;
+  // Static fallback if WebGL is unavailable
+  if (quality === 'none') {
+    return <WebGLFallback />;
+  }
 
   return (
     <div
@@ -118,8 +133,8 @@ export function SceneCanvas() {
       }}
     >
       <Canvas
-        camera={{ position: [0, 0, 7.5], fov: 45, near: 0.1, far: 80 }}
-        dpr={[1, 2]}
+        camera={{ position: [0, 0, 7.2], fov: 48, near: 0.1, far: 100 }}
+        dpr={[1, Math.min(2, QUALITY_CONFIG.maxPixelRatio)]}
         gl={{
           antialias: true,
           alpha: true,
@@ -128,21 +143,20 @@ export function SceneCanvas() {
           depth: true,
         }}
         style={{ background: 'transparent' }}
-        frameloop={!isVisible || reducedMotion ? 'never' : 'always'}
+        frameloop={isVisible ? 'always' : 'never'}
       >
         <AdaptiveDpr pixelated />
         <PerformanceMonitor
           onDecline={() => {
             if (quality === 'high') setQuality('medium');
             else if (quality === 'medium') setQuality('low');
-            else setQuality('none');
           }}
           flipflops={3}
           factor={1}
           step={0.2}
-          ms={200}
+          ms={250}
         >
-          <SceneContent />
+          <SceneInner />
         </PerformanceMonitor>
       </Canvas>
     </div>
