@@ -8,8 +8,8 @@ import { useSceneStore } from '@/store/useSceneStore';
 import { POINTER_REACTIVE_3D } from '@/lib/config';
 
 /**
- * DynamicPointerLight: Subtle point light that tracks the pointer in 3D space.
- * Casts moving specular highlights across refractive glass facets.
+ * DynamicPointerLight: Point light tracking pointer in 3D space.
+ * Casts dynamic specular highlights across refractive glass facets.
  */
 function DynamicPointerLight() {
   const lightRef = useRef<THREE.PointLight>(null);
@@ -48,35 +48,37 @@ function DynamicPointerLight() {
 
 /**
  * SceneLighting: Complete studio lighting and procedural HDR environment.
- * Uses Lightformers for zero-network-overhead glass reflections.
+ * Re-lights dynamically for Light Mode and Dark Mode for optimal glass refraction.
  */
 export function SceneLighting() {
   const quality = useSceneStore((s) => s.quality);
+  const theme = useSceneStore((s) => s.theme);
+  const isDark = theme === 'dark';
 
   return (
     <>
-      {/* Base ambient illumination */}
-      <ambientLight intensity={0.65} color="#0b1329" />
+      {/* Base ambient illumination: luminous sky in light mode, deep obsidian in dark */}
+      <ambientLight intensity={isDark ? 0.65 : 1.1} color={isDark ? '#0b1329' : '#e0f2fe'} />
 
       {/* Primary Key light */}
       <directionalLight
         position={[6, 8, 6]}
-        intensity={2.2}
-        color="#f0f9ff"
+        intensity={isDark ? 2.2 : 1.9}
+        color={isDark ? '#f0f9ff' : '#ffffff'}
         castShadow={quality === 'high'}
       />
 
       {/* Rim light for liquid-glass silhouette definition */}
       <directionalLight
         position={[-6, -4, -3]}
-        intensity={1.5}
+        intensity={isDark ? 1.5 : 1.6}
         color="#0284c7"
       />
 
       {/* Soft warm fill light */}
       <directionalLight
         position={[0, -6, 4]}
-        intensity={0.6}
+        intensity={isDark ? 0.6 : 0.8}
         color="#38bdf8"
       />
 
@@ -89,8 +91,8 @@ export function SceneLighting() {
           {/* Top key softbox */}
           <Lightformer
             form="rect"
-            intensity={2.5}
-            color="#f0f9ff"
+            intensity={isDark ? 2.5 : 2.0}
+            color={isDark ? '#f0f9ff' : '#ffffff'}
             position={[0, 6, -2]}
             scale={[10, 5, 1]}
             target={[0, 0, 0]}
@@ -98,8 +100,8 @@ export function SceneLighting() {
           {/* Accent cyan rim */}
           <Lightformer
             form="rect"
-            intensity={2.0}
-            color="#38bdf8"
+            intensity={isDark ? 2.0 : 2.4}
+            color="#0ea5e9"
             position={[-5, 2, -1]}
             scale={[6, 3, 1]}
             target={[0, 0, 0]}
@@ -107,7 +109,7 @@ export function SceneLighting() {
           {/* Sapphire fill */}
           <Lightformer
             form="circle"
-            intensity={1.5}
+            intensity={isDark ? 1.5 : 1.8}
             color="#0284c7"
             position={[5, -2, 2]}
             scale={[5, 5, 1]}
@@ -116,8 +118,8 @@ export function SceneLighting() {
           {/* Bottom subtle bounce */}
           <Lightformer
             form="ring"
-            intensity={0.8}
-            color="#0ea5e9"
+            intensity={isDark ? 0.8 : 1.2}
+            color="#38bdf8"
             position={[0, -5, 0]}
             scale={[8, 8, 1]}
             target={[0, 0, 0]}

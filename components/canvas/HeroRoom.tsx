@@ -8,6 +8,10 @@ import { useSceneStore } from '@/store/useSceneStore';
 import { useMouseParallax } from '@/hooks/useMouseParallax';
 import { POINTER_REACTIVE_3D } from '@/lib/config';
 
+/**
+ * HeroRoom: Prominent 3D crystal sculpture with real refractive transmission.
+ * Engineered to adapt dynamically to Light and Dark themes, and responsive aspect ratios.
+ */
 export function HeroRoom() {
   const groupRef = useRef<THREE.Group>(null);
   const coreRef = useRef<THREE.Mesh>(null);
@@ -16,10 +20,17 @@ export function HeroRoom() {
   const satelliteRef = useRef<THREE.Mesh>(null);
 
   const quality = useSceneStore((s) => s.quality);
+  const theme = useSceneStore((s) => s.theme);
+  const isDark = theme === 'dark';
+
   const { nx, ny } = useMouseParallax();
   const { viewport } = useThree();
 
-  const scale = Math.min(Math.max(viewport.width / 10, 0.85), 1.25);
+  // Responsive scale adapted to aspect ratio (portrait mobile vs landscape/desktop)
+  const isPortrait = viewport.aspect < 1;
+  const scale = isPortrait
+    ? Math.min(Math.max(viewport.width / 6.2, 0.55), 0.75)
+    : Math.min(Math.max(viewport.width / 10, 0.85), 1.25);
 
   // Click kinetic impulse
   const impulse = useRef(0);
@@ -82,10 +93,11 @@ export function HeroRoom() {
 
     // Orbiting crystal satellite
     if (satelliteRef.current) {
+      const satDist = isPortrait ? 1.8 : 2.5;
       const satSpeed = t * 0.7;
-      satelliteRef.current.position.x = Math.cos(satSpeed) * 2.5;
+      satelliteRef.current.position.x = Math.cos(satSpeed) * satDist;
       satelliteRef.current.position.y = Math.sin(satSpeed * 0.8) * 0.8;
-      satelliteRef.current.position.z = Math.sin(satSpeed) * 2.2;
+      satelliteRef.current.position.z = Math.sin(satSpeed) * (satDist * 0.9);
       satelliteRef.current.rotation.x = t * 1.2;
       satelliteRef.current.rotation.y = t;
     }
@@ -95,23 +107,23 @@ export function HeroRoom() {
     () => ({
       samples: quality === 'high' ? 12 : 4,
       resolution: quality === 'high' ? 384 : 192,
-      thickness: 1.2,
-      roughness: 0.04,
-      ior: 1.5,
-      chromaticAberration: quality === 'high' ? 0.05 : 0,
+      thickness: isDark ? 1.2 : 1.4,
+      roughness: isDark ? 0.04 : 0.02,
+      ior: isDark ? 1.5 : 1.52,
+      chromaticAberration: quality === 'high' ? (isDark ? 0.05 : 0.04) : 0,
       anisotropicBlur: quality === 'high' ? 0.08 : 0,
       distortion: 0.08,
       distortionScale: 0.2,
       temporalDistortion: 0.04,
-      color: '#f0f9ff',
-      attenuationColor: '#0284c7',
-      attenuationDistance: 0.75,
+      color: isDark ? '#f0f9ff' : '#ffffff',
+      attenuationColor: isDark ? '#0284c7' : '#0369a1',
+      attenuationDistance: isDark ? 0.75 : 0.65,
     }),
-    [quality]
+    [quality, isDark]
   );
 
   return (
-    <group position={[0, 0, 0]}>
+    <group position={[0, isPortrait ? 0.2 : 0, 0]}>
       <Float speed={1.2} rotationIntensity={0.15} floatIntensity={0.25}>
         <group ref={groupRef}>
           {/* Main Faceted Glass Sculpture (Icosahedron) */}
@@ -125,9 +137,9 @@ export function HeroRoom() {
             <icosahedronGeometry args={[1.515, 0]} />
             <meshBasicMaterial
               wireframe
-              color="#38bdf8"
+              color={isDark ? '#38bdf8' : '#0284c7'}
               transparent
-              opacity={0.25}
+              opacity={isDark ? 0.25 : 0.42}
             />
           </mesh>
 
@@ -136,8 +148,8 @@ export function HeroRoom() {
             <octahedronGeometry args={[0.6, 0]} />
             <meshStandardMaterial
               color="#0284c7"
-              emissive="#0ea5e9"
-              emissiveIntensity={1.2}
+              emissive={isDark ? '#0ea5e9' : '#0284c7'}
+              emissiveIntensity={isDark ? 1.2 : 1.0}
               roughness={0.15}
               metalness={0.8}
             />
@@ -145,19 +157,19 @@ export function HeroRoom() {
 
           {/* Inner Core Radiant Glow */}
           <pointLight
-            color="#38bdf8"
-            intensity={1.8}
+            color={isDark ? '#38bdf8' : '#0284c7'}
+            intensity={isDark ? 1.8 : 1.4}
             distance={5}
             decay={2}
           />
 
           {/* Outer Gyroscopic Orbital Ring */}
           <mesh ref={outerRingRef}>
-            <torusGeometry args={[2.2, 0.018, 16, 80]} />
+            <torusGeometry args={[isPortrait ? 1.7 : 2.2, 0.018, 16, 80]} />
             <meshStandardMaterial
-              color="#7dd3fc"
-              emissive="#0284c7"
-              emissiveIntensity={0.6}
+              color={isDark ? '#7dd3fc' : '#0284c7'}
+              emissive={isDark ? '#0284c7' : '#0369a1'}
+              emissiveIntensity={isDark ? 0.6 : 0.4}
               roughness={0.1}
               metalness={0.9}
             />
@@ -165,11 +177,11 @@ export function HeroRoom() {
 
           {/* Inner Gyroscopic Orbital Ring */}
           <mesh ref={innerRingRef} rotation={[Math.PI / 3, 0, 0]}>
-            <torusGeometry args={[2.5, 0.015, 16, 80]} />
+            <torusGeometry args={[isPortrait ? 2.0 : 2.5, 0.015, 16, 80]} />
             <meshStandardMaterial
-              color="#38bdf8"
-              emissive="#0369a1"
-              emissiveIntensity={0.5}
+              color={isDark ? '#38bdf8' : '#0ea5e9'}
+              emissive={isDark ? '#0369a1' : '#0284c7'}
+              emissiveIntensity={isDark ? 0.5 : 0.4}
               roughness={0.12}
               metalness={0.9}
             />
@@ -178,37 +190,16 @@ export function HeroRoom() {
           {/* Orbiting Satellite Crystal */}
           <mesh ref={satelliteRef}>
             <octahedronGeometry args={[0.2, 0]} />
-            <MeshTransmissionMaterial
-              samples={quality === 'high' ? 6 : 2}
-              resolution={128}
-              thickness={0.5}
-              roughness={0.02}
-              ior={1.48}
-              color="#e0f2fe"
-              attenuationColor="#0284c7"
-              attenuationDistance={0.4}
+            <meshStandardMaterial
+              color="#38bdf8"
+              emissive="#0284c7"
+              emissiveIntensity={isDark ? 0.9 : 0.7}
+              roughness={0.1}
+              metalness={0.9}
             />
           </mesh>
         </group>
       </Float>
-
-      {/* Ambient background depth glows (slate/sapphire/sky) */}
-      <mesh position={[0, 0, -2.5]} rotation={[0, 0, Math.PI * 0.02]}>
-        <planeGeometry args={[9, 7]} />
-        <meshBasicMaterial
-          color="#0c2340"
-          transparent
-          opacity={0.18}
-        />
-      </mesh>
-      <mesh position={[2, 0.5, -3.5]}>
-        <planeGeometry args={[5, 4]} />
-        <meshBasicMaterial
-          color="#0369a1"
-          transparent
-          opacity={0.1}
-        />
-      </mesh>
     </group>
   );
 }

@@ -8,6 +8,8 @@ import { useSceneStore } from '@/store/useSceneStore';
 export function ParticleDust() {
   const pointsRef = useRef<THREE.Points>(null);
   const quality = useSceneStore((s) => s.quality);
+  const theme = useSceneStore((s) => s.theme);
+  const isDark = theme === 'dark';
 
   const count = quality === 'high' ? 140 : 60;
 
@@ -51,11 +53,11 @@ export function ParticleDust() {
       </bufferGeometry>
       <pointsMaterial
         size={0.06}
-        color="#38bdf8"
+        color={isDark ? '#38bdf8' : '#0284c7'}
         transparent
-        opacity={0.45}
+        opacity={isDark ? 0.45 : 0.32}
         sizeAttenuation
-        blending={THREE.AdditiveBlending}
+        blending={isDark ? THREE.AdditiveBlending : THREE.NormalBlending}
         depthWrite={false}
       />
     </points>

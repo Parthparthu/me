@@ -10,6 +10,9 @@ import { POINTER_REACTIVE_3D } from '@/lib/config';
 
 export function ContactRoom() {
   const quality = useSceneStore((s) => s.quality);
+  const theme = useSceneStore((s) => s.theme);
+  const isDark = theme === 'dark';
+
   const glowRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
   const { nx, ny } = useMouseParallax();
@@ -18,7 +21,7 @@ export function ContactRoom() {
     const t = state.clock.elapsedTime;
     if (glowRef.current) {
       const mat = glowRef.current.material as THREE.MeshBasicMaterial;
-      mat.opacity = 0.08 + Math.sin(t * 1.5) * 0.03;
+      mat.opacity = (isDark ? 0.08 : 0.12) + Math.sin(t * 1.5) * 0.03;
     }
 
     if (groupRef.current && POINTER_REACTIVE_3D) {
@@ -46,22 +49,22 @@ export function ContactRoom() {
             <MeshTransmissionMaterial
               samples={quality === 'high' ? 10 : 3}
               resolution={quality === 'high' ? 256 : 128}
-              thickness={0.16}
-              roughness={0.04}
+              thickness={isDark ? 0.16 : 0.18}
+              roughness={isDark ? 0.04 : 0.02}
               ior={1.48}
               chromaticAberration={quality === 'high' ? 0.04 : 0}
-              color="#f0f9ff"
+              color={isDark ? '#f0f9ff' : '#ffffff'}
               attenuationColor="#0284c7"
               attenuationDistance={0.5}
               transparent
-              opacity={0.9}
+              opacity={isDark ? 0.9 : 0.95}
             />
           </RoundedBox>
 
           {/* Internal Glowing Core Rim */}
           <mesh ref={glowRef} position={[0, 0, 0.09]}>
             <planeGeometry args={[3.4, 2.0]} />
-            <meshBasicMaterial color="#0ea5e9" transparent opacity={0.08} />
+            <meshBasicMaterial color="#0ea5e9" transparent opacity={isDark ? 0.08 : 0.12} />
           </mesh>
         </group>
       </Float>
@@ -78,7 +81,7 @@ export function ContactRoom() {
             <meshStandardMaterial
               color={orb.color}
               emissive={orb.color}
-              emissiveIntensity={0.8}
+              emissiveIntensity={isDark ? 0.8 : 0.6}
               roughness={0.2}
               metalness={0.5}
             />
@@ -86,10 +89,14 @@ export function ContactRoom() {
         </Float>
       ))}
 
-      {/* Soft background plane */}
+      {/* Soft background plane: luminous sky in light mode, deep dark in dark */}
       <mesh position={[0, 0, -3.5]}>
         <planeGeometry args={[14, 10]} />
-        <meshBasicMaterial color="#031526" transparent opacity={0.35} />
+        <meshBasicMaterial
+          color={isDark ? '#031526' : '#e0f2fe'}
+          transparent
+          opacity={isDark ? 0.35 : 0.45}
+        />
       </mesh>
     </group>
   );

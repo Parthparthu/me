@@ -27,7 +27,7 @@ const LOOKAT_POINTS = [
 ];
 
 export function CameraRig() {
-  const { camera } = useThree();
+  const { camera, viewport, size } = useThree();
   const progress = useScrollStore((s) => s.progress);
   const quality = useSceneStore((s) => s.quality);
   const { nx, ny } = useMouseParallax();
@@ -53,11 +53,20 @@ export function CameraRig() {
   useFrame((_, delta) => {
     const clampedProgress = Math.max(0, Math.min(1, progress || 0));
 
+    // Dynamic responsive z-offset based on aspect ratio
+    // In portrait mobile (aspect < 1), pulling camera back keeps 3D scenes inside bounds
+    const isPortrait = viewport.aspect < 1;
+    const zOffset = isPortrait ? Math.min((1 / Math.max(viewport.aspect, 0.45) - 1) * 1.4, 2.2) : 0;
+
+    // Handle landscape mobile (very short viewport height < 480)
+    const yOffset = !isPortrait && size.height < 480 ? 0.3 : 0;
+
     if (reducedMotion.current) {
       // In reduced motion, smoothly glide position without rotational shake or mouse parallax
       const pt = positionCurve.getPointAt(clampedProgress);
       const look = lookAtCurve.getPointAt(clampedProgress);
-      camera.position.lerp(pt, Math.min(delta * 2, 1));
+      targetPos.current.set(pt.x, pt.y + yOffset, pt.z + zOffset);
+      camera.position.lerp(targetPos.current, Math.min(delta * 2, 1));
       camera.lookAt(look);
       return;
     }
@@ -66,12 +75,13 @@ export function CameraRig() {
     const pt = positionCurve.getPointAt(clampedProgress);
     const look = lookAtCurve.getPointAt(clampedProgress);
 
-    // Subtle pointer parallax tilt
-    const parallaxStrength = POINTER_REACTIVE_3D ? (quality === 'high' ? 0.35 : 0.18) : 0;
+    // Pointer parallax tilt (scaled down slightly on small viewports)
+    const parallaxMultiplier = isPortrait ? 0.6 : 1.0;
+    const parallaxStrength = POINTER_REACTIVE_3D ? (quality === 'high' ? 0.35 : 0.18) * parallaxMultiplier : 0;
     targetPos.current.set(
       pt.x + nx * parallaxStrength,
-      pt.y + ny * parallaxStrength * 0.4,
-      pt.z
+      pt.y + yOffset + ny * parallaxStrength * 0.4,
+      pt.z + zOffset
     );
     targetLook.current.copy(look);
 

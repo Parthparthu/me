@@ -31,12 +31,14 @@ function FloatingProjectPanel({
 }) {
   const meshRef = useRef<THREE.Group>(null);
   const quality = useSceneStore((s) => s.quality);
+  const theme = useSceneStore((s) => s.theme);
+  const isDark = theme === 'dark';
+
   const { nx, ny } = useMouseParallax();
   const colors = PROJECT_ACCENTS[projectSlug] || { primary: '#0ea5e9', secondary: '#0284c7' };
 
   useFrame((state, delta) => {
     if (!meshRef.current) return;
-    const t = state.clock.elapsedTime;
 
     // Pointer-reactive tilt
     if (POINTER_REACTIVE_3D) {
@@ -62,15 +64,15 @@ function FloatingProjectPanel({
         <MeshTransmissionMaterial
           samples={quality === 'high' ? 8 : 3}
           resolution={quality === 'high' ? 256 : 128}
-          thickness={0.12}
-          roughness={0.04}
+          thickness={isDark ? 0.12 : 0.15}
+          roughness={isDark ? 0.04 : 0.02}
           ior={1.46}
           chromaticAberration={quality === 'high' ? 0.03 : 0}
-          color="#f0f9ff"
+          color={isDark ? '#f0f9ff' : '#ffffff'}
           attenuationColor={colors.primary}
           attenuationDistance={0.5}
           transparent
-          opacity={0.9}
+          opacity={isDark ? 0.9 : 0.95}
         />
       </RoundedBox>
 
@@ -80,7 +82,7 @@ function FloatingProjectPanel({
         <meshBasicMaterial
           color={colors.primary}
           transparent
-          opacity={0.12}
+          opacity={isDark ? 0.12 : 0.08}
         />
       </mesh>
 
@@ -90,7 +92,7 @@ function FloatingProjectPanel({
         <meshBasicMaterial
           color="#ffffff"
           transparent
-          opacity={0.35}
+          opacity={isDark ? 0.35 : 0.65}
         />
       </mesh>
     </group>
@@ -98,6 +100,8 @@ function FloatingProjectPanel({
 }
 
 export function WorkRoom() {
+  const theme = useSceneStore((s) => s.theme);
+  const isDark = theme === 'dark';
   const featured = projects.filter((p) => p.featured).slice(0, 5);
 
   const panelConfigs = featured.map((project, i) => {
@@ -134,10 +138,14 @@ export function WorkRoom() {
         </Float>
       ))}
 
-      {/* Spatial backdrop glow */}
+      {/* Spatial backdrop glow: luminous sky in light mode, dark navy in dark */}
       <mesh position={[0, -9, -3.5]}>
         <planeGeometry args={[14, 8]} />
-        <meshBasicMaterial color="#082f49" transparent opacity={0.25} />
+        <meshBasicMaterial
+          color={isDark ? '#082f49' : '#e0f2fe'}
+          transparent
+          opacity={isDark ? 0.25 : 0.45}
+        />
       </mesh>
     </group>
   );

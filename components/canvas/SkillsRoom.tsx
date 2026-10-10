@@ -22,6 +22,8 @@ const CATEGORY_COLORS = [
 export function SkillsRoom() {
   const groupRef = useRef<THREE.Group>(null);
   const quality = useSceneStore((s) => s.quality);
+  const theme = useSceneStore((s) => s.theme);
+  const isDark = theme === 'dark';
   const { nx, ny } = useMouseParallax();
 
   // Generate constellation layout using Fibonacci sphere distribution
@@ -83,14 +85,14 @@ export function SkillsRoom() {
                 samples={quality === 'high' ? 6 : 2}
                 resolution={quality === 'high' ? 128 : 64}
                 thickness={orb.scale * 2.2}
-                roughness={0.04}
+                roughness={isDark ? 0.04 : 0.02}
                 ior={1.42}
                 chromaticAberration={quality === 'high' ? 0.02 : 0}
-                color="#ffffff"
+                color={isDark ? '#ffffff' : '#f0f9ff'}
                 attenuationColor={orb.color}
                 attenuationDistance={0.35}
                 transparent
-                opacity={0.9}
+                opacity={isDark ? 0.9 : 0.95}
               />
             </Sphere>
           </mesh>
@@ -98,17 +100,21 @@ export function SkillsRoom() {
 
         {/* Central radiant cluster light */}
         <pointLight
-          color="#38bdf8"
-          intensity={1.2}
+          color={isDark ? '#38bdf8' : '#0284c7'}
+          intensity={isDark ? 1.2 : 1.5}
           distance={8}
           decay={2}
         />
       </group>
 
-      {/* Deep slate backdrop glow */}
+      {/* Backdrop glow: luminous sky in light mode, deep slate in dark */}
       <mesh position={[0, 0, -3]}>
         <planeGeometry args={[10, 8]} />
-        <meshBasicMaterial color="#062038" transparent opacity={0.25} />
+        <meshBasicMaterial
+          color={isDark ? '#062038' : '#e0f2fe'}
+          transparent
+          opacity={isDark ? 0.25 : 0.45}
+        />
       </mesh>
     </group>
   );
