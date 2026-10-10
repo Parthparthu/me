@@ -13,6 +13,8 @@ import {
   Mail, 
   FileText, 
   Github, 
+  Linkedin,
+  Instagram,
   X,
   type LucideIcon
 } from 'lucide-react';
@@ -113,6 +115,20 @@ export function CommandPalette() {
         category: 'Links',
         icon: Github,
         action: () => { window.open('https://github.com/Parthparthu', '_blank'); close(); },
+      },
+      {
+        id: 'linkedin',
+        title: 'LinkedIn Profile (pradyumna05)',
+        category: 'Links',
+        icon: Linkedin,
+        action: () => { window.open('https://www.linkedin.com/in/pradyumna05', '_blank'); close(); },
+      },
+      {
+        id: 'instagram',
+        title: 'Instagram Profile (@pradyumna_in_)',
+        category: 'Links',
+        icon: Instagram,
+        action: () => { window.open('https://www.instagram.com/pradyumna_in_/', '_blank'); close(); },
       },
     ];
 
