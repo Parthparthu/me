@@ -43,15 +43,17 @@ export function HeroSection() {
             tint="neutral"
             radius={8}
             dynamicLight={false}
-            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 border border-emerald-500/20 bg-emerald-500/5"
+            className="border border-emerald-500/20 bg-emerald-500/5 p-0"
           >
-            <span className="relative flex h-2 w-2" aria-hidden="true">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-            </span>
-            <span className="text-xs font-medium text-emerald-400">
-              Open to Internships: Greater Noida, Noida, Delhi NCR &amp; Remote
-            </span>
+            <div className="relative z-10 inline-flex items-center gap-2.5 px-3.5 py-1.5">
+              <span className="relative flex h-2 w-2 shrink-0 items-center justify-center" aria-hidden="true">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              </span>
+              <span className="text-xs font-medium leading-none text-emerald-400">
+                Open to Internships: Greater Noida, Noida, Delhi NCR &amp; Remote
+              </span>
+            </div>
           </LiquidGlass>
 
           {/* Name: Crisp high-contrast display */}
@@ -80,6 +82,7 @@ export function HeroSection() {
               elevation={2}
               tint="cyan"
               variant="primary"
+              className="group"
               onClick={() => {
                 document
                   .getElementById('selected-work')
@@ -87,7 +90,11 @@ export function HeroSection() {
               }}
             >
               <span>View Projects</span>
-              <ArrowRight size={16} aria-hidden="true" />
+              <ArrowRight
+                size={15}
+                className="shrink-0 transition-transform duration-200 group-hover:translate-x-1"
+                aria-hidden="true"
+              />
             </GlassButton>
 
             <Link href="/#contact">

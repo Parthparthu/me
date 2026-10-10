@@ -129,7 +129,7 @@ export function GlassButton({
       dynamicLight
       variant="button"
       className={cn(
-        'inline-flex items-center justify-center gap-2 font-semibold text-sm',
+        'group inline-flex items-center justify-center font-semibold text-sm',
         'min-h-[44px] px-5 py-2.5 cursor-pointer whitespace-nowrap',
         'transition-colors duration-150',
         'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
@@ -141,7 +141,9 @@ export function GlassButton({
       )}
       {...(props as unknown as React.HTMLAttributes<HTMLDivElement>)}
     >
-      {children}
+      <span className="relative z-10 inline-flex items-center justify-center gap-2 leading-none">
+        {children}
+      </span>
     </LiquidGlass>
   );
 }

@@ -31,7 +31,7 @@ const CURRENT_PROJECTS: CurrentProject[] = [
     task: 'Designing sandboxed Python code evaluation and WebSocket match synchronization',
     status: 'Product Concept',
     icon: Terminal,
-    url: 'https://github.com/Parthparthu/CodeClash-AI',
+    url: 'https://github.com/Parthparthu/MVP',
   },
   {
     id: 'portfolio-v2',
@@ -119,11 +119,11 @@ export function CurrentlyBuilding() {
 
                 {/* Status indicator */}
                 <div className="flex items-center gap-2 pt-4 border-t border-white/8 font-mono">
-                  <div className="relative flex h-2 w-2" aria-hidden="true">
+                  <div className="relative flex h-2 w-2 shrink-0 items-center justify-center" aria-hidden="true">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
                   </div>
-                  <span className="text-xs font-medium text-[var(--text-secondary)]">
+                  <span className="text-xs font-medium leading-none text-[var(--text-secondary)]">
                     {project.status}
                   </span>
                 </div>
