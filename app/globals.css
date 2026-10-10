@@ -631,7 +631,6 @@ body::after {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
   [data-reveal] {
@@ -691,13 +690,6 @@ footer,
 nav,
 main {
   position: relative;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  canvas {
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
 }
 
 /* ==========================================================================

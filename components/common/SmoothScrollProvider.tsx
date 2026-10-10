@@ -1,13 +1,3 @@
-/**
- * SmoothScrollProvider: Synchronizes Lenis smooth scroll with GSAP
- * ScrollTrigger and the R3F render loop into a single RAF.
- *
- * Critical: no competing animation frames.
- * - Lenis.raf() is called inside gsap.ticker (not its own RAF)
- * - GSAP ScrollTrigger gets scroll updates from Lenis
- * - R3F's useFrame runs in the same RAF via @react-three/fiber
- * - useScrollStore is updated for the CameraRig
- */
 'use client';
 
 import { useEffect, useRef, createContext, useContext, type ReactNode } from 'react';
@@ -32,13 +22,30 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
   const { setProgress, setScrollY, setVelocity, setActiveRoom } = useScrollStore.getState();
 
   useEffect(() => {
-    // Respect reduced motion
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // Respect reduced motion: native scroll without inertia
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const handleNativeScroll = () => {
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollHeight > 0 ? Math.min(Math.max(window.scrollY / scrollHeight, 0), 1) : 0;
+        setProgress(progress);
+        setScrollY(window.scrollY);
+
+        for (const [room, [min, max]] of Object.entries(SECTION_THRESHOLDS)) {
+          if (progress >= min && progress < max) {
+            setActiveRoom(room as 'hero' | 'work' | 'about' | 'skills' | 'journey' | 'contact');
+            break;
+          }
+        }
+      };
+
+      window.addEventListener('scroll', handleNativeScroll, { passive: true });
+      return () => window.removeEventListener('scroll', handleNativeScroll);
+    }
 
     const lenis = new Lenis({
-      duration: 1.4,
+      duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      touchMultiplier: 2.2,
+      touchMultiplier: 2.0,
       infinite: false,
       syncTouch: false,
     });
@@ -63,25 +70,16 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       }
     });
 
-    // Sync Lenis into GSAP ticker (single RAF)
-    // We use requestAnimationFrame directly since GSAP import is async
-    let rafId: number;
-    const tick = (time: number) => {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(tick);
-    };
-    rafId = requestAnimationFrame(tick);
+    let tickerFunction: ((time: number) => void) | null = null;
+    let fallbackRafId: number | null = null;
 
-    // GSAP ScrollTrigger integration (dynamic import to avoid SSR issues)
-    let scrollTriggerRefresh: (() => void) | null = null;
+    // Single unified animation loop via GSAP ticker
     import('gsap').then(({ gsap }) => {
       import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
         gsap.registerPlugin(ScrollTrigger);
 
-        // Tell ScrollTrigger about Lenis scroll position
         lenis.on('scroll', ScrollTrigger.update);
 
-        // Override ScrollTrigger's scroll getter to use Lenis
         ScrollTrigger.scrollerProxy(document.documentElement, {
           scrollTop: () => lenis.scroll,
           getBoundingClientRect: () => ({
@@ -92,13 +90,41 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
           }),
         });
 
-        scrollTriggerRefresh = () => ScrollTrigger.refresh();
+        // Cancel initial fallback RAF once GSAP is ready
+        if (fallbackRafId !== null) {
+          cancelAnimationFrame(fallbackRafId);
+          fallbackRafId = null;
+        }
+
+        // Single shared loop driven by gsap.ticker
+        tickerFunction = (time: number) => {
+          lenis.raf(time * 1000);
+        };
+        gsap.ticker.add(tickerFunction);
+        gsap.ticker.lagSmoothing(0);
+
         ScrollTrigger.refresh();
       });
     });
 
+    // Temporary fallback loop until GSAP loads
+    const initialTick = (time: number) => {
+      if (!tickerFunction) {
+        lenis.raf(time);
+        fallbackRafId = requestAnimationFrame(initialTick);
+      }
+    };
+    fallbackRafId = requestAnimationFrame(initialTick);
+
     return () => {
-      cancelAnimationFrame(rafId);
+      if (fallbackRafId !== null) {
+        cancelAnimationFrame(fallbackRafId);
+      }
+      if (tickerFunction) {
+        import('gsap').then(({ gsap }) => {
+          if (tickerFunction) gsap.ticker.remove(tickerFunction);
+        });
+      }
       lenis.destroy();
       lenisRef.current = null;
     };
