@@ -1,26 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <style>
-      :root {
-        --bg-color: #0b0f17;
-        --border-color: #1e293b;
-        --text-color: #f8fafc;
-        --dot-color: #0ea5e9;
-      }
-      @media (prefers-color-scheme: light) {
-        :root {
-          --bg-color: #f8fafc;
-          --border-color: #cbd5e1;
-          --text-color: #0f172a;
-          --dot-color: #0284c7;
-        }
-      }
-    </style>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f1d" />
+      <stop offset="100%" stop-color="#030712" />
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <linearGradient id="glowBorder" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7dd3fc" />
+      <stop offset="50%" stop-color="#0ea5e9" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#0ea5e9" flood-opacity="0.35" />
+    </filter>
   </defs>
-  <rect width="64" height="64" rx="14" fill="var(--bg-color)" />
-  <rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="var(--border-color)" stroke-width="2" />
-  <!-- Monogram P -->
-  <path d="M22 46V18H34C40 18 44 21.5 44 27C44 32.5 40 36 34 36H28V46H22ZM28 30.5H33.5C36.5 30.5 38.5 29 38.5 27C38.5 25 36.5 23.5 33.5 23.5H28V30.5Z" fill="var(--text-color)" />
-  <!-- Geometric Sky-Blue Dot -->
-  <circle cx="47" cy="43.5" r="3.5" fill="var(--dot-color)" />
+
+  <!-- Deep Obsidian Container with Glowing Cyan Rim -->
+  <rect x="24" y="24" width="464" height="464" rx="112" fill="url(#bgGrad)" stroke="url(#glowBorder)" stroke-width="24" filter="url(#softGlow)" />
+  <rect x="36" y="36" width="440" height="440" rx="100" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="4" />
+
+  <!-- Monogram P Architecture -->
+  <!-- Left Pillar / Stem (Solid Crisp White) -->
+  <rect x="148" y="128" width="52" height="256" rx="26" fill="#ffffff" />
+
+  <!-- Top-Right Bowl / Loop (Cyan-Sky Gradient with 52px stroke) -->
+  <path d="M174 154 H288 C345.438 154 392 200.562 392 258 C392 315.438 345.438 362 288 362 H174" 
+        fill="none" 
+        stroke="url(#cyanGrad)" 
+        stroke-width="52" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" />
+
+  <!-- Luminous Core Node -->
+  <circle cx="288" cy="258" r="28" fill="#38bdf8" />
+  <circle cx="288" cy="258" r="14" fill="#ffffff" />
 </svg>
