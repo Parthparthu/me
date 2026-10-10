@@ -48,7 +48,7 @@ export function GlassSVGFilter() {
           />
         </filter>
 
-        {/* Stronger distortion for overlay panels */}
+        {/* Stronger distortion for hero sculpture overlay panels */}
         <filter id="glass-distort-strong" colorInterpolationFilters="sRGB">
           <feTurbulence
             type="fractalNoise"
@@ -66,7 +66,7 @@ export function GlassSVGFilter() {
           />
         </filter>
 
-        {/* Gooey merge filter */}
+        {/* Gooey merge filter: for liquid navigation effects */}
         <filter id="glass-goo" colorInterpolationFilters="sRGB">
           <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
           <feColorMatrix

@@ -23,16 +23,15 @@ export function BackToTop() {
     <AnimatePresence>
       {visible && (
         <motion.button
-          initial={{ opacity: 0, scale: 0.9, y: 12 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 12 }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 12 }}
           transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
           onClick={scrollToTop}
-          type="button"
-          className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-11 h-11 rounded-[8px] bg-[var(--bg-surface-raised)] border border-[var(--border-medium)] shadow-lg hover:border-[var(--accent-primary)] hover:text-[var(--text-primary)] transition-colors min-h-[44px] min-w-[44px] cursor-pointer"
-          aria-label="Scroll to top of page"
+          className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-11 h-11 rounded-lg border border-[var(--border-medium)] bg-[var(--bg-glass)] text-[var(--text-secondary)] hover:text-white hover:bg-white/10 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] shadow-lg backdrop-blur-md"
+          aria-label="Scroll to top"
         >
-          <ArrowUp size={16} className="text-[var(--text-secondary)]" />
+          <ArrowUp size={18} aria-hidden="true" />
         </motion.button>
       )}
     </AnimatePresence>

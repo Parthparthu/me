@@ -1,6 +1,10 @@
+/**
+ * SkillsSection: Technical capabilities categorized with proficiency indicators and repository references.
+ */
 'use client';
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Terminal, Layout, Server, Database, Brain, Wrench, type LucideIcon } from 'lucide-react';
 import { skillCategories } from '@/data/skills';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
@@ -14,67 +18,135 @@ const ICON_MAP: Record<string, LucideIcon> = {
   Wrench,
 };
 
+const CATEGORY_ACCENTS = [
+  '#0ea5e9', // Core Languages: sky
+  '#0284c7', // Frontend: blue
+  '#10b981', // Backend: emerald
+  '#f59e0b', // Databases: amber
+  '#0ea5e9', // AI/ML: sky
+  '#64748b', // DevTools: slate
+];
+
+const LEVEL_LABELS = ['Foundational', 'Working Knowledge', 'Proficient', 'Core Strength'];
+
+const SPRING = { type: 'spring', stiffness: 280, damping: 28 } as const;
+
 export function SkillsSection() {
   return (
     <section
       id="skills"
-      className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full scroll-mt-24"
+      className="py-24 px-4 md:px-8 max-w-7xl mx-auto w-full scroll-mt-24"
       aria-label="Technical skills"
     >
-      <div className="mb-14">
-        <span className="section-label">Skills</span>
-        <h2 className="section-title text-[var(--text-primary)] mt-1">
-          Technical Stack and Applied Tooling
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={SPRING}
+        className="mb-14"
+      >
+        <span className="section-label">
+          <span aria-hidden="true">#</span>
+          Skills
+        </span>
+        <h2 className="section-title text-white mt-1">
+          Technical Stack
         </h2>
         <p className="section-subtitle mt-2">
-          Tools, frameworks, and protocols applied across production builds, data systems, and algorithmic problem-solving.
+          Technologies applied in production-grade projects, algorithms, and coursework.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {skillCategories.map((category) => {
+      {/* Category grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {skillCategories.map((category, catIndex) => {
           const Icon = ICON_MAP[category.icon] || Terminal;
+          const accent = CATEGORY_ACCENTS[catIndex % CATEGORY_ACCENTS.length];
 
           return (
-            <div key={category.id}>
+            <motion.div
+              key={category.id}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ ...SPRING, delay: catIndex * 0.05 }}
+            >
               <LiquidGlass
-                elevation={2}
+                elevation={3}
                 tint="neutral"
-                radius={12}
-                className="h-full p-6 flex flex-col justify-between border border-[var(--border-subtle)] hover:border-[var(--border-medium)] transition-colors"
+                radius={14}
+                dynamicLight={false}
+                className="h-full p-6 flex flex-col"
               >
-                <div>
-                  <div className="flex items-center gap-3 mb-5">
-                    <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 bg-[var(--bg-surface-raised)] border border-[var(--border-subtle)] text-[var(--accent-primary)]">
-                      <Icon size={18} aria-hidden="true" />
-                    </div>
-                    <h3 className="text-sm font-bold text-[var(--text-primary)]">
-                      {category.title}
-                    </h3>
+                {/* Category header */}
+                <div className="flex items-center gap-3 mb-5">
+                  <div
+                    className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                    style={{
+                      background: `${accent}15`,
+                      border: `1px solid ${accent}30`,
+                    }}
+                  >
+                    <Icon
+                      size={20}
+                      aria-hidden="true"
+                      style={{ color: accent }}
+                    />
                   </div>
+                  <h3 className="text-base font-bold text-white">{category.title}</h3>
+                </div>
 
-                  <ul className="space-y-3" role="list">
-                    {category.skills.map((skill) => (
-                      <li key={skill.name} className="flex flex-col gap-1 pb-2 border-b border-[var(--border-subtle)] last:border-0 last:pb-0">
-                        <span className="text-xs font-semibold text-[var(--text-primary)]">
+                {/* Skills list */}
+                <div className="flex flex-col gap-3">
+                  {category.skills.map((skill) => (
+                    <div key={skill.name}>
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-sm font-medium text-[var(--text-secondary)]">
                           {skill.name}
                         </span>
-                        <div className="flex flex-wrap gap-1">
-                          {skill.verifiedIn.map((item) => (
+                        <span className="text-[10px] text-[var(--text-muted)] font-mono uppercase tracking-wider">
+                          {LEVEL_LABELS[(skill.level || 1) - 1]}
+                        </span>
+                      </div>
+
+                      {/* Proficiency bar: 2px height, 2px radius */}
+                      <div
+                        className="w-full h-1.5 rounded-xs bg-white/8 overflow-hidden"
+                        role="progressbar"
+                        aria-valuenow={skill.level}
+                        aria-valuemin={1}
+                        aria-valuemax={4}
+                        aria-label={`${skill.name}: ${LEVEL_LABELS[(skill.level || 1) - 1]}`}
+                      >
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${((skill.level || 1) / 4) * 100}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.6, delay: catIndex * 0.04, ease: 'easeOut' }}
+                          className="h-full rounded-xs"
+                          style={{ background: accent }}
+                        />
+                      </div>
+
+                      {/* Project references */}
+                      {skill.verifiedIn && skill.verifiedIn.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mt-1.5">
+                          {skill.verifiedIn.slice(0, 2).map((proj) => (
                             <span
-                              key={item}
-                              className="px-1.5 py-0.5 rounded-md text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-surface-raised)]"
+                              key={proj}
+                              className="text-[9px] px-1.5 py-0.5 rounded-xs bg-white/5 text-[var(--text-muted)] font-mono border border-white/5"
                             >
-                              {item}
+                              {proj}
                             </span>
                           ))}
                         </div>
-                      </li>
-                    ))}
-                  </ul>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </LiquidGlass>
-            </div>
+            </motion.div>
           );
         })}
       </div>

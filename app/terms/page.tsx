@@ -3,73 +3,89 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Terms of Use',
-  description: 'Terms and conditions governing the use of this portfolio website.',
+  title: 'Terms and Conditions',
+  description: 'Terms and conditions for Pradyumna\'s personal developer portfolio.',
 };
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+    <div className="py-24 px-4 md:px-8 max-w-4xl mx-auto w-full">
       <div className="mb-8">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors min-h-[44px]"
+          className="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-white transition-colors mb-6 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] p-1"
         >
-          <ArrowLeft size={16} />
-          Back to Portfolio
+          <ArrowLeft size={16} aria-hidden="true" />
+          <span>Back to Home</span>
         </Link>
+        <h1 className="text-3xl md:text-4xl font-display font-bold text-white tracking-tight">
+          Terms and Conditions
+        </h1>
+        <p className="text-sm text-[var(--text-muted)] font-mono mt-2">
+          Last Updated: October 2026 (Subject to legal review)
+        </p>
       </div>
 
-      <div className="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-xl p-6 sm:p-10 space-y-8">
-        <header className="border-b border-[var(--border-subtle)] pb-6">
-          <span className="section-label">Legal</span>
-          <h1 className="text-3xl font-display font-bold text-[var(--text-primary)] mt-1">
-            Terms of Use
-          </h1>
-          <p className="text-xs font-mono text-[var(--text-muted)] mt-2">
-            Last Updated: October 10, 2026 (Subject to User Legal Review)
-          </p>
-        </header>
-
+      <div className="space-y-8 text-[var(--text-secondary)] text-sm md:text-base leading-relaxed bg-[var(--bg-surface)] p-6 md:p-8 rounded-xl border border-[var(--border-subtle)]">
         <section className="space-y-3">
-          <h2 className="text-lg font-bold text-[var(--text-primary)]">1. Purpose and Acceptance</h2>
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-            This portfolio website is operated by Pradyumna for the purpose of showcasing software engineering projects, code samples, and technical experience. By accessing this site, you agree to these Terms of Use.
+          <h2 className="text-lg font-semibold text-white">1. Acceptance of Terms</h2>
+          <p>
+            By accessing and browsing this portfolio website, you agree to these Terms and Conditions. If you do not agree, please discontinue using the site.
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-bold text-[var(--text-primary)]">2. Intellectual Property</h2>
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-            All original text, architectural case studies, diagrams, and site design are the intellectual property of Pradyumna unless otherwise stated. Open-source software projects linked from this site are governed by their respective repository licenses (e.g. MIT, Apache 2.0). Third-party trademarks and brand logos belong to their respective owners.
+          <h2 className="text-lg font-semibold text-white">2. Permitted Use</h2>
+          <p>
+            This website is provided solely for personal, non-commercial informational purposes: to showcase my background, projects, engineering case studies, and to enable professional communication regarding internship or engineering opportunities.
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-bold text-[var(--text-primary)]">3. External Links</h2>
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-            This website contains links to external platforms including GitHub, LinkedIn, and live project deployments. Pradyumna is not responsible for the content, privacy practices, or availability of third-party websites.
+          <h2 className="text-lg font-semibold text-white">3. Intellectual Property</h2>
+          <p>
+            All original text, technical write-ups, case study analyses, and design assets on this website are the intellectual property of Pradyumna, unless indicated otherwise.
+          </p>
+          <p>
+            Source code repositories linked from this site (such as on GitHub) are subject to their respective open-source licenses as stated in their repositories. Third-party brand names, trademarks, and logos (such as React, Python, or Next.js) belong to their respective owners.
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-bold text-[var(--text-primary)]">4. Disclaimer and Limitation of Liability</h2>
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-            This site and its content are provided on an &ldquo;as is&rdquo; and &ldquo;as available&rdquo; basis without warranties of any kind. Project demonstrations, case studies, and code snippets are presented for informational and evaluative purposes only. To the extent permitted by applicable law, the author disclaims all liability for any direct, indirect, or incidental damages arising from use of this site.
+          <h2 className="text-lg font-semibold text-white">4. External Links</h2>
+          <p>
+            This website contains links to external platforms and live project deployments, including GitHub, LinkedIn, and Instagram. I do not control or endorse the content, policies, or practices of external third-party websites.
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-bold text-[var(--text-primary)]">5. Contact Information</h2>
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-            If you have questions regarding these terms, contact: <a href="mailto:pradyumna05@outlook.in" className="text-[var(--accent-primary)] hover:underline">pradyumna05@outlook.in</a>.
+          <h2 className="text-lg font-semibold text-white">5. Disclaimer of Warranties</h2>
+          <p>
+            This website and its contents are provided on an &quot;as is&quot; and &quot;as available&quot; basis without warranties of any kind, either express or implied. I make no guarantee that the site will be error-free, uninterrupted, or that external project demonstrations will remain online indefinitely.
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-bold text-[var(--text-primary)]">6. Governing Law</h2>
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-            These terms are governed by the laws of India, subject to user legal review.
+          <h2 className="text-lg font-semibold text-white">6. Limitation of Liability</h2>
+          <p>
+            In no event shall Pradyumna be held liable for any direct, indirect, incidental, or consequential damages resulting from the use of or inability to use this website.
+          </p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-white">7. Governing Law</h2>
+          <p>
+            These terms are governed by and construed in accordance with the laws of India, without regard to conflict of law principles.
+          </p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-white">8. Contact</h2>
+          <p>
+            For any inquiries regarding these terms, please contact:
+          </p>
+          <p className="font-mono text-sm text-[var(--accent-primary)]">
+            pradyumna05@outlook.in
           </p>
         </section>
       </div>

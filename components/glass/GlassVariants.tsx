@@ -1,21 +1,32 @@
+/**
+ * Glass component variants: Pre-configured wrappers around LiquidGlass
+ * for each design system use case.
+ */
 'use client';
 
-import React, { type ButtonHTMLAttributes, type InputHTMLAttributes, type TextareaHTMLAttributes } from 'react';
+import React, {
+  type ButtonHTMLAttributes,
+  type InputHTMLAttributes,
+  type TextareaHTMLAttributes,
+} from 'react';
 import { AlertCircle } from 'lucide-react';
 import { LiquidGlass, type LiquidGlassProps } from './LiquidGlass';
 import { cn } from '@/lib/utils';
 
+// GlassCard: 14px radius for project cards, skill cards, achievement cards
 export function GlassCard({
   className,
   children,
-  radius = 12,
+  radius = 14,
   ...props
 }: LiquidGlassProps) {
   return (
     <LiquidGlass
       elevation={3}
+      refraction={0.4}
       tint="neutral"
       radius={radius}
+      dynamicLight
       variant="card"
       className={cn('p-0', className)}
       {...props}
@@ -25,6 +36,7 @@ export function GlassCard({
   );
 }
 
+// GlassPanel: 14px radius for larger panels and overlays
 export function GlassPanel({
   className,
   children,
@@ -34,8 +46,10 @@ export function GlassPanel({
   return (
     <LiquidGlass
       elevation={4}
+      refraction={0.5}
       tint="neutral"
       radius={radius}
+      dynamicLight
       variant="panel"
       className={className}
       {...props}
@@ -45,19 +59,22 @@ export function GlassPanel({
   );
 }
 
+// GlassBadge: 8px radius (never pill-shaped)
 export function GlassBadge({
   className,
   children,
-  radius = 6,
+  radius = 8,
   ...props
 }: LiquidGlassProps) {
   return (
     <LiquidGlass
-      elevation={1}
+      elevation={2}
+      refraction={0.2}
       tint="neutral"
       radius={radius}
+      dynamicLight={false}
       variant="badge"
-      className={cn('px-3 py-1.5 inline-flex items-center gap-2 text-xs font-mono', className)}
+      className={cn('px-3 py-1.5 inline-flex items-center gap-2 text-xs font-medium', className)}
       {...props}
     >
       {children}
@@ -65,17 +82,20 @@ export function GlassBadge({
   );
 }
 
+// GlassModal: 14px radius container for overlays and dialogs
 export function GlassModal({
   className,
   children,
-  radius = 12,
+  radius = 14,
   ...props
 }: LiquidGlassProps) {
   return (
     <LiquidGlass
       elevation={5}
+      refraction={0.5}
       tint="neutral"
       radius={radius}
+      dynamicLight
       variant="modal"
       className={cn('w-full', className)}
       {...props}
@@ -85,6 +105,7 @@ export function GlassModal({
   );
 }
 
+// GlassButton: 8px radius interactive button with focus outline
 interface GlassButtonProps
   extends ButtonHTMLAttributes<HTMLButtonElement>,
     Pick<LiquidGlassProps, 'elevation' | 'tint'> {
@@ -105,6 +126,7 @@ export function GlassButton({
       elevation={elevation}
       tint={variant === 'primary' ? 'cyan' : tint}
       radius={8}
+      dynamicLight
       variant="button"
       className={cn(
         'inline-flex items-center justify-center gap-2 font-semibold text-sm',
@@ -112,9 +134,9 @@ export function GlassButton({
         'transition-colors duration-150',
         'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
         'focus-visible:outline-[var(--border-focus)]',
-        variant === 'primary' && 'bg-[var(--accent-primary)] text-white hover:bg-[var(--accent-primary-hover)] border-transparent',
-        variant === 'secondary' && 'text-[var(--text-primary)] hover:bg-white/5 border-[var(--border-subtle)]',
-        variant === 'ghost' && 'text-[var(--text-secondary)] hover:text-white border-transparent',
+        variant === 'primary' && 'text-white bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)]',
+        variant === 'secondary' && 'text-[var(--text-primary)] hover:text-white',
+        variant === 'ghost' && 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]',
         className
       )}
       {...(props as unknown as React.HTMLAttributes<HTMLDivElement>)}
@@ -124,6 +146,7 @@ export function GlassButton({
   );
 }
 
+// GlassInput: 8px radius
 interface GlassInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
@@ -158,7 +181,8 @@ export function GlassInput({
         elevation={1}
         tint="neutral"
         radius={8}
-        className="focus-within:ring-2 focus-within:ring-[var(--border-focus)] transition-shadow duration-150"
+        dynamicLight={false}
+        className="focus-within:ring-2 focus-within:ring-[var(--border-focus)] transition-shadow duration-200"
       >
         <input
           id={inputId}
@@ -173,15 +197,16 @@ export function GlassInput({
         />
       </LiquidGlass>
       {error && (
-        <p className="text-sm text-amber-400 flex items-center gap-1.5" role="alert">
+        <p className="text-sm text-red-400 flex items-center gap-1.5 mt-1" role="alert">
           <AlertCircle size={14} aria-hidden="true" />
-          {error}
+          <span>{error}</span>
         </p>
       )}
     </div>
   );
 }
 
+// GlassTextarea: 8px radius
 interface GlassTextareaProps
   extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
@@ -217,7 +242,8 @@ export function GlassTextarea({
         elevation={1}
         tint="neutral"
         radius={8}
-        className="focus-within:ring-2 focus-within:ring-[var(--border-focus)] transition-shadow duration-150"
+        dynamicLight={false}
+        className="focus-within:ring-2 focus-within:ring-[var(--border-focus)] transition-shadow duration-200"
       >
         <textarea
           id={inputId}
@@ -231,9 +257,9 @@ export function GlassTextarea({
         />
       </LiquidGlass>
       {error && (
-        <p className="text-sm text-amber-400 flex items-center gap-1.5" role="alert">
+        <p className="text-sm text-red-400 flex items-center gap-1.5 mt-1" role="alert">
           <AlertCircle size={14} aria-hidden="true" />
-          {error}
+          <span>{error}</span>
         </p>
       )}
     </div>

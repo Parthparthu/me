@@ -1,3 +1,8 @@
+/**
+ * ClientOverlays: Dynamically imported client-side UI overlays.
+ * Loaded after initial paint to not block LCP.
+ * No server-side rendering for any of these components.
+ */
 'use client';
 
 import dynamic from 'next/dynamic';

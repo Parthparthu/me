@@ -2,43 +2,43 @@ import { Profile } from '@/types/profile';
 
 export const profile: Profile = {
   name: 'Pradyumna',
-  title: 'CSE (AI/ML) · Software Developer · Product Builder',
-  tagline: 'Computer science student and software developer building offline-first web applications, financial data pipelines, and systems software.',
+  title: 'CSE (AI/ML) student. Full-stack developer. Open to engineering internships.',
+  tagline: 'B.Tech CS student building full-stack and AI/ML applications in React, Python, and Next.js. Open to software engineering internships.',
   education: {
     degree: 'Bachelor of Technology',
     field: 'Computer Science & Engineering (AI/ML)',
     institution: 'GL Bajaj Institute of Technology & Management',
     location: 'Greater Noida, India',
-    period: '2023 to 2027',
-    year: '2nd Year',
+    period: '2026 - 2030',
+    year: '1st Year',
   },
-  currentStatus: 'Open to Software Engineering and AI/ML internships: exploring full-stack architecture, financial data systems, and applied machine learning.',
+  currentStatus: 'Fresher, open to Software Engineering and AI/ML internships. Actively building production-grade full-stack, financial data, and applied ML projects.',
   fullBio: [
-    'I am Pradyumna, a B.Tech CSE (AI/ML) student building production-grade applications that connect academic theory with practical engineering constraints.',
-    'My work spans offline-first progressive web applications, real-time financial data pipelines, competitive coding systems, and numerology calculation engines, each chosen to deepen understanding of systems design and reliability.',
-    'I am a World Memory Championship Bronze Medalist (2021). That competitive background shapes how I approach software architecture: systematic pattern recognition, structured mapping, and disciplined debugging under constraints.',
-    'Every project in this portfolio includes an engineering case study documenting problem requirements, architectural tradeoffs, challenges encountered, and lessons learned. Transparent technical decisions matter more than decorative demos.',
+    'I\'m Pradyumna, a first-year B.Tech CSE (AI/ML) student at GL Bajaj ITM, Greater Noida. I build production-grade applications that bridge academic concepts with real engineering problems.',
+    'My projects span offline-first PWAs, real-time financial data pipelines, competitive coding platforms, and numerology engines. Each one is chosen to deepen a specific engineering discipline, not just add a technology to a list.',
+    'I\'m a World Memory Championship Bronze Medalist (2023). That experience shaped how I approach software architecture: pattern recognition, spatial mapping, and systematic recall are cognitive tools I apply when debugging complex systems, designing data models, and navigating large codebases.',
+    'Every project in this portfolio includes a detailed engineering case study covering the problem, architectural decisions with rationale and tradeoffs, challenges encountered, and lessons learned. Transparent engineering decisions are more valuable than polished demos.',
   ],
   focusAreas: [
     {
       icon: 'Code2',
       label: 'Full-Stack Architecture',
-      description: 'React, Next.js, Python, FastAPI, real-time WebSockets, offline-first patterns',
+      description: 'React/Next.js, Python/FastAPI, real-time systems, offline-first patterns',
     },
     {
       icon: 'TrendingUp',
       label: 'Financial Data Systems',
-      description: 'SEC EDGAR pipelines, WebSocket market streaming, screening algorithms',
+      description: 'SEC EDGAR, WebSocket market data, stock screening algorithms',
     },
     {
       icon: 'Brain',
       label: 'AI/ML Engineering',
-      description: 'Applied machine learning, NLP workflows, computer vision fundamentals',
+      description: 'Applied ML, NLP pipelines, computer vision, model optimization',
     },
     {
       icon: 'Trophy',
       label: 'Competitive Problem Solving',
-      description: 'Algorithmic complexity, memory athletics, systematic optimization',
+      description: 'Memory athletics, algorithmic challenges, systematic optimization',
     },
   ],
 };

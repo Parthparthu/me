@@ -13,10 +13,12 @@ import {
   Mail, 
   FileText, 
   Github, 
+  X,
   type LucideIcon
 } from 'lucide-react';
 import { projects } from '@/data/projects';
 import { useTheme } from '@/components/ui/ThemeProvider';
+import { LiquidGlass } from '@/components/glass/LiquidGlass';
 
 interface CommandItem {
   id: string;
@@ -170,7 +172,7 @@ export function CommandPalette() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -20 }}
             transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-xl rounded-[12px] bg-[var(--bg-surface)] border border-[var(--border-specular)] shadow-2xl overflow-hidden z-10"
+            className="relative w-full max-w-xl rounded-xl bg-[var(--bg-surface)] border border-[var(--border-specular)] shadow-2xl overflow-hidden z-10"
           >
             {/* Search Input */}
             <div className="flex items-center px-4 py-3.5 border-b border-[var(--border-subtle)] gap-3">
@@ -178,13 +180,13 @@ export function CommandPalette() {
               <input
                 type="text"
                 autoFocus
-                placeholder="Type a command or search projects…"
+                placeholder="Type a command or search projects..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleKeyDown}
                 className="w-full bg-transparent text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none"
               />
-              <kbd className="px-2 py-0.5 text-xs font-mono bg-[var(--bg-surface-raised)] border border-[var(--border-subtle)] rounded-[4px] text-[var(--text-muted)]">
+              <kbd className="px-2 py-0.5 text-xs font-mono bg-[var(--bg-surface-raised)] border border-[var(--border-subtle)] rounded text-[var(--text-muted)]">
                 ESC
               </kbd>
             </div>
@@ -204,7 +206,7 @@ export function CommandPalette() {
                       key={command.id}
                       onClick={command.action}
                       onMouseEnter={() => setSelectedIndex(idx)}
-                      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-[8px] text-left text-sm transition-colors ${
+                      className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-left text-sm transition-colors ${
                         isSelected
                           ? 'bg-[var(--accent-primary-subtle)] text-[var(--accent-primary)]'
                           : 'text-[var(--text-primary)] hover:bg-[var(--bg-surface-raised)]'
@@ -214,7 +216,7 @@ export function CommandPalette() {
                         <Icon className={`w-4 h-4 shrink-0 ${isSelected ? 'text-[var(--accent-primary)]' : 'text-[var(--text-muted)]'}`} />
                         <span className="truncate font-medium">{command.title}</span>
                       </div>
-                      <span className="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-muted)] px-1.5 py-0.5 rounded-[4px] bg-[var(--bg-surface-2)]">
+                      <span className="text-[10px] uppercase tracking-wider font-semibold text-[var(--text-muted)] px-1.5 py-0.5 rounded bg-[var(--bg-surface-2)]">
                         {command.category}
                       </span>
                     </button>

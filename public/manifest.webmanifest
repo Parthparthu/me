@@ -1,29 +1,29 @@
 {
-  "name": "Pradyumna | Software Developer Portfolio",
+  "name": "Pradyumna | Software Developer",
   "short_name": "Pradyumna",
-  "description": "Portfolio of Pradyumna, Computer Science student, full-stack engineer, and product builder.",
+  "description": "B.Tech CSE (AI/ML) student and software developer portfolio.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0a0c10",
-  "theme_color": "#0a0c10",
+  "background_color": "#0b0f17",
+  "theme_color": "#0b0f17",
   "icons": [
-    {
-      "src": "/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    },
     {
       "src": "/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml",
+      "purpose": "any"
     }
   ]
 }

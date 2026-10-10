@@ -30,6 +30,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // On mount, check localStorage (from old storage key) + system preference
     const oldStored = localStorage.getItem('portfolio-theme') as Theme | null;
     if (oldStored && (oldStored === 'dark' || oldStored === 'light')) {
       setZustandTheme(oldStored);
@@ -46,12 +47,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!mounted) return;
     document.documentElement.setAttribute('data-theme', zustandTheme);
-    // Also set meta theme-color for mobile browser chrome
+    // Set meta theme-color for mobile browser chrome
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
       metaThemeColor.setAttribute(
         'content',
-        zustandTheme === 'dark' ? '#090a0f' : '#f8fafc'
+        zustandTheme === 'dark' ? '#0b0f17' : '#f8fafc'
       );
     }
   }, [zustandTheme, mounted]);

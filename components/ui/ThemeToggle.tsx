@@ -1,5 +1,6 @@
 /**
- * ThemeToggle: Accessible dark/light mode toggle with 8px radius geometry.
+ * ThemeToggle: Restrained dark/light theme switch.
+ * Rectangular with 8px radius per design rules.
  */
 'use client';
 
@@ -14,45 +15,44 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      type="button"
       aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
       className={cn(
-        'relative flex items-center gap-1 p-1 rounded-[8px]',
-        'border border-[var(--border-subtle)] bg-[var(--bg-surface-raised)]',
-        'hover:bg-white/10 transition-colors duration-200',
+        'relative flex items-center gap-0.5 p-1 rounded-lg',
+        'border border-white/10 bg-white/5',
+        'hover:bg-white/10 transition-colors duration-150',
         'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]',
-        'min-h-[44px] px-2 cursor-pointer'
+        'min-h-[36px]'
       )}
     >
       {/* Sun */}
       <span
         className={cn(
-          'relative z-10 p-1.5 rounded-[6px] transition-colors duration-200',
+          'relative z-10 p-1.5 rounded-md transition-colors duration-150',
           theme === 'light' ? 'text-amber-400' : 'text-[var(--text-muted)]'
         )}
       >
-        <Sun size={15} />
+        <Sun size={14} aria-hidden="true" />
       </span>
 
       {/* Moon */}
       <span
         className={cn(
-          'relative z-10 p-1.5 rounded-[6px] transition-colors duration-200',
-          theme === 'dark' ? 'text-[var(--accent-primary)]' : 'text-[var(--text-muted)]'
+          'relative z-10 p-1.5 rounded-md transition-colors duration-150',
+          theme === 'dark' ? 'text-sky-300' : 'text-[var(--text-muted)]'
         )}
       >
-        <Moon size={15} />
+        <Moon size={14} aria-hidden="true" />
       </span>
 
-      {/* Sliding glass indicator */}
+      {/* Sliding indicator */}
       <motion.span
         layout
-        layoutId="theme-toggle-indicator"
+        layoutId="theme-toggle-slider"
         transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-        className="absolute top-1.5 w-7 h-7 rounded-[6px] bg-white/15 backdrop-blur-sm border border-white/20"
+        className="absolute top-1 w-6 h-6 rounded-md bg-white/15 backdrop-blur-sm border border-white/20"
         style={{
-          left: theme === 'light' ? 6 : undefined,
-          right: theme === 'dark' ? 6 : undefined,
+          left: theme === 'light' ? 4 : undefined,
+          right: theme === 'dark' ? 4 : undefined,
         }}
         aria-hidden="true"
       />

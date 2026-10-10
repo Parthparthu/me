@@ -1,11 +1,15 @@
+/**
+ * ProjectsPageClient: Full catalog of all projects with Liquid Glass styling.
+ * Supports search, category filtering, and tier segmentation.
+ */
 'use client';
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Filter, X, ArrowUpRight, Github, ArrowRight } from 'lucide-react';
 import { projects } from '@/data/projects';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
-import { cn } from '@/lib/utils';
 
 const CATEGORIES = [
   'All',
@@ -17,6 +21,8 @@ const CATEGORIES = [
 ];
 
 const TIERS = ['All', 'Tier A', 'Tier B'];
+
+const SPRING = { type: 'spring', stiffness: 280, damping: 28 } as const;
 
 export default function ProjectsPageClient() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -43,42 +49,46 @@ export default function ProjectsPageClient() {
   }, [searchQuery, selectedCategory, selectedTier]);
 
   return (
-    <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl pt-28 pb-24">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl pt-28 pb-24">
       {/* Header */}
-      <div className="flex flex-col gap-6 mb-12">
-        <div className="flex flex-col gap-2">
-          <span className="section-label">Archive</span>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold text-[var(--text-primary)]">
+      <div className="flex flex-col gap-8 mb-12">
+        <div className="flex flex-col gap-3">
+          <span className="section-label">
+            <span aria-hidden="true">#</span>
+            Catalog
+          </span>
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-white tracking-tight">
             All Projects
           </h1>
-          <p className="text-[var(--text-secondary)] text-base max-w-2xl leading-relaxed">
-            Technical index of production systems, offline-first progressive web applications, financial pipelines, and algorithmic problem-solving.
+          <p className="text-[var(--text-secondary)] text-lg max-w-2xl leading-relaxed">
+            A comprehensive catalog of production systems, offline-first PWAs, distributed architectures, and algorithms.
           </p>
         </div>
 
-        {/* Filter Bar */}
-        <LiquidGlass elevation={2} tint="neutral" radius={12} className="p-4 sm:p-5 border border-[var(--border-subtle)]">
+        {/* Filter bar */}
+        <LiquidGlass elevation={2} tint="neutral" radius={14} className="p-4 md:p-5">
           <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-            {/* Search Input */}
+            {/* Search Input: 8px radius */}
             <div className="relative w-full lg:max-w-md">
               <Search
                 size={16}
                 className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--text-muted)]"
+                aria-hidden="true"
               />
               <input
                 type="text"
                 placeholder="Search projects, technologies…"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-[var(--bg-app)] border border-[var(--border-subtle)] rounded-md py-2.5 pl-10 pr-9 text-base text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] min-h-[44px]"
+                className="w-full bg-white/5 border border-white/10 rounded-lg py-2.5 pl-10 pr-9 text-sm text-white placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] min-h-[44px]"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
                   aria-label="Clear search"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1 min-h-[32px] min-w-[32px] flex items-center justify-center"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-white p-1 min-h-[32px] min-w-[32px] flex items-center justify-center rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
                 >
-                  <X size={14} />
+                  <X size={14} aria-hidden="true" />
                 </button>
               )}
             </div>
@@ -86,17 +96,18 @@ export default function ProjectsPageClient() {
             {/* Selects */}
             <div className="flex flex-wrap gap-4 items-center w-full lg:w-auto">
               <div className="flex items-center gap-2">
-                <label htmlFor="cat-select" className="text-xs font-mono text-[var(--text-secondary)]">
+                <Filter size={14} className="text-[var(--text-muted)]" aria-hidden="true" />
+                <label htmlFor="cat-select" className="text-xs font-medium text-[var(--text-secondary)]">
                   Category:
                 </label>
                 <select
                   id="cat-select"
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="bg-[var(--bg-app)] text-[var(--text-primary)] border border-[var(--border-subtle)] rounded-md px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] min-h-[44px]"
+                  className="bg-[#111827] border border-white/12 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] min-h-[40px]"
                 >
                   {CATEGORIES.map((cat) => (
-                    <option key={cat} value={cat} className="bg-[var(--bg-surface)] text-[var(--text-primary)]">
+                    <option key={cat} value={cat} className="bg-[#111827] text-white">
                       {cat}
                     </option>
                   ))}
@@ -104,17 +115,17 @@ export default function ProjectsPageClient() {
               </div>
 
               <div className="flex items-center gap-2">
-                <label htmlFor="tier-select" className="text-xs font-mono text-[var(--text-secondary)]">
+                <label htmlFor="tier-select" className="text-xs font-medium text-[var(--text-secondary)]">
                   Tier:
                 </label>
                 <select
                   id="tier-select"
                   value={selectedTier}
                   onChange={(e) => setSelectedTier(e.target.value)}
-                  className="bg-[var(--bg-app)] text-[var(--text-primary)] border border-[var(--border-subtle)] rounded-md px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] min-h-[44px]"
+                  className="bg-[#111827] border border-white/12 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] min-h-[40px]"
                 >
                   {TIERS.map((tier) => (
-                    <option key={tier} value={tier} className="bg-[var(--bg-surface)] text-[var(--text-primary)]">
+                    <option key={tier} value={tier} className="bg-[#111827] text-white">
                       {tier}
                     </option>
                   ))}
@@ -125,95 +136,106 @@ export default function ProjectsPageClient() {
         </LiquidGlass>
 
         <div className="text-xs font-mono text-[var(--text-muted)]">
-          Showing <strong className="text-[var(--text-primary)]">{filteredProjects.length}</strong> of{' '}
+          Showing <strong className="text-white">{filteredProjects.length}</strong> of{' '}
           {projects.length} projects
         </div>
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProjects.map((project) => (
-          <div key={project.id}>
-            <LiquidGlass
-              elevation={2}
-              tint="neutral"
-              radius={12}
-              className="h-full p-6 flex flex-col justify-between border border-[var(--border-subtle)] hover:border-[var(--border-medium)] transition-colors"
+      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <AnimatePresence mode="popLayout">
+          {filteredProjects.map((project) => (
+            <motion.div
+              layout
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={SPRING}
+              key={project.id}
             >
-              <div>
-                <div className="flex justify-between items-center gap-2 mb-4">
-                  <span className="badge">{project.category}</span>
-                  <span className="px-2 py-0.5 rounded-md text-[10px] font-mono font-semibold bg-[var(--bg-surface-raised)] border border-[var(--border-subtle)] text-[var(--text-muted)]">
-                    {project.tier}
-                  </span>
-                </div>
-
-                <h2 className="text-lg font-display font-bold text-[var(--text-primary)] mb-2 leading-snug">
-                  {project.name}
-                </h2>
-
-                <p className="text-xs text-[var(--accent-primary)] font-medium mb-3">
-                  {project.tagline}
-                </p>
-
-                <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-6 line-clamp-3">
-                  {project.shortDescription}
-                </p>
-
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  {project.technologies.slice(0, 4).map((tech) => (
-                    <span
-                      key={tech}
-                      className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-[var(--bg-surface-raised)] border border-[var(--border-subtle)] text-[var(--text-muted)]"
-                    >
-                      {tech}
+              <LiquidGlass
+                elevation={3}
+                tint="neutral"
+                radius={14}
+                dynamicLight={false}
+                className="h-full p-6 md:p-7 flex flex-col justify-between group hover:border-white/20 transition-colors"
+              >
+                <div>
+                  <div className="flex justify-between items-center gap-2 mb-4 font-mono">
+                    <span className="badge">{project.category}</span>
+                    <span className="px-2 py-0.5 rounded-sm text-[10px] font-semibold bg-white/6 border border-white/10 text-[var(--text-muted)]">
+                      {project.tier}
                     </span>
-                  ))}
-                </div>
-              </div>
+                  </div>
 
-              <div className="flex items-center justify-between pt-4 border-t border-[var(--border-subtle)]">
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent-primary)] hover:underline min-h-[44px]"
-                >
-                  <span>Case Study</span>
-                  <ArrowRight size={13} aria-hidden="true" />
-                </Link>
+                  <h2 className="text-xl font-display font-bold text-white mb-2 group-hover:text-[var(--accent-primary)] transition-colors leading-snug">
+                    {project.name}
+                  </h2>
 
-                <div className="flex items-center gap-2">
-                  {project.repositoryUrl && (
-                    <a
-                      href={project.repositoryUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-white/5 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
-                      aria-label={`GitHub repo for ${project.name}`}
-                    >
-                      <Github size={16} />
-                    </a>
-                  )}
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-2 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-white/5 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
-                      aria-label={`Live site for ${project.name}`}
-                    >
-                      <ArrowUpRight size={16} />
-                    </a>
-                  )}
+                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-6">
+                    {project.tagline}
+                  </p>
+
+                  <div className="flex flex-wrap gap-1.5 mb-6 font-mono">
+                    {project.technologies.slice(0, 4).map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-[11px] px-2 py-0.5 rounded-sm bg-white/5 border border-white/8 text-[var(--text-muted)]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    {project.technologies.length > 4 && (
+                      <span className="text-[11px] px-2 py-0.5 rounded-sm bg-white/5 border border-white/8 text-[var(--text-muted)]">
+                        +{project.technologies.length - 4}
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </LiquidGlass>
-          </div>
-        ))}
-      </div>
+
+                <div className="flex items-center justify-between pt-4 border-t border-white/8">
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-white hover:text-[var(--accent-primary)] transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] p-1 rounded"
+                  >
+                    <span>Read Case Study</span>
+                    <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" aria-hidden="true" />
+                  </Link>
+
+                  <div className="flex items-center gap-2">
+                    {project.repositoryUrl && (
+                      <a
+                        href={project.repositoryUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-lg text-[var(--text-muted)] hover:text-white hover:bg-white/5 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                        aria-label={`GitHub repo for ${project.name}`}
+                      >
+                        <Github size={16} aria-hidden="true" />
+                      </a>
+                    )}
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-2 rounded-lg text-[var(--text-muted)] hover:text-white hover:bg-white/5 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                        aria-label={`Live site for ${project.name}`}
+                      >
+                        <ArrowUpRight size={16} aria-hidden="true" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </LiquidGlass>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
 
       {filteredProjects.length === 0 && (
-        <div className="text-center py-20 text-sm font-mono text-[var(--text-muted)]">
-          No projects found matching the filter criteria.
+        <div className="text-center py-20 text-[var(--text-muted)]">
+          No projects found matching your criteria.
         </div>
       )}
     </div>

@@ -1,6 +1,11 @@
+/**
+ * GitHubSection: Open Source and GitHub activity summary.
+ * Features live repository metrics, language indicators, and direct repository links.
+ */
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Github, Star, GitFork, BookOpen, Activity, ArrowUpRight } from 'lucide-react';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
 
@@ -21,8 +26,26 @@ interface GitHubRepo {
   html_url: string;
 }
 
+const LANG_COLORS: Record<string, string> = {
+  TypeScript: '#3178c6',
+  JavaScript: '#f1e05a',
+  Python: '#3572A5',
+  HTML: '#e34c26',
+  CSS: '#0284c7',
+  Go: '#00ADD8',
+  Rust: '#dea584',
+};
+
+const FALLBACK_USER: GitHubUser = {
+  public_repos: 9,
+  followers: 5,
+  following: 5,
+};
+
+const SPRING = { type: 'spring', stiffness: 280, damping: 28 } as const;
+
 export function GitHubSection() {
-  const [user, setUser] = useState<GitHubUser | null>(null);
+  const [user, setUser] = useState<GitHubUser>(FALLBACK_USER);
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -48,7 +71,7 @@ export function GitHubSection() {
           setRepos(reposData);
         }
       } catch {
-        // Degrades cleanly
+        // Fallback already set
       } finally {
         setLoading(false);
       }
@@ -60,127 +83,153 @@ export function GitHubSection() {
   return (
     <section
       id="github"
-      className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full scroll-mt-24"
+      className="py-24 px-4 md:px-8 max-w-6xl mx-auto w-full scroll-mt-24"
       aria-label="GitHub Open Source Activity"
     >
+      {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
-        <div>
-          <span className="section-label">Open Source</span>
-          <h2 className="section-title text-[var(--text-primary)] mt-1">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={SPRING}
+        >
+          <span className="section-label">
+            <span aria-hidden="true">#</span>
+            Open Source
+          </span>
+          <h2 className="section-title text-white mt-1">
             GitHub Activity
           </h2>
           <p className="section-subtitle mt-2">
-            Public repositories documenting system architectures, algorithmic solutions, and full-stack software.
+            Public repositories documenting exploratory architectures, algorithms, and applications.
           </p>
-        </div>
+        </motion.div>
 
         <a
           href="https://github.com/Parthparthu"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-md border border-[var(--border-medium)] text-xs font-semibold text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/5 transition-colors w-fit min-h-[44px]"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-white/12 text-sm text-[var(--text-secondary)] hover:text-white hover:bg-white/5 transition-colors w-fit min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
         >
-          <Github size={15} />
-          <span>@Parthparthu on GitHub</span>
-          <ArrowUpRight size={13} />
+          <Github size={16} aria-hidden="true" />
+          <span>@Parthparthu</span>
+          <ArrowUpRight size={14} aria-hidden="true" />
         </a>
       </div>
 
       {/* Stats row */}
-      {user && (
-        <div className="grid grid-cols-3 gap-4 mb-10">
-          {[
-            { icon: BookOpen, label: 'Public Repositories', value: user.public_repos },
-            { icon: Activity, label: 'Followers', value: user.followers },
-            { icon: Github, label: 'Following', value: user.following },
-          ].map((stat) => {
-            const Icon = stat.icon;
-            return (
-              <div key={stat.label}>
-                <LiquidGlass
-                  elevation={2}
-                  tint="neutral"
-                  radius={12}
-                  className="p-5 text-center border border-[var(--border-subtle)]"
-                >
-                  <Icon size={18} className="mx-auto mb-2 text-[var(--accent-primary)]" />
-                  <div className="text-xl md:text-2xl font-bold font-mono text-[var(--text-primary)] tabular-nums">
-                    {loading ? '…' : stat.value}
-                  </div>
-                  <div className="text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wider mt-1">
-                    {stat.label}
-                  </div>
-                </LiquidGlass>
-              </div>
-            );
-          })}
-        </div>
-      )}
+      <div className="grid grid-cols-3 gap-4 mb-10">
+        {[
+          { icon: BookOpen, label: 'Repositories', value: user.public_repos, color: 'var(--accent-primary)' },
+          { icon: Activity, label: 'Followers', value: user.followers, color: 'var(--accent-primary)' },
+          { icon: Github, label: 'Following', value: user.following, color: 'var(--text-secondary)' },
+        ].map((stat, i) => {
+          const Icon = stat.icon;
+          return (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ ...SPRING, delay: i * 0.06 }}
+            >
+              <LiquidGlass
+                elevation={2}
+                tint="neutral"
+                radius={14}
+                dynamicLight={false}
+                className="p-5 text-center"
+              >
+                <Icon size={20} className="mx-auto mb-2" style={{ color: stat.color }} aria-hidden="true" />
+                <div className="text-2xl md:text-3xl font-bold font-mono text-white tabular-nums">
+                  {loading ? '...' : stat.value}
+                </div>
+                <div className="text-xs text-[var(--text-tertiary)] uppercase tracking-wider font-semibold font-mono mt-1">
+                  {stat.label}
+                </div>
+              </LiquidGlass>
+            </motion.div>
+          );
+        })}
+      </div>
 
-      {/* Repositories grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Recent repositories grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {loading
           ? Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="h-36 rounded-xl bg-[var(--bg-surface-raised)] border border-[var(--border-subtle)] animate-pulse"
+                className="h-44 rounded-xl bg-white/5 border border-white/8 animate-pulse"
               />
             ))
-          : repos.map((repo) => (
-              <a
-                key={repo.id}
-                href={repo.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block group"
-                aria-label={`Repository ${repo.name} on GitHub`}
-              >
-                <LiquidGlass
-                  elevation={2}
-                  tint="neutral"
-                  radius={12}
-                  className="p-5 h-full flex flex-col justify-between border border-[var(--border-subtle)] group-hover:border-[var(--border-medium)] transition-colors"
+          : repos.map((repo, i) => {
+              const langColor = LANG_COLORS[repo.language] || '#0ea5e9';
+
+              return (
+                <motion.a
+                  key={repo.id}
+                  href={repo.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-60px' }}
+                  transition={{ ...SPRING, delay: i * 0.05 }}
+                  className="group block"
+                  aria-label={`Repository ${repo.name} on GitHub`}
                 >
-                  <div className="space-y-2">
-                    <div className="flex items-start justify-between gap-2">
-                      <h3 className="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors truncate">
-                        {repo.name}
-                      </h3>
-                      <ArrowUpRight size={14} className="text-[var(--text-muted)] group-hover:text-[var(--text-primary)] transition-colors shrink-0" />
+                  <LiquidGlass
+                    elevation={2}
+                    tint="neutral"
+                    radius={14}
+                    dynamicLight={false}
+                    className="p-5 h-full flex flex-col justify-between"
+                  >
+                    <div>
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <h3 className="font-semibold text-white group-hover:text-[var(--accent-primary)] transition-colors truncate text-sm md:text-base">
+                          {repo.name}
+                        </h3>
+                        <ArrowUpRight size={14} className="text-[var(--text-muted)] group-hover:text-white transition-colors flex-shrink-0" aria-hidden="true" />
+                      </div>
+
+                      <p className="text-xs text-[var(--text-tertiary)] line-clamp-2 leading-relaxed mb-4">
+                        {repo.description || 'Public software engineering repository.'}
+                      </p>
                     </div>
 
-                    <p className="text-xs text-[var(--text-secondary)] line-clamp-2 leading-relaxed">
-                      {repo.description || 'Public software engineering repository.'}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center justify-between text-xs text-[var(--text-muted)] pt-3 border-t border-[var(--border-subtle)] mt-4">
-                    {repo.language ? (
-                      <span className="font-mono text-[11px] text-[var(--accent-primary)]">
-                        {repo.language}
-                      </span>
-                    ) : (
-                      <span className="font-mono text-[11px] text-[var(--text-muted)]">Code</span>
-                    )}
-
-                    <div className="flex items-center gap-3 tabular-nums">
-                      {repo.stargazers_count > 0 && (
-                        <span className="flex items-center gap-1 font-mono text-[11px]">
-                          <Star size={11} />
-                          {repo.stargazers_count}
+                    <div className="flex items-center justify-between text-xs text-[var(--text-muted)] pt-3 border-t border-white/8 font-mono">
+                      {repo.language && (
+                        <span className="flex items-center gap-1.5 font-medium">
+                          <span
+                            className="w-2 h-2 rounded-xs"
+                            style={{ backgroundColor: langColor }}
+                            aria-hidden="true"
+                          />
+                          {repo.language}
                         </span>
                       )}
-                      {repo.forks_count > 0 && (
-                        <span className="flex items-center gap-1 font-mono text-[11px]">
-                          <GitFork size={11} />
-                          {repo.forks_count}
-                        </span>
-                      )}
+
+                      <div className="flex items-center gap-3 tabular-nums">
+                        {repo.stargazers_count > 0 && (
+                          <span className="flex items-center gap-1">
+                            <Star size={12} aria-hidden="true" />
+                            {repo.stargazers_count}
+                          </span>
+                        )}
+                        {repo.forks_count > 0 && (
+                          <span className="flex items-center gap-1">
+                            <GitFork size={12} aria-hidden="true" />
+                            {repo.forks_count}
+                          </span>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </LiquidGlass>
-              </a>
-            ))}
+                  </LiquidGlass>
+                </motion.a>
+              );
+            })}
       </div>
     </section>
   );

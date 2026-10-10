@@ -4,93 +4,95 @@ import { ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Privacy policy detailing data collection, processing, and retention practices for this portfolio website.',
+  description: 'Privacy policy for Pradyumna\'s personal developer portfolio.',
 };
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+    <div className="py-24 px-4 md:px-8 max-w-4xl mx-auto w-full">
       <div className="mb-8">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors min-h-[44px]"
+          className="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-white transition-colors mb-6 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] p-1"
         >
-          <ArrowLeft size={16} />
-          Back to Portfolio
+          <ArrowLeft size={16} aria-hidden="true" />
+          <span>Back to Home</span>
         </Link>
+        <h1 className="text-3xl md:text-4xl font-display font-bold text-white tracking-tight">
+          Privacy Policy
+        </h1>
+        <p className="text-sm text-[var(--text-muted)] font-mono mt-2">
+          Last Updated: October 2026 (Subject to legal review)
+        </p>
       </div>
 
-      <div className="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-xl p-6 sm:p-10 space-y-8">
-        <header className="border-b border-[var(--border-subtle)] pb-6">
-          <span className="section-label">Legal</span>
-          <h1 className="text-3xl font-display font-bold text-[var(--text-primary)] mt-1">
-            Privacy Policy
-          </h1>
-          <p className="text-xs font-mono text-[var(--text-muted)] mt-2">
-            Last Updated: October 10, 2026 (Subject to User Legal Review)
-          </p>
-        </header>
-
+      <div className="space-y-8 text-[var(--text-secondary)] text-sm md:text-base leading-relaxed bg-[var(--bg-surface)] p-6 md:p-8 rounded-xl border border-[var(--border-subtle)]">
         <section className="space-y-3">
-          <h2 className="text-lg font-bold text-[var(--text-primary)]">1. Overview</h2>
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-            This portfolio website is operated by Pradyumna. The site is designed with a strict privacy-first architecture. It does not use advertising trackers, does not sell personal data, and sets zero tracking or marketing cookies.
+          <h2 className="text-lg font-semibold text-white">Overview</h2>
+          <p>
+            This website is a personal portfolio operated by Pradyumna. I value privacy and maintain minimal data collection. This document explains what information is collected, how it is handled, and your rights.
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-bold text-[var(--text-primary)]">2. Information Collected</h2>
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-            The only personal data collected on this site is the information you deliberately provide via the contact form:
+          <h2 className="text-lg font-semibold text-white">Information Collected</h2>
+          <p>
+            This site does not use user accounts, tracking cookies, or tracking pixels. The only personal information collected is information you voluntarily provide through the contact form:
           </p>
-          <ul className="list-disc pl-5 text-sm text-[var(--text-secondary)] space-y-1">
+          <ul className="list-disc pl-5 space-y-1.5 text-[var(--text-secondary)]">
             <li>Your name</li>
             <li>Your email address</li>
-            <li>Message subject (optional)</li>
-            <li>Message body</li>
-          </ul>
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-            No account creation or automated background profiling exists on this site.
-          </p>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="text-lg font-bold text-[var(--text-primary)]">3. How Information is Used</h2>
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-            Information submitted through the contact form is used solely to read and reply to your inquiry regarding software engineering opportunities, technical projects, or collaborations. It is never used for marketing newsletters or shared with advertisers.
-          </p>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="text-lg font-bold text-[var(--text-primary)]">4. Cookies and Local Storage</h2>
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-            This website does not use cookies for tracking, analytics, or behavioral advertising. Client-side local storage may be used exclusively to persist your interface preference (light or dark mode) and is stored entirely within your browser without transmission to any remote server.
-          </p>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="text-lg font-bold text-[var(--text-primary)]">5. Third-Party Services</h2>
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-            Limited third-party infrastructure providers assist in serving this site:
-          </p>
-          <ul className="list-disc pl-5 text-sm text-[var(--text-secondary)] space-y-1">
-            <li>Hosting: Vercel (processes HTTP request logs for security and performance delivery)</li>
-            <li>Email Delivery: Resend (transmits contact form messages securely to the recipient inbox)</li>
-            <li>Fonts: Google Fonts (standard font stylesheets)</li>
+            <li>Subject line (optional)</li>
+            <li>Message content</li>
           </ul>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-bold text-[var(--text-primary)]">6. Data Retention and Deletion Requests</h2>
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-            Contact form submissions are retained in the owner email inbox only as long as needed to address your conversation. To request deletion or access to any communication history you have provided, email: <a href="mailto:pradyumna05@outlook.in" className="text-[var(--accent-primary)] hover:underline">pradyumna05@outlook.in</a>.
+          <h2 className="text-lg font-semibold text-white">Analytics and Cookies</h2>
+          <p>
+            This site does not use cookies, advertising identifiers, or analytics services. Your browsing activity is not tracked across the web.
           </p>
         </section>
 
         <section className="space-y-3">
-          <h2 className="text-lg font-bold text-[var(--text-primary)]">7. Governing Law</h2>
-          <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-            This policy is provided under the laws applicable to the site owner in India, subject to review under your relevant national jurisdiction.
+          <h2 className="text-lg font-semibold text-white">Third-Party Service Providers</h2>
+          <p>
+            To deliver this website and handle incoming inquiries, the following third-party services are utilized:
+          </p>
+          <ul className="list-disc pl-5 space-y-1.5 text-[var(--text-secondary)]">
+            <li>
+              <strong className="text-white">GitHub Pages:</strong> Hosts static website files and delivers content. Standard server access logs may be collected by GitHub in accordance with their privacy policy.
+            </li>
+            <li>
+              <strong className="text-white">Resend:</strong> Used solely to process and forward submitted contact form messages directly to pradyumna05@outlook.in.
+            </li>
+            <li>
+              <strong className="text-white">Google Fonts:</strong> Font assets are self-hosted and bundled at build time through Next.js. Your browser does not send requests to Google servers during your visit.
+            </li>
+          </ul>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-white">Data Retention</h2>
+          <p>
+            Messages received through the contact form are retained only as long as necessary to read, evaluate, and reply to your inquiry, typically up to 90 days. Messages are deleted once the conversation is concluded unless required for legitimate ongoing professional correspondence.
+          </p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-white">Your Rights and Contact Information</h2>
+          <p>
+            You have the right to request access to any personal information submitted via the contact form, or to request correction or complete deletion of your messages. To make a request, contact:
+          </p>
+          <p className="font-mono text-sm text-[var(--accent-primary)]">
+            pradyumna05@outlook.in
+          </p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-white">Governing Law</h2>
+          <p>
+            This privacy policy is governed by and construed in accordance with the applicable laws of India.
           </p>
         </section>
       </div>

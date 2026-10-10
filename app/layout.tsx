@@ -2,38 +2,36 @@ import type { Metadata } from 'next';
 import { Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/ui/ThemeProvider';
+import { SmoothScrollProvider } from '@/components/common/SmoothScrollProvider';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ClientOverlays } from '@/components/common/ClientOverlays';
 import { GlassSVGFilter } from '@/components/glass/GlassSVGFilter';
+import { SceneCanvas } from '@/components/canvas/SceneCanvas';
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
 });
-
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   variable: '--font-space-grotesk',
   display: 'swap',
 });
-
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-jetbrains-mono',
   display: 'swap',
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://parthparthu.github.io/me';
-
 export const metadata: Metadata = {
   title: {
-    default: 'Pradyumna: Software Developer and Product Builder',
+    default: 'Pradyumna: Software Developer',
     template: '%s | Pradyumna',
   },
   description:
-    'Computer Science student and full-stack software engineer building offline-first applications and financial data pipelines. World Memory Championship Bronze Medalist.',
+    'First-year B.Tech CSE (AI/ML) student building production-grade full-stack, financial data, and AI/ML applications. World Memory Championship Bronze Medalist (2023). Open to software engineering internships.',
   keywords: [
     'Pradyumna',
     'developer',
@@ -42,17 +40,19 @@ export const metadata: Metadata = {
     'React',
     'Next.js',
     'TypeScript',
+    'AI',
+    'ML',
+    'Three.js',
     'FastAPI',
     'Python',
-    'Three.js',
     'World Memory Championship',
+    'internship',
   ],
   authors: [{ name: 'Pradyumna', url: 'https://github.com/Parthparthu' }],
   creator: 'Pradyumna',
-  metadataBase: new URL(siteUrl),
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.ico', sizes: '32x32' },
       { url: '/favicon.svg', type: 'image/svg+xml' },
     ],
     apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
@@ -60,18 +60,19 @@ export const metadata: Metadata = {
   manifest: '/manifest.webmanifest',
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    url: siteUrl,
-    title: 'Pradyumna: Software Developer and Product Builder',
+    locale: 'en_IN',
+    url: 'https://parthparthu.github.io/me/',
+    title: 'Pradyumna: Software Developer',
     description:
-      'Computer Science student and full-stack software engineer building offline-first applications and financial data pipelines.',
-    siteName: 'Pradyumna Portfolio',
+      'First-year B.Tech CSE (AI/ML) student building production-grade applications. World Memory Championship Bronze Medalist.',
+    siteName: 'Pradyumna',
   },
   twitter: {
-    card: 'summary',
-    title: 'Pradyumna: Software Developer and Product Builder',
+    card: 'summary_large_image',
+    title: 'Pradyumna: Software Developer',
     description:
-      'Computer Science student and full-stack software engineer building offline-first applications and financial data pipelines.',
+      'B.Tech CSE (AI/ML) student. Full-stack developer. World Memory Championship Bronze Medalist (2023).',
+    creator: '@Parthparthu',
   },
   robots: { index: true, follow: true },
 };
@@ -96,16 +97,16 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'Person',
               name: 'Pradyumna',
-              url: siteUrl,
-              email: 'pradyumna05@outlook.in',
+              url: 'https://parthparthu.github.io/me/',
               sameAs: [
                 'https://github.com/Parthparthu',
                 'https://www.linkedin.com/in/pradyumna05',
                 'https://www.instagram.com/pradyumna_in_/',
               ],
               jobTitle: 'Software Developer',
+              email: 'pradyumna05@outlook.in',
               description:
-                'Computer Science student and full-stack developer. World Memory Championship Bronze Medalist.',
+                'First-year B.Tech CSE (AI/ML) student and full-stack developer. World Memory Championship Bronze Medalist (2023).',
               knowsAbout: [
                 'React',
                 'TypeScript',
@@ -113,7 +114,7 @@ export default function RootLayout({
                 'Next.js',
                 'Three.js',
                 'FastAPI',
-                'Offline-first architecture',
+                'Machine Learning',
                 'Full-Stack Development',
               ],
             }),
@@ -129,7 +130,7 @@ export default function RootLayout({
         />
 
         {/* Theme color for mobile browser UI */}
-        <meta name="theme-color" content="#0a0c10" />
+        <meta name="theme-color" content="#0b0f17" />
         <meta name="color-scheme" content="dark light" />
 
         {/* Viewport: never disable zoom */}
@@ -138,29 +139,33 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
       </head>
-      <body suppressHydrationWarning className="bg-[var(--bg-app)] text-[var(--text-primary)] antialiased">
+      <body suppressHydrationWarning>
+        {/* 3D canvas: persistent, ambient, behind everything */}
+        <SceneCanvas />
+
         <ThemeProvider>
-          {/* SVG refraction filter definition */}
-          <GlassSVGFilter />
+          <SmoothScrollProvider>
+            {/* SVG refraction filter definitions */}
+            <GlassSVGFilter />
 
-          {/* Skip link for keyboard users */}
-          <a href="#main-content" className="skip-link">
-            Skip to content
-          </a>
+            {/* Skip to main content for keyboard/screen reader users */}
+            <a href="#main-content" className="skip-link">
+              Skip to content
+            </a>
 
-          {/* Top navigation */}
-          <Header />
+            {/* Glass dock navigation */}
+            <Header />
 
-          {/* Main content */}
-          <main id="main-content" className="flex-1">
-            {children}
-          </main>
+            {/* Main content */}
+            <main id="main-content" className="flex-1 relative">
+              {children}
+            </main>
 
-          {/* Footer */}
-          <Footer />
+            <Footer />
 
-          {/* UI Utilities: ScrollProgress, BackToTop, CommandPalette */}
-          <ClientOverlays />
+            {/* Command palette, back-to-top, scroll progress */}
+            <ClientOverlays />
+          </SmoothScrollProvider>
         </ThemeProvider>
       </body>
     </html>

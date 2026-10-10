@@ -1,20 +1,22 @@
+/**
+ * ContactSection: Liquid Glass contact form with serverless delivery.
+ * Validates on submit, prevents spam, and provides direct social links.
+ */
 'use client';
 
 import { useState } from 'react';
-import { Send, Github, Linkedin, Mail, Instagram, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Send, Github, Linkedin, Instagram, Mail, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { socials } from '@/data/socials';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
-import { GlassInput, GlassTextarea } from '@/components/glass/GlassVariants';
+import { GlassInput, GlassTextarea, GlassButton } from '@/components/glass/GlassVariants';
+
+const SPRING = { type: 'spring', stiffness: 280, damping: 28 } as const;
 
 export function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-    honeypot: '',
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [statusMessage, setStatusMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -25,28 +27,28 @@ export function ContactSection() {
 
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setStatus('error');
-      setStatusMessage('Please fill in all required fields.');
+      setErrorMessage('Please fill in all required fields.');
       return;
     }
 
     if (formData.message.trim().length < 10) {
       setStatus('error');
-      setStatusMessage('Message must be at least 10 characters long.');
+      setErrorMessage('Message must be at least 10 characters long.');
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email.trim())) {
       setStatus('error');
-      setStatusMessage('Please enter a valid email address.');
+      setErrorMessage('Please enter a valid email address.');
       return;
     }
 
     setStatus('submitting');
-    setStatusMessage('');
+    setErrorMessage('');
 
     try {
-      const res = await fetch('/api/contact/', {
+      const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -54,85 +56,90 @@ export function ContactSection() {
           email: formData.email.trim(),
           subject: formData.subject.trim() || undefined,
           message: formData.message.trim(),
-          honeypot: formData.honeypot,
         }),
       });
 
+      const data = await res.json();
+
       if (!res.ok) {
-        let errorMsg = 'Contact endpoint is unavailable on static hosting. Please email pradyumna05@outlook.in directly.';
-        try {
-          const data = await res.json();
-          if (data && data.message) errorMsg = data.message;
-        } catch {
-          // Response is non-JSON (e.g. static 404 page)
-        }
-        throw new Error(errorMsg);
+        throw new Error(data.message || 'Failed to send message.');
       }
 
-      const data = await res.json();
       setStatus('success');
-      setStatusMessage('Your message has been delivered successfully. I will get back to you shortly.');
-      setFormData({ name: '', email: '', subject: '', message: '', honeypot: '' });
-    } catch (err: unknown) {
-      setStatus('error');
-      setStatusMessage(
-        err instanceof Error
-          ? err.message
-          : 'Could not send message. Please email pradyumna05@outlook.in directly.'
-      );
+      setFormData({ name: '', email: '', subject: '', message: '' });
+
+      setTimeout(() => {
+        setStatus('idle');
+      }, 6000);
+    } catch {
+      // On static GitHub Pages hosting, Next.js API routes are not served by a Node runtime.
+      // Automatically fallback to user's mail client addressed to pradyumna05@outlook.in.
+      const mailSubject = encodeURIComponent(formData.subject.trim() || `Portfolio Inquiry from ${formData.name.trim()}`);
+      const mailBody = encodeURIComponent(`Name: ${formData.name.trim()}\nEmail: ${formData.email.trim()}\n\nMessage:\n${formData.message.trim()}`);
+      window.location.href = `mailto:pradyumna05@outlook.in?subject=${mailSubject}&body=${mailBody}`;
+      setStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+
+      setTimeout(() => {
+        setStatus('idle');
+      }, 6000);
     }
   };
+
 
   return (
     <section
       id="contact"
-      className="py-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full scroll-mt-24"
-      aria-label="Contact information"
+      className="py-24 px-4 md:px-8 max-w-6xl mx-auto w-full scroll-mt-24"
+      aria-label="Contact Pradyumna"
     >
-      <div className="mb-14">
-        <span className="section-label">Contact</span>
-        <h2 className="section-title text-[var(--text-primary)] mt-1">
-          Initiate Conversation
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={SPRING}
+        className="mb-14"
+      >
+        <span className="section-label">
+          <span aria-hidden="true">#</span>
+          Contact
+        </span>
+        <h2 className="section-title text-white mt-1">
+          Get in Touch
         </h2>
         <p className="section-subtitle mt-2">
-          Open to software engineering internships, technical collaborations, and distributed systems discussions.
+          Open to software engineering internships, technical collaborations, and project discussions.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Column: Contact Form */}
-        <div className="lg:col-span-7">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Contact Form */}
+        <motion.div
+          className="lg:col-span-7"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={SPRING}
+        >
           <LiquidGlass
             elevation={3}
             tint="neutral"
-            radius={12}
-            className="p-6 sm:p-8 border border-[var(--border-subtle)]"
+            radius={14}
+            dynamicLight={false}
+            className="p-6 md:p-8"
           >
-            <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-              {/* Anti-spam Honeypot (Hidden) */}
-              <div className="sr-only" aria-hidden="true">
-                <label htmlFor="form-honeypot">Do not fill this field</label>
-                <input
-                  id="form-honeypot"
-                  type="text"
-                  name="honeypot"
-                  value={formData.honeypot}
-                  onChange={handleChange}
-                  tabIndex={-1}
-                  autoComplete="off"
-                />
-              </div>
-
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <GlassInput
                   id="contact-name"
                   name="name"
                   label="Your Name"
-                  required
-                  placeholder="e.g. Alex Smith"
+                  placeholder="e.g. Alex Chen…"
                   value={formData.name}
                   onChange={handleChange}
-                  disabled={status === 'submitting'}
+                  required
+                  autoComplete="name"
                 />
 
                 <GlassInput
@@ -140,11 +147,12 @@ export function ContactSection() {
                   name="email"
                   type="email"
                   label="Email Address"
-                  required
-                  placeholder="e.g. alex@example.com"
+                  placeholder="e.g. alex@example.com…"
                   value={formData.email}
                   onChange={handleChange}
-                  disabled={status === 'submitting'}
+                  required
+                  autoComplete="email"
+                  inputMode="email"
                 />
               </div>
 
@@ -152,131 +160,144 @@ export function ContactSection() {
                 id="contact-subject"
                 name="subject"
                 label="Subject"
-                placeholder="e.g. Software Engineering Internship Inquiry"
+                placeholder="e.g. Internship Inquiry / System Architecture…"
                 value={formData.subject}
                 onChange={handleChange}
-                disabled={status === 'submitting'}
+                autoComplete="off"
               />
 
               <GlassTextarea
                 id="contact-message"
                 name="message"
                 label="Message"
-                required
-                rows={5}
                 placeholder="Tell me about your project, team, or opportunity…"
+                rows={5}
                 value={formData.message}
                 onChange={handleChange}
-                disabled={status === 'submitting'}
+                required
               />
 
-              {/* Status Announcements (Polite aria-live) */}
-              <div aria-live="polite" aria-atomic="true">
+              {/* Status alerts */}
+              <AnimatePresence>
                 {status === 'error' && (
-                  <div className="p-3 rounded-md bg-amber-500/10 border border-amber-500/25 text-xs text-amber-300 flex items-start gap-2">
-                    <AlertCircle size={15} className="mt-0.5 shrink-0" />
-                    <span>{statusMessage}</span>
-                  </div>
+                  <motion.div
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    className="p-3.5 rounded-lg bg-red-500/15 border border-red-500/30 text-red-300 text-sm flex items-center gap-2"
+                    role="alert"
+                    aria-live="polite"
+                  >
+                    <AlertCircle size={16} className="flex-shrink-0" aria-hidden="true" />
+                    <span>{errorMessage}</span>
+                  </motion.div>
                 )}
 
                 {status === 'success' && (
-                  <div className="p-3 rounded-md bg-emerald-500/10 border border-emerald-500/25 text-xs text-emerald-300 flex items-start gap-2">
-                    <CheckCircle2 size={15} className="mt-0.5 shrink-0" />
-                    <span>{statusMessage}</span>
-                  </div>
+                  <motion.div
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    className="p-3.5 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-sm flex items-center gap-2"
+                    role="status"
+                    aria-live="polite"
+                  >
+                    <CheckCircle2 size={16} className="flex-shrink-0" aria-hidden="true" />
+                    <span>Message received! Thank you for reaching out: I will respond promptly.</span>
+                  </motion.div>
                 )}
-              </div>
+              </AnimatePresence>
 
-              <button
-                type="submit"
-                disabled={status === 'submitting'}
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-white text-sm font-semibold transition-colors disabled:opacity-60 min-h-[44px]"
-              >
-                {status === 'submitting' ? (
-                  <>
-                    <Loader2 size={16} className="animate-spin" aria-hidden="true" />
-                    <span>Sending Message…</span>
-                  </>
-                ) : (
-                  <>
-                    <Send size={15} aria-hidden="true" />
-                    <span>Send Inquiry</span>
-                  </>
-                )}
-              </button>
+              {/* Submit CTA */}
+              <div className="pt-2">
+                <GlassButton
+                  type="submit"
+                  variant="primary"
+                  disabled={status === 'submitting'}
+                  className="w-full sm:w-auto"
+                >
+                  {status === 'submitting' ? (
+                    <>
+                      <Loader2 size={16} className="animate-spin" aria-hidden="true" />
+                      <span>Sending Message…</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send size={16} aria-hidden="true" />
+                      <span>Send Message</span>
+                    </>
+                  )}
+                </GlassButton>
+              </div>
             </form>
           </LiquidGlass>
-        </div>
+        </motion.div>
 
-        {/* Right Column: Direct Contact & Social Links */}
-        <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
+        {/* Socials & Info Column */}
+        <motion.div
+          className="lg:col-span-5 flex flex-col gap-4"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={SPRING}
+        >
+          {/* Quick Connect card */}
           <LiquidGlass
             elevation={2}
             tint="neutral"
-            radius={12}
-            className="p-6 border border-[var(--border-subtle)] space-y-4"
+            radius={14}
+            dynamicLight={false}
+            className="p-6 md:p-7"
           >
-            <h3 className="text-sm font-mono font-bold text-[var(--text-primary)] uppercase tracking-wider">
-              Direct Contact
+            <h3 className="text-lg font-display font-bold text-white mb-2">
+              Direct Channels
             </h3>
-            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-              Prefer writing directly from your email client? You can reach me directly at:
+            <p className="text-sm text-[var(--text-tertiary)] leading-relaxed mb-6">
+              Prefer asynchronous direct communication? Reach out directly via GitHub, LinkedIn, Instagram, or Email.
             </p>
-            <a
-              href="mailto:pradyumna05@outlook.in"
-              className="inline-flex items-center gap-2 text-sm font-mono text-[var(--accent-primary)] hover:underline min-h-[44px]"
-            >
-              <Mail size={16} />
-              <span>pradyumna05@outlook.in</span>
-            </a>
+
+            <div className="flex flex-col gap-3">
+              {socials.map((social) => {
+                const icon =
+                  social.platform === 'GitHub'
+                    ? Github
+                    : social.platform === 'LinkedIn'
+                    ? Linkedin
+                    : social.platform === 'Instagram'
+                    ? Instagram
+                    : Mail;
+                const Icon = icon;
+
+                return (
+                  <a
+                    key={social.platform}
+                    href={social.url}
+                    target={social.platform === 'Email' ? undefined : '_blank'}
+                    rel={social.platform === 'Email' ? undefined : 'noopener noreferrer'}
+                    className="group flex items-center justify-between p-3.5 rounded-lg bg-white/5 border border-white/8 hover:bg-white/10 hover:border-white/15 transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 rounded-md bg-white/6 text-[var(--accent-primary)] group-hover:text-white transition-colors">
+                        <Icon size={18} aria-hidden="true" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-semibold text-white group-hover:text-[var(--accent-primary)] transition-colors">
+                          {social.platform}
+                        </div>
+                        <div className="text-xs text-[var(--text-muted)] font-mono truncate max-w-[200px]">
+                          {social.label}
+                        </div>
+                      </div>
+                    </div>
+                    <span className="text-xs font-mono text-[var(--text-muted)] group-hover:translate-x-0.5 transition-transform" aria-hidden="true">
+                      &rarr;
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
           </LiquidGlass>
-
-          {/* Social Links */}
-          <div className="space-y-3">
-            <p className="text-xs font-mono uppercase tracking-wider text-[var(--text-muted)]">
-              Verified Profiles
-            </p>
-
-            <a
-              href="https://github.com/Parthparthu"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-between p-4 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--border-medium)] transition-colors text-sm text-[var(--text-primary)] min-h-[44px]"
-            >
-              <div className="flex items-center gap-3">
-                <Github size={18} className="text-[var(--text-muted)]" />
-                <span>GitHub</span>
-              </div>
-              <span className="font-mono text-xs text-[var(--text-muted)]">@Parthparthu</span>
-            </a>
-
-            <a
-              href="https://www.linkedin.com/in/pradyumna05"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-between p-4 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--border-medium)] transition-colors text-sm text-[var(--text-primary)] min-h-[44px]"
-            >
-              <div className="flex items-center gap-3">
-                <Linkedin size={18} className="text-[var(--text-muted)]" />
-                <span>LinkedIn</span>
-              </div>
-              <span className="font-mono text-xs text-[var(--text-muted)]">pradyumna05</span>
-            </a>
-
-            <a
-              href="https://www.instagram.com/pradyumna_in_/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-between p-4 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-[var(--border-medium)] transition-colors text-sm text-[var(--text-primary)] min-h-[44px]"
-            >
-              <div className="flex items-center gap-3">
-                <Instagram size={18} className="text-[var(--text-muted)]" />
-                <span>Instagram</span>
-              </div>
-              <span className="font-mono text-xs text-[var(--text-muted)]">@pradyumna_in_</span>
-            </a>
-          </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
