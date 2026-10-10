@@ -38,3 +38,8 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Test artifacts
+scripts/screenshots/
+*.png
+
