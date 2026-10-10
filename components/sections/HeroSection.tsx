@@ -71,7 +71,7 @@ export function HeroSection() {
 
           {/* Concrete Hero Copy */}
           <p className="text-base md:text-lg text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
-            First-year Computer Science and Engineering (AI/ML) student at GL Bajaj ITM, Greater Noida (graduating 2030), with approximately five years of self-directed coding. Building practical web applications, data tools, and progressive web apps.
+            First-year Computer Science and Engineering (AI/ML) student at GL Bajaj ITM, Greater Noida (graduating 2030), programming since 2019. Building practical web applications, data tools, and progressive web apps.
           </p>
 
           {/* CTAs */}

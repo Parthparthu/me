@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <style>
+      :root {
+        --bg-color: #0b0f17;
+        --border-color: #1e293b;
+        --text-color: #f8fafc;
+        --dot-color: #0ea5e9;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-color: #f8fafc;
+          --border-color: #cbd5e1;
+          --text-color: #0f172a;
+          --dot-color: #0284c7;
+        }
+      }
+    </style>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="var(--bg-color)" />
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="var(--border-color)" stroke-width="2" />
+  <!-- Monogram P -->
+  <path d="M22 46V18H34C40 18 44 21.5 44 27C44 32.5 40 36 34 36H28V46H22ZM28 30.5H33.5C36.5 30.5 38.5 29 38.5 27C38.5 25 36.5 23.5 33.5 23.5H28V30.5Z" fill="var(--text-color)" />
+  <!-- Geometric Sky-Blue Dot -->
+  <circle cx="47" cy="43.5" r="3.5" fill="var(--dot-color)" />
+</svg>

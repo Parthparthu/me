@@ -58,9 +58,11 @@ export const metadata: Metadata = {
   creator: 'Pradyuma',
   icons: {
     icon: [
-      { url: `${basePath}/favicon.ico`, sizes: '32x32' },
       { url: `${basePath}/favicon.svg`, type: 'image/svg+xml' },
+      { url: `${basePath}/favicon.ico`, sizes: 'any' },
+      { url: `${basePath}/icon-192.png`, type: 'image/png', sizes: '192x192' },
     ],
+    shortcut: [`${basePath}/favicon.ico`],
     apple: [{ url: `${basePath}/apple-touch-icon.png`, sizes: '180x180' }],
   },
   manifest: `${basePath}/manifest.webmanifest`,
