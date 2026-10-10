@@ -8,6 +8,7 @@ import { Footer } from '@/components/layout/Footer';
 import { ClientOverlays } from '@/components/common/ClientOverlays';
 import { GlassSVGFilter } from '@/components/glass/GlassSVGFilter';
 import { SceneCanvas } from '@/components/canvas/SceneCanvas';
+import { Preloader } from '@/components/layout/Preloader';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -204,6 +205,9 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning>
+        {/* Branded first-visit preloader */}
+        <Preloader />
+
         {/* 3D canvas: persistent, ambient, behind everything */}
         <SceneCanvas />
 
