@@ -93,3 +93,7 @@ export const useSceneStore = create<SceneStore>()(
     )
   )
 );
+
+if (typeof window !== 'undefined') {
+  (window as any).__PORTFOLIO_SCENE_STORE__ = useSceneStore;
+}
