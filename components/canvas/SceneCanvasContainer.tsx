@@ -7,10 +7,15 @@ const SceneCanvas = dynamic(
   () => import('./SceneCanvas').then((m) => m.SceneCanvas),
   {
     ssr: false,
-    loading: () => <SceneFallback />,
+    loading: () => null,
   }
 );
 
 export function SceneCanvasContainer() {
-  return <SceneCanvas />;
+  return (
+    <>
+      <SceneFallback />
+      <SceneCanvas />
+    </>
+  );
 }
