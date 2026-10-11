@@ -277,7 +277,7 @@ export function Header() {
                   });
                 }
               }}
-              aria-label="Pradyuma: home"
+              aria-label="Pradyumna: home"
               className={cn(
                 'font-display font-bold text-[var(--label-primary)] hover:text-[var(--accent)] transition-colors',
                 'rounded-[var(--radius-xs)] px-2 py-1 mr-1',

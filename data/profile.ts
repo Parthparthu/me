@@ -1,7 +1,7 @@
 import { Profile } from '@/types/profile';
 
 export const profile: Profile = {
-  name: 'Pradyuma',
+  name: 'Pradyumna',
   title: 'CSE (AI/ML) student at GL Bajaj ITM. Software and web application developer.',
   tagline: 'Computer Science and Engineering (AI/ML) student programming since 2019, building practical web applications, data tools, and systems.',
   education: {
@@ -14,7 +14,7 @@ export const profile: Profile = {
   },
   currentStatus: 'First-year B.Tech student open to software development and web internships. Preferred locations: Greater Noida, Noida, Delhi NCR, and Remote.',
   fullBio: [
-    'I am Pradyuma, a first-year Computer Science and Engineering (AI/ML) student at GL Bajaj Institute of Technology & Management, Greater Noida (expected graduation 2030). My programming journey began in 2019 through structured foundational curriculum at WhiteHat Jr, completing tracks in algorithmic thinking, game logic, UI/UX interface architecture, and mobile application development before progressing into self-directed systems engineering.',
+    'I am Pradyumna, a first-year Computer Science and Engineering (AI/ML) student at GL Bajaj Institute of Technology & Management, Greater Noida (expected graduation 2030). My programming journey began in 2019 through structured foundational curriculum at WhiteHat Jr, completing tracks in algorithmic thinking, game logic, UI/UX interface architecture, and mobile application development before progressing into self-directed systems engineering.',
     'My public repositories span client-side PWAs, financial data pipelines, desktop software, and data visualization tools. Rather than chasing superficial breadth, each project serves as a focused investigation into a specific engineering problem: offline data persistence, real-time streaming, or structured data parsing.',
     'I competed in the World Memory Championship and earned a Bronze Medal in 2023. The discipline of mental athletics: spatial mapping, structured pattern recognition, and systematic recall: strongly informs how I navigate large codebases, design data schemas, and troubleshoot software errors.',
     'I am currently exploring software development internships across Greater Noida, Noida, Delhi NCR, and remote settings. This portfolio documents my actual codebase implementations with transparent case studies detailing technical decisions, tradeoffs, and current limitations.',

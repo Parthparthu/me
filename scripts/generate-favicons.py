@@ -1,5 +1,5 @@
 """
-Generate modern high-contrast favicons and app icons for Pradyuma's portfolio.
+Generate modern high-contrast favicons and app icons for Pradyumna's portfolio.
 Uses headless Edge to render crisp SVG to PNG, then Pillow to produce all required sizes and a multi-resolution .ico.
 """
 import os
@@ -151,7 +151,7 @@ OG_IMAGE_HTML = """<!DOCTYPE html>
   <div class="glow"></div>
   <div class="content">
     <div class="badge">B.Tech CSE (AI/ML) &bull; Software &amp; Web Developer</div>
-    <h1>Pradyuma</h1>
+    <h1>Pradyumna</h1>
     <p class="subtitle">First-year engineering student at GL Bajaj ITM building practical web applications, data tools, and systems. World Memory Championship Bronze Medalist.</p>
   </div>
   <div class="footer">

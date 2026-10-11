@@ -82,7 +82,7 @@ export function HeroSection() {
               textWrap: 'balance',
             }}
           >
-            Pradyuma
+            Pradyumna
           </h1>
 
           {/* Role */}

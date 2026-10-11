@@ -36,15 +36,15 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Pradyuma: Software & Web Developer',
-    template: '%s | Pradyuma',
+    default: 'Pradyumna: Software & Web Developer',
+    template: '%s | Pradyumna',
   },
   description:
     'First-year B.Tech CSE (AI/ML) student at GL Bajaj ITM building practical web applications, data tools, and systems. World Memory Championship Bronze Medalist (2023).',
-  applicationName: 'Pradyuma Portfolio',
+  applicationName: 'Pradyumna Portfolio',
   generator: 'Next.js',
   keywords: [
-    'Pradyuma',
+    'Pradyumna',
     'developer',
     'portfolio',
     'full-stack',
@@ -60,9 +60,9 @@ export const metadata: Metadata = {
     'GL Bajaj ITM',
     'internship',
   ],
-  authors: [{ name: 'Pradyuma', url: 'https://github.com/Parthparthu' }],
-  creator: 'Pradyuma',
-  publisher: 'Pradyuma',
+  authors: [{ name: 'Pradyumna', url: 'https://github.com/Parthparthu' }],
+  creator: 'Pradyumna',
+  publisher: 'Pradyumna',
   alternates: {
     canonical: 'https://parthparthu.github.io/me/',
   },
@@ -81,22 +81,22 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_IN',
     url: 'https://parthparthu.github.io/me/',
-    title: 'Pradyuma: Software & Web Developer',
+    title: 'Pradyumna: Software & Web Developer',
     description:
       'First-year B.Tech CSE (AI/ML) student at GL Bajaj ITM building practical web applications, data tools, and systems. World Memory Championship Bronze Medalist (2023).',
-    siteName: 'Pradyuma Portfolio',
+    siteName: 'Pradyumna Portfolio',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Pradyuma: Software and Web Developer Portfolio',
+        alt: 'Pradyumna: Software and Web Developer Portfolio',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Pradyuma: Software & Web Developer',
+    title: 'Pradyumna: Software & Web Developer',
     description:
       'First-year B.Tech CSE (AI/ML) student at GL Bajaj ITM. Software and web developer. World Memory Championship Bronze Medalist (2023).',
     creator: '@Parthparthu',
@@ -121,7 +121,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'Pradyuma',
+    title: 'Pradyumna',
   },
 };
 
@@ -147,7 +147,7 @@ export default function RootLayout({
                 {
                   '@type': 'Person',
                   '@id': 'https://parthparthu.github.io/me/#person',
-                  name: 'Pradyuma',
+                  name: 'Pradyumna',
                   url: 'https://parthparthu.github.io/me/',
                   image: 'https://parthparthu.github.io/me/icon-512.png',
                   sameAs: [
@@ -177,7 +177,7 @@ export default function RootLayout({
                   '@type': 'WebSite',
                   '@id': 'https://parthparthu.github.io/me/#website',
                   url: 'https://parthparthu.github.io/me/',
-                  name: 'Pradyuma Portfolio',
+                  name: 'Pradyumna Portfolio',
                   publisher: { '@id': 'https://parthparthu.github.io/me/#person' },
                 },
               ],

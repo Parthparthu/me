@@ -13,9 +13,9 @@ import { LiquidGlass } from '@/components/glass/LiquidGlass';
 import { getAssetPath } from '@/lib/utils';
 
 export const metadata: Metadata = {
-  title: 'Resume: Pradyuma',
+  title: 'Resume: Pradyumna',
   description:
-    'Curriculum Vitae and technical resume of Pradyuma, CSE (AI/ML) student at GL Bajaj ITM, software and web developer.',
+    'Curriculum Vitae and technical resume of Pradyumna, CSE (AI/ML) student at GL Bajaj ITM, software and web developer.',
 };
 
 export default function ResumePage() {
@@ -35,7 +35,7 @@ export default function ResumePage() {
 
         <a
           href={getAssetPath('/resume.pdf')}
-          download="Pradyuma_Resume.pdf"
+          download="Pradyumna_Resume.pdf"
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[var(--accent-primary)] text-[var(--text-on-accent)] text-xs font-semibold shadow-md hover:bg-[var(--accent-hover)] transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
         >
           <Download size={14} aria-hidden="true" />

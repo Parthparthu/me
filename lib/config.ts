@@ -37,7 +37,7 @@ export const PRELOADER_CONFIG = {
   enabled: true,
   maxDurationMs: 1600,
   minSkippableMs: 500,
-  sessionKey: 'pradyuma_portfolio_preloader_seen',
+  sessionKey: 'pradyumna_portfolio_preloader_seen',
 };
 
 /**

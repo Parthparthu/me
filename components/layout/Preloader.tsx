@@ -126,7 +126,7 @@ export function Preloader() {
                 className="text-xl font-display font-bold text-[var(--label-primary)] mb-1"
                 style={{ letterSpacing: '-0.025em' }}
               >
-                Pradyuma
+                Pradyumna
               </div>
               <p className="text-xs text-[var(--label-tertiary)] font-mono tracking-wider uppercase mb-6">
                 {phase === 'loading' ? 'Loading Experience\u2026' : 'Ready'}

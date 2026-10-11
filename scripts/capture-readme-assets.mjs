@@ -85,7 +85,7 @@ async function capture() {
   await new Promise((r) => setTimeout(r, 2000));
   await send('Runtime.evaluate', {
     expression: `(() => {
-      sessionStorage.setItem('pradyuma_portfolio_preloader_seen', 'true');
+      sessionStorage.setItem('pradyumna_portfolio_preloader_seen', 'true');
       const skipBtn = document.querySelector('button[aria-label="Skip intro"]');
       if (skipBtn) skipBtn.click();
     })()`,

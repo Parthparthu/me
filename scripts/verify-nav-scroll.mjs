@@ -75,7 +75,7 @@ async function runScrollVerification() {
 
   // Pre-seed preloader bypass
   await send('Page.addScriptToEvaluateOnNewDocument', {
-    source: `sessionStorage.setItem('pradyuma_portfolio_preloader_seen', '1');`,
+    source: `sessionStorage.setItem('pradyumna_portfolio_preloader_seen', '1');`,
   });
 
   await send('Page.navigate', { url: 'http://localhost:3000' });

@@ -36,7 +36,7 @@ export function Footer() {
               P<span style={{ color: 'var(--accent)' }}>.</span>
             </span>
             <p className="text-xs" style={{ color: 'var(--label-tertiary)' }}>
-              &copy;{' '}{year} Pradyuma. Built with Next.js and Three.js.
+              &copy;{' '}{year} Pradyumna. Built with Next.js and Three.js.
             </p>
           </div>
 
