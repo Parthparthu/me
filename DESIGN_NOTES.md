@@ -149,7 +149,7 @@ background (#0a0e1a) has a faint blue cast for OLED quality. Light (#f5f7fa) has
 ### What STAYS
 - All component logic, framer-motion animations, 3D scene
 - CommandPalette, ThemeToggle, ScrollProgress (restyled)
-- Preloader (restyled)
+- Instant Direct Landing (Preloader and Enter Gate removed; hero renders immediately on first paint)
 - LiquidGlass API surface (internals replaced with solid Surface renderer)
 
 ### Surface replacement strategy
@@ -180,5 +180,5 @@ export const ALLOW_EMOJI = false;       // no emoji icons
 2. Rewrite `globals.css` with Apple token set and squircle corners
 3. Replace `LiquidGlass` internals with solid Surface renderer
 4. Rewrite `Header` as floating scroll-shrinking nav with sliding indicator
-5. Update `Preloader`, all sections, `ScrollProgress`, `Footer`
+5. Update all sections, `ScrollProgress`, `Footer`
 6. Run build and verify

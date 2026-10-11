@@ -238,7 +238,8 @@ sequenceDiagram
 The WebGL rendering pipeline runs parallel to standard DOM rendering:
 1. **Z-Index Layering**: `<SceneCanvas />` is mounted at `z-index: 0` in a `position: fixed` full-screen container. DOM sections and liquid-glass surfaces reside in relative stacking contexts starting at `z-index: 10`.
 2. **Spline Camera Motion**: The camera position in [`CameraRig.tsx`](components/canvas/CameraRig.tsx) follows a 3D CatmullRom spline path parameterized by normalized scroll progress `progress = scrollY / maxScroll`. As the user navigates down the page, the camera orbits smoothly through the 3D space.
-3. **Adaptive Pixel Ratio**: To prevent thermal throttling, [`AdaptivePixelRatio.tsx`](components/canvas/AdaptivePixelRatio.tsx) clamps device pixel ratio between 1.0 and 2.0 based on frame rate stability.
+3. **Adaptive Pixel Ratio**: To prevent thermal throttling, device pixel ratio is capped at 1.5 with adaptive quality monitoring.
+4. **Direct First Paint & Progressive 3D Loading**: Visitors land immediately on the fully rendered hero text and navigation with zero blocking intro screens or preloader gates. The 3D canvas loads asynchronously in the background over a lightweight static gradient fallback (`<SceneFallback />`), smoothly fading in over 500ms once initialized.
 
 ---
 
@@ -335,8 +336,7 @@ Portfolio/
 │   │   └── GlassSVGFilter.tsx
 │   ├── layout/                   # Header dock, mobile drawers, and Footer
 │   │   ├── Header.tsx
-│   │   ├── Footer.tsx
-│   │   └── Preloader.tsx
+│   │   └── Footer.tsx
 │   ├── sections/                 # Main portfolio content rooms
 │   │   ├── HeroSection.tsx
 │   │   ├── SelectedWork.tsx
@@ -462,7 +462,7 @@ Content, appearance, and runtime behaviors are configured in dedicated data and 
 
 | Customization Goal | File Path | Description |
 |:---|:---|:---|
-| **Feature Flags** | [`lib/config.ts`](lib/config.ts) | Toggle `POINTER_REACTIVE_3D`, `PRELOADER_CONFIG`, and `QUALITY_CONFIG` |
+| **Feature Flags** | [`lib/config.ts`](lib/config.ts) | Toggle `POINTER_REACTIVE_3D`, `ALLOW_CAPSULE`, and `QUALITY_CONFIG` |
 | **Personal Bio & Profile** | [`data/profile.ts`](data/profile.ts) | Author identity, university details, degree, and verified bio |
 | **Project Case Studies** | [`data/projects.ts`](data/projects.ts) | Project briefs, problem statements, architecture, tags, and repo links |
 | **Technical Skills** | [`data/skills.ts`](data/skills.ts) | Categorized skills taxonomy across Languages, Frameworks, and Tools |
@@ -474,13 +474,7 @@ Content, appearance, and runtime behaviors are configured in dedicated data and 
 ```typescript
 // lib/config.ts
 export const POINTER_REACTIVE_3D = true;
-
-export const PRELOADER_CONFIG = {
-  enabled: true,
-  maxDurationMs: 1600,
-  minSkippableMs: 500,
-  sessionKey: 'pradyumna_portfolio_preloader_seen',
-};
+export const ALLOW_CAPSULE = false;
 
 export const QUALITY_CONFIG = {
   defaultDesktop: 'high' as const,

@@ -117,7 +117,7 @@ All measurements were captured on a production static build (`out/`) under three
 | **Fonts blocking render** | **FALSE** | `app/layout.tsx` | Fonts loaded with `display: 'swap'` using Next.js font optimization. |
 | **Third-party scripts blocking main thread** | **FALSE** | `app/layout.tsx` | Zero third-party trackers or blocking analytics scripts. |
 | **Hydration cost** | **FALSE** | `app/page.tsx` | Fast hydration; DOM interactive achieved in 104-148ms on desktop. |
-| **Preloader waiting for unnecessary assets** | **FALSE** | `components/layout/Preloader.tsx` | Dismisses swiftly once initial critical bundle and canvas are initialized. |
+| **Preloader waiting for unnecessary assets** | **FALSE** | `components/canvas/SceneCanvasContainer.tsx` | Preloader and Enter Gate intentionally removed. Site lands directly on immediate hero content with asynchronous 3D fade-in. |
 
 ---
 
