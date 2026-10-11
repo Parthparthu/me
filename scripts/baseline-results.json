@@ -1,0 +1,225 @@
+{
+  "desktop": {
+    "profile": "Desktop (Unthrottled)",
+    "fps": {
+      "idleHero": 60,
+      "scrollFullPage": 37,
+      "hoverCards": 60,
+      "menuToggle": 58
+    },
+    "frameDeltas": {
+      "idleMax": 17,
+      "scrollMax": 350,
+      "hoverMax": 17,
+      "menuMax": 33
+    },
+    "droppedFrames": {
+      "idle": 0,
+      "scroll": 11,
+      "hover": 0,
+      "menu": 1
+    },
+    "trace": {
+      "longTasksCount": 10,
+      "longTasks": [
+        {
+          "name": "FireAnimationFrame",
+          "durMs": 112
+        },
+        {
+          "name": "FunctionCall",
+          "durMs": 112
+        },
+        {
+          "name": "FireAnimationFrame",
+          "durMs": 339
+        },
+        {
+          "name": "FunctionCall",
+          "durMs": 339
+        },
+        {
+          "name": "FireAnimationFrame",
+          "durMs": 312
+        }
+      ],
+      "tbtMs": 1714,
+      "scriptingTimeMs": 1657,
+      "renderingTimeMs": 155,
+      "paintingTimeMs": 149,
+      "layoutCount": 57,
+      "styleRecalcCount": 453
+    },
+    "gpu": {
+      "drawCallsPerFrame": 5080,
+      "trianglesPerFrame": 1666879,
+      "renderTargetsCount": 26,
+      "programsCount": 14,
+      "texturesCount": 26
+    },
+    "memory": {
+      "jsHeapUsedMB": 0,
+      "jsHeapTotalMB": 0,
+      "domNodes": 0
+    },
+    "network": {
+      "requestsCount": 63,
+      "totalJsKB": 9,
+      "totalImageKB": 2
+    },
+    "vitals": {
+      "fcp": 572,
+      "domInteractive": 148,
+      "duration": 764
+    }
+  },
+  "laptop": {
+    "profile": "Mid-Range Laptop (4x CPU Throttle)",
+    "fps": {
+      "idleHero": 10,
+      "scrollFullPage": 11,
+      "hoverCards": 42,
+      "menuToggle": 24
+    },
+    "frameDeltas": {
+      "idleMax": 650,
+      "scrollMax": 600,
+      "hoverMax": 50,
+      "menuMax": 200
+    },
+    "droppedFrames": {
+      "idle": 8,
+      "scroll": 33,
+      "hover": 16,
+      "menu": 15
+    },
+    "trace": {
+      "longTasksCount": 15,
+      "longTasks": [
+        {
+          "name": "RunMicrotasks",
+          "durMs": 60
+        },
+        {
+          "name": "FunctionCall",
+          "durMs": 59
+        },
+        {
+          "name": "FunctionCall",
+          "durMs": 336
+        },
+        {
+          "name": "FireAnimationFrame",
+          "durMs": 179
+        },
+        {
+          "name": "FunctionCall",
+          "durMs": 179
+        }
+      ],
+      "tbtMs": 954,
+      "scriptingTimeMs": 2294,
+      "renderingTimeMs": 361,
+      "paintingTimeMs": 358,
+      "layoutCount": 35,
+      "styleRecalcCount": 105
+    },
+    "gpu": {
+      "drawCallsPerFrame": 67,
+      "trianglesPerFrame": 3656,
+      "renderTargetsCount": 6,
+      "programsCount": 2,
+      "texturesCount": 5
+    },
+    "memory": {
+      "jsHeapUsedMB": 0,
+      "jsHeapTotalMB": 0,
+      "domNodes": 0
+    },
+    "network": {
+      "requestsCount": 62,
+      "totalJsKB": 0,
+      "totalImageKB": 0
+    },
+    "vitals": {
+      "fcp": 516,
+      "domInteractive": 3514,
+      "duration": 3537
+    }
+  },
+  "mobile": {
+    "profile": "Mobile Profile (6x CPU Throttle, 390x844)",
+    "fps": {
+      "idleHero": 12,
+      "scrollFullPage": 4,
+      "hoverCards": 24,
+      "menuToggle": 12
+    },
+    "frameDeltas": {
+      "idleMax": 1200,
+      "scrollMax": 1550,
+      "hoverMax": 100,
+      "menuMax": 400
+    },
+    "droppedFrames": {
+      "idle": 12,
+      "scroll": 16,
+      "hover": 55,
+      "menu": 14
+    },
+    "trace": {
+      "longTasksCount": 12,
+      "longTasks": [
+        {
+          "name": "FunctionCall",
+          "durMs": 60
+        },
+        {
+          "name": "EventDispatch",
+          "durMs": 103
+        },
+        {
+          "name": "RunMicrotasks",
+          "durMs": 82
+        },
+        {
+          "name": "FunctionCall",
+          "durMs": 65
+        },
+        {
+          "name": "EventDispatch",
+          "durMs": 67
+        }
+      ],
+      "tbtMs": 4040,
+      "scriptingTimeMs": 3656,
+      "renderingTimeMs": 226,
+      "paintingTimeMs": 302,
+      "layoutCount": 6,
+      "styleRecalcCount": 44
+    },
+    "gpu": {
+      "drawCallsPerFrame": 48,
+      "trianglesPerFrame": 2742,
+      "renderTargetsCount": 6,
+      "programsCount": 1,
+      "texturesCount": 5
+    },
+    "memory": {
+      "jsHeapUsedMB": 0,
+      "jsHeapTotalMB": 0,
+      "domNodes": 0
+    },
+    "network": {
+      "requestsCount": 47,
+      "totalJsKB": 0,
+      "totalImageKB": 0
+    },
+    "vitals": {
+      "fcp": 400,
+      "domInteractive": 4429,
+      "duration": 4463
+    }
+  },
+  "timestamp": "2026-10-11T16:24:32.854Z"
+}
