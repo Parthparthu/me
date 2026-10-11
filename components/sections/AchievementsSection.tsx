@@ -144,19 +144,19 @@ export function AchievementsSection() {
                 radius={14}
                   className="h-full p-6 flex items-start gap-4"
               >
-                <div className="p-2.5 rounded-lg bg-[var(--bg-surface-2)] border border-[var(--border-subtle)] text-[var(--accent-primary)] flex-shrink-0">
+                <div className="p-2.5 rounded-lg bg-[var(--bg-grouped)] border border-[var(--separator)] text-[var(--accent)] flex-shrink-0">
                   <Icon size={20} aria-hidden="true" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1.5">
-                    <h4 className="text-base font-bold text-[var(--text-primary)] leading-tight">
+                    <h4 className="text-base font-bold text-[var(--label-primary)] leading-tight">
                       {achievement.title}
                     </h4>
-                    <span className="text-xs font-mono text-[var(--text-muted)] tabular-nums">
+                    <span className="text-xs font-mono text-[var(--label-quaternary)] tabular-nums">
                       {achievement.year}
                     </span>
                   </div>
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                  <p className="text-sm text-[var(--label-secondary)] leading-relaxed">
                     {achievement.description}
                   </p>
                 </div>
@@ -174,16 +174,16 @@ export function AchievementsSection() {
         transition={SPRING}
         className="space-y-6"
       >
-        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-[var(--border-subtle)] pb-4">
+        <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-[var(--separator)] pb-4">
           <div>
-            <h3 className="text-xl font-display font-bold text-[var(--text-primary)]">
+            <h3 className="text-xl font-display font-bold text-[var(--label-primary)]">
               Documented Certificates &amp; Credentials
             </h3>
-            <p className="text-xs text-[var(--text-secondary)] mt-1 font-mono">
+            <p className="text-xs text-[var(--label-secondary)] mt-1 font-mono">
               Verified original documentation archived in repository files.
             </p>
           </div>
-          <span className="text-xs font-mono text-[var(--accent-primary)]">
+          <span className="text-xs font-mono text-[var(--accent)]">
             {verifiedCertificates.length} Verified Documents
           </span>
         </div>
@@ -195,14 +195,14 @@ export function AchievementsSection() {
               elevation={2}
               tint="neutral"
               radius={14}
-              className="p-5 flex flex-col justify-between group hover:border-[var(--border-medium)] transition-colors"
+              className="p-5 flex flex-col justify-between group hover:border-[var(--border-medium)] transition-[border-color] duration-[var(--dur-base)]"
             >
               <div>
                 {/* Thumbnail */}
                 <button
                   type="button"
                   onClick={() => setActiveModal(cert)}
-                  className="relative w-full h-36 rounded-lg overflow-hidden bg-[var(--bg-surface-2)] border border-[var(--border-subtle)] mb-4 block group-hover:border-[var(--border-medium)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] min-h-[44px]"
+                  className="relative w-full h-36 rounded-lg overflow-hidden bg-[var(--bg-grouped)] border border-[var(--separator)] mb-4 block group-hover:border-[var(--border-medium)] transition-[border-color] duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)] min-h-[44px]"
                   aria-label={`View full certificate: ${cert.title}`}
                 >
                   <Image
@@ -212,33 +212,33 @@ export function AchievementsSection() {
                     className="object-cover object-top group-hover:scale-105 transition-transform duration-200"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-colors" />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-opacity" />
                 </button>
 
                 <div className="flex items-center justify-between gap-2 mb-2 font-mono text-[11px]">
-                  <span className="text-[var(--accent-primary)] font-medium">
+                  <span className="text-[var(--accent)] font-medium">
                     {cert.issuer}
                   </span>
-                  <span className="text-[var(--text-muted)] tabular-nums">
+                  <span className="text-[var(--label-quaternary)] tabular-nums">
                     {cert.year}
                   </span>
                 </div>
 
-                <h4 className="text-sm font-bold text-[var(--text-primary)] leading-snug mb-2 font-sans">
+                <h4 className="text-sm font-bold text-[var(--label-primary)] leading-snug mb-2 font-sans">
                   {cert.title}
                 </h4>
 
-                <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-4">
+                <p className="text-xs text-[var(--label-secondary)] leading-relaxed mb-4">
                   {cert.description}
                 </p>
               </div>
 
               {/* Action Buttons: 8px radius */}
-              <div className="pt-3 border-t border-[var(--border-subtle)] flex items-center justify-between gap-2">
+              <div className="pt-3 border-t border-[var(--separator)] flex items-center justify-between gap-2">
                 <button
                   type="button"
                   onClick={() => setActiveModal(cert)}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent-primary)] hover:underline min-h-[44px] p-1 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent)] hover:underline min-h-[44px] p-1 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"
                 >
                   <FileCheck size={14} aria-hidden="true" />
                   <span>Inspect Document</span>
@@ -248,7 +248,7 @@ export function AchievementsSection() {
                   href={getAssetPath(cert.documentUrl)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors min-h-[44px] p-1 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                  className="inline-flex items-center gap-1 text-xs text-[var(--label-tertiary)] hover:text-[var(--label-primary)] transition-colors min-h-[44px] p-1 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"
                   aria-label={`Open document for ${cert.title}`}
                 >
                   <span>Raw File</span>

@@ -2,7 +2,7 @@
  * GlassSVGFilter: Mounts the refractive SVG displacement filter once
  * at the document root. Used by LiquidGlass via backdrop-filter: url(#glass-distort).
  * Feature-detected: only Chromium supports backdrop-filter with SVG url().
- * Safari/Firefox receive the blur+saturate fallback without distortion.
+ * Safari/Firefox receive the blur and saturate fallback without distortion.
  */
 'use client';
 
@@ -15,8 +15,10 @@ export function GlassSVGFilter() {
     // Feature-detect backdrop-filter url() support (Chromium only)
     const el = document.createElement('div');
     el.style.backdropFilter = 'url(#test)';
-    setSupported(el.style.backdropFilter === 'url("#test")'
-      || el.style.backdropFilter === 'url(#test)');
+    setSupported(
+      el.style.backdropFilter === 'url("#test")' ||
+      el.style.backdropFilter === 'url(#test)'
+    );
   }, []);
 
   if (!supported) return null;

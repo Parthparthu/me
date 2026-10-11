@@ -71,14 +71,14 @@ export function SkillsSection() {
               <LiquidGlass
                 elevation={3}
                 tint="neutral"
-                radius={14}
+                radius={20}
                 dynamicLight={POINTER_REACTIVE_3D}
-                className="h-full p-6 flex flex-col group hover:border-[var(--border-medium)] transition-colors"
+                className="h-full p-6 flex flex-col group hover:border-[var(--border-medium)] transition-[border-color] duration-[var(--dur-base)]"
               >
                 {/* Category header */}
                 <div className="flex items-center gap-3 mb-4">
                   <div
-                    className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                    className="w-10 h-10 rounded-[var(--radius-sm)] flex items-center justify-center flex-shrink-0"
                     style={{
                       background: `${accent}15`,
                       border: `1px solid ${accent}30`,
@@ -96,18 +96,18 @@ export function SkillsSection() {
                   </div>
                 </div>
 
-                {/* Skills list */}
-                <div className="flex flex-col gap-3 mt-2">
+                {/* Skills grouped list (iOS settings style) */}
+                <div className="mt-2 rounded-[var(--radius-sm)] border border-[var(--separator)] bg-[var(--bg-grouped)] overflow-hidden divide-y divide-[var(--separator)]">
                   {category.skills.map((skill) => (
                     <div
                       key={skill.name}
-                      className="p-2.5 rounded-lg bg-[var(--bg-surface-2)] border border-[var(--border-subtle)] hover:border-[var(--border-medium)] transition-colors"
+                      className="p-3 transition-colors hover:bg-[var(--bg-hover)]"
                     >
                       <div className="flex justify-between items-baseline gap-2 mb-1">
-                        <span className="text-xs font-semibold text-[var(--text-primary)] font-mono">
+                        <span className="text-xs font-semibold text-[var(--label-primary)] font-mono">
                           {skill.name}
                         </span>
-                        <span className="text-[10px] text-[var(--text-tertiary)] font-sans text-right">
+                        <span className="text-[10px] text-[var(--label-tertiary)] font-sans text-right">
                           {skill.context}
                         </span>
                       </div>
@@ -118,7 +118,7 @@ export function SkillsSection() {
                           {skill.verifiedIn.map((proj) => (
                             <span
                               key={proj}
-                              className="text-[9px] px-1.5 py-0.5 rounded-xs bg-[var(--bg-surface-raised)] text-[var(--text-secondary)] font-mono border border-[var(--border-subtle)]"
+                              className="text-[9px] px-1.5 py-0.5 rounded-[var(--radius-xs)] bg-[var(--bg-secondary)] text-[var(--label-secondary)] font-mono border border-[var(--separator)]"
                             >
                               {proj}
                             </span>

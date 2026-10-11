@@ -1,5 +1,5 @@
 /**
- * HeroSection: Clear, direct introduction with restrained liquid-glass elements.
+ * HeroSection: Clear, direct introduction with Apple-style restrained surfaces.
  * States plainly who I am, what I do, and what I am looking for.
  */
 'use client';
@@ -7,8 +7,8 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ChevronDown, ArrowRight } from 'lucide-react';
-import { LiquidGlass } from '@/components/glass/LiquidGlass';
 import { GlassButton } from '@/components/glass/GlassVariants';
+import { LiquidGlass } from '@/components/glass/LiquidGlass';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { POINTER_REACTIVE_3D } from '@/lib/config';
 import { cn } from '@/lib/utils';
@@ -24,7 +24,7 @@ export function HeroSection() {
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, 60]);
 
   const { scrollTo } = useSmoothScroll();
 
@@ -40,61 +40,80 @@ export function HeroSection() {
         className="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto w-full"
       >
         <div className="flex flex-col items-center gap-6">
-          {/* Status badge: 8px radius */}
+
+          {/* Status badge: 8px radius with emerald liquid glass */}
           <LiquidGlass
             elevation={2}
             tint="emerald"
             radius={8}
             dynamicLight={POINTER_REACTIVE_3D}
-            className="border border-[var(--accent-emerald-border)] bg-[var(--accent-emerald-subtle)] p-0"
+            className="p-0 border border-[var(--success-border)]"
           >
             <div className="relative z-10 inline-flex items-center gap-2.5 px-3.5 py-1.5">
               <span className="relative flex h-2 w-2 shrink-0 items-center justify-center" aria-hidden="true">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent-emerald)] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--accent-emerald)]" />
+                <span
+                  className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                  style={{ backgroundColor: 'var(--success)' }}
+                />
+                <span
+                  className="relative inline-flex rounded-full h-2 w-2"
+                  style={{ backgroundColor: 'var(--success)' }}
+                />
               </span>
-              <span className="text-xs font-medium leading-none text-[var(--accent-emerald)]">
+              <span
+                className="text-xs font-medium leading-none"
+                style={{ color: 'var(--success)' }}
+              >
                 Open to Internships: Greater Noida, Noida, Delhi NCR &amp; Remote
               </span>
             </div>
           </LiquidGlass>
 
-          {/* Name: Crisp high-contrast display */}
+          {/* Name */}
           <h1
             className={cn(
-              'font-display font-bold tracking-tight text-[var(--text-primary)]',
+              'font-display font-bold',
               'text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-none'
             )}
+            style={{
+              color: 'var(--label-primary)',
+              letterSpacing: '-0.04em',
+              textWrap: 'balance',
+            }}
           >
             Pradyuma
           </h1>
 
-          {/* Role and Identity */}
-          <p className="text-lg md:text-xl font-medium text-[var(--accent-primary)] font-mono">
+          {/* Role */}
+          <p
+            className="text-base md:text-lg font-medium font-mono"
+            style={{ color: 'var(--accent)' }}
+          >
             B.Tech CSE (AI/ML) &middot; Software &amp; Web Developer
           </p>
 
-          {/* Concrete Hero Copy */}
-          <p className="text-base md:text-lg text-[var(--text-secondary)] max-w-2xl mx-auto leading-relaxed">
-            First-year Computer Science and Engineering (AI/ML) student at GL Bajaj ITM, Greater Noida (graduating 2030), programming since 2019. Building practical web applications, data tools, and progressive web apps.
+          {/* Bio */}
+          <p
+            className="text-base md:text-lg max-w-2xl mx-auto leading-relaxed"
+            style={{ color: 'var(--label-secondary)' }}
+          >
+            First-year Computer Science and Engineering (AI/ML) student at GL Bajaj ITM,
+            Greater Noida (graduating 2030), programming since 2019. Building practical web
+            applications, data tools, and progressive web apps.
           </p>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-3 items-center justify-center mt-2">
             <GlassButton
-              elevation={2}
-              tint="cyan"
               variant="primary"
               className="group"
-              onClick={() => {
+              onClick={() =>
                 scrollTo('selected-work', {
-                  offset: -60,
+                  offset: -80,
                   duration: 1.25,
-                  onComplete: () => {
-                    window.history.pushState(null, '', '/#selected-work');
-                  },
-                });
-              }}
+                  onComplete: () => window.history.pushState(null, '', '/#selected-work'),
+                })
+              }
             >
               <span>View Projects</span>
               <ArrowRight
@@ -105,26 +124,22 @@ export function HeroSection() {
             </GlassButton>
 
             <GlassButton
-              elevation={2}
-              tint="neutral"
               variant="secondary"
-              onClick={() => {
+              onClick={() =>
                 scrollTo('contact', {
-                  offset: -60,
+                  offset: -80,
                   duration: 1.25,
-                  onComplete: () => {
-                    window.history.pushState(null, '', '/#contact');
-                  },
-                });
-              }}
+                  onComplete: () => window.history.pushState(null, '', '/#contact'),
+                })
+              }
             >
               Get in Touch
             </GlassButton>
           </div>
 
-          {/* Tech badges: 6px radius, static for battery and clarity */}
+          {/* Tech badges: 6px radius liquid glass */}
           <div
-            className="hidden md:flex flex-wrap justify-center gap-2 mt-6"
+            className="hidden md:flex flex-wrap justify-center gap-2 mt-4"
             aria-label="Core technologies"
           >
             {TECH_BADGES.map((badge) => (
@@ -133,20 +148,23 @@ export function HeroSection() {
                 elevation={1}
                 tint="neutral"
                 radius={6}
+                dynamicLight={false}
                 className="px-2.5 py-1"
               >
-                <span className="text-xs font-mono text-[var(--text-secondary)]">
+                <span className="text-xs font-mono text-[var(--label-secondary)]">
                   {badge}
                 </span>
               </LiquidGlass>
             ))}
           </div>
+
         </div>
       </motion.div>
 
       {/* Scroll cue */}
       <div
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-[var(--text-muted)] z-10"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 z-10"
+        style={{ color: 'var(--label-quaternary)' }}
         aria-hidden="true"
       >
         <span className="text-[10px] tracking-widest uppercase font-mono">Scroll</span>

@@ -15,6 +15,7 @@ import { Search, Filter, X, ArrowUpRight, Github, ArrowRight, Maximize2, Layers,
 import { projects } from '@/data/projects';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
 import { POINTER_REACTIVE_3D } from '@/lib/config';
+import { cn } from '@/lib/utils';
 import type { Project } from '@/types/project';
 
 const CATEGORIES = [
@@ -73,13 +74,21 @@ export default function ProjectsPageClient() {
         </div>
 
         {/* Filter bar */}
-        <LiquidGlass elevation={2} tint="neutral" radius={14} dynamicLight={POINTER_REACTIVE_3D} className="p-4 md:p-5">
+        <div
+          style={{
+            borderRadius: 'var(--radius-lg)',
+            backgroundColor: 'var(--bg-secondary)',
+            border: '1px solid var(--separator)',
+            boxShadow: 'var(--shadow-sm)',
+          }}
+          className="p-4 md:p-5 flex flex-col gap-4"
+        >
           <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-            {/* Search Input: 8px radius */}
+            {/* Search Input */}
             <div className="relative w-full lg:max-w-md">
               <Search
                 size={16}
-                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--text-muted)]"
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[var(--label-tertiary)]"
                 aria-hidden="true"
               />
               <input
@@ -87,60 +96,75 @@ export default function ProjectsPageClient() {
                 placeholder="Search projects, technologies…"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-lg py-2.5 pl-10 pr-9 text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] min-h-[44px]"
+                className="w-full bg-[var(--bg-grouped)] border border-[var(--separator)] rounded-[var(--radius-sm)] py-2.5 pl-10 pr-9 text-sm text-[var(--label-primary)] placeholder:text-[var(--label-tertiary)] focus:outline-none focus:ring-2 focus:ring-[var(--focus-ring)] min-h-[44px]"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
                   aria-label="Clear search"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1 min-h-[32px] min-w-[32px] flex items-center justify-center rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--label-tertiary)] hover:text-[var(--label-primary)] p-1 min-h-[32px] min-w-[32px] flex items-center justify-center rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"
                 >
                   <X size={14} aria-hidden="true" />
                 </button>
               )}
             </div>
 
-            {/* Selects */}
-            <div className="flex flex-wrap gap-4 items-center w-full lg:w-auto">
-              <div className="flex items-center gap-2">
-                <Filter size={14} className="text-[var(--text-muted)]" aria-hidden="true" />
-                <label htmlFor="cat-select" className="text-xs font-medium text-[var(--text-secondary)]">
-                  Category:
-                </label>
-                <select
-                  id="cat-select"
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-lg px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] min-h-[40px]"
+            {/* Tier Segmented Control */}
+            <div className="inline-flex p-1 rounded-[var(--radius-sm)] bg-[var(--bg-grouped)] border border-[var(--separator)]">
+              {TIERS.map((tier) => (
+                <button
+                  key={tier}
+                  onClick={() => setSelectedTier(tier)}
+                  className={cn(
+                    'relative px-3 py-1.5 text-xs font-medium rounded-[var(--radius-xs)] transition-colors min-h-[36px]',
+                    selectedTier === tier
+                      ? 'text-[var(--label-primary)]'
+                      : 'text-[var(--label-secondary)] hover:text-[var(--label-primary)]'
+                  )}
                 >
-                  {CATEGORIES.map((cat) => (
-                    <option key={cat} value={cat} className="bg-[var(--bg-surface-raised)] text-[var(--text-primary)]">
-                      {cat}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <label htmlFor="tier-select" className="text-xs font-medium text-[var(--text-secondary)]">
-                  Tier:
-                </label>
-                <select
-                  id="tier-select"
-                  value={selectedTier}
-                  onChange={(e) => setSelectedTier(e.target.value)}
-                  className="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-lg px-3 py-2 text-xs text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--border-focus)] min-h-[40px]"
-                >
-                  {TIERS.map((tier) => (
-                    <option key={tier} value={tier} className="bg-[var(--bg-surface-raised)] text-[var(--text-primary)]">
-                      {tier}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                  {selectedTier === tier && (
+                    <motion.span
+                      layoutId="tier-pill"
+                      className="absolute inset-0 bg-[var(--bg-secondary)] border border-[var(--separator-strong)] rounded-[var(--radius-xs)] shadow-sm"
+                      transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                    />
+                  )}
+                  <span className="relative z-10">{tier}</span>
+                </button>
+              ))}
             </div>
           </div>
-        </LiquidGlass>
+
+          {/* Category Segmented Control with smooth scroll */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+            <span className="text-xs font-medium text-[var(--label-tertiary)] flex-shrink-0 mr-1">
+              Category:
+            </span>
+            <div className="inline-flex p-1 rounded-[var(--radius-sm)] bg-[var(--bg-grouped)] border border-[var(--separator)]">
+              {CATEGORIES.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={cn(
+                    'relative px-3.5 py-1.5 text-xs font-medium rounded-[var(--radius-xs)] transition-colors whitespace-nowrap min-h-[36px]',
+                    selectedCategory === cat
+                      ? 'text-[var(--label-primary)] font-semibold'
+                      : 'text-[var(--label-secondary)] hover:text-[var(--label-primary)]'
+                  )}
+                >
+                  {selectedCategory === cat && (
+                    <motion.span
+                      layoutId="category-pill"
+                      className="absolute inset-0 bg-[var(--bg-secondary)] border border-[var(--separator-strong)] rounded-[var(--radius-xs)] shadow-sm"
+                      transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                    />
+                  )}
+                  <span className="relative z-10">{cat}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
 
         <div className="text-xs font-mono text-[var(--text-muted)]">
           Showing <strong className="text-[var(--text-primary)]">{filteredProjects.length}</strong> of{' '}

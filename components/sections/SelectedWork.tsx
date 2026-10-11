@@ -115,9 +115,10 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
         <LiquidGlass
           elevation={3}
           tint="neutral"
-          radius={16}
+          radius={20}
           dynamicLight={POINTER_REACTIVE_3D}
-          className="overflow-hidden border border-[var(--border-subtle)] group-hover:border-[var(--border-medium)] transition-colors"
+          className="overflow-hidden border border-[var(--separator)] group-hover:border-[var(--accent-border)] transition-[border-color,box-shadow] duration-[var(--dur-base)]"
+          style={{ boxShadow: 'var(--shadow-sm)' }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
             {/* Visual preview column */}
@@ -166,14 +167,14 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
                 >
                   <Cpu size={28} style={{ color: style.accent }} aria-hidden="true" />
                 </div>
-                <span className="text-[11px] font-mono text-[var(--text-tertiary)] uppercase tracking-wider">
+                <span className="text-[11px] font-mono text-slate-300 uppercase tracking-wider">
                   {project.primaryLanguage} Architecture
                 </span>
               </div>
 
               {/* Bottom quick actions */}
               <div className="relative z-10 flex items-center justify-between">
-                <span className="text-[10px] font-mono text-[var(--text-tertiary)]">
+                <span className="text-[10px] font-mono text-slate-400">
                   {project.date}
                 </span>
 
@@ -206,17 +207,17 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
                 </div>
 
                 {/* Name */}
-                <h3 className="text-xl md:text-2xl font-display font-bold text-[var(--text-primary)] mb-2 leading-tight group-hover:text-[var(--accent-primary)] transition-colors">
+                <h3 className="text-xl md:text-2xl font-display font-bold text-[var(--label-primary)] mb-2 leading-tight group-hover:text-[var(--accent)]">
                   {project.name}
                 </h3>
 
                 {/* Tagline */}
-                <p className="text-[var(--text-secondary)] text-sm mb-3 leading-relaxed font-medium">
+                <p className="text-[var(--label-secondary)] text-sm mb-3 leading-relaxed font-medium">
                   {project.tagline}
                 </p>
 
                 {/* Short description */}
-                <p className="text-[var(--text-tertiary)] text-xs md:text-sm mb-6 line-clamp-2 leading-relaxed">
+                <p className="text-[var(--label-secondary)] text-xs md:text-sm mb-6 line-clamp-2 leading-relaxed">
                   {project.shortDescription}
                 </p>
               </div>
@@ -227,13 +228,13 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
                   {project.technologies.slice(0, 5).map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-0.5 rounded-sm text-[11px] font-mono text-[var(--text-secondary)] bg-[var(--bg-surface-2)] border border-[var(--border-subtle)]"
+                      className="px-2 py-0.5 rounded-sm text-[11px] font-mono text-[var(--label-secondary)] bg-[var(--bg-grouped)] border border-[var(--separator)]"
                     >
                       {tech}
                     </span>
                   ))}
                   {project.technologies.length > 5 && (
-                    <span className="px-2 py-0.5 rounded-sm text-[11px] font-mono text-[var(--text-muted)]">
+                    <span className="px-2 py-0.5 rounded-sm text-[11px] font-mono text-[var(--label-quaternary)]">
                       +{project.technologies.length - 5}
                     </span>
                   )}

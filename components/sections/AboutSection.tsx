@@ -62,11 +62,11 @@ export function AboutSection() {
           <LiquidGlass
             elevation={3}
             tint="amber"
-            radius={14}
+            radius={20}
             className="p-6"
           >
             <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-[var(--accent-amber-subtle)] border border-[var(--accent-amber-border)] flex items-center justify-center">
+              <div className="flex-shrink-0 w-12 h-12 rounded-[var(--radius-sm)] bg-[var(--accent-amber-subtle)] border border-[var(--accent-amber-border)] flex items-center justify-center">
                 <Trophy size={22} className="text-[var(--accent-amber)]" aria-hidden="true" />
               </div>
               <div>
@@ -84,7 +84,7 @@ export function AboutSection() {
           </LiquidGlass>
 
           {/* Bio paragraphs */}
-          <GlassCardVariant radius={14} className="p-7">
+          <GlassCardVariant radius={20} className="p-7">
             <div className="space-y-4 text-[var(--text-secondary)] text-sm md:text-base leading-relaxed">
               {profile.fullBio.map((paragraph, i) => (
                 <p key={i}>{paragraph}</p>
@@ -122,11 +122,11 @@ export function AboutSection() {
                 <LiquidGlass
                   elevation={2}
                   tint={cfg.tint as 'cyan' | 'amber'}
-                  radius={14}
+                  radius={20}
                   className="p-5 h-full flex flex-col gap-3"
                 >
                   <div
-                    className="w-10 h-10 rounded-lg flex items-center justify-center"
+                    className="w-10 h-10 rounded-[var(--radius-sm)] flex items-center justify-center"
                     style={{
                       background: `${cfg.accent}15`,
                       border: `1px solid ${cfg.accent}30`,

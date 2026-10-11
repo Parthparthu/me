@@ -67,7 +67,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.documentElement.style.colorScheme = zustandTheme;
 
     // Update meta theme-color
-    const themeColor = zustandTheme === 'dark' ? '#0b0f17' : '#f6f8fb';
+    const themeColor = zustandTheme === 'dark' ? '#0a0e1a' : '#f5f7fa';
     const metaThemeColors = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
     if (metaThemeColors.length > 0) {
       metaThemeColors.forEach((m) => m.setAttribute('content', themeColor));

@@ -119,7 +119,7 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
         const target = document.querySelector(hash);
         if (target) {
           lenis.scrollTo(target as HTMLElement, {
-            offset: -60,
+            offset: -80,
             duration: 1.25,
             easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           });
@@ -134,7 +134,7 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
         const target = document.querySelector(hash);
         if (target) {
           lenis.scrollTo(target as HTMLElement, {
-            offset: -60,
+            offset: -80,
             duration: 1.25,
             easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           });

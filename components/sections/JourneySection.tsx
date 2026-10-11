@@ -145,24 +145,24 @@ export function JourneySection() {
                       </div>
 
                       {/* Title and Subtitle */}
-                      <h3 className="text-xl font-display font-bold text-[var(--text-primary)] mb-1 leading-snug">
+                      <h3 className="text-xl font-display font-bold text-[var(--label-primary)] mb-1 leading-snug">
                         {milestone.title}
                       </h3>
-                      <p className="text-sm font-medium text-[var(--accent-primary)] mb-3">
+                      <p className="text-sm font-medium text-[var(--accent)] mb-3">
                         {milestone.subtitle}
                       </p>
 
                       {/* Description */}
-                      <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-4">
+                      <p className="text-sm text-[var(--label-secondary)] leading-relaxed mb-4">
                         {milestone.description}
                       </p>
 
                       {/* Highlights */}
                       {milestone.highlights && milestone.highlights.length > 0 && (
-                        <div className="pt-3 border-t border-[var(--border-subtle)] space-y-2">
+                        <div className="pt-3 border-t border-[var(--separator)] space-y-2">
                           {milestone.highlights.map((highlight: string, i: number) => (
-                            <div key={i} className="flex items-start gap-2 text-xs text-[var(--text-secondary)] leading-relaxed">
-                              <ChevronRight size={14} className="text-[var(--accent-primary)] mt-0.5 flex-shrink-0" aria-hidden="true" />
+                            <div key={i} className="flex items-start gap-2 text-xs text-[var(--label-secondary)] leading-relaxed">
+                              <ChevronRight size={14} className="text-[var(--accent)] mt-0.5 flex-shrink-0" aria-hidden="true" />
                               <span>{highlight}</span>
                             </div>
                           ))}

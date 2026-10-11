@@ -6,7 +6,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Github, Linkedin, Instagram, Mail, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
+import { Send, Github, Linkedin, Instagram, Mail, CheckCircle2, AlertCircle, Loader2, ChevronRight } from 'lucide-react';
 import { socials } from '@/data/socials';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
 import { GlassInput, GlassTextarea, GlassButton } from '@/components/glass/GlassVariants';
@@ -254,7 +254,7 @@ export function ContactSection() {
               Prefer asynchronous direct communication? Reach out directly via GitHub, LinkedIn, Instagram, or Email.
             </p>
 
-            <div className="flex flex-col gap-3">
+            <div className="rounded-[var(--radius-sm)] border border-[var(--separator)] bg-[var(--bg-grouped)] overflow-hidden divide-y divide-[var(--separator)]">
               {socials.map((social) => {
                 const icon =
                   social.platform === 'GitHub'
@@ -272,24 +272,22 @@ export function ContactSection() {
                     href={social.url}
                     target={social.platform === 'Email' ? undefined : '_blank'}
                     rel={social.platform === 'Email' ? undefined : 'noopener noreferrer'}
-                    className="group flex items-center justify-between p-3.5 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:bg-[var(--bg-surface-hover)] hover:border-[var(--border-strong)] transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                    className="group flex items-center justify-between p-3.5 hover:bg-[var(--bg-hover)] transition-colors min-h-[48px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-md bg-[var(--bg-surface-active)] text-[var(--accent-primary)] group-hover:text-[var(--accent-hover)] transition-colors">
+                      <div className="p-2 rounded-[var(--radius-xs)] bg-[var(--bg-secondary)] text-[var(--accent)] group-hover:text-[var(--accent-hover)] transition-colors">
                         <Icon size={18} aria-hidden="true" />
                       </div>
                       <div>
-                        <div className="text-sm font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent-primary)] transition-colors">
+                        <div className="text-sm font-semibold text-[var(--label-primary)] group-hover:text-[var(--accent)] transition-colors">
                           {social.platform}
                         </div>
-                        <div className="text-xs text-[var(--text-muted)] font-mono truncate max-w-[200px]">
+                        <div className="text-xs text-[var(--label-tertiary)] font-mono truncate max-w-[200px]">
                           {social.label}
                         </div>
                       </div>
                     </div>
-                    <span className="text-xs font-mono text-[var(--text-muted)] group-hover:translate-x-0.5 transition-transform" aria-hidden="true">
-                      &rarr;
-                    </span>
+                    <ChevronRight size={16} className="text-[var(--label-quaternary)] group-hover:text-[var(--label-secondary)] group-hover:translate-x-0.5 transition-all" aria-hidden="true" />
                   </a>
                 );
               })}

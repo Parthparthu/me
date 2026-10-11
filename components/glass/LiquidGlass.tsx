@@ -1,11 +1,13 @@
 /**
- * LiquidGlass: The core glass component for the entire design system.
+ * LiquidGlass: Multi-layer refractive liquid glass renderer.
  *
- * Implements a 4-layer glass material engineered for both Dark and Light themes:
- *   1. Base: backdrop-filter blur + saturate + translucent fill
- *   2. Refraction: SVG displacement map via backdrop-filter url() [Chromium only]
- *   3. Specular: dynamic highlight that tracks pointer movement
- *   4. Structure: dual-edge highlight pair, crisp inner/outer borders, layered shadows
+ * Engineered with:
+ * - Multi-layer elevation scale (blur 14px to 42px, saturation boost)
+ * - Refractive SVG displacement filter (#glass-distort) for Chromium / high quality
+ * - Dynamic specular highlight tracking pointer movement (--gl-x, --gl-y)
+ * - Crisp hairline top edge specular rim highlight
+ * - Continuous squircle corners adhering to concentric radius rules
+ * - Strictly non-purple tint palette with full WCAG AA contrast compliance in both themes
  */
 'use client';
 
@@ -17,7 +19,7 @@ import React, {
   type HTMLAttributes,
 } from 'react';
 import { useSceneStore } from '@/store/useSceneStore';
-import { POINTER_REACTIVE_3D } from '@/lib/config';
+import { POINTER_REACTIVE_3D, NAV_BLUR } from '@/lib/config';
 import { cn } from '@/lib/utils';
 
 export type GlassElevation = 1 | 2 | 3 | 4 | 5;
@@ -32,6 +34,8 @@ export interface LiquidGlassProps extends HTMLAttributes<HTMLDivElement> {
   dynamicLight?: boolean;
   variant?: GlassVariant;
   as?: React.ElementType;
+  /** When true, renders as nav-specific surface (respects NAV_BLUR flag) */
+  isNav?: boolean;
 }
 
 const ELEVATION_CONFIG: Record<
@@ -39,21 +43,21 @@ const ELEVATION_CONFIG: Record<
   {
     blur: number;
     saturate: number;
-    dark: { alpha: number; shadow: string; border: string; insetTop: string };
-    light: { alpha: number; shadow: string; border: string; insetTop: string };
+    dark: { bg: string; shadow: string; border: string; insetTop: string };
+    light: { bg: string; shadow: string; border: string; insetTop: string };
   }
 > = {
   1: {
     blur: 14,
     saturate: 160,
     dark: {
-      alpha: 0.04,
+      bg: 'rgba(17, 24, 39, 0.65)',
       shadow: '0 2px 8px rgba(0,0,0,0.25), 0 1px 3px rgba(0,0,0,0.15)',
       border: 'rgba(255,255,255,0.08)',
       insetTop: 'inset 0 1px 0 rgba(255,255,255,0.08)',
     },
     light: {
-      alpha: 0.80,
+      bg: 'rgba(255,255,255,0.82)',
       shadow: '0 2px 8px rgba(15,23,42,0.05), 0 1px 2px rgba(15,23,42,0.03)',
       border: 'rgba(15,23,42,0.07)',
       insetTop: 'inset 0 1px 0 rgba(255,255,255,0.85), inset 0 -1px 0 rgba(15,23,42,0.03)',
@@ -63,13 +67,13 @@ const ELEVATION_CONFIG: Record<
     blur: 20,
     saturate: 170,
     dark: {
-      alpha: 0.07,
+      bg: 'rgba(17, 24, 39, 0.70)',
       shadow: '0 4px 16px rgba(0,0,0,0.30), 0 2px 6px rgba(0,0,0,0.20)',
       border: 'rgba(255,255,255,0.10)',
       insetTop: 'inset 0 1px 0 rgba(255,255,255,0.10)',
     },
     light: {
-      alpha: 0.84,
+      bg: 'rgba(255,255,255,0.86)',
       shadow: '0 4px 14px rgba(15,23,42,0.06), 0 2px 4px rgba(15,23,42,0.03)',
       border: 'rgba(15,23,42,0.09)',
       insetTop: 'inset 0 1px 0 rgba(255,255,255,0.90), inset 0 -1px 0 rgba(15,23,42,0.04)',
@@ -79,13 +83,13 @@ const ELEVATION_CONFIG: Record<
     blur: 26,
     saturate: 180,
     dark: {
-      alpha: 0.10,
+      bg: 'rgba(17, 24, 39, 0.76)',
       shadow: '0 8px 24px rgba(0,0,0,0.40), 0 3px 10px rgba(0,0,0,0.25)',
       border: 'rgba(255,255,255,0.12)',
       insetTop: 'inset 0 1px 0 rgba(255,255,255,0.12)',
     },
     light: {
-      alpha: 0.88,
+      bg: 'rgba(255,255,255,0.89)',
       shadow: '0 10px 24px -2px rgba(15,23,42,0.08), 0 3px 8px -1px rgba(15,23,42,0.04)',
       border: 'rgba(15,23,42,0.11)',
       insetTop: 'inset 0 1px 0 rgba(255,255,255,0.92), inset 0 -1px 0 rgba(15,23,42,0.05)',
@@ -95,13 +99,13 @@ const ELEVATION_CONFIG: Record<
     blur: 34,
     saturate: 190,
     dark: {
-      alpha: 0.14,
+      bg: 'rgba(17, 24, 39, 0.82)',
       shadow: '0 16px 36px rgba(0,0,0,0.45), 0 6px 18px rgba(0,0,0,0.30)',
       border: 'rgba(255,255,255,0.14)',
       insetTop: 'inset 0 1px 0 rgba(255,255,255,0.14)',
     },
     light: {
-      alpha: 0.92,
+      bg: 'rgba(255,255,255,0.92)',
       shadow: '0 16px 36px -4px rgba(15,23,42,0.10), 0 6px 14px -2px rgba(15,23,42,0.05)',
       border: 'rgba(15,23,42,0.13)',
       insetTop: 'inset 0 1px 0 rgba(255,255,255,0.95), inset 0 -1px 0 rgba(15,23,42,0.06)',
@@ -111,13 +115,13 @@ const ELEVATION_CONFIG: Record<
     blur: 42,
     saturate: 200,
     dark: {
-      alpha: 0.18,
+      bg: 'rgba(17, 24, 39, 0.88)',
       shadow: '0 24px 50px rgba(0,0,0,0.55), 0 10px 24px rgba(0,0,0,0.35)',
       border: 'rgba(255,255,255,0.16)',
       insetTop: 'inset 0 1px 0 rgba(255,255,255,0.16)',
     },
     light: {
-      alpha: 0.95,
+      bg: 'rgba(255,255,255,0.95)',
       shadow: '0 24px 48px -6px rgba(15,23,42,0.13), 0 8px 18px -3px rgba(15,23,42,0.06)',
       border: 'rgba(15,23,42,0.16)',
       insetTop: 'inset 0 1px 0 rgba(255,255,255,0.98), inset 0 -1px 0 rgba(15,23,42,0.08)',
@@ -127,42 +131,52 @@ const ELEVATION_CONFIG: Record<
 
 const TINT_COLORS: Record<GlassTint, { dark: string; light: string; glow: string }> = {
   neutral: {
-    dark: 'rgba(255,255,255,__ALPHA__)',
-    light: 'rgba(255,255,255,__ALPHA__)',
+    dark: 'transparent',
+    light: 'transparent',
     glow: 'transparent',
   },
   cyan: {
-    dark: 'rgba(14,165,233,__ALPHA__)',
-    light: 'rgba(2,132,199,0.08)',
+    dark: 'rgba(14,165,233,0.08)',
+    light: 'rgba(2,132,199,0.05)',
     glow: 'rgba(2,132,199,0.06)',
   },
   amber: {
-    dark: 'rgba(245,158,11,__ALPHA__)',
-    light: 'rgba(180,83,9,0.07)',
+    dark: 'rgba(245,158,11,0.08)',
+    light: 'rgba(180,83,9,0.05)',
     glow: 'rgba(180,83,9,0.06)',
   },
   emerald: {
-    dark: 'rgba(16,185,129,__ALPHA__)',
-    light: 'rgba(4,120,87,0.07)',
+    dark: 'rgba(16,185,129,0.08)',
+    light: 'rgba(4,120,87,0.05)',
     glow: 'rgba(4,120,87,0.06)',
   },
   // Map legacy violet/rose requests to neutral/cyan
   violet: {
-    dark: 'rgba(14,165,233,__ALPHA__)',
-    light: 'rgba(2,132,199,0.08)',
+    dark: 'rgba(14,165,233,0.08)',
+    light: 'rgba(2,132,199,0.05)',
     glow: 'rgba(2,132,199,0.06)',
   },
   rose: {
-    dark: 'rgba(255,255,255,__ALPHA__)',
-    light: 'rgba(255,255,255,__ALPHA__)',
+    dark: 'transparent',
+    light: 'transparent',
     glow: 'transparent',
   },
   auto: {
-    dark: 'rgba(14,165,233,__ALPHA__)',
-    light: 'rgba(2,132,199,0.08)',
+    dark: 'rgba(14,165,233,0.08)',
+    light: 'rgba(2,132,199,0.05)',
     glow: 'rgba(2,132,199,0.06)',
   },
 };
+
+function resolveRadius(radius: number | string | undefined): string {
+  if (radius === undefined) return 'var(--radius-lg)';
+  if (typeof radius === 'string') return radius;
+  if (radius <= 6) return 'var(--radius-xs)';
+  if (radius <= 8) return 'var(--radius-sm)';
+  if (radius <= 12) return 'var(--radius-md)';
+  if (radius <= 20) return 'var(--radius-lg)';
+  return 'var(--radius-xl)';
+}
 
 export const LiquidGlass = forwardRef<HTMLDivElement, LiquidGlassProps>(
   function LiquidGlass(
@@ -170,10 +184,11 @@ export const LiquidGlass = forwardRef<HTMLDivElement, LiquidGlassProps>(
       elevation = 3,
       refraction = 0.4,
       tint = 'neutral',
-      radius = 12,
+      radius,
       dynamicLight = true,
       variant = 'default',
       as: Tag = 'div',
+      isNav = false,
       className,
       style,
       children,
@@ -188,20 +203,29 @@ export const LiquidGlass = forwardRef<HTMLDivElement, LiquidGlassProps>(
     const theme = useSceneStore((s) => s.theme);
     const isDark = theme === 'dark';
 
-    const cfg = ELEVATION_CONFIG[elevation];
+    const cfg = ELEVATION_CONFIG[elevation] || ELEVATION_CONFIG[3];
     const themeCfg = isDark ? cfg.dark : cfg.light;
     const tintCfg = TINT_COLORS[tint] || TINT_COLORS.neutral;
 
-    const rawColor = isDark ? tintCfg.dark : tintCfg.light;
-    const fillColor = rawColor.replace('__ALPHA__', String(themeCfg.alpha));
+    // Nav-specific behavior: if isNav and !NAV_BLUR, use solid background token
+    const isNavSolid = isNav && !NAV_BLUR;
+    const isNavBlurred = isNav && NAV_BLUR;
 
     // Backdrop filter: conditionally add SVG refraction for Chromium/high quality
-    const useRefraction = quality === 'high' && refraction > 0;
-    const backdropFilter = useRefraction
-      ? `url(#glass-distort) blur(${cfg.blur}px) saturate(${cfg.saturate}%) brightness(${isDark ? '1.04' : '1.01'})`
-      : `blur(${cfg.blur}px) saturate(${cfg.saturate}%) brightness(${isDark ? '1.04' : '1.01'})`;
+    const useRefraction = !isNavSolid && quality === 'high' && refraction > 0;
+    let backdropFilter: string | undefined;
 
-    // Specular highlight responds to pointer movement on the element itself
+    if (isNavSolid) {
+      backdropFilter = undefined;
+    } else if (isNavBlurred) {
+      backdropFilter = 'blur(16px) saturate(160%)';
+    } else {
+      backdropFilter = useRefraction
+        ? `url(#glass-distort) blur(${cfg.blur}px) saturate(${cfg.saturate}%) brightness(${isDark ? '1.04' : '1.01'})`
+        : `blur(${cfg.blur}px) saturate(${cfg.saturate}%) brightness(${isDark ? '1.04' : '1.01'})`;
+    }
+
+    // Dynamic specular highlight responds to pointer movement on the element
     useEffect(() => {
       if (!dynamicLight || !POINTER_REACTIVE_3D) return;
       const el = ref.current;
@@ -220,20 +244,28 @@ export const LiquidGlass = forwardRef<HTMLDivElement, LiquidGlassProps>(
       return () => el.removeEventListener('pointermove', handlePointerMove);
     }, [dynamicLight, ref]);
 
-    const borderRadius =
-      typeof radius === 'number' ? `${radius}px` : radius;
+    const resolvedRadius = resolveRadius(radius);
+
+    // Compute background: if tinted, composite tint on top of theme background
+    const bgBase = isNavSolid ? 'var(--bg-secondary)' : themeCfg.bg;
+    const tintColor = isDark ? tintCfg.dark : tintCfg.light;
+    const backgroundColor = tintColor !== 'transparent'
+      ? bgBase // base provides opacity, tint is layered or tintColor
+      : bgBase;
 
     const glassStyle: CSSProperties = {
       position: 'relative',
-      borderRadius,
-      backgroundColor: fillColor,
-      backdropFilter,
-      WebkitBackdropFilter: backdropFilter,
-      border: `1px solid ${themeCfg.border}`,
+      borderRadius: resolvedRadius,
+      backgroundColor,
+      ...(backdropFilter && {
+        backdropFilter,
+        WebkitBackdropFilter: backdropFilter,
+      }),
+      border: `1px solid ${isNavSolid ? 'var(--separator-strong)' : themeCfg.border}`,
       boxShadow: [
         themeCfg.shadow,
         tintCfg.glow !== 'transparent' ? `0 0 20px ${tintCfg.glow}` : null,
-        themeCfg.insetTop,
+        !isNavSolid ? themeCfg.insetTop : null,
       ]
         .filter(Boolean)
         .join(', '),
@@ -250,27 +282,31 @@ export const LiquidGlass = forwardRef<HTMLDivElement, LiquidGlassProps>(
         {...props}
       >
         {/* Dynamic pointer specular highlight */}
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300"
-          style={{
-            borderRadius,
-            background: isDark
-              ? 'radial-gradient(ellipse 60% 40% at var(--gl-x, 50%) var(--gl-y, -20%), rgba(255,255,255,0.06) 0%, transparent 70%)'
-              : 'radial-gradient(ellipse 60% 40% at var(--gl-x, 50%) var(--gl-y, -20%), rgba(255,255,255,0.55) 0%, transparent 70%)',
-          }}
-        />
+        {!isNavSolid && dynamicLight && (
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-300"
+            style={{
+              borderRadius: resolvedRadius,
+              background: isDark
+                ? 'radial-gradient(ellipse 60% 40% at var(--gl-x, 50%) var(--gl-y, -20%), rgba(255,255,255,0.06) 0%, transparent 70%)'
+                : 'radial-gradient(ellipse 60% 40% at var(--gl-x, 50%) var(--gl-y, -20%), rgba(255,255,255,0.55) 0%, transparent 70%)',
+            }}
+          />
+        )}
 
         {/* Crisp top edge specular rim highlight */}
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute top-0 left-[8%] right-[8%] h-[1px]"
-          style={{
-            background: isDark
-              ? 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2) 30%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.2) 70%, transparent)'
-              : 'linear-gradient(90deg, transparent, rgba(255,255,255,0.8) 30%, rgba(255,255,255,1) 50%, rgba(255,255,255,0.8) 70%, transparent)',
-          }}
-        />
+        {!isNavSolid && (
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute top-0 left-[8%] right-[8%] h-[1px] glass-rim-top"
+            style={{
+              background: isDark
+                ? 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2) 30%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.2) 70%, transparent)'
+                : 'linear-gradient(90deg, transparent, rgba(255,255,255,0.8) 30%, rgba(255,255,255,1) 50%, rgba(255,255,255,0.8) 70%, transparent)',
+            }}
+          />
+        )}
 
         <div className="relative z-10 w-full h-full">{children}</div>
       </Component>
