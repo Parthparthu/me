@@ -8,16 +8,8 @@ import { persist, subscribeWithSelector } from 'zustand/middleware';
 
 export type QualityTier = 'high' | 'medium' | 'low' | 'none';
 export type Theme = 'dark' | 'light';
-export type AccentColor = 'cyan' | 'sky' | 'amber' | 'emerald' | 'indigo' | 'violet';
+export type AccentColor = 'cyan' | 'sky' | 'amber' | 'emerald';
 
-export interface CursorState {
-  x: number;
-  y: number;
-  nx: number;
-  ny: number;
-  isHovering: boolean;
-  label: '' | 'View' | 'Drag' | 'Play' | 'Open';
-}
 
 interface SceneStore {
   quality: QualityTier;
@@ -31,9 +23,6 @@ interface SceneStore {
 
   accent: AccentColor;
   setAccent: (a: AccentColor) => void;
-
-  cursor: CursorState;
-  setCursor: (partial: Partial<CursorState>) => void;
 
   activeSection: string;
   setActiveSection: (id: string) => void;
@@ -64,10 +53,6 @@ export const useSceneStore = create<SceneStore>()(
 
         accent: 'cyan',
         setAccent: (accent) => set({ accent }),
-
-        cursor: { x: 0, y: 0, nx: 0, ny: 0, isHovering: false, label: '' },
-        setCursor: (partial) =>
-          set((state) => ({ cursor: { ...state.cursor, ...partial } })),
 
         activeSection: 'hero',
         setActiveSection: (activeSection) => set({ activeSection }),

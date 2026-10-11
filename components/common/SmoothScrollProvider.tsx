@@ -20,6 +20,22 @@ const SECTION_ELEMENTS: { id: string; room: RoomId }[] = [
   { id: 'contact', room: 'contact' },
 ];
 
+let cachedSectionOffsets: { top: number; room: RoomId }[] = [];
+
+function recalculateSectionOffsets() {
+  if (typeof window === 'undefined') return;
+  const list: { top: number; room: RoomId }[] = [];
+  for (let i = 0; i < SECTION_ELEMENTS.length; i++) {
+    const { id, room } = SECTION_ELEMENTS[i];
+    const el = document.getElementById(id) || (id === 'selected-work' ? document.getElementById('work') : null);
+    if (el) {
+      const top = el.getBoundingClientRect().top + window.scrollY;
+      list.push({ top, room });
+    }
+  }
+  cachedSectionOffsets = list;
+}
+
 function updateActiveRoom() {
   if (typeof window === 'undefined') return;
   const store = useScrollStore.getState();
@@ -41,18 +57,19 @@ function updateActiveRoom() {
     return;
   }
 
+  // If offsets have not been cached yet, calculate them
+  if (cachedSectionOffsets.length === 0) {
+    recalculateSectionOffsets();
+  }
+
   // 3. Scan sections from bottom to top using viewport checkpoint
-  const checkpoint = Math.min(Math.max(window.innerHeight * 0.3, 140), 260);
+  const checkpoint = Math.min(Math.max(clientHeight * 0.3, 140), 260);
 
-  for (let i = SECTION_ELEMENTS.length - 1; i >= 0; i--) {
-    const { id, room } = SECTION_ELEMENTS[i];
-    const el = document.getElementById(id) || (id === 'selected-work' ? document.getElementById('work') : null);
-    if (!el) continue;
-
-    const rect = el.getBoundingClientRect();
-    if (rect.top <= checkpoint) {
-      if (store.activeRoom !== room) {
-        store.setActiveRoom(room);
+  for (let i = cachedSectionOffsets.length - 1; i >= 0; i--) {
+    const item = cachedSectionOffsets[i];
+    if (y >= item.top - checkpoint) {
+      if (store.activeRoom !== item.room) {
+        store.setActiveRoom(item.room);
       }
       return;
     }
@@ -65,7 +82,7 @@ function updateActiveRoom() {
 
 export function SmoothScrollProvider({ children }: { children: ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
-  const { setProgress, setScrollY, setVelocity } = useScrollStore.getState();
+  const { setScroll } = useScrollStore.getState();
 
   useEffect(() => {
     // User interaction immediately unlocks programmatic nav lock
@@ -74,20 +91,30 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
         useScrollStore.getState().unlockActiveRoom();
       }
     };
+    const handleResize = () => {
+      recalculateSectionOffsets();
+      updateActiveRoom();
+    };
+
     window.addEventListener('wheel', handleUserInteraction, { passive: true });
     window.addEventListener('touchstart', handleUserInteraction, { passive: true });
-    window.addEventListener('resize', updateActiveRoom, { passive: true });
+    window.addEventListener('resize', handleResize, { passive: true });
 
     // Initial check on mount
-    const initialTimer = setTimeout(updateActiveRoom, 100);
+    const initialTimer = setTimeout(() => {
+      recalculateSectionOffsets();
+      updateActiveRoom();
+    }, 150);
 
-    // Respect reduced motion: native scroll without inertia
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Respect reduced motion and mobile touch devices: 100% native scrolling
+    const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (isTouch || prefersReduced) {
       const handleNativeScroll = () => {
         const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
         const progress = scrollHeight > 0 ? Math.min(Math.max(window.scrollY / scrollHeight, 0), 1) : 0;
-        setProgress(progress);
-        setScrollY(window.scrollY);
+        setScroll(progress, window.scrollY, 0);
         updateActiveRoom();
       };
 
@@ -96,15 +123,15 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
         clearTimeout(initialTimer);
         window.removeEventListener('wheel', handleUserInteraction);
         window.removeEventListener('touchstart', handleUserInteraction);
-        window.removeEventListener('resize', updateActiveRoom);
+        window.removeEventListener('resize', handleResize);
         window.removeEventListener('scroll', handleNativeScroll);
       };
     }
 
     const lenis = new Lenis({
-      duration: 1.25,
-      easing: (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2),
-      touchMultiplier: 2.0,
+      duration: 0.5,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      touchMultiplier: 1.0,
       infinite: false,
       syncTouch: false,
       autoRaf: false,
@@ -120,48 +147,16 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       scroll: number;
       velocity: number;
     }) => {
-      setProgress(progress);
-      setScrollY(scroll);
-      setVelocity(velocity);
+      setScroll(progress, scroll, velocity);
       updateActiveRoom();
     });
 
-    // Rock-solid RAF loop with clamped delta: prevents single-frame teleportation
-    // when tabs are blurred, sleeping, throttled, or transitioning
-    let lastTime = performance.now();
     let rafId: number | null = null;
-    let virtualTime = performance.now();
-
     const tick = (now: number) => {
-      const elapsed = Math.max(0, now - lastTime);
-      lastTime = now;
-      const clampedDelta = Math.min(elapsed, 33.33);
-      virtualTime += clampedDelta;
-      lenis.raf(virtualTime);
+      lenis.raf(now);
       rafId = requestAnimationFrame(tick);
     };
     rafId = requestAnimationFrame(tick);
-
-    // Register Lenis scroll sync with GSAP ScrollTrigger
-    import('gsap').then(({ gsap }) => {
-      import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-        gsap.registerPlugin(ScrollTrigger);
-
-        lenis.on('scroll', ScrollTrigger.update);
-
-        ScrollTrigger.scrollerProxy(document.documentElement, {
-          scrollTop: () => lenis.scroll,
-          getBoundingClientRect: () => ({
-            top: 0,
-            left: 0,
-            width: window.innerWidth,
-            height: window.innerHeight,
-          }),
-        });
-
-        ScrollTrigger.refresh();
-      });
-    });
 
     // Handle initial hash in URL (e.g. direct load to /#about)
     let initialHashTimer: NodeJS.Timeout | null = null;
@@ -246,7 +241,7 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, [setProgress, setScrollY, setVelocity]);
+  }, [setScroll]);
 
   return (
     <LenisContext.Provider value={lenisRef}>

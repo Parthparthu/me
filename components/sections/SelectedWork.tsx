@@ -70,25 +70,43 @@ interface TiltCardProps {
 
 function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [rotateX, setRotateX] = useState(0);
-  const [rotateY, setRotateY] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
+  const rectRef = useRef<DOMRect | null>(null);
+  const ticking = useRef(false);
 
   const style = PROJECT_ACCENTS[project.slug] || PROJECT_ACCENTS.numora;
 
+  const handlePointerEnter = useCallback(() => {
+    if (cardRef.current) {
+      rectRef.current = cardRef.current.getBoundingClientRect();
+    }
+  }, []);
+
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
-    if (!POINTER_REACTIVE_3D || !cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-    setRotateX((y - 0.5) * -8);
-    setRotateY((x - 0.5) * 8);
+    if (!POINTER_REACTIVE_3D || !cardRef.current || ticking.current) return;
+    if (!rectRef.current) {
+      rectRef.current = cardRef.current.getBoundingClientRect();
+    }
+    ticking.current = true;
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+
+    requestAnimationFrame(() => {
+      if (cardRef.current && rectRef.current) {
+        const x = (clientX - rectRef.current.left) / rectRef.current.width;
+        const y = (clientY - rectRef.current.top) / rectRef.current.height;
+        const rx = (y - 0.5) * -8;
+        const ry = (x - 0.5) * 8;
+        cardRef.current.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateZ(8px)`;
+      }
+      ticking.current = false;
+    });
   }, []);
 
   const handlePointerLeave = useCallback(() => {
-    setRotateX(0);
-    setRotateY(0);
-    setIsHovered(false);
+    rectRef.current = null;
+    if (cardRef.current) {
+      cardRef.current.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0px)';
+    }
   }, []);
 
   return (
@@ -101,16 +119,14 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
     >
       <div
         ref={cardRef}
+        onPointerEnter={handlePointerEnter}
         onPointerMove={handlePointerMove}
-        onPointerEnter={() => setIsHovered(true)}
         onPointerLeave={handlePointerLeave}
         style={{
-          transform: POINTER_REACTIVE_3D && isHovered
-            ? `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(8px)`
-            : 'rotateX(0deg) rotateY(0deg) translateZ(0px)',
-          transition: isHovered ? 'transform 120ms ease-out' : 'transform 400ms cubic-bezier(0.16, 1, 0.3, 1)',
+          transform: 'rotateX(0deg) rotateY(0deg) translateZ(0px)',
+          transition: 'transform 200ms ease-out',
         }}
-        className="group relative"
+        className="group relative will-change-transform"
       >
         <LiquidGlass
           elevation={3}
@@ -159,10 +175,9 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
               {/* Center interactive architectural wireframe */}
               <div className="relative z-10 my-auto flex flex-col items-center justify-center text-center">
                 <div
-                  className="w-16 h-16 rounded-xl border border-white/15 flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110"
+                  className="w-16 h-16 rounded-xl border border-white/15 flex items-center justify-center mb-3 transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_24px_rgba(56,189,248,0.25)]"
                   style={{
                     background: `${style.accent}15`,
-                    boxShadow: isHovered ? `0 0 24px ${style.accent}30` : 'none',
                   }}
                 >
                   <Cpu size={28} style={{ color: style.accent }} aria-hidden="true" />

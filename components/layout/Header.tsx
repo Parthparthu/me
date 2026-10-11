@@ -91,17 +91,17 @@ function NavItem({ link, isActive, isScrolled, onNavigate }: NavItemProps) {
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const pathname = usePathname();
   const activeRoom = useScrollStore((s) => s.activeRoom);
   const { scrollTo } = useSmoothScroll();
 
   const menuTriggerRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
 
   /* Scroll detection with hysteresis */
   useEffect(() => {
-    let prevY = 0;
+    let ticking = false;
 
     const handleScroll = () => {
       const y = window.scrollY;
@@ -112,11 +112,18 @@ export function Header() {
         setIsScrolled(false);
       }
 
-      /* Scroll progress */
-      const scrollH = document.documentElement.scrollHeight - window.innerHeight;
-      if (scrollH > 0) setScrollProgress(Math.min(y / scrollH, 1));
-
-      prevY = y;
+      /* Scroll progress directly on DOM node without React re-render */
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (progressRef.current) {
+            const scrollH = document.documentElement.scrollHeight - window.innerHeight;
+            const p = scrollH > 0 ? Math.min(Math.max(window.scrollY / scrollH, 0), 1) : 0;
+            progressRef.current.style.transform = `scaleX(${p})`;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -327,8 +334,9 @@ export function Header() {
               aria-hidden="true"
             >
               <div
-                className="h-full scroll-progress-bar transition-all duration-100"
-                style={{ width: `${scrollProgress * 100}%` }}
+                ref={progressRef}
+                className="h-full scroll-progress-bar origin-left will-change-transform"
+                style={{ transform: 'scaleX(0)' }}
               />
             </div>
           </nav>

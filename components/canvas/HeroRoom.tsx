@@ -8,6 +8,8 @@ import { useSceneStore } from '@/store/useSceneStore';
 import { useMouseParallax } from '@/hooks/useMouseParallax';
 import { POINTER_REACTIVE_3D } from '@/lib/config';
 
+import { useScrollStore } from '@/store/useScrollStore';
+
 /**
  * HeroRoom: Prominent 3D crystal sculpture with real refractive transmission.
  * Engineered to adapt dynamically to Light and Dark themes, and responsive aspect ratios.
@@ -23,7 +25,7 @@ export function HeroRoom() {
   const theme = useSceneStore((s) => s.theme);
   const isDark = theme === 'dark';
 
-  const { nx, ny } = useMouseParallax();
+  const pointer = useMouseParallax();
   const { viewport } = useThree();
 
   // Responsive scale adapted to aspect ratio (portrait mobile vs landscape/desktop)
@@ -46,6 +48,11 @@ export function HeroRoom() {
 
   useFrame((state, delta) => {
     if (!groupRef.current) return;
+    const progress = useScrollStore.getState().progress;
+    const isVisible = progress <= 0.35;
+    groupRef.current.visible = isVisible;
+    if (!isVisible) return;
+
     const t = state.clock.elapsedTime;
 
     // Decay impulse
@@ -53,8 +60,8 @@ export function HeroRoom() {
 
     // Pointer-reactive tilt if enabled
     if (POINTER_REACTIVE_3D) {
-      const targetRX = -ny * 0.35;
-      const targetRY = nx * 0.45 + t * 0.15;
+      const targetRX = -pointer.ny * 0.35;
+      const targetRY = pointer.nx * 0.45 + t * 0.15;
       groupRef.current.rotation.x = THREE.MathUtils.lerp(
         groupRef.current.rotation.x,
         targetRX,

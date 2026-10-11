@@ -29,7 +29,7 @@ const LOOKAT_POINTS = [
 export function CameraRig() {
   const { camera, viewport, size } = useThree();
   const quality = useSceneStore((s) => s.quality);
-  const { nx, ny } = useMouseParallax();
+  const pointer = useMouseParallax();
 
   const positionCurve = useMemo(() => new THREE.CatmullRomCurve3(CAMERA_POINTS), []);
   const lookAtCurve = useMemo(() => new THREE.CatmullRomCurve3(LOOKAT_POINTS), []);
@@ -79,8 +79,8 @@ export function CameraRig() {
     const parallaxMultiplier = isPortrait ? 0.6 : 1.0;
     const parallaxStrength = POINTER_REACTIVE_3D ? (quality === 'high' ? 0.35 : 0.18) * parallaxMultiplier : 0;
     targetPos.current.set(
-      pt.x + nx * parallaxStrength,
-      pt.y + yOffset + ny * parallaxStrength * 0.4,
+      pt.x + pointer.nx * parallaxStrength,
+      pt.y + yOffset + pointer.ny * parallaxStrength * 0.4,
       pt.z + zOffset
     );
     targetLook.current.copy(look);

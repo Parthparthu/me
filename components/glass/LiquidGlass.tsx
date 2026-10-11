@@ -211,8 +211,7 @@ export const LiquidGlass = forwardRef<HTMLDivElement, LiquidGlassProps>(
     const isNavSolid = isNav && !NAV_BLUR;
     const isNavBlurred = isNav && NAV_BLUR;
 
-    // Backdrop filter: conditionally add SVG refraction for Chromium/high quality
-    const useRefraction = !isNavSolid && quality === 'high' && refraction > 0;
+    // Backdrop filter: crisp, GPU-friendly blur and saturation without heavy SVG distortion
     let backdropFilter: string | undefined;
 
     if (isNavSolid) {
@@ -220,28 +219,56 @@ export const LiquidGlass = forwardRef<HTMLDivElement, LiquidGlassProps>(
     } else if (isNavBlurred) {
       backdropFilter = 'blur(16px) saturate(160%)';
     } else {
-      backdropFilter = useRefraction
-        ? `url(#glass-distort) blur(${cfg.blur}px) saturate(${cfg.saturate}%) brightness(${isDark ? '1.04' : '1.01'})`
-        : `blur(${cfg.blur}px) saturate(${cfg.saturate}%) brightness(${isDark ? '1.04' : '1.01'})`;
+      backdropFilter = `blur(${Math.min(cfg.blur, 18)}px) saturate(${cfg.saturate}%) brightness(${isDark ? '1.03' : '1.01'})`;
     }
 
-    // Dynamic specular highlight responds to pointer movement on the element
+    // Dynamic specular highlight responds to pointer movement on the element with rAF throttling
     useEffect(() => {
       if (!dynamicLight || !POINTER_REACTIVE_3D) return;
       const el = ref.current;
       if (!el) return;
 
-      const handlePointerMove = (e: PointerEvent) => {
-        const rect = el.getBoundingClientRect();
-        if (rect.width === 0 || rect.height === 0) return;
-        const relX = ((e.clientX - rect.left) / rect.width) * 100;
-        const relY = ((e.clientY - rect.top) / rect.height) * 100;
-        el.style.setProperty('--gl-x', `${Math.max(-10, Math.min(110, relX))}%`);
-        el.style.setProperty('--gl-y', `${Math.max(-10, Math.min(110, relY))}%`);
+      let rect: DOMRect | null = null;
+      let ticking = false;
+
+      const handlePointerEnter = () => {
+        rect = el.getBoundingClientRect();
       };
 
+      const handlePointerMove = (e: PointerEvent) => {
+        if (!rect) {
+          rect = el.getBoundingClientRect();
+        }
+        if (ticking) return;
+        ticking = true;
+        const clientX = e.clientX;
+        const clientY = e.clientY;
+
+        requestAnimationFrame(() => {
+          if (!rect || rect.width === 0 || rect.height === 0) {
+            ticking = false;
+            return;
+          }
+          const relX = ((clientX - rect.left) / rect.width) * 100;
+          const relY = ((clientY - rect.top) / rect.height) * 100;
+          el.style.setProperty('--gl-x', `${Math.max(-10, Math.min(110, relX))}%`);
+          el.style.setProperty('--gl-y', `${Math.max(-10, Math.min(110, relY))}%`);
+          ticking = false;
+        });
+      };
+
+      const handlePointerLeave = () => {
+        rect = null;
+      };
+
+      el.addEventListener('pointerenter', handlePointerEnter, { passive: true });
       el.addEventListener('pointermove', handlePointerMove, { passive: true });
-      return () => el.removeEventListener('pointermove', handlePointerMove);
+      el.addEventListener('pointerleave', handlePointerLeave, { passive: true });
+      return () => {
+        el.removeEventListener('pointerenter', handlePointerEnter);
+        el.removeEventListener('pointermove', handlePointerMove);
+        el.removeEventListener('pointerleave', handlePointerLeave);
+      };
     }, [dynamicLight, ref]);
 
     const resolvedRadius = resolveRadius(radius);

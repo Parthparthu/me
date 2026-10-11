@@ -12,7 +12,8 @@ export function BackToTop() {
 
   useEffect(() => {
     function handleScroll() {
-      setVisible(window.scrollY > 400);
+      const isOver = window.scrollY > 400;
+      setVisible((prev) => (prev !== isOver ? isOver : prev));
     }
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);

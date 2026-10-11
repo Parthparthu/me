@@ -1,72 +1,72 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { useSceneStore } from '@/store/useSceneStore';
+import { useEffect } from 'react';
 import { POINTER_REACTIVE_3D } from '@/lib/config';
 
-interface ParallaxValues {
+export interface ParallaxValues {
   x: number;
   y: number;
   nx: number;
   ny: number;
 }
 
-export function useMouseParallax(): ParallaxValues {
-  const setCursor = useSceneStore((s) => s.setCursor);
-  const valRef = useRef<ParallaxValues>({ x: 0, y: 0, nx: 0, ny: 0 });
+const pointerState: ParallaxValues = { x: 0, y: 0, nx: 0, ny: 0 };
+let initialized = false;
 
-  useEffect(() => {
-    if (!POINTER_REACTIVE_3D) return;
+function initPointerTracking() {
+  if (typeof window === 'undefined' || initialized || !POINTER_REACTIVE_3D) return;
+  initialized = true;
 
-    const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+  const isFinePointer = window.matchMedia('(pointer: fine)').matches;
 
-    if (isFinePointer) {
-      const handlePointerMove = (e: MouseEvent) => {
-        const nx = (e.clientX / window.innerWidth) * 2 - 1;
-        const ny = -((e.clientY / window.innerHeight) * 2 - 1);
-        valRef.current = { x: e.clientX, y: e.clientY, nx, ny };
-
-        setCursor({
-          x: e.clientX,
-          y: e.clientY,
-          nx,
-          ny,
-        });
-      };
-
-      window.addEventListener('mousemove', handlePointerMove, { passive: true });
-      return () => window.removeEventListener('mousemove', handlePointerMove);
-    } else {
-      // Touch devices: gentle touch drag tilt with graceful reset on release
-      let activeTouch = false;
-
-      const handleTouchMove = (e: TouchEvent) => {
+  if (isFinePointer) {
+    window.addEventListener(
+      'mousemove',
+      (e: MouseEvent) => {
+        pointerState.x = e.clientX;
+        pointerState.y = e.clientY;
+        pointerState.nx = (e.clientX / window.innerWidth) * 2 - 1;
+        pointerState.ny = -((e.clientY / window.innerHeight) * 2 - 1);
+      },
+      { passive: true }
+    );
+  } else {
+    window.addEventListener(
+      'touchmove',
+      (e: TouchEvent) => {
         if (!e.touches[0]) return;
         const touch = e.touches[0];
-        const nx = ((touch.clientX / window.innerWidth) * 2 - 1) * 0.65;
-        const ny = -((touch.clientY / window.innerHeight) * 2 - 1) * 0.65;
-        valRef.current = { x: touch.clientX, y: touch.clientY, nx, ny };
-        setCursor({ x: touch.clientX, y: touch.clientY, nx, ny });
-        activeTouch = true;
-      };
+        pointerState.x = touch.clientX;
+        pointerState.y = touch.clientY;
+        pointerState.nx = ((touch.clientX / window.innerWidth) * 2 - 1) * 0.65;
+        pointerState.ny = -((touch.clientY / window.innerHeight) * 2 - 1) * 0.65;
+      },
+      { passive: true }
+    );
 
-      const handleTouchEnd = () => {
-        if (!activeTouch) return;
-        valRef.current = { x: 0, y: 0, nx: 0, ny: 0 };
-        setCursor({ x: 0, y: 0, nx: 0, ny: 0 });
-        activeTouch = false;
-      };
+    const handleTouchEnd = () => {
+      pointerState.x = 0;
+      pointerState.y = 0;
+      pointerState.nx = 0;
+      pointerState.ny = 0;
+    };
 
-      window.addEventListener('touchmove', handleTouchMove, { passive: true });
-      window.addEventListener('touchend', handleTouchEnd, { passive: true });
-      window.addEventListener('touchcancel', handleTouchEnd, { passive: true });
-      return () => {
-        window.removeEventListener('touchmove', handleTouchMove);
-        window.removeEventListener('touchend', handleTouchEnd);
-        window.removeEventListener('touchcancel', handleTouchEnd);
-      };
-    }
-  }, [setCursor]);
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
+    window.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+  }
+}
 
-  return valRef.current;
+export function getPointerState(): ParallaxValues {
+  if (typeof window !== 'undefined' && !initialized) {
+    initPointerTracking();
+  }
+  return pointerState;
+}
+
+export function useMouseParallax(): ParallaxValues {
+  useEffect(() => {
+    initPointerTracking();
+  }, []);
+
+  return pointerState;
 }

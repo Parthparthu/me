@@ -8,6 +8,8 @@ import { useSceneStore } from '@/store/useSceneStore';
 import { useMouseParallax } from '@/hooks/useMouseParallax';
 import { POINTER_REACTIVE_3D } from '@/lib/config';
 
+import { useScrollStore } from '@/store/useScrollStore';
+
 export function ContactRoom() {
   const quality = useSceneStore((s) => s.quality);
   const theme = useSceneStore((s) => s.theme);
@@ -15,9 +17,15 @@ export function ContactRoom() {
 
   const glowRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
-  const { nx, ny } = useMouseParallax();
+  const pointer = useMouseParallax();
 
   useFrame((state, delta) => {
+    if (!groupRef.current) return;
+    const progress = useScrollStore.getState().progress;
+    const isVisible = progress >= 0.58;
+    groupRef.current.visible = isVisible;
+    if (!isVisible) return;
+
     const t = state.clock.elapsedTime;
     if (glowRef.current) {
       const mat = glowRef.current.material as THREE.MeshBasicMaterial;
@@ -25,8 +33,8 @@ export function ContactRoom() {
     }
 
     if (groupRef.current && POINTER_REACTIVE_3D) {
-      const targetRX = -ny * 0.12;
-      const targetRY = nx * 0.18;
+      const targetRX = -pointer.ny * 0.12;
+      const targetRY = pointer.nx * 0.18;
       groupRef.current.rotation.x = THREE.MathUtils.lerp(
         groupRef.current.rotation.x,
         targetRX,

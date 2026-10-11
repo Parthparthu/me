@@ -11,6 +11,7 @@ interface ScrollState {
   setProgress: (progress: number) => void;
   setScrollY: (scrollY: number) => void;
   setVelocity: (velocity: number) => void;
+  setScroll: (progress: number, scrollY: number, velocity: number) => void;
   setActiveRoom: (room: RoomId) => void;
   lockActiveRoom: (room: RoomId, durationMs?: number) => void;
   unlockActiveRoom: () => void;
@@ -25,6 +26,7 @@ export const useScrollStore = create<ScrollState>((set) => ({
   setProgress: (progress) => set({ progress }),
   setScrollY: (scrollY) => set({ scrollY }),
   setVelocity: (velocity) => set({ velocity }),
+  setScroll: (progress, scrollY, velocity) => set({ progress, scrollY, velocity }),
   setActiveRoom: (activeRoom) => set({ activeRoom }),
   lockActiveRoom: (activeRoom, durationMs = 3000) =>
     set({

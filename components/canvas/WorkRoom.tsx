@@ -34,7 +34,7 @@ function FloatingProjectPanel({
   const theme = useSceneStore((s) => s.theme);
   const isDark = theme === 'dark';
 
-  const { nx, ny } = useMouseParallax();
+  const pointer = useMouseParallax();
   const colors = PROJECT_ACCENTS[projectSlug] || { primary: '#0ea5e9', secondary: '#0284c7' };
 
   useFrame((state, delta) => {
@@ -42,8 +42,8 @@ function FloatingProjectPanel({
 
     // Pointer-reactive tilt
     if (POINTER_REACTIVE_3D) {
-      const tiltX = -ny * 0.15;
-      const tiltY = nx * 0.2;
+      const tiltX = -pointer.ny * 0.15;
+      const tiltY = pointer.nx * 0.2;
       meshRef.current.rotation.x = THREE.MathUtils.lerp(
         meshRef.current.rotation.x,
         rotation[0] + tiltX,
@@ -97,10 +97,19 @@ function FloatingProjectPanel({
   );
 }
 
+import { useScrollStore } from '@/store/useScrollStore';
+
 export function WorkRoom() {
+  const groupRef = useRef<THREE.Group>(null);
   const theme = useSceneStore((s) => s.theme);
   const isDark = theme === 'dark';
   const featured = projects.filter((p) => p.featured).slice(0, 5);
+
+  useFrame(() => {
+    if (!groupRef.current) return;
+    const progress = useScrollStore.getState().progress;
+    groupRef.current.visible = progress >= 0.02 && progress <= 0.60;
+  });
 
   const panelConfigs = featured.map((project, i) => {
     const total = featured.length;
@@ -119,7 +128,7 @@ export function WorkRoom() {
   });
 
   return (
-    <group>
+    <group ref={groupRef}>
       {panelConfigs.map((cfg, i) => (
         <Float
           key={cfg.slug}

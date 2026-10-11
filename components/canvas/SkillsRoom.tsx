@@ -19,12 +19,14 @@ const CATEGORY_COLORS = [
   '#64748b', // Tools: slate
 ];
 
+import { useScrollStore } from '@/store/useScrollStore';
+
 export function SkillsRoom() {
   const groupRef = useRef<THREE.Group>(null);
   const quality = useSceneStore((s) => s.quality);
   const theme = useSceneStore((s) => s.theme);
   const isDark = theme === 'dark';
-  const { nx, ny } = useMouseParallax();
+  const pointer = useMouseParallax();
 
   // Generate constellation layout using Fibonacci sphere distribution
   const orbs = useMemo(() => {
@@ -62,6 +64,11 @@ export function SkillsRoom() {
 
   useFrame((state, delta) => {
     if (!groupRef.current) return;
+    const progress = useScrollStore.getState().progress;
+    const isVisible = progress >= 0.18 && progress <= 0.85;
+    groupRef.current.visible = isVisible;
+    if (!isVisible) return;
+
     const t = state.clock.elapsedTime;
 
     // Slow ambient constellation rotation
@@ -70,8 +77,8 @@ export function SkillsRoom() {
 
     // Pointer-reactive tilt
     if (POINTER_REACTIVE_3D) {
-      groupRef.current.rotation.x += (-ny * 0.2 - groupRef.current.rotation.x) * delta * 2;
-      groupRef.current.rotation.z = (nx * 0.15 - groupRef.current.rotation.z) * delta * 2;
+      groupRef.current.rotation.x += (-pointer.ny * 0.2 - groupRef.current.rotation.x) * delta * 2;
+      groupRef.current.rotation.z = (pointer.nx * 0.15 - groupRef.current.rotation.z) * delta * 2;
     }
   });
 
