@@ -29,16 +29,6 @@ export const ALLOW_CAPSULE = false;
  */
 export const ALLOW_EMOJI = false;
 
-/**
- * PRELOADER_CONFIG:
- * Settings for the branded first-visit preloader.
- */
-export const PRELOADER_CONFIG = {
-  enabled: true,
-  maxDurationMs: 1600,
-  minSkippableMs: 500,
-  sessionKey: 'pradyumna_portfolio_preloader_seen',
-};
 
 /**
  * QUALITY_CONFIG:

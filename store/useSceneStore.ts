@@ -27,9 +27,6 @@ interface SceneStore {
   activeSection: string;
   setActiveSection: (id: string) => void;
 
-  preloaderDone: boolean;
-  setPreloaderDone: (done: boolean) => void;
-
   soundEnabled: boolean;
   setSoundEnabled: (enabled: boolean) => void;
 
@@ -56,9 +53,6 @@ export const useSceneStore = create<SceneStore>()(
 
         activeSection: 'hero',
         setActiveSection: (activeSection) => set({ activeSection }),
-
-        preloaderDone: true,
-        setPreloaderDone: (preloaderDone) => set({ preloaderDone }),
 
         soundEnabled: false,
         setSoundEnabled: (soundEnabled) => set({ soundEnabled }),
