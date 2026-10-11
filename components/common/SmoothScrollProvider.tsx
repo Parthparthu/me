@@ -43,13 +43,17 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     }
 
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 1.25,
+      easing: (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2),
       touchMultiplier: 2.0,
       infinite: false,
       syncTouch: false,
+      autoRaf: false,
     });
     lenisRef.current = lenis;
+    if (typeof window !== 'undefined') {
+      (window as any).__lenis = lenis;
+    }
 
     // Update scroll store on every Lenis tick
     lenis.on('scroll', ({ progress, scroll, velocity }: {
@@ -70,10 +74,23 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       }
     });
 
-    let tickerFunction: ((time: number) => void) | null = null;
-    let fallbackRafId: number | null = null;
+    // Rock-solid RAF loop with clamped delta: prevents single-frame teleportation
+    // when tabs are blurred, sleeping, throttled, or transitioning
+    let lastTime = performance.now();
+    let rafId: number | null = null;
+    let virtualTime = performance.now();
 
-    // Single unified animation loop via GSAP ticker
+    const tick = (now: number) => {
+      const elapsed = Math.max(0, now - lastTime);
+      lastTime = now;
+      const clampedDelta = Math.min(elapsed, 33.33);
+      virtualTime += clampedDelta;
+      lenis.raf(virtualTime);
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+
+    // Register Lenis scroll sync with GSAP ScrollTrigger
     import('gsap').then(({ gsap }) => {
       import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
         gsap.registerPlugin(ScrollTrigger);
@@ -90,40 +107,53 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
           }),
         });
 
-        // Cancel initial fallback RAF once GSAP is ready
-        if (fallbackRafId !== null) {
-          cancelAnimationFrame(fallbackRafId);
-          fallbackRafId = null;
-        }
-
-        // Single shared loop driven by gsap.ticker
-        tickerFunction = (time: number) => {
-          lenis.raf(time * 1000);
-        };
-        gsap.ticker.add(tickerFunction);
-        gsap.ticker.lagSmoothing(0);
-
         ScrollTrigger.refresh();
       });
     });
 
-    // Temporary fallback loop until GSAP loads
-    const initialTick = (time: number) => {
-      if (!tickerFunction) {
-        lenis.raf(time);
-        fallbackRafId = requestAnimationFrame(initialTick);
+    // Handle initial hash in URL (e.g. direct load to /#about)
+    let initialHashTimer: NodeJS.Timeout | null = null;
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const hash = window.location.hash;
+      initialHashTimer = setTimeout(() => {
+        const target = document.querySelector(hash);
+        if (target) {
+          lenis.scrollTo(target as HTMLElement, {
+            offset: -60,
+            duration: 1.25,
+            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          });
+        }
+      }, 300);
+    }
+
+    // Handle browser back/forward button hash changes
+    const handlePopState = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const target = document.querySelector(hash);
+        if (target) {
+          lenis.scrollTo(target as HTMLElement, {
+            offset: -60,
+            duration: 1.25,
+            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          });
+        }
+      } else {
+        lenis.scrollTo(0, {
+          duration: 1.25,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
       }
     };
-    fallbackRafId = requestAnimationFrame(initialTick);
+    window.addEventListener('popstate', handlePopState);
 
     return () => {
-      if (fallbackRafId !== null) {
-        cancelAnimationFrame(fallbackRafId);
-      }
-      if (tickerFunction) {
-        import('gsap').then(({ gsap }) => {
-          if (tickerFunction) gsap.ticker.remove(tickerFunction);
-        });
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      if (initialHashTimer) clearTimeout(initialHashTimer);
+      window.removeEventListener('popstate', handlePopState);
+      if (typeof window !== 'undefined') {
+        delete (window as any).__lenis;
       }
       lenis.destroy();
       lenisRef.current = null;

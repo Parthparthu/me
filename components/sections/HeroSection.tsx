@@ -6,10 +6,10 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import Link from 'next/link';
 import { ChevronDown, ArrowRight } from 'lucide-react';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
 import { GlassButton } from '@/components/glass/GlassVariants';
+import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { POINTER_REACTIVE_3D } from '@/lib/config';
 import { cn } from '@/lib/utils';
 
@@ -25,6 +25,8 @@ export function HeroSection() {
 
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
   const y = useTransform(scrollYProgress, [0, 1], [0, 80]);
+
+  const { scrollTo } = useSmoothScroll();
 
   return (
     <section
@@ -85,9 +87,13 @@ export function HeroSection() {
               variant="primary"
               className="group"
               onClick={() => {
-                document
-                  .getElementById('selected-work')
-                  ?.scrollIntoView({ behavior: 'smooth' });
+                scrollTo('selected-work', {
+                  offset: -60,
+                  duration: 1.25,
+                  onComplete: () => {
+                    window.history.pushState(null, '', '/#selected-work');
+                  },
+                });
               }}
             >
               <span>View Projects</span>
@@ -98,11 +104,22 @@ export function HeroSection() {
               />
             </GlassButton>
 
-            <Link href="/#contact">
-              <GlassButton elevation={2} tint="neutral" variant="secondary">
-                Get in Touch
-              </GlassButton>
-            </Link>
+            <GlassButton
+              elevation={2}
+              tint="neutral"
+              variant="secondary"
+              onClick={() => {
+                scrollTo('contact', {
+                  offset: -60,
+                  duration: 1.25,
+                  onComplete: () => {
+                    window.history.pushState(null, '', '/#contact');
+                  },
+                });
+              }}
+            >
+              Get in Touch
+            </GlassButton>
           </div>
 
           {/* Tech badges: 6px radius, static for battery and clarity */}

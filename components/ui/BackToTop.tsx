@@ -3,9 +3,11 @@
 import { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
+import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 
 export function BackToTop() {
   const [visible, setVisible] = useState(false);
+  const { scrollTo } = useSmoothScroll();
 
   useEffect(() => {
     function handleScroll() {
@@ -16,8 +18,8 @@ export function BackToTop() {
   }, []);
 
   const scrollToTop = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
+    scrollTo(0, { duration: 1.25 });
+  }, [scrollTo]);
 
   return (
     <AnimatePresence>

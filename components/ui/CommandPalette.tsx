@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Search, 
@@ -10,6 +10,7 @@ import {
   Moon, 
   FolderKanban, 
   User, 
+  House,
   Mail, 
   FileText, 
   Github, 
@@ -20,6 +21,7 @@ import {
 } from 'lucide-react';
 import { projects } from '@/data/projects';
 import { useTheme } from '@/components/ui/ThemeProvider';
+import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
 
 interface CommandItem {
@@ -35,6 +37,8 @@ export function CommandPalette() {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const router = useRouter();
+  const pathname = usePathname();
+  const { scrollTo } = useSmoothScroll();
   const { theme, toggleTheme } = useTheme();
 
   // Keyboard shortcut listener (Cmd+K / Ctrl+K)
@@ -64,8 +68,16 @@ export function CommandPalette() {
         id: 'home',
         title: 'Home',
         category: 'Navigation',
-        icon: User,
-        action: () => { router.push('/'); close(); },
+        icon: House,
+        action: () => {
+          close();
+          if (pathname === '/') {
+            window.history.pushState(null, '', '/');
+            scrollTo(0, { duration: 1.25 });
+          } else {
+            router.push('/');
+          }
+        },
       },
       {
         id: 'projects',
@@ -79,21 +91,45 @@ export function CommandPalette() {
         title: 'About Me',
         category: 'Navigation',
         icon: User,
-        action: () => { router.push('/#about'); close(); },
+        action: () => {
+          close();
+          if (pathname === '/') {
+            window.history.pushState(null, '', '/#about');
+            scrollTo('about', { offset: -60, duration: 1.25 });
+          } else {
+            router.push('/#about');
+          }
+        },
       },
       {
         id: 'journey',
         title: 'My Journey',
         category: 'Navigation',
         icon: Terminal,
-        action: () => { router.push('/#journey'); close(); },
+        action: () => {
+          close();
+          if (pathname === '/') {
+            window.history.pushState(null, '', '/#journey');
+            scrollTo('journey', { offset: -60, duration: 1.25 });
+          } else {
+            router.push('/#journey');
+          }
+        },
       },
       {
         id: 'contact',
         title: 'Contact',
         category: 'Navigation',
         icon: Mail,
-        action: () => { router.push('/#contact'); close(); },
+        action: () => {
+          close();
+          if (pathname === '/') {
+            window.history.pushState(null, '', '/#contact');
+            scrollTo('contact', { offset: -60, duration: 1.25 });
+          } else {
+            router.push('/#contact');
+          }
+        },
       },
       {
         id: 'resume',
@@ -141,7 +177,7 @@ export function CommandPalette() {
     }));
 
     return [...baseCommands, ...projectCommands];
-  }, [router, theme, toggleTheme, close]);
+  }, [router, pathname, scrollTo, theme, toggleTheme, close]);
 
   const filteredCommands = useMemo(() => {
     if (!query.trim()) return commands;

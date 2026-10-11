@@ -15,6 +15,7 @@ import { Menu, X, Command, House, Folder, User, BookOpen, Mail, FileText } from 
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { useScrollStore } from '@/store/useScrollStore';
+import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { POINTER_REACTIVE_3D } from '@/lib/config';
 import { cn } from '@/lib/utils';
 
@@ -30,9 +31,11 @@ const NAV_LINKS = [
 function NavItem({
   link,
   isActive,
+  onNavigate,
 }: {
   link: (typeof NAV_LINKS)[0];
   isActive: boolean;
+  onNavigate: (e: React.MouseEvent, link: (typeof NAV_LINKS)[0]) => void;
 }) {
   const Icon = link.icon;
 
@@ -40,6 +43,8 @@ function NavItem({
     <div className="relative flex flex-col items-center">
       <Link
         href={link.href}
+        scroll={false}
+        onClick={(e) => onNavigate(e, link)}
         aria-label={link.name}
         aria-current={isActive ? 'page' : undefined}
         className={cn(
@@ -65,6 +70,7 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
   const activeRoom = useScrollStore((s) => s.activeRoom);
+  const { scrollTo } = useSmoothScroll();
 
   const menuTriggerRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -79,6 +85,36 @@ export function Header() {
     if (link.section && activeRoom === link.section) return true;
     if (!link.section && pathname === link.href) return true;
     return false;
+  };
+
+  const handleNavClick = (e: React.MouseEvent, link: (typeof NAV_LINKS)[0]) => {
+    if (link.href === '/resume' || (!link.href.startsWith('/#') && link.href !== '/' && !link.section)) {
+      return;
+    }
+    const isHome = pathname === '/' || (typeof window !== 'undefined' && (window.location.pathname === '/' || window.location.pathname === ''));
+    if (isHome) {
+      e.preventDefault();
+      console.log('[Header handleNavClick] Scrolling smoothly to:', link.name);
+      if (link.section === 'hero' || link.href === '/') {
+        scrollTo(0, {
+          duration: 1.25,
+          onComplete: () => {
+            window.history.pushState(null, '', '/');
+          },
+        });
+      } else {
+        const targetId = link.href.startsWith('/#')
+          ? link.href.replace('/#', '')
+          : (link.section || link.href.replace('/', ''));
+        scrollTo(targetId, {
+          offset: -60,
+          duration: 1.25,
+          onComplete: () => {
+            window.history.pushState(null, '', `/#${targetId}`);
+          },
+        });
+      }
+    }
   };
 
   // Focus trap, body scroll lock, and escape key listener for mobile menu
@@ -145,6 +181,14 @@ export function Header() {
             {/* Logo */}
             <Link
               href="/"
+              scroll={false}
+              onClick={(e) => {
+                if (pathname === '/') {
+                  e.preventDefault();
+                  window.history.pushState(null, '', '/');
+                  scrollTo(0, { duration: 1.25 });
+                }
+              }}
               className="px-3 py-1.5 font-display font-bold text-sm text-[var(--text-primary)] hover:text-[var(--accent-primary)] transition-colors tracking-tight mr-1 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
               aria-label="Pradyumna: home"
             >
@@ -158,6 +202,7 @@ export function Header() {
                 key={link.name}
                 link={link}
                 isActive={getIsActive(link)}
+                onNavigate={handleNavClick}
               />
             ))}
 
@@ -191,6 +236,8 @@ export function Header() {
                 <Link
                   key={link.name}
                   href={link.href}
+                  scroll={false}
+                  onClick={(e) => handleNavClick(e, link)}
                   aria-label={link.name}
                   aria-current={active ? 'page' : undefined}
                   className={cn(
@@ -274,7 +321,25 @@ export function Header() {
                       <Link
                         key={link.name}
                         href={link.href}
-                        onClick={() => setMobileMenuOpen(false)}
+                        scroll={false}
+                        onClick={(e) => {
+                          setMobileMenuOpen(false);
+                          if (pathname === '/' && (link.href.startsWith('/#') || link.href === '/' || link.section)) {
+                            e.preventDefault();
+                            setTimeout(() => {
+                              if (link.section === 'hero' || link.href === '/') {
+                                window.history.pushState(null, '', '/');
+                                scrollTo(0, { duration: 1.25 });
+                              } else {
+                                const targetId = link.href.startsWith('/#')
+                                  ? link.href.replace('/#', '')
+                                  : (link.section || link.href.replace('/', ''));
+                                window.history.pushState(null, '', `/#${targetId}`);
+                                scrollTo(targetId, { offset: -60, duration: 1.25 });
+                              }
+                            }, 160);
+                          }
+                        }}
                         className={cn(
                           'flex items-center gap-3.5 px-4 py-3 rounded-lg text-sm font-medium',
                           'transition-colors min-h-[48px] touch-action-manipulation',
