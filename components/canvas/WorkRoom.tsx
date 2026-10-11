@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { RoundedBox, Float, MeshTransmissionMaterial } from '@react-three/drei';
+import { RoundedBox, Float } from '@react-three/drei';
 import * as THREE from 'three';
 import { useSceneStore } from '@/store/useSceneStore';
 import { useMouseParallax } from '@/hooks/useMouseParallax';
@@ -61,18 +61,16 @@ function FloatingProjectPanel({
     <group ref={meshRef} position={position} rotation={rotation}>
       {/* 3D Liquid-Glass Frame */}
       <RoundedBox args={[2.8, 1.7, 0.08]} radius={0.08} smoothness={4}>
-        <MeshTransmissionMaterial
-          samples={quality === 'high' ? 8 : 3}
-          resolution={quality === 'high' ? 256 : 128}
-          thickness={isDark ? 0.12 : 0.15}
-          roughness={isDark ? 0.04 : 0.02}
-          ior={1.46}
-          chromaticAberration={quality === 'high' ? 0.03 : 0}
-          color={isDark ? '#f0f9ff' : '#ffffff'}
-          attenuationColor={colors.primary}
-          attenuationDistance={0.5}
+        <meshPhysicalMaterial
+          roughness={isDark ? 0.06 : 0.03}
+          metalness={0.12}
+          clearcoat={1.0}
+          clearcoatRoughness={0.06}
+          color={isDark ? '#0c1b2f' : '#f0f9ff'}
+          emissive={colors.primary}
+          emissiveIntensity={isDark ? 0.15 : 0.08}
           transparent
-          opacity={isDark ? 0.9 : 0.95}
+          opacity={isDark ? 0.88 : 0.92}
         />
       </RoundedBox>
 

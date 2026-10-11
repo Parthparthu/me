@@ -28,7 +28,6 @@ const LOOKAT_POINTS = [
 
 export function CameraRig() {
   const { camera, viewport, size } = useThree();
-  const progress = useScrollStore((s) => s.progress);
   const quality = useSceneStore((s) => s.quality);
   const { nx, ny } = useMouseParallax();
 
@@ -51,6 +50,7 @@ export function CameraRig() {
   }, []);
 
   useFrame((_, delta) => {
+    const progress = useScrollStore.getState().progress;
     const clampedProgress = Math.max(0, Math.min(1, progress || 0));
 
     // Dynamic responsive z-offset based on aspect ratio

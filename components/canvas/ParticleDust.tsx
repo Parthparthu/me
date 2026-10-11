@@ -28,19 +28,12 @@ export function ParticleDust() {
     return [pos, op];
   }, [count]);
 
-  useFrame((state, delta) => {
+  useFrame((state) => {
     if (!pointsRef.current) return;
     const t = state.clock.elapsedTime;
-    const geom = pointsRef.current.geometry;
-    const posAttr = geom.getAttribute('position') as THREE.BufferAttribute;
-    const arr = posAttr.array as Float32Array;
-
-    for (let i = 0; i < count; i++) {
-      // Gentle vertical and horizontal drift
-      arr[i * 3 + 1] += Math.sin(t * 0.4 + i) * 0.003;
-      arr[i * 3] += Math.cos(t * 0.3 + i) * 0.002;
-    }
-    posAttr.needsUpdate = true;
+    pointsRef.current.rotation.y = t * 0.02;
+    pointsRef.current.position.y = Math.sin(t * 0.25) * 0.2;
+    pointsRef.current.rotation.x = Math.sin(t * 0.15) * 0.05;
   });
 
   return (

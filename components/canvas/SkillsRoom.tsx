@@ -2,7 +2,7 @@
 
 import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Sphere, MeshTransmissionMaterial } from '@react-three/drei';
+import { Sphere } from '@react-three/drei';
 import * as THREE from 'three';
 import { useSceneStore } from '@/store/useSceneStore';
 import { useMouseParallax } from '@/hooks/useMouseParallax';
@@ -81,18 +81,16 @@ export function SkillsRoom() {
         {orbs.map((orb, i) => (
           <mesh key={i} position={orb.position} scale={orb.scale}>
             <Sphere args={[1, quality === 'high' ? 16 : 8, quality === 'high' ? 16 : 8]}>
-              <MeshTransmissionMaterial
-                samples={quality === 'high' ? 6 : 2}
-                resolution={quality === 'high' ? 128 : 64}
-                thickness={orb.scale * 2.2}
-                roughness={isDark ? 0.04 : 0.02}
-                ior={1.42}
-                chromaticAberration={quality === 'high' ? 0.02 : 0}
-                color={isDark ? '#ffffff' : '#f0f9ff'}
-                attenuationColor={orb.color}
-                attenuationDistance={0.35}
+              <meshPhysicalMaterial
+                roughness={isDark ? 0.06 : 0.03}
+                metalness={0.15}
+                clearcoat={1.0}
+                clearcoatRoughness={0.05}
+                color={orb.color}
+                emissive={orb.color}
+                emissiveIntensity={isDark ? 0.4 : 0.3}
                 transparent
-                opacity={isDark ? 0.9 : 0.95}
+                opacity={0.88}
               />
             </Sphere>
           </mesh>

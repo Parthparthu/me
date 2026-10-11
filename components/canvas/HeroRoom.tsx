@@ -105,16 +105,16 @@ export function HeroRoom() {
 
   const transmissionProps = useMemo(
     () => ({
-      samples: quality === 'high' ? 12 : 4,
-      resolution: quality === 'high' ? 384 : 192,
+      samples: quality === 'high' ? 6 : 2,
+      resolution: quality === 'high' ? 256 : 128,
       thickness: isDark ? 1.2 : 1.4,
       roughness: isDark ? 0.04 : 0.02,
       ior: isDark ? 1.5 : 1.52,
-      chromaticAberration: quality === 'high' ? (isDark ? 0.05 : 0.04) : 0,
-      anisotropicBlur: quality === 'high' ? 0.08 : 0,
-      distortion: 0.08,
-      distortionScale: 0.2,
-      temporalDistortion: 0.04,
+      chromaticAberration: quality === 'high' ? (isDark ? 0.03 : 0.02) : 0,
+      anisotropicBlur: 0,
+      distortion: 0.04,
+      distortionScale: 0.1,
+      temporalDistortion: 0,
       color: isDark ? '#f0f9ff' : '#ffffff',
       attenuationColor: isDark ? '#0284c7' : '#0369a1',
       attenuationDistance: isDark ? 0.75 : 0.65,

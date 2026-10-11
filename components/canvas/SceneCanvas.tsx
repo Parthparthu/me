@@ -134,7 +134,7 @@ export function SceneCanvas() {
     >
       <Canvas
         camera={{ position: [0, 0, 7.2], fov: 48, near: 0.1, far: 100 }}
-        dpr={[1, Math.min(2, QUALITY_CONFIG.maxPixelRatio)]}
+        dpr={[1, Math.min(1.5, QUALITY_CONFIG.maxPixelRatio)]}
         gl={{
           antialias: true,
           alpha: true,

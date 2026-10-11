@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { RoundedBox, Float, MeshTransmissionMaterial } from '@react-three/drei';
+import { RoundedBox, Float } from '@react-three/drei';
 import * as THREE from 'three';
 import { useSceneStore } from '@/store/useSceneStore';
 import { useMouseParallax } from '@/hooks/useMouseParallax';
@@ -46,18 +46,16 @@ export function ContactRoom() {
         <group ref={groupRef}>
           {/* Main Glass Monolith */}
           <RoundedBox args={[3.6, 2.2, 0.16]} radius={0.12} smoothness={6}>
-            <MeshTransmissionMaterial
-              samples={quality === 'high' ? 10 : 3}
-              resolution={quality === 'high' ? 256 : 128}
-              thickness={isDark ? 0.16 : 0.18}
-              roughness={isDark ? 0.04 : 0.02}
-              ior={1.48}
-              chromaticAberration={quality === 'high' ? 0.04 : 0}
-              color={isDark ? '#f0f9ff' : '#ffffff'}
-              attenuationColor="#0284c7"
-              attenuationDistance={0.5}
+            <meshPhysicalMaterial
+              roughness={isDark ? 0.05 : 0.03}
+              metalness={0.15}
+              clearcoat={1.0}
+              clearcoatRoughness={0.05}
+              color={isDark ? '#08233d' : '#f0f9ff'}
+              emissive="#0284c7"
+              emissiveIntensity={isDark ? 0.2 : 0.1}
               transparent
-              opacity={isDark ? 0.9 : 0.95}
+              opacity={isDark ? 0.88 : 0.92}
             />
           </RoundedBox>
 

@@ -11,6 +11,8 @@ import {
 import { BlendFunction, KernelSize } from 'postprocessing';
 import * as THREE from 'three';
 
+const CA_OFFSET = new THREE.Vector2(0.0004, 0.0004);
+
 export function PostProcessingEffects() {
   const quality = useSceneStore((s) => s.quality);
 
@@ -20,7 +22,7 @@ export function PostProcessingEffects() {
   }
 
   return (
-    <EffectComposer multisampling={2}>
+    <EffectComposer multisampling={0}>
       {/* Soft luminous bloom on glass reflections */}
       <Bloom
         luminanceThreshold={0.65}
@@ -32,7 +34,7 @@ export function PostProcessingEffects() {
 
       {/* Subtle edge chromatic refraction */}
       <ChromaticAberration
-        offset={new THREE.Vector2(0.0004, 0.0004)}
+        offset={CA_OFFSET}
         blendFunction={BlendFunction.NORMAL}
         radialModulation={true}
         modulationOffset={0.5}
