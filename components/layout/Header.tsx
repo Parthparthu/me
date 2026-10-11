@@ -24,7 +24,7 @@ import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Menu, X, Command, House, Folder, User, BookOpen, Mail, FileText } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
-import { useScrollStore } from '@/store/useScrollStore';
+import { useScrollStore, type RoomId } from '@/store/useScrollStore';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { NAV_BLUR } from '@/lib/config';
 import { cn } from '@/lib/utils';
@@ -132,6 +132,9 @@ export function Header() {
 
   /* Active section detection */
   const getIsActive = useCallback((link: (typeof NAV_LINKS)[0]) => {
+    if (pathname !== '/') {
+      return link.href === pathname;
+    }
     if (link.section && activeRoom === link.section) return true;
     if (!link.section && pathname === link.href) return true;
     return false;
@@ -139,6 +142,8 @@ export function Header() {
 
   /* Nav link click handler */
   const handleNavClick = useCallback((e: React.MouseEvent, link: (typeof NAV_LINKS)[0]) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+
     const isExternal = link.href === '/resume';
     if (isExternal) return;
 
@@ -149,10 +154,16 @@ export function Header() {
 
     if (isHome) {
       e.preventDefault();
+      if (link.section) {
+        useScrollStore.getState().lockActiveRoom(link.section as RoomId, 3000);
+      }
       if (link.section === 'hero' || link.href === '/') {
         scrollTo(0, {
           duration: 1.25,
-          onComplete: () => window.history.pushState(null, '', '/'),
+          onComplete: () => {
+            useScrollStore.getState().unlockActiveRoom();
+            window.history.pushState(null, '', '/');
+          },
         });
       } else {
         const targetId = link.href.startsWith('/#')
@@ -161,7 +172,10 @@ export function Header() {
         scrollTo(targetId, {
           offset: -80,
           duration: 1.25,
-          onComplete: () => window.history.pushState(null, '', `/#${targetId}`),
+          onComplete: () => {
+            useScrollStore.getState().unlockActiveRoom();
+            window.history.pushState(null, '', `/#${targetId}`);
+          },
         });
       }
     }
@@ -252,10 +266,15 @@ export function Header() {
               href="/"
               scroll={false}
               onClick={(e) => {
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
                 if (pathname === '/') {
                   e.preventDefault();
+                  useScrollStore.getState().lockActiveRoom('hero', 3000);
                   window.history.pushState(null, '', '/');
-                  scrollTo(0, { duration: 1.25 });
+                  scrollTo(0, {
+                    duration: 1.25,
+                    onComplete: () => useScrollStore.getState().unlockActiveRoom(),
+                  });
                 }
               }}
               aria-label="Pradyuma: home"
@@ -442,24 +461,7 @@ export function Header() {
                         scroll={false}
                         onClick={(e) => {
                           setMobileMenuOpen(false);
-                          if (
-                            pathname === '/' &&
-                            (link.href.startsWith('/#') || link.href === '/' || link.section)
-                          ) {
-                            e.preventDefault();
-                            setTimeout(() => {
-                              if (link.section === 'hero' || link.href === '/') {
-                                window.history.pushState(null, '', '/');
-                                scrollTo(0, { duration: 1.25 });
-                              } else {
-                                const targetId = link.href.startsWith('/#')
-                                  ? link.href.replace('/#', '')
-                                  : link.section || link.href.replace('/', '');
-                                window.history.pushState(null, '', `/#${targetId}`);
-                                scrollTo(targetId, { offset: -80, duration: 1.25 });
-                              }
-                            }, 160);
-                          }
+                          handleNavClick(e, link);
                         }}
                         className={cn(
                           'flex items-center gap-3 px-4 py-3 rounded-[var(--radius-sm)] text-sm font-medium',

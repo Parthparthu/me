@@ -22,6 +22,7 @@ import {
 import { projects } from '@/data/projects';
 import { useTheme } from '@/components/ui/ThemeProvider';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
+import { useScrollStore } from '@/store/useScrollStore';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
 
 interface CommandItem {
@@ -72,8 +73,12 @@ export function CommandPalette() {
         action: () => {
           close();
           if (pathname === '/') {
+            useScrollStore.getState().lockActiveRoom('hero', 3000);
             window.history.pushState(null, '', '/');
-            scrollTo(0, { duration: 1.25 });
+            scrollTo(0, {
+              duration: 1.25,
+              onComplete: () => useScrollStore.getState().unlockActiveRoom(),
+            });
           } else {
             router.push('/');
           }
@@ -94,8 +99,13 @@ export function CommandPalette() {
         action: () => {
           close();
           if (pathname === '/') {
+            useScrollStore.getState().lockActiveRoom('about', 3000);
             window.history.pushState(null, '', '/#about');
-            scrollTo('about', { offset: -60, duration: 1.25 });
+            scrollTo('about', {
+              offset: -60,
+              duration: 1.25,
+              onComplete: () => useScrollStore.getState().unlockActiveRoom(),
+            });
           } else {
             router.push('/#about');
           }
@@ -109,8 +119,13 @@ export function CommandPalette() {
         action: () => {
           close();
           if (pathname === '/') {
+            useScrollStore.getState().lockActiveRoom('journey', 3000);
             window.history.pushState(null, '', '/#journey');
-            scrollTo('journey', { offset: -60, duration: 1.25 });
+            scrollTo('journey', {
+              offset: -60,
+              duration: 1.25,
+              onComplete: () => useScrollStore.getState().unlockActiveRoom(),
+            });
           } else {
             router.push('/#journey');
           }
@@ -124,8 +139,13 @@ export function CommandPalette() {
         action: () => {
           close();
           if (pathname === '/') {
+            useScrollStore.getState().lockActiveRoom('contact', 3000);
             window.history.pushState(null, '', '/#contact');
-            scrollTo('contact', { offset: -60, duration: 1.25 });
+            scrollTo('contact', {
+              offset: -60,
+              duration: 1.25,
+              onComplete: () => useScrollStore.getState().unlockActiveRoom(),
+            });
           } else {
             router.push('/#contact');
           }

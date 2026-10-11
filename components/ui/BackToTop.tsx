@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
+import { useScrollStore } from '@/store/useScrollStore';
 
 export function BackToTop() {
   const [visible, setVisible] = useState(false);
@@ -18,7 +19,11 @@ export function BackToTop() {
   }, []);
 
   const scrollToTop = useCallback(() => {
-    scrollTo(0, { duration: 1.25 });
+    useScrollStore.getState().lockActiveRoom('hero', 3000);
+    scrollTo(0, {
+      duration: 1.25,
+      onComplete: () => useScrollStore.getState().unlockActiveRoom(),
+    });
   }, [scrollTo]);
 
   return (

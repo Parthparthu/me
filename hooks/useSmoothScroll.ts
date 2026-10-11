@@ -3,6 +3,7 @@
 import { useCallback } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useLenis } from '@/components/common/SmoothScrollProvider';
+import { useScrollStore, type RoomId } from '@/store/useScrollStore';
 
 export interface SmoothScrollOptions {
   offset?: number;
@@ -100,6 +101,7 @@ export function useSmoothScroll() {
         }
         element =
           document.getElementById(cleanId) ||
+          (cleanId === 'work' ? document.getElementById('selected-work') : null) ||
           document.querySelector<HTMLElement>(target.startsWith('#') ? target : `#${cleanId}`);
       } else if (target instanceof HTMLElement) {
         element = target;
@@ -170,11 +172,28 @@ export function useSmoothScroll() {
           (href.startsWith('/#') ? href.replace('/#', '') : href.replace('#', ''));
 
         if (!targetId || targetId === 'hero') {
+          useScrollStore.getState().lockActiveRoom('hero', 3000);
           window.history.pushState(null, '', '/');
-          scrollTo(0);
+          scrollTo(0, {
+            onComplete: () => useScrollStore.getState().unlockActiveRoom(),
+          });
         } else {
+          const roomMap: Record<string, RoomId> = {
+            'selected-work': 'work',
+            work: 'work',
+            about: 'about',
+            journey: 'journey',
+            contact: 'contact',
+          };
+          const room = roomMap[targetId];
+          if (room) {
+            useScrollStore.getState().lockActiveRoom(room, 3000);
+          }
           window.history.pushState(null, '', `/#${targetId}`);
-          scrollTo(targetId, { offset: -60 });
+          scrollTo(targetId, {
+            offset: -60,
+            onComplete: () => useScrollStore.getState().unlockActiveRoom(),
+          });
         }
       } else {
         router.push(href);

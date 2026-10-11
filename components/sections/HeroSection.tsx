@@ -10,6 +10,7 @@ import { ChevronDown, ArrowRight } from 'lucide-react';
 import { GlassButton } from '@/components/glass/GlassVariants';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
+import { useScrollStore } from '@/store/useScrollStore';
 import { POINTER_REACTIVE_3D } from '@/lib/config';
 import { cn } from '@/lib/utils';
 
@@ -107,13 +108,17 @@ export function HeroSection() {
             <GlassButton
               variant="primary"
               className="group"
-              onClick={() =>
+              onClick={() => {
+                useScrollStore.getState().lockActiveRoom('work', 3000);
                 scrollTo('selected-work', {
                   offset: -80,
                   duration: 1.25,
-                  onComplete: () => window.history.pushState(null, '', '/#selected-work'),
-                })
-              }
+                  onComplete: () => {
+                    useScrollStore.getState().unlockActiveRoom();
+                    window.history.pushState(null, '', '/#selected-work');
+                  },
+                });
+              }}
             >
               <span>View Projects</span>
               <ArrowRight
@@ -125,13 +130,17 @@ export function HeroSection() {
 
             <GlassButton
               variant="secondary"
-              onClick={() =>
+              onClick={() => {
+                useScrollStore.getState().lockActiveRoom('contact', 3000);
                 scrollTo('contact', {
                   offset: -80,
                   duration: 1.25,
-                  onComplete: () => window.history.pushState(null, '', '/#contact'),
-                })
-              }
+                  onComplete: () => {
+                    useScrollStore.getState().unlockActiveRoom();
+                    window.history.pushState(null, '', '/#contact');
+                  },
+                });
+              }}
             >
               Get in Touch
             </GlassButton>
