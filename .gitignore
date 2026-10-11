@@ -42,4 +42,5 @@ lerna-debug.log*
 # Test artifacts
 scripts/screenshots/
 *.png
+!docs/assets/*.png
 
