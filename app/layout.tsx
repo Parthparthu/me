@@ -7,8 +7,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ClientOverlays } from '@/components/common/ClientOverlays';
 import { GlassSVGFilter } from '@/components/glass/GlassSVGFilter';
-import { SceneCanvas } from '@/components/canvas/SceneCanvas';
-import { Preloader } from '@/components/layout/Preloader';
+import { SceneCanvasContainer } from '@/components/canvas/SceneCanvasContainer';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -211,11 +210,8 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <ThemeProvider>
-          {/* Branded first-visit preloader */}
-          <Preloader />
-
           {/* 3D canvas: persistent, ambient, behind everything */}
-          <SceneCanvas />
+          <SceneCanvasContainer />
 
           <SmoothScrollProvider>
             {/* SVG refraction filter definitions */}

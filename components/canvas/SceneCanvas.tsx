@@ -75,35 +75,12 @@ function SceneInner() {
   );
 }
 
-/**
- * WebGLFallback: Polished static geometric glass fallback
- * rendered when WebGL is unsupported or disabled.
- */
-function WebGLFallback() {
-  return (
-    <div
-      aria-hidden="true"
-      className="fixed inset-0 z-0 pointer-events-none overflow-hidden opacity-40"
-    >
-      <div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full"
-        style={{
-          background: 'radial-gradient(circle, rgba(14,165,233,0.15) 0%, transparent 70%)',
-        }}
-      />
-      <div
-        className="absolute top-2/3 left-1/3 w-80 h-80 rounded-full"
-        style={{
-          background: 'radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%)',
-        }}
-      />
-    </div>
-  );
-}
+import { SceneFallback } from './SceneFallback';
 
 export function SceneCanvas() {
   const { quality, setQuality } = useSceneStore();
   const [isVisible, setIsVisible] = useState(true);
+  const [isReady, setIsReady] = useState(false);
 
   // Initialize GPU capability detection
   useGPUTier();
@@ -119,7 +96,7 @@ export function SceneCanvas() {
 
   // Static fallback if WebGL is unavailable
   if (quality === 'none') {
-    return <WebGLFallback />;
+    return <SceneFallback />;
   }
 
   return (
@@ -130,6 +107,8 @@ export function SceneCanvas() {
         inset: 0,
         zIndex: 0,
         pointerEvents: 'none',
+        opacity: isReady ? 1 : 0,
+        transition: 'opacity 500ms ease-out',
       }}
     >
       <Canvas
@@ -144,6 +123,7 @@ export function SceneCanvas() {
         }}
         style={{ background: 'transparent' }}
         frameloop={isVisible ? 'always' : 'never'}
+        onCreated={() => setIsReady(true)}
       >
         <AdaptiveDpr pixelated />
         <PerformanceMonitor

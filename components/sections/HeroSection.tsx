@@ -40,7 +40,12 @@ export function HeroSection() {
         style={{ y, opacity }}
         className="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto w-full"
       >
-        <div className="flex flex-col items-center gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col items-center gap-6"
+        >
 
           {/* Status badge: 8px radius with emerald liquid glass */}
           <LiquidGlass
@@ -167,7 +172,7 @@ export function HeroSection() {
             ))}
           </div>
 
-        </div>
+        </motion.div>
       </motion.div>
 
       {/* Scroll cue */}
