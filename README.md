@@ -8,7 +8,7 @@
   </picture>
 
   <p align="center">
-    <strong>Production-grade engineering portfolio featuring theme-reactive Three.js WebGL, liquid-glass refraction filters, clamped virtual-time smooth scrolling, and accessible WAI-ARIA interfaces.</strong>
+    <strong>Personal software engineering portfolio featuring a single persistent WebGL 3D canvas, Apple-inspired translucent surfaces, multi-layer depth parallax, and accessible WAI-ARIA interfaces.</strong>
   </p>
 
   <p align="center">
@@ -137,7 +137,7 @@ All features in this repository are verified by source code and automated test s
 | Feature Area | Icon | Component | Technical Implementation |
 |:---|:---:|:---|:---|
 | **Theme-Reactive 3D Canvas** | <img src="docs/assets/icons/icon-3d.svg" alt="" width="24" height="24"> | [`SceneCanvas.tsx`](components/canvas/SceneCanvas.tsx) | Procedural glass polyhedron and torus rendered with Three.js 0.186, R3F, and Drei. Supports pointer-reactive tilt and adaptive quality tiers. |
-| **Liquid-Glass Refraction** | <img src="docs/assets/icons/icon-glass.svg" alt="" width="24" height="24"> | [`LiquidGlass.tsx`](components/glass/LiquidGlass.tsx) | Multi-layer optical stack with dual backdrop blur (16px), specular highlight borders, layered drop shadows, and SVG micro-displacement. |
+| **Apple-Inspired Surfaces** | <img src="docs/assets/icons/icon-glass.svg" alt="" width="24" height="24"> | [`LiquidGlass.tsx`](components/glass/LiquidGlass.tsx) | Translucent and solid surfaces with hairline specular borders, layered drop shadows, and pointer-reactive highlights. |
 | **Virtual-Time Scrolling** | <img src="docs/assets/icons/icon-scroll.svg" alt="" width="24" height="24"> | [`SmoothScrollProvider.tsx`](components/common/SmoothScrollProvider.tsx) | Clamped virtual-time RAF loop via Lenis 1.1.18. Caps time step to 33.33ms to eliminate clock drift jumps and frame skips. |
 | **Zero-FOUC Dual Theming** | <img src="docs/assets/icons/icon-theme.svg" alt="" width="24" height="24"> | [`layout.tsx`](app/layout.tsx) | Inline blocking script resolves user preference before first paint. Independent CSS custom property palettes for dark and light modes. |
 | **Accessible Command Palette** | <img src="docs/assets/icons/icon-palette.svg" alt="" width="24" height="24"> | [`CommandPalette.tsx`](components/ui/CommandPalette.tsx) | WAI-ARIA combobox activated via `Cmd+K` or `Ctrl+K`. Features fuzzy search across navigation targets, case studies, and theme toggles. |
@@ -234,7 +234,7 @@ sequenceDiagram
 ### Rendering Pipeline
 
 The WebGL rendering pipeline runs parallel to standard DOM rendering:
-1. **Z-Index Layering**: `<SceneCanvas />` is mounted at `z-index: 0` in a `position: fixed` full-screen container. DOM sections and liquid-glass surfaces reside in relative stacking contexts starting at `z-index: 10`.
+1. **Z-Index Layering**: `<SceneCanvas />` is mounted at `z-index: 0` in a `position: fixed` full-screen container. DOM sections and UI surfaces reside in relative stacking contexts starting at `z-index: 10`.
 2. **Spline Camera Motion**: The camera position in [`CameraRig.tsx`](components/canvas/CameraRig.tsx) follows a 3D CatmullRom spline path parameterized by normalized scroll progress `progress = scrollY / maxScroll`. As the user navigates down the page, the camera orbits smoothly through the 3D space.
 3. **Adaptive Pixel Ratio**: To prevent thermal throttling, device pixel ratio is capped at 1.5 with adaptive quality monitoring.
 4. **Direct First Paint & Progressive 3D Loading**: Visitors land immediately on the fully rendered hero text and navigation with zero blocking intro screens or preloader gates. The 3D canvas loads asynchronously in the background over a lightweight static gradient fallback (`<SceneFallback />`), smoothly fading in over 500ms once initialized.
@@ -328,10 +328,9 @@ Portfolio/
 │   ├── common/                   # Providers and client overlays
 │   │   ├── ClientOverlays.tsx
 │   │   └── SmoothScrollProvider.tsx
-│   ├── glass/                    # Liquid-glass card components and SVG filters
+│   ├── glass/                    # Apple-inspired surface components
 │   │   ├── LiquidGlass.tsx
-│   │   ├── GlassVariants.tsx
-│   │   └── GlassSVGFilter.tsx
+│   │   └── GlassVariants.tsx
 │   ├── layout/                   # Header dock, mobile drawers, and Footer
 │   │   ├── Header.tsx
 │   │   └── Footer.tsx
@@ -490,7 +489,7 @@ export const QUALITY_CONFIG = {
 
 ## Browser and Device Support
 
-The portfolio is verified against modern browser rendering engines and responsive viewports:
+The portfolio is tested across modern desktop and mobile browser rendering engines:
 
 | Browser / Environment | Engine | Supported | Notes |
 |:---|:---|:---:|:---|
