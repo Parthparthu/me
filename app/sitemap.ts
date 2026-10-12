@@ -4,7 +4,7 @@ import { projects } from '@/data/projects';
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://parthparthu.github.io/me';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://parthparthu.github.io';
 
 
   const projectUrls = projects.map((project) => ({

@@ -25,7 +25,7 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://parthparthu.github.io/me';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://parthparthu.github.io';
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH
   ? (process.env.NEXT_PUBLIC_BASE_PATH.endsWith('/')
       ? process.env.NEXT_PUBLIC_BASE_PATH.slice(0, -1)
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   creator: 'Pradyumna',
   publisher: 'Pradyumna',
   alternates: {
-    canonical: 'https://parthparthu.github.io/me/',
+    canonical: siteUrl,
   },
   icons: {
     icon: [
@@ -79,14 +79,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://parthparthu.github.io/me/',
+    url: siteUrl,
     title: 'Pradyumna: Software & Web Developer',
     description:
       'First-year B.Tech CSE (AI/ML) student at GL Bajaj ITM building practical web applications, data tools, and systems. World Memory Championship Bronze Medalist (2023).',
     siteName: 'Pradyumna Portfolio',
     images: [
       {
-        url: '/og-image.png',
+        url: `${siteUrl}/og-image.png`,
         width: 1200,
         height: 630,
         alt: 'Pradyumna: Software and Web Developer Portfolio',
@@ -99,7 +99,7 @@ export const metadata: Metadata = {
     description:
       'First-year B.Tech CSE (AI/ML) student at GL Bajaj ITM. Software and web developer. World Memory Championship Bronze Medalist (2023).',
     creator: '@Parthparthu',
-    images: ['/og-image.png'],
+    images: [`${siteUrl}/og-image.png`],
   },
   robots: {
     index: true,
@@ -145,10 +145,10 @@ export default function RootLayout({
               '@graph': [
                 {
                   '@type': 'Person',
-                  '@id': 'https://parthparthu.github.io/me/#person',
+                  '@id': `${siteUrl}/#person`,
                   name: 'Pradyumna',
-                  url: 'https://parthparthu.github.io/me/',
-                  image: 'https://parthparthu.github.io/me/icon-512.png',
+                  url: siteUrl,
+                  image: `${siteUrl}/icon-512.png`,
                   sameAs: [
                     'https://github.com/Parthparthu',
                     'https://www.linkedin.com/in/pradyumna05',
@@ -174,22 +174,14 @@ export default function RootLayout({
                 },
                 {
                   '@type': 'WebSite',
-                  '@id': 'https://parthparthu.github.io/me/#website',
-                  url: 'https://parthparthu.github.io/me/',
+                  '@id': `${siteUrl}/#website`,
+                  url: siteUrl,
                   name: 'Pradyumna Portfolio',
-                  publisher: { '@id': 'https://parthparthu.github.io/me/#person' },
+                  publisher: { '@id': `${siteUrl}/#person` },
                 },
               ],
             }),
           }}
-        />
-
-        {/* Preconnect to Google Fonts CDN */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
         />
 
         {/* Theme color and color-scheme */}

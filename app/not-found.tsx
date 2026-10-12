@@ -3,6 +3,7 @@
  */
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Home, Folder } from 'lucide-react';
@@ -12,6 +13,14 @@ import { GlassButton } from '@/components/glass/GlassVariants';
 const SPRING = { type: 'spring', stiffness: 280, damping: 28 } as const;
 
 export default function NotFound() {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname;
+      if (!path.endsWith('/') && !path.includes('.')) {
+        window.location.replace(`${path}/` + window.location.search + window.location.hash);
+      }
+    }
+  }, []);
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden px-4">
       <motion.div

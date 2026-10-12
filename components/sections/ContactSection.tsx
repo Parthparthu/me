@@ -14,78 +14,154 @@ import { GlassInput, GlassTextarea, GlassButton } from '@/components/glass/Glass
 const SPRING = { type: 'spring', stiffness: 280, damping: 28 } as const;
 
 export function ContactSection() {
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '', honeypot: '' });
+  const [fieldErrors, setFieldErrors] = useState<{ name?: string; email?: string; message?: string }>({});
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (fieldErrors[name as keyof typeof fieldErrors]) {
+      setFieldErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
+  };
+
+  const validate = () => {
+    const errors: { name?: string; email?: string; message?: string } = {};
+    const trimmedName = formData.name.trim();
+    const trimmedEmail = formData.email.trim();
+    const trimmedMessage = formData.message.trim();
+
+    if (!trimmedName) {
+      errors.name = 'Please enter your name.';
+    } else if (trimmedName.length < 2) {
+      errors.name = 'Name must be at least 2 characters.';
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!trimmedEmail) {
+      errors.email = 'Please enter your email address.';
+    } else if (!emailRegex.test(trimmedEmail)) {
+      errors.email = 'Please enter a valid email address.';
+    }
+
+    if (!trimmedMessage) {
+      errors.message = 'Please enter your message.';
+    } else if (trimmedMessage.length < 10) {
+      errors.message = 'Message must be at least 10 characters long.';
+    }
+
+    return errors;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setStatus('error');
-      setErrorMessage('Please fill in all required fields.');
+    // Spam honeypot check
+    if (formData.honeypot) {
+      setStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '', honeypot: '' });
       return;
     }
 
-    if (formData.message.trim().length < 10) {
+    const errors = validate();
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
       setStatus('error');
-      setErrorMessage('Message must be at least 10 characters long.');
-      return;
-    }
+      setErrorMessage('Please correct the highlighted fields before submitting.');
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email.trim())) {
-      setStatus('error');
-      setErrorMessage('Please enter a valid email address.');
+      // Focus first field with an error
+      if (errors.name) {
+        document.getElementById('contact-name')?.focus();
+      } else if (errors.email) {
+        document.getElementById('contact-email')?.focus();
+      } else if (errors.message) {
+        document.getElementById('contact-message')?.focus();
+      }
       return;
     }
 
     setStatus('submitting');
     setErrorMessage('');
+    setFieldErrors({});
+
+    const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+    const web3FormsKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
 
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          subject: formData.subject.trim() || undefined,
-          message: formData.message.trim(),
-        }),
-      });
+      if (formspreeId) {
+        const res = await fetch(`https://formspree.io/f/${formspreeId}`, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            subject: formData.subject.trim() || undefined,
+            message: formData.message.trim(),
+          }),
+        });
 
-      const data = await res.json();
+        if (!res.ok) {
+          const errData = await res.json().catch(() => null);
+          throw new Error(errData?.error || 'Failed to submit via Formspree.');
+        }
+      } else if (web3FormsKey) {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            access_key: web3FormsKey,
+            name: formData.name.trim(),
+            email: formData.email.trim(),
+            subject: formData.subject.trim() || 'Portfolio Inquiry',
+            message: formData.message.trim(),
+          }),
+        });
 
-      if (!res.ok) {
-        throw new Error(data.message || 'Failed to send message.');
+        if (!res.ok) {
+          const errData = await res.json().catch(() => null);
+          throw new Error(errData?.message || 'Failed to submit via Web3Forms.');
+        }
+      } else {
+        // Fallback for static hosting without third-party form provider key:
+        // Launch user mail client with pre-filled message
+        const mailSubject = encodeURIComponent(
+          formData.subject.trim() || `Portfolio Inquiry from ${formData.name.trim()}`
+        );
+        const mailBody = encodeURIComponent(
+          `Name: ${formData.name.trim()}\nEmail: ${formData.email.trim()}\n\nMessage:\n${formData.message.trim()}`
+        );
+        window.location.href = `mailto:pradyumna05@outlook.in?subject=${mailSubject}&body=${mailBody}`;
       }
 
       setStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
+      setFormData({ name: '', email: '', subject: '', message: '', honeypot: '' });
 
       setTimeout(() => {
         setStatus('idle');
-      }, 6000);
-    } catch {
-      // On static GitHub Pages hosting, Next.js API routes are not served by a Node runtime.
-      // Automatically fallback to user's mail client addressed to pradyumna05@outlook.in.
-      const mailSubject = encodeURIComponent(formData.subject.trim() || `Portfolio Inquiry from ${formData.name.trim()}`);
-      const mailBody = encodeURIComponent(`Name: ${formData.name.trim()}\nEmail: ${formData.email.trim()}\n\nMessage:\n${formData.message.trim()}`);
+      }, 7000);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Unable to send message right now.';
+      // Fallback on error: trigger mailto
+      const mailSubject = encodeURIComponent(
+        formData.subject.trim() || `Portfolio Inquiry from ${formData.name.trim()}`
+      );
+      const mailBody = encodeURIComponent(
+        `Name: ${formData.name.trim()}\nEmail: ${formData.email.trim()}\n\nMessage:\n${formData.message.trim()}`
+      );
       window.location.href = `mailto:pradyumna05@outlook.in?subject=${mailSubject}&body=${mailBody}`;
-      setStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
 
-      setTimeout(() => {
-        setStatus('idle');
-      }, 6000);
+      setStatus('error');
+      setErrorMessage(`${msg} Opening default email client as fallback.`);
     }
   };
-
 
   return (
     <section
@@ -129,6 +205,20 @@ export function ContactSection() {
             className="p-6 md:p-8"
           >
             <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+              {/* Anti-spam Honeypot field */}
+              <div className="hidden" aria-hidden="true" style={{ display: 'none' }}>
+                <label htmlFor="contact-honeypot">Leave this field blank</label>
+                <input
+                  type="text"
+                  id="contact-honeypot"
+                  name="honeypot"
+                  value={formData.honeypot}
+                  onChange={handleChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <GlassInput
                   id="contact-name"
@@ -137,6 +227,7 @@ export function ContactSection() {
                   placeholder="e.g. Alex Chen…"
                   value={formData.name}
                   onChange={handleChange}
+                  error={fieldErrors.name}
                   required
                   autoComplete="name"
                 />
@@ -149,9 +240,11 @@ export function ContactSection() {
                   placeholder="e.g. alex@example.com…"
                   value={formData.email}
                   onChange={handleChange}
+                  error={fieldErrors.email}
                   required
                   autoComplete="email"
                   inputMode="email"
+                  spellCheck={false}
                 />
               </div>
 
@@ -173,12 +266,18 @@ export function ContactSection() {
                 rows={5}
                 value={formData.message}
                 onChange={handleChange}
+                error={fieldErrors.message}
                 required
+                onKeyDown={(e) => {
+                  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+                    handleSubmit(e);
+                  }
+                }}
               />
 
               {/* Status alerts */}
               <AnimatePresence>
-                {status === 'error' && (
+                {status === 'error' && errorMessage && (
                   <motion.div
                     initial={{ opacity: 0, y: -6 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -218,7 +317,7 @@ export function ContactSection() {
                   {status === 'submitting' ? (
                     <>
                       <Loader2 size={16} className="animate-spin" aria-hidden="true" />
-                      <span>Sending Message…</span>
+                      <span>Send Message</span>
                     </>
                   ) : (
                     <>
