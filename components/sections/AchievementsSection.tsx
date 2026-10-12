@@ -1,12 +1,25 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Trophy, GraduationCap, Github, Medal, Star, Brain, ExternalLink, X, FileCheck, Award, type LucideIcon } from 'lucide-react';
+import {
+  Trophy,
+  GraduationCap,
+  Github,
+  Medal,
+  Star,
+  Brain,
+  ExternalLink,
+  X,
+  FileCheck,
+  Award,
+  type LucideIcon,
+} from 'lucide-react';
 import { achievements, verifiedCertificates, type VerifiedCertificate } from '@/data/achievements';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
 import { getAssetPath } from '@/lib/utils';
+import { POINTER_REACTIVE_3D } from '@/lib/config';
 
 const ICON_MAP: Record<string, LucideIcon> = {
   Trophy,
@@ -21,9 +34,44 @@ const SPRING = { type: 'spring', stiffness: 280, damping: 28 } as const;
 export function AchievementsSection() {
   const featured = achievements.find((a) => a.highlight) || achievements[0];
   const secondary = achievements.filter((a) => a.id !== featured?.id);
-  const FeaturedIcon = featured ? ICON_MAP[featured.icon] || Trophy : Trophy;
 
   const [activeModal, setActiveModal] = useState<VerifiedCertificate | null>(null);
+  const triggerRef = useRef<HTMLElement | null>(null);
+  const modalCloseBtnRef = useRef<HTMLButtonElement | null>(null);
+
+  const openModal = (cert: VerifiedCertificate, e?: React.MouseEvent<HTMLElement>) => {
+    if (e?.currentTarget) {
+      triggerRef.current = e.currentTarget;
+    }
+    setActiveModal(cert);
+  };
+
+  const closeModal = useCallback(() => {
+    setActiveModal(null);
+    setTimeout(() => {
+      triggerRef.current?.focus();
+    }, 50);
+  }, []);
+
+  // Keyboard navigation: Escape key closes modal & returns focus
+  useEffect(() => {
+    if (!activeModal) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeModal();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    // Focus the close button when opened
+    setTimeout(() => {
+      modalCloseBtnRef.current?.focus();
+    }, 60);
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeModal, closeModal]);
 
   return (
     <section
@@ -63,19 +111,20 @@ export function AchievementsSection() {
           <LiquidGlass
             elevation={4}
             tint="amber"
-            radius={14}
-            className="p-7 md:p-9 relative overflow-hidden"
+            radius={16}
+            dynamicLight={POINTER_REACTIVE_3D}
+            className="p-7 md:p-9 relative overflow-hidden border border-[var(--separator)]"
           >
             <div className="relative z-10 flex flex-col lg:flex-row gap-8 items-start lg:items-center">
-              {/* Certificate & Medal Photo Thumbnail */}
-              <div className="w-full lg:w-72 flex-shrink-0">
+              {/* Certificate & Medal Photo Thumbnail with reserved aspect ratio */}
+              <div className="w-full lg:w-80 flex-shrink-0">
                 <button
                   type="button"
-                  onClick={() => {
+                  onClick={(e) => {
                     const wmcCert = verifiedCertificates.find((c) => c.id === 'wmc-2023');
-                    if (wmcCert) setActiveModal(wmcCert);
+                    if (wmcCert) openModal(wmcCert, e);
                   }}
-                  className="group relative w-full h-56 rounded-lg overflow-hidden border border-amber-500/30 bg-black/40 block text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] min-h-[44px]"
+                  className="group relative w-full aspect-[4/3] rounded-lg overflow-hidden border border-[var(--accent-amber-border)] bg-black/40 block text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] min-h-[44px]"
                   aria-label="View World Memory Championship Bronze Medal certificate photograph"
                 >
                   <Image
@@ -83,10 +132,10 @@ export function AchievementsSection() {
                     alt="World Memory Championship 2023 Bronze Medal and Top Amateur Certificate photograph"
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
-                    sizes="(max-width: 768px) 100vw, 300px"
+                    sizes="(max-width: 768px) 100vw, 320px"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
-                    <span className="text-xs font-mono font-medium text-amber-300 flex items-center gap-1.5">
+                    <span className="text-xs font-mono font-medium text-[var(--accent-amber)] flex items-center gap-1.5">
                       <FileCheck size={14} aria-hidden="true" />
                       <span>View Official Evidence</span>
                     </span>
@@ -97,7 +146,7 @@ export function AchievementsSection() {
               {/* Text content */}
               <div className="flex-1">
                 <div className="flex flex-wrap items-center gap-2.5 mb-2">
-                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-sm text-xs font-mono font-semibold bg-amber-500/15 border border-amber-500/30 text-amber-300">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-sm text-xs font-mono font-semibold bg-[var(--accent-amber-subtle)] border border-[var(--accent-amber-border)] text-[var(--accent-amber)]">
                     <Award size={13} aria-hidden="true" />
                     <span>Competitive Honour</span>
                   </span>
@@ -114,8 +163,8 @@ export function AchievementsSection() {
                 </p>
 
                 {featured.details && (
-                  <div className="p-3.5 rounded-lg bg-white/5 border border-amber-500/20 text-xs font-mono text-amber-200/90 flex items-start gap-2.5">
-                    <Brain size={16} className="text-amber-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                  <div className="p-3.5 rounded-lg bg-[var(--bg-secondary)] border border-[var(--accent-amber-border)] text-xs font-mono text-[var(--text-secondary)] flex items-start gap-2.5">
+                    <Brain size={16} className="text-[var(--accent-amber)] flex-shrink-0 mt-0.5" aria-hidden="true" />
                     <span>{featured.details}</span>
                   </div>
                 )}
@@ -142,21 +191,22 @@ export function AchievementsSection() {
                 elevation={2}
                 tint="neutral"
                 radius={14}
-                  className="h-full p-6 flex items-start gap-4"
+                dynamicLight={POINTER_REACTIVE_3D}
+                className="h-full p-6 flex items-start gap-4 border border-[var(--separator)]"
               >
-                <div className="p-2.5 rounded-lg bg-[var(--bg-grouped)] border border-[var(--separator)] text-[var(--accent)] flex-shrink-0">
+                <div className="p-2.5 rounded-lg bg-[var(--bg-secondary)] border border-[var(--separator)] text-[var(--accent)] flex-shrink-0">
                   <Icon size={20} aria-hidden="true" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1.5">
-                    <h4 className="text-base font-bold text-[var(--label-primary)] leading-tight">
+                    <h4 className="text-base font-bold text-[var(--text-primary)] leading-tight">
                       {achievement.title}
                     </h4>
-                    <span className="text-xs font-mono text-[var(--label-quaternary)] tabular-nums">
+                    <span className="text-xs font-mono text-[var(--text-muted)] tabular-nums">
                       {achievement.year}
                     </span>
                   </div>
-                  <p className="text-sm text-[var(--label-secondary)] leading-relaxed">
+                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
                     {achievement.description}
                   </p>
                 </div>
@@ -176,14 +226,14 @@ export function AchievementsSection() {
       >
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-[var(--separator)] pb-4">
           <div>
-            <h3 className="text-xl font-display font-bold text-[var(--label-primary)]">
+            <h3 className="text-xl font-display font-bold text-[var(--text-primary)]">
               Documented Certificates &amp; Credentials
             </h3>
-            <p className="text-xs text-[var(--label-secondary)] mt-1 font-mono">
+            <p className="text-xs text-[var(--text-muted)] mt-1 font-mono">
               Verified original documentation archived in repository files.
             </p>
           </div>
-          <span className="text-xs font-mono text-[var(--accent)]">
+          <span className="text-xs font-mono text-[var(--accent)] font-semibold">
             {verifiedCertificates.length} Verified Documents
           </span>
         </div>
@@ -195,14 +245,15 @@ export function AchievementsSection() {
               elevation={2}
               tint="neutral"
               radius={14}
-              className="p-5 flex flex-col justify-between group hover:border-[var(--border-medium)] transition-[border-color] duration-[var(--dur-base)]"
+              dynamicLight={POINTER_REACTIVE_3D}
+              className="p-5 flex flex-col justify-between group hover:border-[var(--accent-border)] transition-[border-color] duration-[var(--dur-base)] border border-[var(--separator)]"
             >
               <div>
-                {/* Thumbnail */}
+                {/* Thumbnail with preserved aspect ratio */}
                 <button
                   type="button"
-                  onClick={() => setActiveModal(cert)}
-                  className="relative w-full h-36 rounded-lg overflow-hidden bg-[var(--bg-grouped)] border border-[var(--separator)] mb-4 block group-hover:border-[var(--border-medium)] transition-[border-color] duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)] min-h-[44px]"
+                  onClick={(e) => openModal(cert, e)}
+                  className="relative w-full aspect-[16/10] rounded-lg overflow-hidden bg-[var(--bg-secondary)] border border-[var(--separator)] mb-4 block group-hover:border-[var(--accent-border)] transition-[border-color] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] min-h-[44px]"
                   aria-label={`View full certificate: ${cert.title}`}
                 >
                   <Image
@@ -219,26 +270,26 @@ export function AchievementsSection() {
                   <span className="text-[var(--accent)] font-medium">
                     {cert.issuer}
                   </span>
-                  <span className="text-[var(--label-quaternary)] tabular-nums">
+                  <span className="text-[var(--text-muted)] tabular-nums">
                     {cert.year}
                   </span>
                 </div>
 
-                <h4 className="text-sm font-bold text-[var(--label-primary)] leading-snug mb-2 font-sans">
+                <h4 className="text-sm font-bold text-[var(--text-primary)] leading-snug mb-2 font-sans">
                   {cert.title}
                 </h4>
 
-                <p className="text-xs text-[var(--label-secondary)] leading-relaxed mb-4">
+                <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-4">
                   {cert.description}
                 </p>
               </div>
 
-              {/* Action Buttons: 8px radius */}
+              {/* Action Buttons */}
               <div className="pt-3 border-t border-[var(--separator)] flex items-center justify-between gap-2">
                 <button
                   type="button"
-                  onClick={() => setActiveModal(cert)}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent)] hover:underline min-h-[44px] p-1 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"
+                  onClick={(e) => openModal(cert, e)}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent)] hover:text-[var(--accent-hover)] hover:underline min-h-[44px] px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
                 >
                   <FileCheck size={14} aria-hidden="true" />
                   <span>Inspect Document</span>
@@ -248,8 +299,8 @@ export function AchievementsSection() {
                   href={getAssetPath(cert.documentUrl)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs text-[var(--label-tertiary)] hover:text-[var(--label-primary)] transition-colors min-h-[44px] p-1 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]"
-                  aria-label={`Open document for ${cert.title}`}
+                  className="inline-flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors min-h-[44px] px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
+                  aria-label={`Open original document for ${cert.title}`}
                 >
                   <span>Raw File</span>
                   <ExternalLink size={12} aria-hidden="true" />
@@ -260,7 +311,7 @@ export function AchievementsSection() {
         </div>
       </motion.div>
 
-      {/* Accessible Document Preview Lightbox Modal */}
+      {/* Accessible Document Preview Lightbox Modal with Keyboard Trap & Escape Listener */}
       <AnimatePresence>
         {activeModal && (
           <div
@@ -268,7 +319,7 @@ export function AchievementsSection() {
             aria-modal="true"
             aria-label={activeModal.title}
             className="fixed inset-0 z-[500] flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-md"
-            onClick={() => setActiveModal(null)}
+            onClick={closeModal}
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
@@ -276,10 +327,10 @@ export function AchievementsSection() {
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-3xl w-full max-h-[90vh] bg-[var(--bg-surface)] border border-[var(--border-specular)] rounded-[14px] shadow-2xl flex flex-col overflow-hidden"
+              className="relative max-w-3xl w-full max-h-[90vh] bg-[var(--bg-elevated)] border border-[var(--separator)] rounded-[14px] shadow-2xl flex flex-col overflow-hidden"
             >
               {/* Modal header */}
-              <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--border-subtle)] bg-[var(--bg-surface-2)]">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--separator)] bg-[var(--bg-secondary)]">
                 <div>
                   <h4 className="text-base font-bold text-[var(--text-primary)] font-sans">
                     {activeModal.title}
@@ -290,9 +341,10 @@ export function AchievementsSection() {
                 </div>
 
                 <button
+                  ref={modalCloseBtnRef}
                   type="button"
-                  onClick={() => setActiveModal(null)}
-                  className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                  onClick={closeModal}
+                  className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)] rounded-lg min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
                   aria-label="Close document modal"
                 >
                   <X size={18} aria-hidden="true" />
@@ -313,7 +365,7 @@ export function AchievementsSection() {
               </div>
 
               {/* Modal footer */}
-              <div className="px-6 py-3.5 border-t border-[var(--border-subtle)] bg-[var(--bg-surface-2)] flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+              <div className="px-6 py-3.5 border-t border-[var(--separator)] bg-[var(--bg-secondary)] flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
                 <span className="text-[var(--text-secondary)]">
                   Awarded to: <strong className="text-[var(--text-primary)] font-sans">{activeModal.recipient}</strong>
                 </span>
@@ -323,7 +375,7 @@ export function AchievementsSection() {
                     href={getAssetPath(activeModal.documentUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[var(--accent-primary)] text-[var(--text-on-accent)] font-semibold hover:bg-[var(--accent-primary-hover)] transition-colors min-h-[44px] flex items-center justify-center"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[var(--accent)] text-[var(--bg-primary)] font-semibold hover:bg-[var(--accent-hover)] transition-colors min-h-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
                   >
                     <span>Open Original Document</span>
                     <ExternalLink size={12} aria-hidden="true" />
