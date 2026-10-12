@@ -16,6 +16,7 @@ import {
 import { skillCategories, type SkillCategory, type Skill } from '@/data/skills';
 import { SkillIcon } from '@/components/icons/SkillIcons';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
+import { ParallaxCard } from '@/components/parallax';
 import { POINTER_REACTIVE_3D } from '@/lib/config';
 import { cn } from '@/lib/utils';
 
@@ -151,8 +152,10 @@ export function SkillsSection() {
         {activeCategoryId === 'all' ? (
           /* Clean multi-category grid on large screens */
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {skillCategories.map((category) => (
-              <SkillCategoryCard key={category.id} category={category} />
+            {skillCategories.map((category, idx) => (
+              <ParallaxCard key={category.id} index={idx} className="h-full">
+                <SkillCategoryCard category={category} />
+              </ParallaxCard>
             ))}
           </div>
         ) : activeCategory ? (
@@ -163,8 +166,10 @@ export function SkillsSection() {
               <p className="text-xs text-[var(--text-muted)] font-mono mt-0.5">{activeCategory.subtitle}</p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {activeCategory.skills.map((skill) => (
-                <SkillTile key={skill.name} skill={skill} />
+              {activeCategory.skills.map((skill, idx) => (
+                <ParallaxCard key={skill.name} index={idx}>
+                  <SkillTile skill={skill} />
+                </ParallaxCard>
               ))}
             </div>
           </div>

@@ -592,6 +592,7 @@ ul, ol { list-style: none; }
   color: var(--label-secondary);
   max-width: 60ch;
   line-height: var(--leading-relaxed);
+  text-wrap: balance;
 }
 
 /* ==========================================================================

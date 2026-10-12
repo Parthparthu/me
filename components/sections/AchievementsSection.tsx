@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { achievements, verifiedCertificates, type VerifiedCertificate } from '@/data/achievements';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
+import { ParallaxCard, ParallaxImage } from '@/components/parallax';
 import { getAssetPath } from '@/lib/utils';
 import { POINTER_REACTIVE_3D } from '@/lib/config';
 
@@ -180,38 +181,40 @@ export function AchievementsSection() {
           const Icon = ICON_MAP[achievement.icon] || Star;
 
           return (
-            <motion.div
-              key={achievement.id}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ ...SPRING, delay: index * 0.06 }}
-            >
-              <LiquidGlass
-                elevation={2}
-                tint="neutral"
-                radius={14}
-                dynamicLight={POINTER_REACTIVE_3D}
-                className="h-full p-6 flex items-start gap-4 border border-[var(--separator)]"
+            <ParallaxCard key={achievement.id} index={index} className="h-full">
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ ...SPRING, delay: index * 0.06 }}
+                className="h-full"
               >
-                <div className="p-2.5 rounded-lg bg-[var(--bg-secondary)] border border-[var(--separator)] text-[var(--accent)] flex-shrink-0">
-                  <Icon size={20} aria-hidden="true" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2 mb-1.5">
-                    <h4 className="text-base font-bold text-[var(--text-primary)] leading-tight">
-                      {achievement.title}
-                    </h4>
-                    <span className="text-xs font-mono text-[var(--text-muted)] tabular-nums">
-                      {achievement.year}
-                    </span>
+                <LiquidGlass
+                  elevation={2}
+                  tint="neutral"
+                  radius={14}
+                  dynamicLight={POINTER_REACTIVE_3D}
+                  className="h-full p-6 flex items-start gap-4 border border-[var(--separator)]"
+                >
+                  <div className="p-2.5 rounded-lg bg-[var(--bg-secondary)] border border-[var(--separator)] text-[var(--accent)] flex-shrink-0">
+                    <Icon size={20} aria-hidden="true" />
                   </div>
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                    {achievement.description}
-                  </p>
-                </div>
-              </LiquidGlass>
-            </motion.div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <h4 className="text-base font-bold text-[var(--text-primary)] leading-tight">
+                        {achievement.title}
+                      </h4>
+                      <span className="text-xs font-mono text-[var(--text-muted)] tabular-nums">
+                        {achievement.year}
+                      </span>
+                    </div>
+                    <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                      {achievement.description}
+                    </p>
+                  </div>
+                </LiquidGlass>
+              </motion.div>
+            </ParallaxCard>
           );
         })}
       </div>
@@ -239,74 +242,77 @@ export function AchievementsSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {verifiedCertificates.map((cert) => (
-            <LiquidGlass
-              key={cert.id}
-              elevation={2}
-              tint="neutral"
-              radius={14}
-              dynamicLight={POINTER_REACTIVE_3D}
-              className="p-5 flex flex-col justify-between group hover:border-[var(--accent-border)] transition-[border-color] duration-[var(--dur-base)] border border-[var(--separator)]"
-            >
-              <div>
-                {/* Thumbnail with preserved aspect ratio */}
-                <button
-                  type="button"
-                  onClick={(e) => openModal(cert, e)}
-                  className="relative w-full aspect-[16/10] rounded-lg overflow-hidden bg-[var(--bg-secondary)] border border-[var(--separator)] mb-4 block group-hover:border-[var(--accent-border)] transition-[border-color] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] min-h-[44px]"
-                  aria-label={`View full certificate: ${cert.title}`}
-                >
-                  <Image
-                    src={getAssetPath(cert.imagePreview)}
-                    alt={cert.title}
-                    fill
-                    className="object-cover object-top group-hover:scale-105 transition-transform duration-200"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-opacity" />
-                </button>
+          {verifiedCertificates.map((cert, index) => (
+            <ParallaxCard key={cert.id} index={index} className="h-full">
+              <LiquidGlass
+                elevation={2}
+                tint="neutral"
+                radius={14}
+                dynamicLight={POINTER_REACTIVE_3D}
+                className="p-5 flex flex-col justify-between group hover:border-[var(--accent-border)] transition-[border-color] duration-[var(--dur-base)] border border-[var(--separator)] h-full"
+              >
+                <div>
+                  {/* Thumbnail with internal parallax */}
+                  <button
+                    type="button"
+                    onClick={(e) => openModal(cert, e)}
+                    className="relative w-full aspect-[16/10] rounded-lg overflow-hidden bg-[var(--bg-secondary)] border border-[var(--separator)] mb-4 block group-hover:border-[var(--accent-border)] transition-[border-color] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] min-h-[44px]"
+                    aria-label={`View full certificate: ${cert.title}`}
+                  >
+                    <ParallaxImage containerClassName="w-full h-full relative overflow-hidden">
+                      <Image
+                        src={getAssetPath(cert.imagePreview)}
+                        alt={cert.title}
+                        fill
+                        className="object-cover object-top group-hover:scale-105 transition-transform duration-200"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-opacity" />
+                    </ParallaxImage>
+                  </button>
 
-                <div className="flex items-center justify-between gap-2 mb-2 font-mono text-[11px]">
-                  <span className="text-[var(--accent)] font-medium">
-                    {cert.issuer}
-                  </span>
-                  <span className="text-[var(--text-muted)] tabular-nums">
-                    {cert.year}
-                  </span>
+                  <div className="flex items-center justify-between gap-2 mb-2 font-mono text-[11px]">
+                    <span className="text-[var(--accent)] font-medium">
+                      {cert.issuer}
+                    </span>
+                    <span className="text-[var(--text-muted)] tabular-nums">
+                      {cert.year}
+                    </span>
+                  </div>
+
+                  <h4 className="text-sm font-bold text-[var(--text-primary)] leading-snug mb-2 font-sans">
+                    {cert.title}
+                  </h4>
+
+                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-4">
+                    {cert.description}
+                  </p>
                 </div>
 
-                <h4 className="text-sm font-bold text-[var(--text-primary)] leading-snug mb-2 font-sans">
-                  {cert.title}
-                </h4>
+                {/* Action Buttons */}
+                <div className="pt-3 border-t border-[var(--separator)] flex items-center justify-between gap-2">
+                  <button
+                    type="button"
+                    onClick={(e) => openModal(cert, e)}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent)] hover:text-[var(--accent-hover)] hover:underline min-h-[44px] px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
+                  >
+                    <FileCheck size={14} aria-hidden="true" />
+                    <span>Inspect Document</span>
+                  </button>
 
-                <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-4">
-                  {cert.description}
-                </p>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="pt-3 border-t border-[var(--separator)] flex items-center justify-between gap-2">
-                <button
-                  type="button"
-                  onClick={(e) => openModal(cert, e)}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent)] hover:text-[var(--accent-hover)] hover:underline min-h-[44px] px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
-                >
-                  <FileCheck size={14} aria-hidden="true" />
-                  <span>Inspect Document</span>
-                </button>
-
-                <a
-                  href={getAssetPath(cert.documentUrl)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors min-h-[44px] px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
-                  aria-label={`Open original document for ${cert.title}`}
-                >
-                  <span>Raw File</span>
-                  <ExternalLink size={12} aria-hidden="true" />
-                </a>
-              </div>
-            </LiquidGlass>
+                  <a
+                    href={getAssetPath(cert.documentUrl)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors min-h-[44px] px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
+                    aria-label={`Open original document for ${cert.title}`}
+                  >
+                    <span>Raw File</span>
+                    <ExternalLink size={12} aria-hidden="true" />
+                  </a>
+                </div>
+              </LiquidGlass>
+            </ParallaxCard>
           ))}
         </div>
       </motion.div>

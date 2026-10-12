@@ -28,6 +28,7 @@ import {
 } from 'lucide-react';
 import { projects } from '@/data/projects';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
+import { ParallaxCard, ParallaxImage, ParallaxLayer } from '@/components/parallax';
 import { POINTER_REACTIVE_3D } from '@/lib/config';
 import { cn } from '@/lib/utils';
 import type { Project } from '@/types/project';
@@ -131,66 +132,67 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
   }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-80px' }}
-      transition={{ ...SPRING, delay: index * 0.08 }}
-      className="perspective-1000"
-    >
-      <div
-        ref={cardRef}
-        onPointerEnter={handlePointerEnter}
-        onPointerMove={handlePointerMove}
-        onPointerLeave={handlePointerLeave}
-        style={{
-          transform: 'rotateX(0deg) rotateY(0deg) translateZ(0px)',
-          transition: 'transform 200ms ease-out',
-        }}
-        className="group relative will-change-transform"
+    <ParallaxCard index={index} className="w-full">
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={{ ...SPRING, delay: index * 0.08 }}
+        className="perspective-1000"
       >
-        <LiquidGlass
-          elevation={isFeatured ? 3 : 2}
-          tint="neutral"
-          radius={20}
-          dynamicLight={POINTER_REACTIVE_3D}
-          className="overflow-hidden border border-[var(--separator)] group-hover:border-[var(--accent-border)] transition-[border-color,box-shadow] duration-[var(--dur-base)]"
-          style={{ boxShadow: isFeatured ? 'var(--shadow-md)' : 'var(--shadow-sm)' }}
+        <div
+          ref={cardRef}
+          onPointerEnter={handlePointerEnter}
+          onPointerMove={handlePointerMove}
+          onPointerLeave={handlePointerLeave}
+          style={{
+            transform: 'rotateX(0deg) rotateY(0deg) translateZ(0px)',
+            transition: 'transform 200ms ease-out',
+          }}
+          className="group relative will-change-transform"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
-            {/* Visual preview column with reserved aspect ratio */}
-            <div
-              className={cn(
-                'relative overflow-hidden flex flex-col justify-between p-6',
-                isFeatured
-                  ? 'lg:col-span-6 aspect-video min-h-[220px] lg:min-h-[300px]'
-                  : 'lg:col-span-5 aspect-video min-h-[190px] lg:min-h-[260px]'
-              )}
-              style={{
-                background: `linear-gradient(135deg, ${style.from} 0%, ${style.to} 100%)`,
-              }}
-            >
-              {/* Real screenshot or architectural SVG mockup */}
-              {project.image ? (
-                <div className="absolute inset-0 z-0 overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.imageAlt || `Screenshot and interface visual for ${project.name}`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                    className="object-cover object-top opacity-80 group-hover:opacity-95 group-hover:scale-105 transition-all duration-500"
-                    priority={isFeatured}
+          <LiquidGlass
+            elevation={isFeatured ? 3 : 2}
+            tint="neutral"
+            radius={20}
+            dynamicLight={POINTER_REACTIVE_3D}
+            className="overflow-hidden border border-[var(--separator)] group-hover:border-[var(--accent-border)] transition-[border-color,box-shadow] duration-[var(--dur-base)]"
+            style={{ boxShadow: isFeatured ? 'var(--shadow-md)' : 'var(--shadow-sm)' }}
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
+              {/* Visual preview column with reserved aspect ratio */}
+              <div
+                className={cn(
+                  'relative overflow-hidden flex flex-col justify-between p-6',
+                  isFeatured
+                    ? 'lg:col-span-6 aspect-video min-h-[220px] lg:min-h-[300px]'
+                    : 'lg:col-span-5 aspect-video min-h-[190px] lg:min-h-[260px]'
+                )}
+                style={{
+                  background: `linear-gradient(135deg, ${style.from} 0%, ${style.to} 100%)`,
+                }}
+              >
+                {/* Real screenshot or architectural SVG mockup with internal parallax */}
+                {project.image ? (
+                  <ParallaxImage containerClassName="absolute inset-0 z-0 overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={project.imageAlt || `Screenshot and interface visual for ${project.name}`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                      className="object-cover object-top opacity-80 group-hover:opacity-95 group-hover:scale-105 transition-all duration-500"
+                      priority={isFeatured}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-elevated)]/90 via-transparent to-black/40 pointer-events-none" />
+                  </ParallaxImage>
+                ) : (
+                  /* Fallback atmospheric pattern */
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 pointer-events-none transition-opacity duration-500 group-hover:opacity-100 opacity-60"
+                    style={{ background: style.pattern }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-elevated)]/90 via-transparent to-black/40 pointer-events-none" />
-                </div>
-              ) : (
-                /* Fallback atmospheric pattern */
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 pointer-events-none transition-opacity duration-500 group-hover:opacity-100 opacity-60"
-                  style={{ background: style.pattern }}
-                />
-              )}
+                )}
 
               {/* Top metadata tags */}
               <div className="relative z-10 flex items-center justify-between">
@@ -355,6 +357,7 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
         </LiquidGlass>
       </div>
     </motion.div>
+    </ParallaxCard>
   );
 }
 
@@ -531,6 +534,23 @@ export function SelectedWork() {
       aria-label="Selected work"
     >
       <div id="work" className="absolute -top-24 pointer-events-none" aria-hidden="true" />
+      
+      {/* Floating detail accents lagging at 0.22x */}
+      <div className="hidden lg:block absolute left-8 top-1/4 pointer-events-none z-0" aria-hidden="true">
+        <ParallaxLayer rate={0.22} direction="down">
+          <div className="px-3 py-1.5 rounded-[var(--radius-sm)] border border-[var(--separator)] bg-[var(--bg-secondary)]/60 backdrop-blur-sm text-[10px] font-mono text-[var(--label-quaternary)]">
+            CATALOG // PRODUCTION
+          </div>
+        </ParallaxLayer>
+      </div>
+      <div className="hidden lg:block absolute right-8 top-2/3 pointer-events-none z-0" aria-hidden="true">
+        <ParallaxLayer rate={0.22} direction="up">
+          <div className="px-3 py-1.5 rounded-[var(--radius-sm)] border border-[var(--separator)] bg-[var(--bg-secondary)]/60 backdrop-blur-sm text-[10px] font-mono text-[var(--label-quaternary)]">
+            SYSTEMS // ARCHITECTURE
+          </div>
+        </ParallaxLayer>
+      </div>
+
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div

@@ -10,6 +10,7 @@ import { Send, Github, Linkedin, Instagram, Mail, CheckCircle2, AlertCircle, Loa
 import { socials } from '@/data/socials';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
 import { GlassInput, GlassTextarea, GlassButton } from '@/components/glass/GlassVariants';
+import { ContactSettling } from '@/components/parallax';
 
 const SPRING = { type: 'spring', stiffness: 280, damping: 28 } as const;
 
@@ -190,14 +191,8 @@ export function ContactSection() {
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Contact Form */}
-        <motion.div
-          className="lg:col-span-7"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={SPRING}
-        >
+        {/* Contact Form with Settling Physics */}
+        <ContactSettling side="left" className="lg:col-span-7">
           <LiquidGlass
             elevation={3}
             tint="neutral"
@@ -329,16 +324,10 @@ export function ContactSection() {
               </div>
             </form>
           </LiquidGlass>
-        </motion.div>
+        </ContactSettling>
 
-        {/* Socials & Info Column */}
-        <motion.div
-          className="lg:col-span-5 flex flex-col gap-4"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={SPRING}
-        >
+        {/* Socials & Info Column with Settling Physics */}
+        <ContactSettling side="right" className="lg:col-span-5 flex flex-col gap-4">
           {/* Quick Connect card */}
           <LiquidGlass
             elevation={2}
@@ -392,7 +381,7 @@ export function ContactSection() {
               })}
             </div>
           </LiquidGlass>
-        </motion.div>
+        </ContactSettling>
       </div>
     </section>
   );

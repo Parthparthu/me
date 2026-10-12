@@ -74,6 +74,7 @@ function NavItem({ link, isActive, isScrolled, onNavigate }: NavItemProps) {
           'font-medium transition-colors duration-[var(--dur-fast)]',
           'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]',
           'touch-action-manipulation',
+          'before:absolute before:-inset-y-2 before:inset-x-0 before:content-[\'\']',
           isScrolled ? 'px-2.5 py-1 text-[11px]' : 'px-3 py-1.5 text-xs',
           isActive
             ? 'text-[var(--accent)]'
@@ -286,8 +287,9 @@ export function Header() {
               }}
               aria-label="Pradyumna: home"
               className={cn(
-                'font-display font-bold text-[var(--label-primary)] hover:text-[var(--accent)] transition-colors',
-                'rounded-[var(--radius-xs)] px-2 py-1 mr-1',
+                'relative inline-flex items-center font-display font-bold text-[var(--label-primary)] hover:text-[var(--accent)] transition-colors',
+                'rounded-[var(--radius-xs)] px-2 py-1 mr-1 min-h-[44px] min-w-[36px]',
+                'before:absolute before:-inset-1 before:content-[\'\']',
                 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]',
                 isScrolled ? 'text-sm' : 'text-base'
               )}
@@ -313,11 +315,12 @@ export function Header() {
             <button
               onClick={openCommandPalette}
               className={cn(
-                'flex items-center gap-1 rounded-[var(--radius-xs)]',
+                'relative flex items-center justify-center gap-1 rounded-[var(--radius-xs)]',
                 'font-mono text-[var(--label-quaternary)] hover:text-[var(--label-primary)]',
                 'hover:bg-[var(--bg-hover)] transition-colors',
                 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)]',
-                'min-h-[36px] px-2',
+                'min-h-[44px] min-w-[36px] px-2',
+                'before:absolute before:-inset-1 before:content-[\'\']',
                 isScrolled ? 'text-[10px]' : 'text-[11px]'
               )}
               aria-label="Open command palette (Ctrl+K or Cmd+K)"

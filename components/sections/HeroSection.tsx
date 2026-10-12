@@ -11,6 +11,7 @@ import { GlassButton } from '@/components/glass/GlassVariants';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { useScrollStore } from '@/store/useScrollStore';
+import { PARALLAX_CONFIG } from '@/lib/parallax-config';
 import { POINTER_REACTIVE_3D } from '@/lib/config';
 import { cn } from '@/lib/utils';
 
@@ -25,17 +26,25 @@ export function HeroSection() {
     offset: ['start start', 'end start'],
   });
 
-  // Layer 1: Ambient background gradient glow (moves 70px)
-  const bgY = useTransform(scrollYProgress, [0, 1], [0, shouldReduceMotion ? 0 : 70]);
-  const bgOpacity = useTransform(scrollYProgress, [0, 0.8], [0.8, 0]);
+  // Layer 1: Atmosphere / far radial glow (0.18x scroll rate)
+  const bgRate = shouldReduceMotion ? 0 : PARALLAX_CONFIG.hero.layer1FarBg.rate;
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, 160 * bgRate]);
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.8], [0.85, 0.15]);
 
-  // Layer 2: Midground subtle spatial technical accents (moves 45px)
-  const midY = useTransform(scrollYProgress, [0, 1], [0, shouldReduceMotion ? 0 : 45]);
-  const midOpacity = useTransform(scrollYProgress, [0, 0.65], [0.65, 0]);
+  // Layer 2: Midground geometric contours & coordinate nodes (0.35x scroll rate)
+  const midRate = shouldReduceMotion ? 0 : PARALLAX_CONFIG.hero.layer2MidField.rate;
+  const midY = useTransform(scrollYProgress, [0, 1], [0, 180 * midRate]);
+  const midOpacity = useTransform(scrollYProgress, [0, 0.7], [0.65, 0.1]);
 
-  // Layer 3: Foreground text and CTAs (moves 20px, staying almost still for crisp reading)
-  const fgY = useTransform(scrollYProgress, [0, 1], [0, shouldReduceMotion ? 0 : 20]);
-  const fgOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
+  // Layer 4: Foreground typography, badges & actions (0.88x scroll rate with exit scale)
+  const fgRate = shouldReduceMotion ? 0 : PARALLAX_CONFIG.hero.layer4Foreground.rate;
+  const fgY = useTransform(scrollYProgress, [0, 1], [0, 90 * fgRate]);
+  const fgOpacity = useTransform(scrollYProgress, [0, 0.75, 1], [1, 0.85, 0]);
+  const fgScale = useTransform(
+    scrollYProgress,
+    [0, 0.85, 1],
+    [1, 1, shouldReduceMotion ? 1 : (PARALLAX_CONFIG.hero.layer4Foreground.exitScaleMin || 0.96)]
+  );
 
   const { scrollTo } = useSmoothScroll();
 
@@ -46,23 +55,31 @@ export function HeroSection() {
       className="relative w-full min-h-[90vh] flex flex-col items-center justify-center overflow-hidden pt-28 pb-16"
       aria-label="Hero introduction"
     >
-      {/* Parallax Layer 1: Background Ambient Glow */}
+      {/* Parallax Layer 1: Far Atmosphere Radial Glow (0.18x) */}
       <motion.div
-        style={{ y: bgY, opacity: bgOpacity }}
+        style={{
+          y: bgY,
+          opacity: bgOpacity,
+          willChange: shouldReduceMotion ? 'auto' : 'transform',
+        }}
         className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden"
         aria-hidden="true"
       >
         <div
-          className="w-[520px] h-[520px] rounded-full blur-[100px] opacity-35 dark:opacity-25 pointer-events-none"
+          className="w-[580px] h-[580px] rounded-full blur-[110px] opacity-40 dark:opacity-30 pointer-events-none"
           style={{
-            background: 'radial-gradient(circle, rgba(34, 211, 238, 0.22) 0%, rgba(3, 105, 161, 0.08) 60%, transparent 80%)',
+            background: 'radial-gradient(circle, rgba(34, 211, 238, 0.24) 0%, rgba(3, 105, 161, 0.10) 60%, transparent 80%)',
           }}
         />
       </motion.div>
 
-      {/* Parallax Layer 2: Midground Spatial Coordinates */}
+      {/* Parallax Layer 2: Mid Field Geometric Contours & Coordinates (0.35x) */}
       <motion.div
-        style={{ y: midY, opacity: midOpacity }}
+        style={{
+          y: midY,
+          opacity: midOpacity,
+          willChange: shouldReduceMotion ? 'auto' : 'transform',
+        }}
         className="absolute inset-0 pointer-events-none z-0 flex items-center justify-between px-6 sm:px-12 max-w-6xl mx-auto"
         aria-hidden="true"
       >
@@ -70,15 +87,22 @@ export function HeroSection() {
           <span>SYSTEM: ONLINE</span>
           <span>DISCIPLINE: MEMORY &amp; CODING</span>
         </div>
+        {/* Subtle geometric wireframe accent */}
+        <div className="hidden md:block w-32 h-32 border border-[var(--separator)] rounded-full opacity-20 -mr-16" />
         <div className="hidden lg:flex flex-col gap-1.5 font-mono text-[10px] text-[var(--label-quaternary)] tracking-widest opacity-60 text-right">
           <span>VIEWPORT: RESPONSIVE</span>
           <span>SPECIALIZATION: CSE (AI/ML)</span>
         </div>
       </motion.div>
 
-      {/* Parallax Layer 3: Foreground Content */}
+      {/* Parallax Layer 4: Foreground Typography & Actions (0.88x with exit scale) */}
       <motion.div
-        style={{ y: fgY, opacity: fgOpacity }}
+        style={{
+          y: fgY,
+          opacity: fgOpacity,
+          scale: fgScale,
+          willChange: shouldReduceMotion ? 'auto' : 'transform',
+        }}
         className="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto w-full"
       >
         <motion.div
