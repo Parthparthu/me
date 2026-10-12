@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Github, Star, GitFork, BookOpen, Activity, ArrowUpRight } from 'lucide-react';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
+import staticActivity from '@/data/github-activity.json';
 
 interface GitHubUser {
   public_repos: number;
@@ -39,12 +40,12 @@ const LANG_COLORS: Record<string, string> = {
 const SPRING = { type: 'spring', stiffness: 280, damping: 28 } as const;
 
 export function GitHubSection() {
-  const [user, setUser] = useState<GitHubUser | null>(null);
-  const [repos, setRepos] = useState<GitHubRepo[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<GitHubUser | null>(staticActivity.user);
+  const [repos, setRepos] = useState<GitHubRepo[]>(staticActivity.repos as GitHubRepo[]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    async function fetchGitHubData() {
+    async function revalidateGitHubData() {
       try {
         const [userRes, reposRes] = await Promise.all([
           fetch('https://api.github.com/users/Parthparthu'),
@@ -62,16 +63,16 @@ export function GitHubSection() {
 
         if (reposRes.ok) {
           const reposData = await reposRes.json();
-          setRepos(reposData);
+          if (Array.isArray(reposData)) {
+            setRepos(reposData.filter((r) => r.name !== 'me').slice(0, 6));
+          }
         }
       } catch {
-        // Retain null user without displaying fabricated figures
-      } finally {
-        setLoading(false);
+        // Fall back gracefully to static build-time data
       }
     }
 
-    fetchGitHubData();
+    revalidateGitHubData();
   }, []);
 
   return (

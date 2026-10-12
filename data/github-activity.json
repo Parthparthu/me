@@ -1,0 +1,71 @@
+{
+  "username": "Parthparthu",
+  "fetchedAt": "2026-10-12T21:45:08.086Z",
+  "user": {
+    "public_repos": 53,
+    "followers": 2,
+    "following": 3
+  },
+  "repos": [
+    {
+      "id": 1343105984,
+      "name": "Oweo",
+      "description": "A modern, mobile-first Progressive Web App for personal expense tracking, shared expense splitting, budgeting, and simple financial insights.",
+      "language": "TypeScript",
+      "stargazers_count": 0,
+      "forks_count": 0,
+      "updated_at": "2026-09-02T14:24:04Z",
+      "html_url": "https://github.com/Parthparthu/Oweo"
+    },
+    {
+      "id": 1342176163,
+      "name": "Numora",
+      "description": "A mobile-first Progressive Web App for analyzing 10-digit mobile numbers using customizable numerology totals and forbidden-pattern rules. A privacy-first, client-side PWA that calculates mobile-number numerology totals, validates configurable rules, and detects forbidden digit patterns.",
+      "language": "TypeScript",
+      "stargazers_count": 0,
+      "forks_count": 0,
+      "updated_at": "2026-08-21T20:22:19Z",
+      "html_url": "https://github.com/Parthparthu/Numora"
+    },
+    {
+      "id": 1270254099,
+      "name": "e-commerce",
+      "description": "Public software repository on GitHub.",
+      "language": "TypeScript",
+      "stargazers_count": 0,
+      "forks_count": 0,
+      "updated_at": "2026-08-02T12:31:48Z",
+      "html_url": "https://github.com/Parthparthu/e-commerce"
+    },
+    {
+      "id": 439886465,
+      "name": "CSS-Colors-Backgrounds-and-Borders",
+      "description": "Public software repository on GitHub.",
+      "language": "HTML",
+      "stargazers_count": 0,
+      "forks_count": 0,
+      "updated_at": "2026-08-02T12:15:19Z",
+      "html_url": "https://github.com/Parthparthu/CSS-Colors-Backgrounds-and-Borders"
+    },
+    {
+      "id": 1262971587,
+      "name": "dentist",
+      "description": "Public software repository on GitHub.",
+      "language": "TypeScript",
+      "stargazers_count": 0,
+      "forks_count": 0,
+      "updated_at": "2026-08-02T11:35:53Z",
+      "html_url": "https://github.com/Parthparthu/dentist"
+    },
+    {
+      "id": 1320095385,
+      "name": "StockScreener",
+      "description": "Public software repository on GitHub.",
+      "language": "JavaScript",
+      "stargazers_count": 0,
+      "forks_count": 0,
+      "updated_at": "2026-08-02T11:26:14Z",
+      "html_url": "https://github.com/Parthparthu/StockScreener"
+    }
+  ]
+}
