@@ -22,12 +22,18 @@ const CommandPalette = dynamic(
   { ssr: false }
 );
 
+const ParallaxDebugOverlay = dynamic(
+  () => import('@/components/parallax/ParallaxDebugOverlay').then((m) => m.ParallaxDebugOverlay),
+  { ssr: false }
+);
+
 export function ClientOverlays() {
   return (
     <>
       <ScrollProgress />
       <BackToTop />
       <CommandPalette />
+      <ParallaxDebugOverlay />
     </>
   );
 }

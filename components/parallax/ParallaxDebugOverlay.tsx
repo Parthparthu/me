@@ -23,7 +23,7 @@ export function ParallaxDebugOverlay() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const params = new URLSearchParams(window.location.search);
-    if (params.get('parallax-debug') === 'true') {
+    if (params.get('parallax-debug') === 'true' || process.env.NEXT_PUBLIC_PARALLAX_DEBUG === 'true') {
       setEnabled(true);
     }
   }, []);

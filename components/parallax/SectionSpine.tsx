@@ -29,14 +29,34 @@ export function SectionSpine() {
       aria-hidden="true"
       className="hidden xl:flex fixed left-7 top-0 bottom-0 z-20 pointer-events-none flex-col items-center justify-center w-6"
     >
-      {/* Background Track Line */}
-      <div className="absolute top-10 bottom-10 w-[1.5px] bg-[var(--separator)] rounded-full overflow-hidden">
-        {/* Active Progress Fill */}
-        <motion.div
-          className="w-full bg-gradient-to-b from-[var(--accent)] via-[var(--accent-hover)] to-[var(--accent)] origin-top rounded-full"
-          style={{ height: pathHeight }}
+      {/* Background Track and Animated SVG Stroke */}
+      <svg
+        className="absolute top-12 bottom-12 w-2 h-[calc(100vh-96px)] overflow-visible"
+        viewBox="0 0 8 1000"
+        preserveAspectRatio="none"
+      >
+        <line
+          x1="4"
+          y1="0"
+          x2="4"
+          y2="1000"
+          stroke="var(--separator)"
+          strokeWidth="1.5"
+          strokeLinecap="round"
         />
-      </div>
+        <motion.line
+          x1="4"
+          y1="0"
+          x2="4"
+          y2="1000"
+          stroke="var(--accent)"
+          strokeWidth="2"
+          strokeLinecap="round"
+          style={{
+            pathLength: progress,
+          }}
+        />
+      </svg>
 
       {/* Glowing Tracker Dot */}
       <motion.div
@@ -46,7 +66,9 @@ export function SectionSpine() {
           willChange: shouldReduceMotion ? 'auto' : 'transform',
         }}
       >
-        <span className="absolute inset-0 rounded-full bg-[var(--accent)] opacity-40 animate-ping" />
+        {!shouldReduceMotion && (
+          <span className="absolute inset-0 rounded-full bg-[var(--accent)] opacity-40 animate-ping" />
+        )}
         <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent)]" />
       </motion.div>
     </div>

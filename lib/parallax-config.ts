@@ -26,8 +26,8 @@ export const PARALLAX_CONFIG = {
 
   // Section grid alternating card offsets (relative translation variance)
   cards: {
-    oddRate: 0.05,  // Odd cards lead by +5%
-    evenRate: -0.04, // Even cards lag by -4%
+    oddRate: -0.08,  // Odd cards lead
+    evenRate: 0.08,  // Even cards lag
   },
 
   // Floating detail accents per section (lagging micro-elements)
@@ -38,8 +38,8 @@ export const PARALLAX_CONFIG = {
 
   // Inner image container parallax within cards
   cardImages: {
-    internalRate: 0.88, // Image moves at ~0.88x speed within overflow:hidden container
-    overflowScale: 1.12, // Scale to provide travel room without clipping borders
+    internalRate: 0.15, // Relative translation within overflow container
+    overflowScale: 1.20, // 120% scale to provide travel headroom without clipping
   },
 
   // Section spine / vertical thread
@@ -71,7 +71,7 @@ export const PARALLAX_CONFIG = {
   },
 
   // Device & accessibility scaling multipliers
-  mobileScale: 0.5, // Touch viewports scale down intensity by 50%
+  mobileScale: 0.4, // Touch viewports scale down intensity to 40%
   reducedMotionScale: 0.0, // Reduced motion disables all scroll-linked translation
   lowQualityScale: 0.25, // Low quality GPU tier simplifies depth
 } as const;
