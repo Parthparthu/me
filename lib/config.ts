@@ -36,7 +36,7 @@ export const ALLOW_EMOJI = false;
  */
 export const QUALITY_CONFIG = {
   defaultDesktop: 'high' as const,
-  defaultMobile: 'high' as const,
-  maxPixelRatio: 2,
+  defaultMobile: 'medium' as const,
+  maxPixelRatio: 1.5,
   enablePostProcessing: true,
 };

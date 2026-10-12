@@ -16,8 +16,13 @@ const CA_OFFSET = new THREE.Vector2(0.0004, 0.0004);
 export function PostProcessingEffects() {
   const quality = useSceneStore((s) => s.quality);
 
-  // Only render on high quality tier when enabled
-  if (quality !== 'high' || !QUALITY_CONFIG.enablePostProcessing) {
+  const isMobile =
+    typeof window !== 'undefined' &&
+    (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+      window.innerWidth < 768);
+
+  // Only render on high quality tier on desktop when enabled
+  if (quality !== 'high' || !QUALITY_CONFIG.enablePostProcessing || isMobile) {
     return null;
   }
 

@@ -42,8 +42,10 @@ export function useGPUTier(): QualityTier {
       navigator.userAgent
     );
 
-    // Initial safe baseline: High for capable machines
-    let initialTier: QualityTier = concurrency >= 4 ? 'high' : isMobile ? 'medium' : 'high';
+    // Initial safe baseline: Default desktop or default mobile tier
+    let initialTier: QualityTier = isMobile
+      ? QUALITY_CONFIG.defaultMobile
+      : (concurrency >= 4 ? QUALITY_CONFIG.defaultDesktop : 'medium');
     setQuality(initialTier);
     setDetected(initialTier);
 
@@ -55,7 +57,7 @@ export function useGPUTier(): QualityTier {
             let resolvedQuality: QualityTier = 'high';
 
             if (tier.tier >= 2) {
-              resolvedQuality = 'high';
+              resolvedQuality = isMobile ? QUALITY_CONFIG.defaultMobile : 'high';
             } else if (tier.tier === 1) {
               resolvedQuality = isMobile ? 'low' : 'medium';
             } else if (tier.tier === 0) {
