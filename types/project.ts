@@ -43,6 +43,8 @@ export interface Project {
   primaryLanguage: string;
   repositoryUrl: string;
   liveUrl?: string;
+  image?: string;
+  imageAlt?: string;
   role: string;
   date: string;
   caseStudy: CaseStudy;

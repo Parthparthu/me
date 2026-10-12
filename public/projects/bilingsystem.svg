@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800">
+  <defs>
+    <linearGradient id="billing-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#060B18"/>
+      <stop offset="100%" stop-color="#0E1626"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="800" fill="url(#billing-bg)"/>
+
+  <!-- Window Frame -->
+  <rect x="80" y="60" width="1120" height="680" rx="14" fill="#0A1220" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+
+  <!-- Title bar (Tkinter desktop window) -->
+  <rect x="80" y="60" width="1120" height="48" rx="14" fill="#142036"/>
+  <rect x="80" y="94" width="1120" height="14" fill="#142036"/>
+  <line x1="80" y1="108" x2="1200" y2="108" stroke="rgba(255,255,255,0.08)"/>
+
+  <!-- Desktop controls -->
+  <circle cx="110" cy="84" r="6" fill="#EF4444" opacity="0.8"/>
+  <circle cx="130" cy="84" r="6" fill="#F59E0B" opacity="0.8"/>
+  <circle cx="150" cy="84" r="6" fill="#10B981" opacity="0.8"/>
+
+  <text x="500" y="89" fill="#F2F5FA" font-family="sans-serif" font-size="13" font-weight="700">Retail Billing System - Python / SQLite / 18% GST</text>
+
+  <!-- Main Grid: Left Customer & Item Input / Right Invoice Table -->
+  <g transform="translate(104, 126)">
+    <!-- Left Panel: Customer & Invoice Form -->
+    <rect x="0" y="0" width="340" height="580" rx="10" fill="#0E1728" stroke="rgba(255,255,255,0.06)"/>
+    <text x="20" y="32" fill="#22D3EE" font-family="sans-serif" font-size="12" font-weight="700" letter-spacing="1">CUSTOMER &amp; BILL DETAILS</text>
+
+    <!-- Customer Name -->
+    <text x="20" y="68" fill="#6F7B91" font-family="sans-serif" font-size="11">Customer Name</text>
+    <rect x="20" y="78" width="300" height="34" rx="6" fill="#142036" stroke="rgba(255,255,255,0.08)"/>
+    <text x="32" y="100" fill="#F2F5FA" font-family="monospace" font-size="12">Rahul Verma</text>
+
+    <!-- Phone Number -->
+    <text x="20" y="132" fill="#6F7B91" font-family="sans-serif" font-size="11">Contact Number</text>
+    <rect x="20" y="142" width="300" height="34" rx="6" fill="#142036" stroke="rgba(255,255,255,0.08)"/>
+    <text x="32" y="164" fill="#F2F5FA" font-family="monospace" font-size="12">+91 98765 43210</text>
+
+    <!-- Loyalty Rewards Card -->
+    <rect x="20" y="196" width="300" height="84" rx="8" fill="#15243D" stroke="rgba(245,158,11,0.25)"/>
+    <text x="34" y="222" fill="#F59E0B" font-family="sans-serif" font-size="11" font-weight="700">LOYALTY REWARD POINTS</text>
+    <text x="34" y="254" fill="#F2F5FA" font-family="monospace" font-size="20" font-weight="700">420 pts</text>
+    <text x="130" y="252" fill="#10B981" font-family="monospace" font-size="11">(Rs. 210 discount eligible)</text>
+
+    <!-- Item Selection -->
+    <text x="20" y="312" fill="#6F7B91" font-family="sans-serif" font-size="11">Item Selection (Inventory)</text>
+    <rect x="20" y="322" width="300" height="34" rx="6" fill="#142036" stroke="rgba(255,255,255,0.08)"/>
+    <text x="32" y="344" fill="#F2F5FA" font-family="monospace" font-size="12">Wireless Keyboard K380</text>
+
+    <!-- Price & Quantity -->
+    <text x="20" y="378" fill="#6F7B91" font-family="sans-serif" font-size="11">Unit Price</text>
+    <rect x="20" y="388" width="140" height="34" rx="6" fill="#142036" stroke="rgba(255,255,255,0.08)"/>
+    <text x="32" y="410" fill="#F2F5FA" font-family="monospace" font-size="12">Rs. 2,499.00</text>
+
+    <text x="180" y="378" fill="#6F7B91" font-family="sans-serif" font-size="11">Quantity</text>
+    <rect x="180" y="388" width="140" height="34" rx="6" fill="#142036" stroke="rgba(255,255,255,0.08)"/>
+    <text x="192" y="410" fill="#F2F5FA" font-family="monospace" font-size="12">2</text>
+
+    <!-- Add Item Button -->
+    <rect x="20" y="446" width="300" height="42" rx="6" fill="#22D3EE"/>
+    <text x="120" y="472" fill="#060B18" font-family="sans-serif" font-size="13" font-weight="700">Add to Invoice</text>
+
+    <!-- Database indicator -->
+    <text x="40" y="540" fill="#6F7B91" font-family="monospace" font-size="11">SQLite: store_records.db (ACID)</text>
+  </g>
+
+  <!-- Right Panel: Invoice Table with 18% GST -->
+  <g transform="translate(470, 126)">
+    <rect x="0" y="0" width="700" height="580" rx="10" fill="#0E1728" stroke="rgba(255,255,255,0.06)"/>
+
+    <text x="24" y="36" fill="#F2F5FA" font-family="sans-serif" font-size="14" font-weight="700">INVOICE BREAKDOWN #INV-2026-084</text>
+    <text x="560" y="36" fill="#6F7B91" font-family="monospace" font-size="11">2026-03-28</text>
+
+    <!-- Table Header -->
+    <rect x="20" y="56" width="660" height="30" rx="4" fill="#142036"/>
+    <text x="36" y="76" fill="#6F7B91" font-family="monospace" font-size="11">ITEM DESCRIPTION</text>
+    <text x="320" y="76" fill="#6F7B91" font-family="monospace" font-size="11">QTY</text>
+    <text x="420" y="76" fill="#6F7B91" font-family="monospace" font-size="11">RATE</text>
+    <text x="560" y="76" fill="#6F7B91" font-family="monospace" font-size="11">AMOUNT (INR)</text>
+
+    <!-- Row 1 -->
+    <text x="36" y="112" fill="#F2F5FA" font-family="monospace" font-size="11">Wireless Keyboard K380</text>
+    <text x="320" y="112" fill="#A9B4C7" font-family="monospace" font-size="11">2</text>
+    <text x="420" y="112" fill="#A9B4C7" font-family="monospace" font-size="11">2,499.00</text>
+    <text x="560" y="112" fill="#F2F5FA" font-family="monospace" font-size="11">4,998.00</text>
+
+    <!-- Row 2 -->
+    <line x1="20" y1="128" x2="680" y2="128" stroke="rgba(255,255,255,0.04)"/>
+    <text x="36" y="148" fill="#F2F5FA" font-family="monospace" font-size="11">Precision Optical Mouse M331</text>
+    <text x="320" y="148" fill="#A9B4C7" font-family="monospace" font-size="11">1</text>
+    <text x="420" y="148" fill="#A9B4C7" font-family="monospace" font-size="11">1,250.00</text>
+    <text x="560" y="148" fill="#F2F5FA" font-family="monospace" font-size="11">1,250.00</text>
+
+    <!-- Row 3 -->
+    <line x1="20" y1="164" x2="680" y2="164" stroke="rgba(255,255,255,0.04)"/>
+    <text x="36" y="184" fill="#F2F5FA" font-family="monospace" font-size="11">USB-C Multiport Adapter 6-in-1</text>
+    <text x="320" y="184" fill="#A9B4C7" font-family="monospace" font-size="11">1</text>
+    <text x="420" y="184" fill="#A9B4C7" font-family="monospace" font-size="11">1,850.00</text>
+    <text x="560" y="184" fill="#F2F5FA" font-family="monospace" font-size="11">1,850.00</text>
+
+    <!-- Calculation Footer -->
+    <rect x="360" y="240" width="320" height="200" rx="8" fill="#142036" stroke="rgba(255,255,255,0.06)"/>
+    <text x="380" y="272" fill="#A9B4C7" font-family="monospace" font-size="12">Subtotal:</text>
+    <text x="560" y="272" fill="#F2F5FA" font-family="monospace" font-size="12">Rs. 8,098.00</text>
+
+    <text x="380" y="304" fill="#22D3EE" font-family="monospace" font-size="12">CGST (9%):</text>
+    <text x="560" y="304" fill="#22D3EE" font-family="monospace" font-size="12">Rs. 728.82</text>
+
+    <text x="380" y="336" fill="#22D3EE" font-family="monospace" font-size="12">SGST (9%):</text>
+    <text x="560" y="336" fill="#22D3EE" font-family="monospace" font-size="12">Rs. 728.82</text>
+
+    <text x="380" y="368" fill="#F59E0B" font-family="monospace" font-size="12">Loyalty Discount:</text>
+    <text x="560" y="368" fill="#F59E0B" font-family="monospace" font-size="12">- Rs. 210.00</text>
+
+    <line x1="380" y1="384" x2="660" y2="384" stroke="rgba(255,255,255,0.12)"/>
+    <text x="380" y="416" fill="#F2F5FA" font-family="monospace" font-size="14" font-weight="700">Total Payable:</text>
+    <text x="540" y="416" fill="#10B981" font-family="monospace" font-size="16" font-weight="700">Rs. 9,345.64</text>
+
+    <!-- Print / Export Button -->
+    <rect x="360" y="460" width="320" height="44" rx="8" fill="#10B981"/>
+    <text x="440" y="487" fill="#060B18" font-family="sans-serif" font-size="13" font-weight="700">Print / Export PDF Invoice</text>
+  </g>
+</svg>

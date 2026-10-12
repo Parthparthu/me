@@ -2,8 +2,11 @@
  * SelectedWork: Featured project showcase with interactive 3D liquid-glass cards.
  * Features:
  * - 3D card perspective tilt with light sweeps (respecting POINTER_REACTIVE_3D)
- * - Dynamic media/architecture preview revealed on hover
- * - Modal for expanded architectural inspection
+ * - Real live screenshots and high-fidelity architectural mockups with reserved aspect ratio
+ * - Featured flagship elevation for top 2 projects
+ * - One concrete problem/solution sentence per project
+ * - Clean tech chips (no hashtags)
+ * - Safe external links and case study deep-links
  * - Accessible keyboard navigation and ARIA semantics
  */
 'use client';
@@ -11,7 +14,18 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { ExternalLink, Github, ArrowRight, Eye, Maximize2, X, Cpu, Layers, CheckCircle2 } from 'lucide-react';
+import Image from 'next/image';
+import {
+  ExternalLink,
+  Github,
+  ArrowRight,
+  Eye,
+  Maximize2,
+  X,
+  Cpu,
+  Layers,
+  CheckCircle2,
+} from 'lucide-react';
 import { projects } from '@/data/projects';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
 import { POINTER_REACTIVE_3D } from '@/lib/config';
@@ -37,6 +51,12 @@ const PROJECT_ACCENTS: Record<string, { from: string; to: string; accent: string
     to: '#1F140A',
     accent: '#F59E0B',
     pattern: 'radial-gradient(circle at 70% 30%, rgba(245,158,11,0.2) 0%, transparent 60%)',
+  },
+  bilingsystem: {
+    from: '#060B18',
+    to: '#0E1626',
+    accent: '#22D3EE',
+    pattern: 'radial-gradient(circle at 70% 30%, rgba(34,211,238,0.2) 0%, transparent 60%)',
   },
   'codeclash-ai': {
     from: '#060B18',
@@ -73,6 +93,7 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
   const rectRef = useRef<DOMRect | null>(null);
   const ticking = useRef(false);
 
+  const isFeatured = index < 2;
   const style = PROJECT_ACCENTS[project.slug] || PROJECT_ACCENTS.numora;
 
   const handlePointerEnter = useCallback(() => {
@@ -129,74 +150,102 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
         className="group relative will-change-transform"
       >
         <LiquidGlass
-          elevation={3}
+          elevation={isFeatured ? 3 : 2}
           tint="neutral"
           radius={20}
           dynamicLight={POINTER_REACTIVE_3D}
           className="overflow-hidden border border-[var(--separator)] group-hover:border-[var(--accent-border)] transition-[border-color,box-shadow] duration-[var(--dur-base)]"
-          style={{ boxShadow: 'var(--shadow-sm)' }}
+          style={{ boxShadow: isFeatured ? 'var(--shadow-md)' : 'var(--shadow-sm)' }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
-            {/* Visual preview column */}
+            {/* Visual preview column with reserved aspect ratio */}
             <div
-              className="lg:col-span-5 aspect-video lg:aspect-auto min-h-[200px] lg:min-h-[280px] relative overflow-hidden bg-slate-950 flex flex-col justify-between p-6"
+              className={cn(
+                'relative overflow-hidden flex flex-col justify-between p-6',
+                isFeatured
+                  ? 'lg:col-span-6 aspect-video min-h-[220px] lg:min-h-[300px]'
+                  : 'lg:col-span-5 aspect-video min-h-[190px] lg:min-h-[260px]'
+              )}
               style={{
                 background: `linear-gradient(135deg, ${style.from} 0%, ${style.to} 100%)`,
               }}
             >
-              {/* Atmospheric pattern */}
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 pointer-events-none transition-opacity duration-500 group-hover:opacity-100 opacity-60"
-                style={{ background: style.pattern }}
-              />
+              {/* Real screenshot or architectural SVG mockup */}
+              {project.image ? (
+                <div className="absolute inset-0 z-0 overflow-hidden">
+                  <Image
+                    src={project.image}
+                    alt={project.imageAlt || `Screenshot and interface visual for ${project.name}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                    className="object-cover object-top opacity-80 group-hover:opacity-95 group-hover:scale-105 transition-all duration-500"
+                    priority={isFeatured}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-elevated)]/90 via-transparent to-black/40 pointer-events-none" />
+                </div>
+              ) : (
+                /* Fallback atmospheric pattern */
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 pointer-events-none transition-opacity duration-500 group-hover:opacity-100 opacity-60"
+                  style={{ background: style.pattern }}
+                />
+              )}
 
               {/* Top metadata tags */}
               <div className="relative z-10 flex items-center justify-between">
                 <span
-                  className="font-mono text-xs font-bold px-2 py-0.5 rounded-sm bg-black/40 border border-white/10"
+                  className="font-mono text-xs font-bold px-2 py-0.5 rounded-sm bg-black/60 backdrop-blur-sm border border-white/10"
                   style={{ color: style.accent }}
                 >
                   {String(index + 1).padStart(2, '0')}
                 </span>
 
-                <span
-                  className="px-2 py-0.5 rounded-sm text-[10px] font-bold font-mono tracking-wider"
-                  style={{
-                    background: `${style.accent}20`,
-                    color: style.accent,
-                    border: `1px solid ${style.accent}40`,
-                  }}
-                >
-                  {project.tier}
-                </span>
+                <div className="flex items-center gap-1.5">
+                  {isFeatured && (
+                    <span className="px-2 py-0.5 rounded-sm text-[10px] font-bold font-mono tracking-wider bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent-border)]">
+                      FLAGSHIP
+                    </span>
+                  )}
+                  <span
+                    className="px-2 py-0.5 rounded-sm text-[10px] font-bold font-mono tracking-wider bg-black/60 backdrop-blur-sm"
+                    style={{
+                      color: style.accent,
+                      border: `1px solid ${style.accent}40`,
+                    }}
+                  >
+                    {project.tier}
+                  </span>
+                </div>
               </div>
 
-              {/* Center interactive architectural wireframe */}
-              <div className="relative z-10 my-auto flex flex-col items-center justify-center text-center">
-                <div
-                  className="w-16 h-16 rounded-xl border border-white/15 flex items-center justify-center mb-3 transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_24px_rgba(56,189,248,0.25)]"
-                  style={{
-                    background: `${style.accent}15`,
-                  }}
-                >
-                  <Cpu size={28} style={{ color: style.accent }} aria-hidden="true" />
+              {/* Center interactive architectural wireframe if no image */}
+              {!project.image && (
+                <div className="relative z-10 my-auto flex flex-col items-center justify-center text-center">
+                  <div
+                    className="w-16 h-16 rounded-xl border border-white/15 flex items-center justify-center mb-3 transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_24px_rgba(56,189,248,0.25)]"
+                    style={{
+                      background: `${style.accent}15`,
+                    }}
+                  >
+                    <Cpu size={28} style={{ color: style.accent }} aria-hidden="true" />
+                  </div>
+                  <span className="text-[11px] font-mono text-slate-300 uppercase tracking-wider">
+                    {project.primaryLanguage} Architecture
+                  </span>
                 </div>
-                <span className="text-[11px] font-mono text-slate-300 uppercase tracking-wider">
-                  {project.primaryLanguage} Architecture
-                </span>
-              </div>
+              )}
 
               {/* Bottom quick actions */}
-              <div className="relative z-10 flex items-center justify-between">
-                <span className="text-[10px] font-mono text-slate-400">
+              <div className="relative z-10 flex items-center justify-between mt-auto pt-4">
+                <span className="text-[10px] font-mono text-white/80 bg-black/50 px-2 py-0.5 rounded backdrop-blur-sm">
                   {project.date}
                 </span>
 
                 <button
                   type="button"
                   onClick={() => onExpand(project)}
-                  className="inline-flex items-center gap-1.5 text-[11px] font-mono text-white/90 hover:text-white px-3 py-2 rounded bg-black/40 border border-white/10 hover:border-white/20 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] min-h-[44px] min-w-[44px]"
+                  className="inline-flex items-center gap-1.5 text-[11px] font-mono text-white/90 hover:text-white px-3 py-2 rounded bg-black/60 backdrop-blur-sm border border-white/10 hover:border-white/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] min-h-[44px] min-w-[44px]"
                   aria-label={`Open expanded preview for ${project.name}`}
                 >
                   <Maximize2 size={12} aria-hidden="true" />
@@ -206,7 +255,12 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
             </div>
 
             {/* Content Details Column */}
-            <div className="lg:col-span-7 p-6 md:p-8 flex flex-col justify-between">
+            <div
+              className={cn(
+                'p-6 md:p-8 flex flex-col justify-between',
+                isFeatured ? 'lg:col-span-6' : 'lg:col-span-7'
+              )}
+            >
               <div>
                 {/* Category and status */}
                 <div className="flex flex-wrap items-center gap-2 mb-3">
@@ -222,35 +276,40 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
                 </div>
 
                 {/* Name */}
-                <h3 className="text-xl md:text-2xl font-display font-bold text-[var(--label-primary)] mb-2 leading-tight group-hover:text-[var(--accent)]">
-                  {project.name}
+                <h3 className="text-xl md:text-2xl font-display font-bold text-[var(--text-primary)] mb-2 leading-tight group-hover:text-[var(--accent)] transition-colors">
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--focus-ring)] rounded"
+                  >
+                    {project.name}
+                  </Link>
                 </h3>
 
                 {/* Tagline */}
-                <p className="text-[var(--label-secondary)] text-sm mb-3 leading-relaxed font-medium">
+                <p className="text-[var(--text-secondary)] text-sm mb-2 leading-relaxed font-medium">
                   {project.tagline}
                 </p>
 
-                {/* Short description */}
-                <p className="text-[var(--label-secondary)] text-xs md:text-sm mb-6 line-clamp-2 leading-relaxed">
+                {/* One concrete sentence (problem and what I built) */}
+                <p className="text-[var(--text-secondary)] text-xs md:text-sm mb-6 leading-relaxed">
                   {project.shortDescription}
                 </p>
               </div>
 
               <div>
-                {/* Tech stack */}
-                <div className="flex flex-wrap gap-1.5 mb-6">
-                  {project.technologies.slice(0, 5).map((tech) => (
+                {/* Clean tech chips (never hashtags) */}
+                <div className="flex flex-wrap gap-1.5 mb-6" aria-label="Technologies used">
+                  {project.technologies.slice(0, 6).map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-0.5 rounded-sm text-[11px] font-mono text-[var(--label-secondary)] bg-[var(--bg-grouped)] border border-[var(--separator)]"
+                      className="px-2.5 py-1 rounded-[var(--radius-xs)] text-[11px] font-mono font-medium text-[var(--text-secondary)] bg-[var(--bg-secondary)] border border-[var(--separator)]"
                     >
                       {tech}
                     </span>
                   ))}
-                  {project.technologies.length > 5 && (
-                    <span className="px-2 py-0.5 rounded-sm text-[11px] font-mono text-[var(--label-quaternary)]">
-                      +{project.technologies.length - 5}
+                  {project.technologies.length > 6 && (
+                    <span className="px-2 py-1 rounded-[var(--radius-xs)] text-[11px] font-mono text-[var(--text-muted)] bg-[var(--bg-secondary)] border border-[var(--separator)]">
+                      +{project.technologies.length - 6}
                     </span>
                   )}
                 </div>
@@ -259,7 +318,7 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
                 <div className="flex flex-wrap items-center gap-3">
                   <Link
                     href={`/projects/${project.slug}`}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[var(--accent-primary)] text-[var(--text-on-accent)] text-xs md:text-sm font-semibold hover:bg-[var(--accent-primary-hover)] transition-all shadow-md min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[var(--radius-md)] bg-[var(--accent)] text-[var(--bg-primary)] text-xs md:text-sm font-semibold hover:bg-[var(--accent-hover)] transition-all shadow-sm min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
                   >
                     <Eye size={15} aria-hidden="true" />
                     <span>Case Study</span>
@@ -272,7 +331,7 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`View ${project.name} source repository on GitHub`}
-                      className="p-2.5 rounded-lg border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                      className="p-2.5 rounded-[var(--radius-md)] border border-[var(--separator)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
                     >
                       <Github size={18} aria-hidden="true" />
                     </a>
@@ -284,7 +343,7 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={`Open ${project.name} live deployment`}
-                      className="p-2.5 rounded-lg border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                      className="p-2.5 rounded-[var(--radius-md)] border border-[var(--separator)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
                     >
                       <ExternalLink size={18} aria-hidden="true" />
                     </a>
@@ -339,44 +398,57 @@ function ExpandedProjectModal({
           <div>
             <div className="flex items-center gap-2 mb-2 font-mono">
               <span className="badge">{project.category}</span>
-              <span className="px-2 py-0.5 rounded-sm text-xs bg-[var(--bg-surface-2)] text-[var(--text-muted)] border border-[var(--border-subtle)]">
+              <span className="px-2 py-0.5 rounded-sm text-xs bg-[var(--bg-secondary)] text-[var(--text-muted)] border border-[var(--separator)]">
                 {project.tier}
               </span>
             </div>
             <h2 className="text-2xl md:text-3xl font-display font-bold text-[var(--text-primary)]">
               {project.name}
             </h2>
-            <p className="text-sm text-[var(--accent-primary)] font-mono mt-1">
+            <p className="text-sm text-[var(--accent)] font-mono mt-1">
               {project.tagline}
             </p>
           </div>
 
           <button
             onClick={onClose}
-            className="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] min-h-[44px] min-w-[44px] flex items-center justify-center"
+            className="p-2 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Close modal"
           >
             <X size={20} aria-hidden="true" />
           </button>
         </div>
 
+        {/* Real screenshot or architectural visual preview if available */}
+        {project.image && (
+          <div className="relative aspect-video w-full rounded-xl overflow-hidden mb-6 border border-[var(--separator)] bg-[var(--bg-elevated)]">
+            <Image
+              src={project.image}
+              alt={project.imageAlt || `${project.name} visual preview`}
+              fill
+              className="object-cover object-top"
+              sizes="(max-width: 768px) 100vw, 768px"
+            />
+          </div>
+        )}
+
         {/* Architecture schematic box */}
         <div
-          className="rounded-xl p-5 mb-6 border border-[var(--border-subtle)] bg-[var(--bg-surface-2)]"
+          className="rounded-xl p-5 mb-6 border border-[var(--separator)] bg-[var(--bg-secondary)]"
           style={{
             boxShadow: `inset 0 0 20px ${style.accent}10`,
           }}
         >
           <div className="flex items-center gap-2 text-xs font-mono text-[var(--text-muted)] uppercase mb-2">
             <Layers size={14} style={{ color: style.accent }} aria-hidden="true" />
-            <span>Architectural Pipeline</span>
+            <span>Architecture Pipeline</span>
           </div>
-          <p className="text-sm font-mono text-[var(--text-primary)] leading-relaxed">
+          <code className="text-xs md:text-sm font-mono text-[var(--text-primary)] block break-all">
             {project.caseStudy.architecture}
-          </p>
+          </code>
         </div>
 
-        {/* Problem & Solution */}
+        {/* Problem and Solution */}
         <div className="space-y-4 mb-6 text-sm text-[var(--text-secondary)] leading-relaxed">
           <div>
             <h3 className="text-xs font-mono uppercase tracking-wider text-[var(--text-muted)] mb-1">
@@ -400,7 +472,7 @@ function ExpandedProjectModal({
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
             {project.caseStudy.keyFeatures.map((feat) => (
               <li key={feat} className="flex items-start gap-2 text-xs text-[var(--text-secondary)]">
-                <CheckCircle2 size={14} className="text-[var(--accent-emerald)] shrink-0 mt-0.5" aria-hidden="true" />
+                <CheckCircle2 size={14} className="text-[var(--accent)] shrink-0 mt-0.5" aria-hidden="true" />
                 <span>{feat}</span>
               </li>
             ))}
@@ -408,11 +480,11 @@ function ExpandedProjectModal({
         </div>
 
         {/* Footer actions */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[var(--border-subtle)]">
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[var(--separator)]">
           <Link
             href={`/projects/${project.slug}`}
             onClick={onClose}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[var(--accent-primary)] hover:bg-[var(--accent-primary-hover)] text-[var(--text-on-accent)] text-xs font-semibold transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] shadow-sm"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[var(--radius-md)] bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-[var(--bg-primary)] text-xs font-semibold transition-colors min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] shadow-sm"
           >
             <span>Read Full Case Study</span>
             <ArrowRight size={14} aria-hidden="true" />
@@ -424,7 +496,7 @@ function ExpandedProjectModal({
                 href={project.repositoryUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-lg border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                className="p-2.5 rounded-[var(--radius-md)] border border-[var(--separator)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
                 aria-label={`View ${project.name} on GitHub`}
               >
                 <Github size={18} aria-hidden="true" />
@@ -435,7 +507,7 @@ function ExpandedProjectModal({
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-lg border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-hover)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)]"
+                className="p-2.5 rounded-[var(--radius-md)] border border-[var(--separator)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)] transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
                 aria-label={`Open ${project.name} live deployment`}
               >
                 <ExternalLink size={18} aria-hidden="true" />
@@ -483,7 +555,7 @@ export function SelectedWork() {
 
           <Link
             href="/projects"
-            className="group inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors whitespace-nowrap px-3 py-2 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] min-h-[44px]"
+            className="group inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors whitespace-nowrap px-3 py-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] min-h-[44px]"
           >
             <span>View All {projects.length} Projects</span>
             <ArrowRight
@@ -510,7 +582,7 @@ export function SelectedWork() {
         <div className="mt-14 flex justify-center">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[var(--border-subtle)] text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-medium)] hover:bg-[var(--bg-surface-hover)] transition-colors min-h-[44px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--border-focus)] shadow-sm"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-[var(--separator)] text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--separator-strong)] hover:bg-[var(--bg-hover)] transition-colors min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] shadow-sm"
           >
             <span>Browse all {projects.length} projects</span>
             <ArrowRight size={15} aria-hidden="true" />
