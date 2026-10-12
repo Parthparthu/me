@@ -14,6 +14,7 @@ import {
   X,
   FileCheck,
   Award,
+  ChevronDown,
   type LucideIcon,
 } from 'lucide-react';
 import { achievements, verifiedCertificates, type VerifiedCertificate } from '@/data/achievements';
@@ -35,6 +36,9 @@ const SPRING = { type: 'spring', stiffness: 280, damping: 28 } as const;
 export function AchievementsSection() {
   const featured = achievements.find((a) => a.highlight) || achievements[0];
   const secondary = achievements.filter((a) => a.id !== featured?.id);
+
+  const primaryCert = verifiedCertificates.find((c) => c.id === 'wmc-2023') || verifiedCertificates[0];
+  const additionalCerts = verifiedCertificates.filter((c) => c.id !== primaryCert?.id);
 
   const [activeModal, setActiveModal] = useState<VerifiedCertificate | null>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
@@ -241,80 +245,189 @@ export function AchievementsSection() {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {verifiedCertificates.map((cert, index) => (
-            <ParallaxCard key={cert.id} index={index} className="h-full">
+        {/* Primary Featured Credential (WMC Bronze Medal & Top Amateur) */}
+        {primaryCert && (
+          <div className="mb-6">
+            <ParallaxCard index={0} className="w-full">
               <LiquidGlass
-                elevation={2}
-                tint="neutral"
-                radius={14}
+                elevation={3}
+                tint="amber"
+                radius={16}
                 dynamicLight={POINTER_REACTIVE_3D}
-                className="p-5 flex flex-col justify-between group hover:border-[var(--accent-border)] transition-[border-color] duration-[var(--dur-base)] border border-[var(--separator)] h-full"
+                className="p-6 md:p-7 flex flex-col md:flex-row gap-6 items-start md:items-center justify-between border border-[var(--separator)]"
               >
-                <div>
-                  {/* Thumbnail with internal parallax */}
+                <div className="flex flex-col sm:flex-row gap-5 items-start sm:items-center flex-1">
                   <button
                     type="button"
-                    onClick={(e) => openModal(cert, e)}
-                    className="relative w-full aspect-[16/10] rounded-lg overflow-hidden bg-[var(--bg-secondary)] border border-[var(--separator)] mb-4 block group-hover:border-[var(--accent-border)] transition-[border-color] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] min-h-[44px]"
-                    aria-label={`View full certificate: ${cert.title}`}
+                    onClick={(e) => openModal(primaryCert, e)}
+                    className="relative w-full sm:w-48 aspect-[16/10] rounded-lg overflow-hidden bg-[var(--bg-secondary)] border border-[var(--accent-amber-border)] block group hover:border-[var(--accent-amber)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] min-h-[44px] flex-shrink-0"
+                    aria-label={`View full certificate: ${primaryCert.title}`}
                   >
-                    <ParallaxImage containerClassName="w-full h-full relative overflow-hidden">
-                      <Image
-                        src={getAssetPath(cert.imagePreview)}
-                        alt={cert.title}
-                        fill
-                        className="object-cover object-top group-hover:scale-105 transition-transform duration-200"
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                      />
-                      <div className="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-opacity" />
-                    </ParallaxImage>
+                    <Image
+                      src={getAssetPath(primaryCert.imagePreview)}
+                      alt={primaryCert.title}
+                      fill
+                      className="object-cover object-top group-hover:scale-105 transition-transform duration-200"
+                      sizes="(max-width: 640px) 100vw, 200px"
+                    />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-opacity" />
                   </button>
 
-                  <div className="flex items-center justify-between gap-2 mb-2 font-mono text-[11px]">
-                    <span className="text-[var(--accent)] font-medium">
-                      {cert.issuer}
-                    </span>
-                    <span className="text-[var(--text-muted)] tabular-nums">
-                      {cert.year}
-                    </span>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1.5 font-mono text-xs">
+                      <span className="text-[var(--accent-amber)] font-semibold">
+                        {primaryCert.issuer}
+                      </span>
+                      <span className="text-[var(--text-muted)]">&middot;</span>
+                      <span className="text-[var(--text-muted)] tabular-nums">
+                        {primaryCert.year}
+                      </span>
+                    </div>
+
+                    <h4 className="text-lg font-bold text-[var(--text-primary)] leading-tight mb-2 font-sans">
+                      {primaryCert.title}
+                    </h4>
+
+                    <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+                      {primaryCert.description}
+                    </p>
                   </div>
-
-                  <h4 className="text-sm font-bold text-[var(--text-primary)] leading-snug mb-2 font-sans">
-                    {cert.title}
-                  </h4>
-
-                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-4">
-                    {cert.description}
-                  </p>
                 </div>
 
-                {/* Action Buttons */}
-                <div className="pt-3 border-t border-[var(--separator)] flex items-center justify-between gap-2">
+                <div className="flex items-center gap-3 pt-4 md:pt-0 border-t md:border-t-0 border-[var(--separator)] w-full md:w-auto justify-end">
                   <button
                     type="button"
-                    onClick={(e) => openModal(cert, e)}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent)] hover:text-[var(--accent-hover)] hover:underline min-h-[44px] px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
+                    onClick={(e) => openModal(primaryCert, e)}
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-lg bg-[var(--accent-amber-subtle)] text-[var(--accent-amber)] border border-[var(--accent-amber-border)] hover:bg-[var(--accent-amber)] hover:text-black transition-colors min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
                   >
                     <FileCheck size={14} aria-hidden="true" />
-                    <span>Inspect Document</span>
+                    <span>Inspect Evidence</span>
                   </button>
 
                   <a
-                    href={getAssetPath(cert.documentUrl)}
+                    href={getAssetPath(primaryCert.documentUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors min-h-[44px] px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
-                    aria-label={`Open original document for ${cert.title}`}
+                    className="inline-flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors min-h-[44px] px-3 py-2 rounded-lg border border-[var(--separator)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
+                    aria-label={`Open original document for ${primaryCert.title}`}
                   >
-                    <span>Raw File</span>
+                    <span>Raw Document</span>
                     <ExternalLink size={12} aria-hidden="true" />
                   </a>
                 </div>
               </LiquidGlass>
             </ParallaxCard>
-          ))}
-        </div>
+          </div>
+        )}
+
+        {/* Collapsible Disclosure for 6 Foundational & Academic Credentials */}
+        <details className="group border border-[var(--separator)] rounded-[14px] bg-[var(--bg-surface)] overflow-hidden transition-all duration-300">
+          <summary className="flex items-center justify-between p-5 cursor-pointer list-none select-none hover:bg-[var(--bg-surface-hover)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] min-h-[48px]">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-lg bg-[var(--bg-secondary)] border border-[var(--separator)] flex items-center justify-center text-[var(--accent)]">
+                <FileCheck size={16} aria-hidden="true" />
+              </div>
+              <div className="text-left">
+                <span className="text-sm font-bold text-[var(--text-primary)] block font-sans">
+                  Foundational &amp; Academic Credentials ({additionalCerts.length})
+                </span>
+                <span className="text-xs text-[var(--text-muted)] font-mono">
+                  Certifications in app development, game design, and early competitive logic (2019 - 2024)
+                </span>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-mono text-[var(--accent)] group-open:hidden">
+                Show All
+              </span>
+              <span className="text-xs font-mono text-[var(--accent)] hidden group-open:inline">
+                Hide
+              </span>
+              <ChevronDown
+                size={16}
+                className="text-[var(--text-muted)] group-open:rotate-180 transition-transform duration-200"
+                aria-hidden="true"
+              />
+            </div>
+          </summary>
+
+          <div className="p-5 pt-2 border-t border-[var(--separator)]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 pt-3">
+              {additionalCerts.map((cert, index) => (
+                <ParallaxCard key={cert.id} index={index} className="h-full">
+                  <LiquidGlass
+                    elevation={2}
+                    tint="neutral"
+                    radius={14}
+                    dynamicLight={POINTER_REACTIVE_3D}
+                    className="p-5 flex flex-col justify-between group hover:border-[var(--accent-border)] transition-[border-color] duration-[var(--dur-base)] border border-[var(--separator)] h-full"
+                  >
+                    <div>
+                      {/* Thumbnail with internal parallax */}
+                      <button
+                        type="button"
+                        onClick={(e) => openModal(cert, e)}
+                        className="relative w-full aspect-[16/10] rounded-lg overflow-hidden bg-[var(--bg-secondary)] border border-[var(--separator)] mb-4 block group-hover:border-[var(--accent-border)] transition-[border-color] duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)] min-h-[44px]"
+                        aria-label={`View full certificate: ${cert.title}`}
+                      >
+                        <ParallaxImage containerClassName="w-full h-full relative overflow-hidden">
+                          <Image
+                            src={getAssetPath(cert.imagePreview)}
+                            alt={cert.title}
+                            fill
+                            className="object-cover object-top group-hover:scale-105 transition-transform duration-200"
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                          />
+                          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-opacity" />
+                        </ParallaxImage>
+                      </button>
+
+                      <div className="flex items-center justify-between gap-2 mb-2 font-mono text-[11px]">
+                        <span className="text-[var(--accent)] font-medium">
+                          {cert.issuer}
+                        </span>
+                        <span className="text-[var(--text-muted)] tabular-nums">
+                          {cert.year}
+                        </span>
+                      </div>
+
+                      <h4 className="text-sm font-bold text-[var(--text-primary)] leading-snug mb-2 font-sans">
+                        {cert.title}
+                      </h4>
+
+                      <p className="text-xs text-[var(--text-secondary)] leading-relaxed mb-4">
+                        {cert.description}
+                      </p>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="pt-3 border-t border-[var(--separator)] flex items-center justify-between gap-2">
+                      <button
+                        type="button"
+                        onClick={(e) => openModal(cert, e)}
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent)] hover:text-[var(--accent-hover)] hover:underline min-h-[44px] px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
+                      >
+                        <FileCheck size={14} aria-hidden="true" />
+                        <span>Inspect Document</span>
+                      </button>
+
+                      <a
+                        href={getAssetPath(cert.documentUrl)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors min-h-[44px] px-2 py-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
+                        aria-label={`Open original document for ${cert.title}`}
+                      >
+                        <span>Raw File</span>
+                        <ExternalLink size={12} aria-hidden="true" />
+                      </a>
+                    </div>
+                  </LiquidGlass>
+                </ParallaxCard>
+              ))}
+            </div>
+          </div>
+        </details>
       </motion.div>
 
       {/* Accessible Document Preview Lightbox Modal with Keyboard Trap & Escape Listener */}
