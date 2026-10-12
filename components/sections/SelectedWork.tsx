@@ -281,7 +281,7 @@ function ProjectTiltCard({ project, index, onExpand }: TiltCardProps) {
                 <h3 className="text-xl md:text-2xl font-display font-bold text-[var(--text-primary)] mb-2 leading-tight group-hover:text-[var(--accent)] transition-colors">
                   <Link
                     href={`/projects/${project.slug}`}
-                    className="hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--focus-ring)] rounded"
+                    className="relative inline-block py-1 hover:underline focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[var(--focus-ring)] rounded before:absolute before:-inset-y-2 before:inset-x-0"
                   >
                     {project.name}
                   </Link>

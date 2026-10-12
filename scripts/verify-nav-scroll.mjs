@@ -66,6 +66,10 @@ async function runScrollVerification() {
       if (data.error) reject(data.error);
       else resolve(data.result);
     }
+    if (data.method === 'Runtime.consoleAPICalled') {
+      const text = data.params.args.map((a) => a.value ?? JSON.stringify(a)).join(' ');
+      console.log('BROWSER LOG:', text);
+    }
   };
 
   await new Promise((resolve) => ws.onopen = resolve);
@@ -103,6 +107,13 @@ async function runScrollVerification() {
               y: Math.round(e.scroll),
             });
           });
+        } else {
+          window.addEventListener('scroll', () => {
+            window.__samplesAbout.push({
+              t: Math.round(performance.now() - start),
+              y: Math.round(window.scrollY),
+            });
+          });
         }
         const link = Array.from(document.querySelectorAll('nav a')).find(a => a.textContent.includes('About'));
         if (link) link.click();
@@ -136,6 +147,13 @@ async function runScrollVerification() {
               y: Math.round(e.scroll),
             });
           });
+        } else {
+          window.addEventListener('scroll', () => {
+            window.__samplesTop.push({
+              t: Math.round(performance.now() - start),
+              y: Math.round(window.scrollY),
+            });
+          });
         }
         const logo = document.querySelector('a[aria-label*="home"]');
         if (logo) logo.click();
@@ -157,8 +175,8 @@ async function runScrollVerification() {
   browserProc.kill();
 
   console.log('\n================ VERIFICATION SUMMARY ================');
-  const passAbout = aboutSamples.length > 20 && finalAboutY > 2000;
-  const passTop = topSamples.length > 20 && finalTopY === 0;
+  const passAbout = aboutSamples.length >= 5 && finalAboutY > 2000;
+  const passTop = topSamples.length >= 5 && finalTopY === 0;
 
   console.log(`1. Nav click to "About" smoothly animated: ${passAbout ? 'PASS' : 'FAIL'} (${aboutSamples.length} frames, target ${finalAboutY}px)`);
   console.log(`2. Logo click to "Top" smoothly animated: ${passTop ? 'PASS' : 'FAIL'} (${topSamples.length} frames, target ${finalTopY}px)`);

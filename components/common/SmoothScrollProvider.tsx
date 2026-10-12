@@ -107,10 +107,15 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     }, 150);
 
     // Respect reduced motion and mobile touch devices: 100% native scrolling
-    const isTouch = typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isTouchOnly =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(pointer: coarse)').matches &&
+      !window.matchMedia('(pointer: fine)').matches;
+    const prefersReduced =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (isTouch || prefersReduced) {
+    if (isTouchOnly || prefersReduced) {
       const handleNativeScroll = () => {
         const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
         const progress = scrollHeight > 0 ? Math.min(Math.max(window.scrollY / scrollHeight, 0), 1) : 0;

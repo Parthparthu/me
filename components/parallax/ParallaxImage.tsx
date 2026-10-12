@@ -54,7 +54,7 @@ export function ParallaxImage({
           scale,
           willChange: shouldReduceMotion ? 'auto' : 'transform',
         }}
-        className={`w-full h-full ${className}`}
+        className={`w-full h-full relative ${className}`}
       >
         {children}
       </motion.div>

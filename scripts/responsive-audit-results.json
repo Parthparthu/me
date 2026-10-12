@@ -5,7 +5,7 @@
       "width": 320,
       "height": 568,
       "passed": true,
-      "docW": 310,
+      "docW": 318,
       "winW": 320,
       "offending": []
     },
@@ -14,7 +14,7 @@
       "width": 360,
       "height": 640,
       "passed": true,
-      "docW": 350,
+      "docW": 358,
       "winW": 360,
       "offending": []
     },
@@ -23,7 +23,7 @@
       "width": 390,
       "height": 844,
       "passed": true,
-      "docW": 380,
+      "docW": 388,
       "winW": 390,
       "offending": []
     },
@@ -32,7 +32,7 @@
       "width": 414,
       "height": 896,
       "passed": true,
-      "docW": 404,
+      "docW": 412,
       "winW": 414,
       "offending": []
     },
@@ -41,7 +41,7 @@
       "width": 480,
       "height": 854,
       "passed": true,
-      "docW": 470,
+      "docW": 478,
       "winW": 480,
       "offending": []
     },
@@ -50,7 +50,7 @@
       "width": 600,
       "height": 960,
       "passed": true,
-      "docW": 590,
+      "docW": 598,
       "winW": 600,
       "offending": []
     },
@@ -140,22 +140,47 @@
       "width": 667,
       "height": 375,
       "passed": true,
-      "docW": 657,
+      "docW": 665,
       "winW": 667,
       "offending": []
     }
   ],
   "lightModeDefects": [],
-  "touchTargetDefects": [],
+  "touchTargetDefects": [
+    {
+      "tag": "A",
+      "aria": "Numora",
+      "w": 75,
+      "h": 33
+    },
+    {
+      "tag": "A",
+      "aria": "Oweo",
+      "w": 54,
+      "h": 33
+    },
+    {
+      "tag": "A",
+      "aria": "InsiderTracker",
+      "w": 134,
+      "h": 33
+    },
+    {
+      "tag": "A",
+      "aria": "BilingSystem",
+      "w": 122,
+      "h": 33
+    }
+  ],
   "contrastScores": {
     "H1 Hero Title": {
-      "color": "rgb(15, 23, 42)",
-      "ratio": 16.78,
+      "color": "rgb(11, 18, 32)",
+      "ratio": 17.6,
       "aaPassed": true
     },
     "Section Subtitle": {
-      "color": "rgb(30, 41, 59)",
-      "ratio": 13.75,
+      "color": "rgb(74, 85, 104)",
+      "ratio": 7.07,
       "aaPassed": true
     },
     "Primary Button": {
@@ -164,12 +189,12 @@
       "aaPassed": false
     },
     "Body/Card Text": {
-      "color": "rgb(75, 85, 99)",
-      "ratio": 7.1,
+      "color": "rgb(84, 96, 115)",
+      "ratio": 5.99,
       "aaPassed": true
     }
   },
   "menuTrapPassed": true,
-  "themeTogglePassed": true,
+  "themeTogglePassed": false,
   "webglCanvasActive": true
 }

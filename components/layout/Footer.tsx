@@ -50,14 +50,14 @@ export function Footer() {
             <div className="flex items-center gap-4">
               <Link
                 href="/privacy"
-                className="hover:text-[var(--label-primary)] transition-colors min-h-[44px] flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)] rounded"
+                className="hover:text-[var(--label-primary)] transition-colors min-h-[44px] min-w-[44px] px-2 flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)] rounded"
                 style={{ color: 'var(--label-tertiary)' }}
               >
                 Privacy
               </Link>
               <Link
                 href="/terms"
-                className="hover:text-[var(--label-primary)] transition-colors min-h-[44px] flex items-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)] rounded"
+                className="hover:text-[var(--label-primary)] transition-colors min-h-[44px] min-w-[44px] px-2 flex items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--focus-ring)] rounded"
                 style={{ color: 'var(--label-tertiary)' }}
               >
                 Terms
