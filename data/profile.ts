@@ -22,23 +22,27 @@ export const profile: Profile = {
   focusAreas: [
     {
       icon: 'Code2',
-      label: 'Software & Web Applications',
-      description: 'Python, TypeScript, React, Next.js, FastAPI, and progressive web application development',
+      label: 'Web & Full-Stack Applications',
+      description: 'Building responsive web applications and PWAs using TypeScript, React, Next.js, and Python with local persistence and accessible UI architecture.',
+      technologies: ['TypeScript', 'Next.js', 'React', 'Tailwind CSS', 'Python'],
+    },
+    {
+      icon: 'Layers',
+      label: 'Interactive 3D & Graphics',
+      description: 'Constructing performant WebGL and React Three Fiber environments with single-canvas architecture, custom shaders, and graceful static fallbacks.',
+      technologies: ['Three.js', 'React Three Fiber', 'GLSL', 'WebGL'],
     },
     {
       icon: 'TrendingUp',
-      label: 'Financial Data Tools',
-      description: 'SEC EDGAR data parsing, market data pipelines, and interactive financial dashboards',
-    },
-    {
-      icon: 'Brain',
-      label: 'Academic AI/ML Specialization',
-      description: 'Foundational coursework in algorithms, data structures, and machine learning principles',
+      label: 'Financial Data & Systems',
+      description: 'Engineering desktop and web utilities for market metrics, SEC EDGAR filing parsing, and real-time transaction tracking with structured schemas.',
+      technologies: ['Python', 'FastAPI', 'SQLite', 'IndexedDB', 'Data Modeling'],
     },
     {
       icon: 'Trophy',
       label: 'Systematic Problem Solving',
-      description: 'Algorithmic practice, memory discipline, and structured analytical debugging',
+      description: 'Applying spatial indexing and mnemonic discipline from competitive mental athletics (WMC 2023 Bronze Medal) to algorithms and system architecture.',
+      technologies: ['Algorithms', 'Data Structures', 'Spatial Mapping', 'Debugging'],
     },
   ],
 };

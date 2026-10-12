@@ -1,3 +1,10 @@
+export interface FocusArea {
+  icon: string;
+  label: string;
+  description: string;
+  technologies?: string[];
+}
+
 export interface Profile {
   name: string;
   title: string;
@@ -12,9 +19,6 @@ export interface Profile {
   };
   currentStatus: string;
   fullBio: string[];
-  focusAreas: Array<{
-    icon: string;
-    label: string;
-    description: string;
-  }>;
+  focusAreas: FocusArea[];
 }
+
