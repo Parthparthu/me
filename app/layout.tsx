@@ -24,7 +24,7 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://parthparthu.github.io';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://parthparthu.github.io/me';
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH
   ? (process.env.NEXT_PUBLIC_BASE_PATH.endsWith('/')
       ? process.env.NEXT_PUBLIC_BASE_PATH.slice(0, -1)
@@ -34,7 +34,7 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'Pradyumna: Software & Web Developer',
+    default: 'Pradyumna | Software & Web Developer',
     template: '%s | Pradyumna',
   },
   description:
@@ -79,7 +79,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_IN',
     url: siteUrl,
-    title: 'Pradyumna: Software & Web Developer',
+    title: 'Pradyumna | Software & Web Developer',
     description:
       'First-year B.Tech CSE (AI/ML) student at GL Bajaj ITM building practical web applications, data tools, and systems. World Memory Championship Bronze Medalist (2023).',
     siteName: 'Pradyumna Portfolio',
@@ -88,13 +88,13 @@ export const metadata: Metadata = {
         url: `${siteUrl}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: 'Pradyumna: Software and Web Developer Portfolio',
+        alt: 'Pradyumna | Software and Web Developer Portfolio',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Pradyumna: Software & Web Developer',
+    title: 'Pradyumna | Software & Web Developer',
     description:
       'First-year B.Tech CSE (AI/ML) student at GL Bajaj ITM. Software and web developer. World Memory Championship Bronze Medalist (2023).',
     creator: '@Parthparthu',
