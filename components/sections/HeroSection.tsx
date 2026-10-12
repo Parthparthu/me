@@ -135,7 +135,7 @@ export function HeroSection() {
                 className="text-xs font-medium leading-none"
                 style={{ color: 'var(--success)' }}
               >
-                Open to Internships: Greater Noida, Noida, Delhi NCR &amp; Remote
+                Open to Internships &middot; Greater Noida, Noida, Delhi NCR &amp; Remote
               </span>
             </div>
           </LiquidGlass>
@@ -170,7 +170,8 @@ export function HeroSection() {
           >
             First-year Computer Science and Engineering (AI/ML) student at GL Bajaj ITM,
             Greater Noida (graduating 2030), programming since 2019. Building practical web
-            applications, data tools, and progressive web apps.
+            applications, data tools, and systems. Available for software engineering internships
+            across Greater Noida, Noida, Delhi NCR, and remote settings.
           </p>
 
           {/* CTAs */}
