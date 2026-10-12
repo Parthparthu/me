@@ -179,9 +179,7 @@ All package versions are pinned in [`package.json`](package.json) to guarantee r
 | **State & Forms** | `zustand` | `^5.0.15` | [zustand-demo.pmnd.rs](https://zustand-demo.pmnd.rs/) | Lightweight reactive client state store |
 | | `react-hook-form` | `^7.53.2` | [react-hook-form.com](https://react-hook-form.com/) | High-performance form state and event validation |
 | | `zod` | `^3.23.8` | [zod.dev](https://zod.dev/) | TypeScript-first schema declaration and input validation |
-| | `@hookform/resolvers` | `^3.9.1` | [react-hook-form.com](https://react-hook-form.com/) | Zod schema resolver integration for React Hook Form |
-| **Email Services** | `resend` | `^4.0.1` | [resend.com](https://resend.com/) | Serverless transactional email delivery API |
-| **Build & Tooling** | `eslint` | `^9.14.0` | [eslint.org](https://eslint.org/) | Code quality, accessibility, and style enforcement |
+| **Forms & Inquiries** | Client-side API | N/A | [web3forms.com](https://web3forms.com/) | Static client submission via Web3Forms/Formspree or direct mailto |
 | | `postcss` | `^8.4.49` | [postcss.org](https://postcss.org/) | CSS transformation and prefix pipeline |
 | | `autoprefixer` | `^10.4.20` | [github.com/postcss/autoprefixer](https://github.com/postcss/autoprefixer) | Vendor prefix automation for cross-browser support |
 
@@ -418,9 +416,9 @@ cp .env.example .env.local
 | Variable | Required | Description | Default in Code |
 |:---|:---:|:---|:---|
 | `NEXT_PUBLIC_SITE_URL` | No | Base URL for metadata and Open Graph links | `https://parthparthu.github.io/me` |
-| `NEXT_PUBLIC_BASE_PATH` | No | Base path for subpath GitHub Pages hosting | `""` |
-| `RESEND_API_KEY` | No | Transactional email delivery key for contact form | `""` (falls back to `mailto:`) |
-| `CONTACT_EMAIL` | No | Target recipient email for contact messages | `pradyumna05@outlook.in` |
+| `NEXT_PUBLIC_FORMSPREE_ID` | No | Formspree form ID for client-side submissions | `""` (falls back to Web3Forms/mailto) |
+| `NEXT_PUBLIC_WEB3FORMS_KEY` | No | Web3Forms access key for client-side submissions | `""` (falls back to `mailto:`) |
+| `CONTACT_EMAIL` | No | Target recipient email for direct inquiries or mailto fallback | `pradyumna05@outlook.in` |
 
 ### Development Server
 

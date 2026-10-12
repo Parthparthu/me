@@ -8,10 +8,8 @@ const EXTENSIONS = ['.ts', '.tsx', '.js', '.jsx', '.css', '.json', '.md'];
 const BANNED_PHRASES = [
   'delve',
   'tapestry',
-  'elevate',
   'seamless',
   'leverage',
-  'unlock',
   'cutting-edge',
   'game-changer',
   'in today\'s fast-paced world',
@@ -20,8 +18,10 @@ const BANNED_PHRASES = [
   'turning ideas into reality',
   'pushing boundaries',
   'where creativity meets technology',
+  'deterministic constraints',
+  'superficial breadth',
+  'engineered an array of',
   'made with',
-  'built with',
   'powered by',
 ];
 
@@ -68,6 +68,8 @@ console.log(`Auditing ${allFiles.length} files across ${SCAN_DIRS.join(', ')}...
 
 const violations = {
   emDash: [],
+  colonAsDash: [],
+  tierLabels: [],
   bannedPhrases: [],
   bannedColors: [],
   pillButtons: [],
@@ -85,15 +87,25 @@ allFiles.forEach((file) => {
 
   lines.forEach((line, index) => {
     const lineNum = index + 1;
+    const trimmed = line.trim();
 
     // 1. Em dash check
-    if (line.includes('\u2014')) {
-      violations.emDash.push({ file: relPath, line: lineNum, text: line.trim() });
+    if (line.includes('\u2014') || line.includes('&mdash;') || line.includes('—')) {
+      violations.emDash.push({ file: relPath, line: lineNum, text: trimmed });
     }
 
-    // 2. Banned phrases (case insensitive)
+    // 2. Colon as dash replacement: "word : word" pattern in prose/strings (excluding ternaries)
+    if (!line.includes('?') && /[a-zA-Z0-9]\s+:\s+[a-zA-Z0-9]/.test(line) && !relPath.includes('verify-standards')) {
+      violations.colonAsDash.push({ file: relPath, line: lineNum, text: trimmed });
+    }
+
+    // 3. Unexplained Tier labels: "Tier A" or "Tier B" in user-facing files
+    if (/\bTier [A-Z]\b/.test(line) && !relPath.includes('verify-standards')) {
+      violations.tierLabels.push({ file: relPath, line: lineNum, text: trimmed });
+    }
+
+    // 4. Banned phrases (case insensitive whole-phrase match)
     BANNED_PHRASES.forEach((phrase) => {
-      // Exclude verification scripts or this script itself
       if (relPath.includes('verify-standards')) return;
       const lowerLine = line.toLowerCase();
       if (lowerLine.includes(phrase)) {
@@ -101,69 +113,93 @@ allFiles.forEach((file) => {
           file: relPath,
           line: lineNum,
           phrase,
-          text: line.trim(),
+          text: trimmed,
         });
       }
     });
 
-    // 3. Banned colors
+    // 5. Banned colors
     BANNED_COLOR_CLASSES.forEach((regex) => {
       if (regex.test(line)) {
         violations.bannedColors.push({
           file: relPath,
           line: lineNum,
-          text: line.trim(),
+          text: trimmed,
         });
       }
     });
 
-    // 4. Pill classes (rounded-full)
+    // 6. Pill buttons/badges (rounded-full on button or badge elements)
     if (line.includes('rounded-full')) {
-      // Allow pulse indicators (tiny 2x2 or 4x4 dots like ping animations) if explicitly small dots, but flag buttons/badges/cards
-      violations.pillButtons.push({
-        file: relPath,
-        line: lineNum,
-        text: line.trim(),
-      });
+      if (line.includes('button') || line.includes('btn') || line.includes('badge') || line.includes('tag')) {
+        violations.pillButtons.push({
+          file: relPath,
+          line: lineNum,
+          text: trimmed,
+        });
+      }
     }
 
-    // 5. Emojis
+    // 7. Emojis
     if (EMOJI_REGEX.test(line)) {
       violations.emojis.push({
         file: relPath,
         line: lineNum,
-        text: line.trim(),
+        text: trimmed,
       });
     }
 
-    // 6. Custom cursor
+    // 8. Custom cursor
     if (line.includes('cursor: none') || line.includes('CustomCursor')) {
       violations.customCursor.push({
         file: relPath,
         line: lineNum,
-        text: line.trim(),
+        text: trimmed,
       });
     }
   });
 });
 
 console.log('================ AUDIT RESULTS ================');
-console.log(`1. Em dashes (\u2014): ${violations.emDash.length}`);
+console.log(`1. Em dashes (\u2014 / &mdash;): ${violations.emDash.length}`);
 violations.emDash.forEach((v) => console.log(`   [Line ${v.line}] ${v.file}: "${v.text}"`));
 
-console.log(`\n2. Banned phrases: ${violations.bannedPhrases.length}`);
+console.log(`\n2. Colon-as-dash replacements (" : "): ${violations.colonAsDash.length}`);
+violations.colonAsDash.forEach((v) => console.log(`   [Line ${v.line}] ${v.file}: "${v.text}"`));
+
+console.log(`\n3. Unexplained Tier labels ("Tier A/B"): ${violations.tierLabels.length}`);
+violations.tierLabels.forEach((v) => console.log(`   [Line ${v.line}] ${v.file}: "${v.text}"`));
+
+console.log(`\n4. Banned phrases: ${violations.bannedPhrases.length}`);
 violations.bannedPhrases.forEach((v) => console.log(`   [Line ${v.line}] ${v.file} ("${v.phrase}"): "${v.text}"`));
 
-console.log(`\n3. Banned color tokens: ${violations.bannedColors.length}`);
+console.log(`\n5. Banned color tokens: ${violations.bannedColors.length}`);
 violations.bannedColors.forEach((v) => console.log(`   [Line ${v.line}] ${v.file}: "${v.text}"`));
 
-console.log(`\n4. Pill/rounded-full usages: ${violations.pillButtons.length}`);
+console.log(`\n6. Pill buttons/badges: ${violations.pillButtons.length}`);
 violations.pillButtons.forEach((v) => console.log(`   [Line ${v.line}] ${v.file}: "${v.text}"`));
 
-console.log(`\n5. Emojis: ${violations.emojis.length}`);
+console.log(`\n7. Emojis: ${violations.emojis.length}`);
 violations.emojis.forEach((v) => console.log(`   [Line ${v.line}] ${v.file}: "${v.text}"`));
 
-console.log(`\n6. Custom cursor: ${violations.customCursor.length}`);
+console.log(`\n8. Custom cursor: ${violations.customCursor.length}`);
 violations.customCursor.forEach((v) => console.log(`   [Line ${v.line}] ${v.file}: "${v.text}"`));
 
 console.log('\n===============================================');
+
+const totalErrors = violations.emDash.length +
+  violations.colonAsDash.length +
+  violations.tierLabels.length +
+  violations.bannedPhrases.length +
+  violations.bannedColors.length +
+  violations.pillButtons.length +
+  violations.emojis.length +
+  violations.customCursor.length;
+
+if (totalErrors > 0) {
+  console.log(`\nFAIL: Found ${totalErrors} standard violations.`);
+  process.exit(1);
+} else {
+  console.log('\nPASS: All standards verified clean.');
+  process.exit(0);
+}

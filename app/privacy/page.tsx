@@ -64,7 +64,7 @@ export default function PrivacyPage() {
               <strong className="text-[var(--text-primary)]">GitHub Pages:</strong> Hosts static website files and delivers content. Standard server access logs may be collected by GitHub in accordance with their privacy policy.
             </li>
             <li>
-              <strong className="text-[var(--text-primary)]">Resend:</strong> Used solely to process and forward submitted contact form messages directly to pradyumna05@outlook.in.
+              <strong className="text-[var(--text-primary)]">Contact Submission Provider:</strong> Form submissions are handled directly from the client via Web3Forms or Formspree to deliver messages to pradyumna05@outlook.in, or through a direct mailto link. No message content is stored in an intermediate database on this site.
             </li>
             <li>
               <strong className="text-[var(--text-primary)]">Google Fonts:</strong> Font assets are self-hosted and bundled at build time through Next.js. Your browser does not send requests to Google servers during your visit.
