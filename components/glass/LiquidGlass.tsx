@@ -1,13 +1,12 @@
 /**
- * LiquidGlass: Multi-layer refractive liquid glass renderer.
+ * LiquidGlass: Clean Apple-inspired translucent and solid surface component.
  *
  * Engineered with:
- * - Multi-layer elevation scale (blur 14px to 42px, saturation boost)
- * - Refractive SVG displacement filter (#glass-distort) for Chromium / high quality
+ * - Multi-layer elevation scale (subtle blur, layered soft shadows)
  * - Dynamic specular highlight tracking pointer movement (--gl-x, --gl-y)
  * - Crisp hairline top edge specular rim highlight
- * - Continuous squircle corners adhering to concentric radius rules
- * - Strictly non-purple tint palette with full WCAG AA contrast compliance in both themes
+ * - Concentric squircle corners adhering to nested radius rules
+ * - Strictly navy and cyan palette with full WCAG AA contrast compliance in both themes
  */
 'use client';
 
@@ -23,8 +22,8 @@ import { POINTER_REACTIVE_3D, NAV_BLUR } from '@/lib/config';
 import { cn } from '@/lib/utils';
 
 export type GlassElevation = 1 | 2 | 3 | 4 | 5;
-export type GlassTint = 'neutral' | 'cyan' | 'amber' | 'emerald' | 'violet' | 'rose' | 'auto';
-export type GlassVariant = 'default' | 'badge' | 'card' | 'panel' | 'modal' | 'button' | 'input' | 'pill';
+export type GlassTint = 'neutral' | 'cyan' | 'amber' | 'emerald' | 'auto';
+export type GlassVariant = 'default' | 'badge' | 'card' | 'panel' | 'modal' | 'button' | 'input';
 
 export interface LiquidGlassProps extends HTMLAttributes<HTMLDivElement> {
   elevation?: GlassElevation;
@@ -149,17 +148,6 @@ const TINT_COLORS: Record<GlassTint, { dark: string; light: string; glow: string
     dark: 'rgba(16, 185, 129, 0.08)',
     light: 'rgba(5, 150, 105, 0.06)',
     glow: 'rgba(5, 150, 105, 0.08)',
-  },
-  // Map legacy violet/rose requests to neutral/cyan
-  violet: {
-    dark: 'rgba(34, 211, 238, 0.08)',
-    light: 'rgba(3, 105, 161, 0.06)',
-    glow: 'rgba(3, 105, 161, 0.08)',
-  },
-  rose: {
-    dark: 'transparent',
-    light: 'transparent',
-    glow: 'transparent',
   },
   auto: {
     dark: 'rgba(34, 211, 238, 0.08)',

@@ -6,7 +6,6 @@ import { SmoothScrollProvider } from '@/components/common/SmoothScrollProvider';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ClientOverlays } from '@/components/common/ClientOverlays';
-import { GlassSVGFilter } from '@/components/glass/GlassSVGFilter';
 import { SceneCanvasContainer } from '@/components/canvas/SceneCanvasContainer';
 
 const inter = Inter({
@@ -206,9 +205,6 @@ export default function RootLayout({
           <SceneCanvasContainer />
 
           <SmoothScrollProvider>
-            {/* SVG refraction filter definitions */}
-            <GlassSVGFilter />
-
             {/* Skip to main content for keyboard/screen reader users */}
             <a href="#main-content" className="skip-link">
               Skip to content
