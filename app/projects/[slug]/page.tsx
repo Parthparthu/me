@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, ArrowUpRight, Github, Cpu, CheckCircle2 } from 'lucide-react';
@@ -116,6 +117,20 @@ export default async function ProjectPage({ params }: Props) {
             ))}
           </div>
         </header>
+
+        {/* Project Preview Image */}
+        {project.image && (
+          <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-xl overflow-hidden mb-12 border border-[var(--border-subtle)] bg-[var(--bg-surface)]">
+            <Image
+              src={project.image}
+              alt={project.imageAlt || `${project.name} interface preview`}
+              fill
+              className="object-cover object-top"
+              sizes="(max-width: 1200px) 100vw, 1024px"
+              priority
+            />
+          </div>
+        )}
 
         {/* Case Study Content */}
         <div className="space-y-10">
