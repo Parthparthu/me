@@ -569,7 +569,7 @@ export function SelectedWork() {
               Featured Projects
             </h2>
             <p className="section-subtitle mt-2">
-              Production-grade applications engineered with focus on architecture, performance, and deterministic constraints.
+              Real software applications built with focus on clean architecture, performance, and reliable offline data.
             </p>
           </div>
 

@@ -27,7 +27,7 @@ const CATEGORIES = [
   'Algorithms',
 ];
 
-const TIERS = ['All', 'Tier A', 'Tier B'];
+const TIERS = ['All', 'Flagship', 'Utility'];
 
 const SPRING = { type: 'spring', stiffness: 280, damping: 28 } as const;
 
@@ -124,7 +124,7 @@ export default function ProjectsPageClient() {
                 >
                   {selectedTier === tier && (
                     <motion.span
-                      layoutId="tier-pill"
+                      layoutId="tier-active-indicator"
                       className="absolute inset-0 bg-[var(--bg-secondary)] border border-[var(--separator-strong)] rounded-[var(--radius-xs)] shadow-sm"
                       transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                     />
@@ -154,7 +154,7 @@ export default function ProjectsPageClient() {
                 >
                   {selectedCategory === cat && (
                     <motion.span
-                      layoutId="category-pill"
+                      layoutId="category-active-indicator"
                       className="absolute inset-0 bg-[var(--bg-secondary)] border border-[var(--separator-strong)] rounded-[var(--radius-xs)] shadow-sm"
                       transition={{ type: 'spring', stiffness: 400, damping: 32 }}
                     />

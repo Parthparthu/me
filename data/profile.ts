@@ -12,11 +12,11 @@ export const profile: Profile = {
     period: '2026 - 2030',
     year: '1st Year (Expected Graduation: 2030)',
   },
-  currentStatus: 'First-year B.Tech student open to software development and web internships. Preferred locations: Greater Noida, Noida, Delhi NCR, and Remote.',
+  currentStatus: 'First-year B.Tech student open to software development and web internships across Greater Noida, Noida, Delhi NCR, and remote settings.',
   fullBio: [
     'I am Pradyumna, a first-year Computer Science and Engineering (AI/ML) student at GL Bajaj Institute of Technology & Management, Greater Noida (expected graduation 2030). My programming journey began in 2019 through structured foundational curriculum at WhiteHat Jr, completing tracks in algorithmic thinking, game logic, UI/UX interface architecture, and mobile application development before progressing into self-directed systems engineering.',
-    'My public repositories span client-side PWAs, financial data pipelines, desktop software, and data visualization tools. Rather than chasing superficial breadth, each project serves as a focused investigation into a specific engineering problem: offline data persistence, real-time streaming, or structured data parsing.',
-    'I competed in the World Memory Championship and earned a Bronze Medal in 2023. The discipline of mental athletics: spatial mapping, structured pattern recognition, and systematic recall: strongly informs how I navigate large codebases, design data schemas, and troubleshoot software errors.',
+    'My public repositories span client-side PWAs, financial data pipelines, desktop software, and data visualization tools. Each project serves as a focused investigation into a specific engineering problem, such as offline data persistence, real-time streaming, or structured data parsing.',
+    'I competed in the World Memory Championship and earned a Bronze Medal in 2023. The discipline of mental athletics through spatial mapping, structured pattern recognition, and systematic recall directly informs how I navigate large codebases, design data schemas, and troubleshoot software errors.',
     'I am currently exploring software development internships across Greater Noida, Noida, Delhi NCR, and remote settings. This portfolio documents my actual codebase implementations with transparent case studies detailing technical decisions, tradeoffs, and current limitations.',
   ],
   focusAreas: [

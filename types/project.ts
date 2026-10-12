@@ -5,9 +5,9 @@ export type ProjectCategory =
   | 'Software / Tools'
   | 'Algorithms';
 
-export type ProjectTier = 'Tier A' | 'Tier B' | 'Tier C';
+export type ProjectTier = 'Flagship' | 'Utility';
 
-export type ProjectStatus = 'Production' | 'Active Development' | 'Completed' | 'Prototype' | 'Product Concept';
+export type ProjectStatus = 'Live' | 'Active Development' | 'Completed' | 'Prototype' | 'Product Concept';
 
 export interface CaseStudy {
   problem: string;
