@@ -17,12 +17,12 @@ const ICON_MAP: Record<string, LucideIcon> = {
 };
 
 const CATEGORY_ACCENTS = [
-  '#0ea5e9', // Languages: sky
-  '#0284c7', // Frameworks: blue
-  '#10b981', // Backend: emerald
-  '#f59e0b', // Storage: amber
-  '#0ea5e9', // Academic: sky
-  '#64748b', // Tools: slate
+  'var(--accent)',
+  'var(--accent)',
+  'var(--success)',
+  'var(--warning)',
+  'var(--accent)',
+  'var(--text-secondary)',
 ];
 
 const SPRING = { type: 'spring', stiffness: 280, damping: 28 } as const;
@@ -78,11 +78,7 @@ export function SkillsSection() {
                 {/* Category header */}
                 <div className="flex items-center gap-3 mb-4">
                   <div
-                    className="w-10 h-10 rounded-[var(--radius-sm)] flex items-center justify-center flex-shrink-0"
-                    style={{
-                      background: `${accent}15`,
-                      border: `1px solid ${accent}30`,
-                    }}
+                    className="w-10 h-10 rounded-[var(--radius-sm)] flex items-center justify-center flex-shrink-0 bg-[var(--bg-hover)] border border-[var(--separator)]"
                   >
                     <Icon
                       size={20}

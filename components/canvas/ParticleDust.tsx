@@ -46,7 +46,7 @@ export function ParticleDust() {
       </bufferGeometry>
       <pointsMaterial
         size={0.06}
-        color={isDark ? '#38bdf8' : '#0284c7'}
+        color={isDark ? '#22D3EE' : '#0369A1'}
         transparent
         opacity={isDark ? 0.45 : 0.32}
         sizeAttenuation

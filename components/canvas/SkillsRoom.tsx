@@ -9,13 +9,13 @@ import { useMouseParallax } from '@/hooks/useMouseParallax';
 import { POINTER_REACTIVE_3D } from '@/lib/config';
 import { skillCategories } from '@/data/skills';
 
-// Palette: Sky, Blue, Emerald, Amber, Slate (no purple/violet)
+// Palette: Cyan, Blue, Emerald, Amber, Light Cyan, Slate (strictly non-purple)
 const CATEGORY_COLORS = [
-  '#0ea5e9', // Languages: sky
-  '#0284c7', // Frameworks: blue
+  '#22D3EE', // Languages: cyan
+  '#0369A1', // Frameworks: blue
   '#10b981', // Backend: emerald
-  '#f59e0b', // Storage: amber
-  '#38bdf8', // Academic: cyan
+  '#F59E0B', // Storage: amber
+  '#67E8F9', // Academic: light cyan
   '#64748b', // Tools: slate
 ];
 
@@ -105,18 +105,18 @@ export function SkillsRoom() {
 
         {/* Central radiant cluster light */}
         <pointLight
-          color={isDark ? '#38bdf8' : '#0284c7'}
+          color={isDark ? '#22D3EE' : '#0369A1'}
           intensity={isDark ? 1.2 : 1.5}
           distance={8}
           decay={2}
         />
       </group>
 
-      {/* Backdrop glow: luminous sky in light mode, deep slate in dark */}
+      {/* Backdrop glow: luminous sky in light mode, deep ink navy in dark */}
       <mesh position={[0, 0, -3]}>
         <planeGeometry args={[10, 8]} />
         <meshBasicMaterial
-          color={isDark ? '#062038' : '#e0f2fe'}
+          color={isDark ? '#060B18' : '#F6F8FB'}
           transparent
           opacity={isDark ? 0.25 : 0.45}
         />

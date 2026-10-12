@@ -181,53 +181,53 @@ html[data-theme='dark'],
 [data-theme='dark'] {
   color-scheme: dark;
 
-  /* Backgrounds */
-  --bg-primary:    #0a0e1a;   /* Page background */
-  --bg-secondary:  #111827;   /* Card / surface */
-  --bg-grouped:    #0d1220;   /* Grouped list inset */
-  --bg-elevated:   #1c2740;   /* Modal, elevated sheet */
-  --bg-hover:      rgba(255, 255, 255, 0.06);
-  --bg-active:     rgba(255, 255, 255, 0.10);
+  /* Backgrounds: Refined deep ink navy */
+  --bg-primary:    #060B18;   /* Page background (deep ink navy) */
+  --bg-secondary:  #0E1626;   /* Card / surface */
+  --bg-grouped:    #090F1E;   /* Grouped list inset */
+  --bg-elevated:   #152033;   /* Elevated surface, modal */
+  --bg-hover:      rgba(255, 255, 255, 0.05);
+  --bg-active:     rgba(255, 255, 255, 0.08);
 
   /* Separators */
   --separator:        rgba(255, 255, 255, 0.08);
   --separator-strong: rgba(255, 255, 255, 0.14);
 
   /* Labels */
-  --label-primary:    #f8fafc;
-  --label-secondary:  #cbd5e1;
-  --label-tertiary:   #94a3b8;
-  --label-quaternary: #7888a5;
+  --label-primary:    #F2F5FA;
+  --label-secondary:  #A9B4C7;
+  --label-tertiary:   #8090AB;
+  --label-quaternary: #6F7B91;
 
-  /* Accent: sky-500 */
-  --accent:        #0ea5e9;
-  --accent-hover:  #38bdf8;
-  --accent-subtle: rgba(14, 165, 233, 0.12);
-  --accent-border: rgba(14, 165, 233, 0.28);
+  /* Accent: single cyan */
+  --accent:        #22D3EE;
+  --accent-hover:  #67E8F9;
+  --accent-subtle: rgba(34, 211, 238, 0.12);
+  --accent-border: rgba(34, 211, 238, 0.28);
 
   /* Semantic */
   --success:         #10b981;
   --success-subtle:  rgba(16, 185, 129, 0.12);
   --success-border:  rgba(16, 185, 129, 0.28);
-  --warning:         #f59e0b;
+  --warning:         #F59E0B;
   --warning-subtle:  rgba(245, 158, 11, 0.12);
   --warning-border:  rgba(245, 158, 11, 0.28);
   --destructive:     #ef4444;
-  --focus-ring:      #0ea5e9;
+  --focus-ring:      #22D3EE;
 
-  /* Shadows: tinted toward background hue */
-  --shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.30),
-                0 2px 4px  rgba(0, 0, 0, 0.20);
-  --shadow-md:  0 4px 12px rgba(0, 0, 0, 0.40),
-                0 2px 6px  rgba(0, 0, 0, 0.25);
-  --shadow-lg:  0 12px 32px rgba(0, 0, 0, 0.55),
-                0 4px 12px  rgba(0, 0, 0, 0.30);
-  --shadow-nav: 0 8px 24px rgba(0, 0, 0, 0.45),
-                0 2px 8px  rgba(0, 0, 0, 0.25),
+  /* Shadows: tinted toward deep navy background hue */
+  --shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.35),
+                0 2px 4px  rgba(0, 0, 0, 0.25);
+  --shadow-md:  0 4px 12px rgba(0, 0, 0, 0.45),
+                0 2px 6px  rgba(0, 0, 0, 0.30);
+  --shadow-lg:  0 12px 32px rgba(0, 0, 0, 0.60),
+                0 4px 12px  rgba(0, 0, 0, 0.35);
+  --shadow-nav: 0 8px 24px rgba(0, 0, 0, 0.50),
+                0 2px 8px  rgba(0, 0, 0, 0.30),
                 0 0 0 1px  rgba(255, 255, 255, 0.08);
-  --shadow-card-hover: 0 16px 40px rgba(0, 0, 0, 0.55),
-                       0 4px 12px  rgba(0, 0, 0, 0.30),
-                       0 0 0 1px   rgba(14, 165, 233, 0.18);
+  --shadow-card-hover: 0 16px 40px rgba(0, 0, 0, 0.60),
+                       0 4px 12px  rgba(0, 0, 0, 0.35),
+                       0 0 0 1px   rgba(34, 211, 238, 0.24);
 
   /* Legacy aliases (backward-compat with existing consumers) */
   --bg-app:             var(--bg-primary);
@@ -243,8 +243,8 @@ html[data-theme='dark'],
   --text-secondary:   var(--label-secondary);
   --text-tertiary:    var(--label-tertiary);
   --text-muted:       var(--label-quaternary);
-  --text-inverse:     #0a0e1a;
-  --text-on-accent:   #ffffff;
+  --text-inverse:     #060B18;
+  --text-on-accent:   #060B18;
 
   --border-specular: var(--separator-strong);
   --border-subtle:   var(--separator);
@@ -269,36 +269,36 @@ html[data-theme='dark'],
 
   --bg-grid-line: rgba(255, 255, 255, 0.03);
 
-  /* Nav inset gradient */
-  --gradient-brand: linear-gradient(90deg, var(--accent), #38bdf8);
+  /* Subtle cyan gradient */
+  --gradient-brand: linear-gradient(90deg, #22D3EE, #67E8F9);
 }
 
 /* ==========================================================================
    LIGHT THEME
-   Cool-tinted off-white backgrounds. Never pure white.
-   Accent: sky-600 #0284c7 for WCAG AA contrast.
+   Refined light background.
+   Accent: deeper cyan-blue #0369A1 for WCAG AA contrast.
    ========================================================================== */
 html[data-theme='light'],
 :root[data-theme='light'],
 [data-theme='light'] {
   color-scheme: light;
 
-  --bg-primary:    #f5f7fa;
-  --bg-secondary:  #ffffff;
-  --bg-grouped:    #eef1f6;
-  --bg-elevated:   #ffffff;
-  --bg-hover:      rgba(0, 0, 0, 0.04);
-  --bg-active:     rgba(0, 0, 0, 0.07);
+  --bg-primary:    #F6F8FB;
+  --bg-secondary:  #FFFFFF;
+  --bg-grouped:    #EDF1F7;
+  --bg-elevated:   #FFFFFF;
+  --bg-hover:      rgba(11, 18, 32, 0.04);
+  --bg-active:     rgba(11, 18, 32, 0.07);
 
-  --separator:        rgba(0, 0, 0, 0.09);
-  --separator-strong: rgba(0, 0, 0, 0.14);
+  --separator:        rgba(11, 18, 32, 0.10);
+  --separator-strong: rgba(11, 18, 32, 0.16);
 
-  --label-primary:    #0f172a;
-  --label-secondary:  #334155;
-  --label-tertiary:   #475569;
-  --label-quaternary: #64748b;
+  --label-primary:    #0B1220;
+  --label-secondary:  #4A5568;
+  --label-tertiary:   #596474;
+  --label-quaternary: #6B7686;
 
-  --accent:        #0369a1;
+  --accent:        #0369A1;
   --accent-hover:  #075985;
   --accent-subtle: rgba(3, 105, 161, 0.09);
   --accent-border: rgba(3, 105, 161, 0.22);
@@ -306,24 +306,24 @@ html[data-theme='light'],
   --success:         #059669;
   --success-subtle:  rgba(5, 150, 105, 0.09);
   --success-border:  rgba(5, 150, 105, 0.24);
-  --warning:         #d97706;
-  --warning-subtle:  rgba(217, 119, 6, 0.09);
-  --warning-border:  rgba(217, 119, 6, 0.24);
+  --warning:         #B45309;
+  --warning-subtle:  rgba(180, 83, 9, 0.09);
+  --warning-border:  rgba(180, 83, 9, 0.24);
   --destructive:     #dc2626;
-  --focus-ring:      #0284c7;
+  --focus-ring:      #0369A1;
 
-  --shadow-sm:  0 1px 2px rgba(15, 23, 42, 0.06),
-                0 2px 4px  rgba(15, 23, 42, 0.04);
-  --shadow-md:  0 4px 12px rgba(15, 23, 42, 0.10),
-                0 2px 6px  rgba(15, 23, 42, 0.06);
-  --shadow-lg:  0 12px 32px rgba(15, 23, 42, 0.14),
-                0 4px 12px  rgba(15, 23, 42, 0.08);
-  --shadow-nav: 0 8px 24px rgba(15, 23, 42, 0.12),
-                0 2px 8px  rgba(15, 23, 42, 0.06),
-                0 0 0 1px  rgba(0, 0, 0, 0.09);
-  --shadow-card-hover: 0 16px 40px rgba(15, 23, 42, 0.14),
-                       0 4px 12px  rgba(15, 23, 42, 0.08),
-                       0 0 0 1px   rgba(2, 132, 199, 0.18);
+  --shadow-sm:  0 1px 2px rgba(11, 18, 32, 0.05),
+                0 2px 4px  rgba(11, 18, 32, 0.03);
+  --shadow-md:  0 4px 12px rgba(11, 18, 32, 0.08),
+                0 2px 6px  rgba(11, 18, 32, 0.05);
+  --shadow-lg:  0 12px 32px rgba(11, 18, 32, 0.12),
+                0 4px 12px  rgba(11, 18, 32, 0.06);
+  --shadow-nav: 0 8px 24px rgba(11, 18, 32, 0.10),
+                0 2px 8px  rgba(11, 18, 32, 0.05),
+                0 0 0 1px  rgba(11, 18, 32, 0.10);
+  --shadow-card-hover: 0 16px 40px rgba(11, 18, 32, 0.12),
+                       0 4px 12px  rgba(11, 18, 32, 0.06),
+                       0 0 0 1px   rgba(3, 105, 161, 0.20);
 
   /* Legacy aliases */
   --bg-app:             var(--bg-primary);
@@ -339,13 +339,13 @@ html[data-theme='light'],
   --text-secondary:   var(--label-secondary);
   --text-tertiary:    var(--label-tertiary);
   --text-muted:       var(--label-quaternary);
-  --text-inverse:     #f5f7fa;
-  --text-on-accent:   #ffffff;
+  --text-inverse:     #F6F8FB;
+  --text-on-accent:   #FFFFFF;
 
   --border-specular: var(--separator-strong);
   --border-subtle:   var(--separator);
   --border-medium:   var(--separator-strong);
-  --border-strong:   rgba(0, 0, 0, 0.20);
+  --border-strong:   rgba(11, 18, 32, 0.22);
   --border-focus:    var(--focus-ring);
 
   --accent-primary:        var(--accent);
@@ -363,9 +363,9 @@ html[data-theme='light'],
   --shadow-glow:    0 0 0 1px var(--accent-border), var(--shadow-md);
   --shadow-xl:      var(--shadow-lg);
 
-  --bg-grid-line: rgba(15, 23, 42, 0.04);
+  --bg-grid-line: rgba(11, 18, 32, 0.04);
 
-  --gradient-brand: linear-gradient(90deg, var(--accent), #0ea5e9);
+  --gradient-brand: linear-gradient(90deg, #0369A1, #075985);
 }
 
 /* ==========================================================================

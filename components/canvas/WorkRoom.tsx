@@ -12,10 +12,10 @@ import { projects } from '@/data/projects';
 // Project accent colors (strictly non-purple)
 const PROJECT_ACCENTS: Record<string, { primary: string; secondary: string }> = {
   oweo: { primary: '#10b981', secondary: '#059669' },
-  numora: { primary: '#0ea5e9', secondary: '#0284c7' },
-  insidertracker: { primary: '#f59e0b', secondary: '#d97706' },
-  'codeclash-ai': { primary: '#38bdf8', secondary: '#0ea5e9' },
-  stockscreener: { primary: '#0284c7', secondary: '#0369a1' },
+  numora: { primary: '#22D3EE', secondary: '#0369A1' },
+  insidertracker: { primary: '#F59E0B', secondary: '#B45309' },
+  'codeclash-ai': { primary: '#67E8F9', secondary: '#22D3EE' },
+  stockscreener: { primary: '#0369A1', secondary: '#075985' },
 };
 
 function FloatingProjectPanel({
@@ -35,7 +35,7 @@ function FloatingProjectPanel({
   const isDark = theme === 'dark';
 
   const pointer = useMouseParallax();
-  const colors = PROJECT_ACCENTS[projectSlug] || { primary: '#0ea5e9', secondary: '#0284c7' };
+  const colors = PROJECT_ACCENTS[projectSlug] || { primary: '#22D3EE', secondary: '#0369A1' };
 
   useFrame((state, delta) => {
     if (!meshRef.current) return;
@@ -66,7 +66,7 @@ function FloatingProjectPanel({
           metalness={0.12}
           clearcoat={1.0}
           clearcoatRoughness={0.06}
-          color={isDark ? '#0c1b2f' : '#f0f9ff'}
+          color={isDark ? '#0E1626' : '#FFFFFF'}
           emissive={colors.primary}
           emissiveIntensity={isDark ? 0.15 : 0.08}
           transparent
@@ -149,7 +149,7 @@ export function WorkRoom() {
       <mesh position={[0, -9, -3.5]}>
         <planeGeometry args={[14, 8]} />
         <meshBasicMaterial
-          color={isDark ? '#082f49' : '#e0f2fe'}
+          color={isDark ? '#060B18' : '#F6F8FB'}
           transparent
           opacity={isDark ? 0.25 : 0.45}
         />

@@ -1,0 +1,1269 @@
+{
+  "desktop": {
+    "dimensions": {
+      "width": 1920,
+      "height": 1080,
+      "isMobile": false
+    },
+    "data": {
+      "title": "Portfolio | Deepak Gupta",
+      "bodyBg": "#000000 (0 alpha)",
+      "bodyColor": "#e5e6e9",
+      "canvases": 4,
+      "hasFramerMotion": false,
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Hi, I'm Deepak",
+          "color": "#6b21a8"
+        },
+        {
+          "tag": "H2",
+          "text": "Breaking Bugs & Building Dreams🔥",
+          "color": "#000000"
+        },
+        {
+          "tag": "H2",
+          "text": "Overview.",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Software Developer",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Frontend Developer",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Backend Developer",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Problem Solving",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Freelancer",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H2",
+          "text": "Work Experience.",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Frontend Developer",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Frontend Developer",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Frontend Developer Intern",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Project Admin",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Web Dev & Resume Building Mentor",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H2",
+          "text": "Skills.",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Languages",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Frameworks",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Libraries",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Databases",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Tools",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Environments",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Languages",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Frameworks",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Libraries",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Databases",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Tools",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Environments",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H2",
+          "text": "Projects.",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "IGDTUW3D",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "SheSync",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Thrive",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "RepoScout",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Kisaan Setu",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "ResQPlate",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Divios",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "InnerBloom",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Quake",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Disaster Management",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Mapify",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H2",
+          "text": "Certifications",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "Contributor",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "Full Stack Web Development",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "HACK-IT-UP Hackathon",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "DEVACATION'25 Hackathon",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "AGENT'S FEST 2k25",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "HACK FOR IMPACT",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "0 to 1 Hackathon",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "AM HACKS",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "BuildWithIndia",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "LEAN IN HACKS 6.0",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "WIEMPOWER 6.0",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "GLB Hackathon 4.0",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "Contact.",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H1",
+          "text": "2%",
+          "color": "#e5e6e9"
+        }
+      ],
+      "sampledElements": [
+        {
+          "selector": "body",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "linear-gradient(90deg, rgb(24, 24, 38), rgb(32, 32, 50) 50%, rgb(24, 24, 38))"
+        },
+        {
+          "selector": "nav",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "section",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "button",
+          "bg": "#212134 (0.404 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "a",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "[class*=\"card\"]",
+          "bg": "#ffffff (0.05 alpha)",
+          "color": "#d1d5db",
+          "borderColor": "#ffffff (0.1 alpha)",
+          "borderWidth": "1px",
+          "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.1) 0px 8px 10px -6px",
+          "backgroundImage": "linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))"
+        },
+        {
+          "selector": "[class*=\"bg-\"]",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "[class*=\"text-\"]",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "canvas",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "h1",
+          "bg": "#000000 (0 alpha)",
+          "color": "#6b21a8",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "h2",
+          "bg": "#000000 (0 alpha)",
+          "color": "#000000",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "h3",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "p",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        }
+      ],
+      "sections": [
+        {
+          "id": "__next",
+          "tag": "div",
+          "className": "",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "main",
+          "tag": "main",
+          "className": "relative z-0 w-full h-full",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "section",
+          "tag": "section",
+          "className": "relative w-full h-[100svh] md:max-h-[800px] max-h-[600px] mx-auto flex flex-col",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "section",
+          "tag": "section",
+          "className": "relative z-0 flex md:flex-row flex-col-reverse w-full h-full overflow-hidden",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "about",
+          "tag": "section",
+          "className": "md:my-36 md:w-2/3 w-full h-full xl:ml-36 lg:ml-12 p-8 md:mt-[40svh] xl:mt-[150px] relative",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "section",
+          "tag": "section",
+          "className": "md:padding max-w-7xl mx-auto relative z-0",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "section",
+          "tag": "section",
+          "className": "w-full p-8 mt-20",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "div",
+          "tag": "div",
+          "className": "vertical-timeline-element",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "div",
+          "tag": "div",
+          "className": "vertical-timeline-element",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "div",
+          "tag": "div",
+          "className": "vertical-timeline-element",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "div",
+          "tag": "div",
+          "className": "vertical-timeline-element",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "div",
+          "tag": "div",
+          "className": "vertical-timeline-element",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "section",
+          "tag": "section",
+          "className": "md:padding max-w-7xl mx-auto relative z-0",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "skills",
+          "tag": "section",
+          "className": "w-full h-fit p-8 mt-20",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "projects",
+          "tag": "section",
+          "className": "xl:my-36 md:mx-36 p-8 relative",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "certifications",
+          "tag": "section",
+          "className": "paddingX py-16",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "section",
+          "tag": "section",
+          "className": "relative z-0 flex md:flex-row justify-between flex-col-reverse w-full h-full overflow-x-hidden sm:p-",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "contact",
+          "tag": "div",
+          "className": "xl:my-36 md:w-2/5 w-full bg-bgSecondaryDark xl:ml-36 lg:ml-16 md:ml-10 p-8 rounded-2xl shadow-md sha",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(128, 77, 238) 0px 4px 6px -1px, rgb(128, 77, 238) 0px 2px 4px -2px"
+        }
+      ],
+      "scrollY": 0
+    },
+    "scroll": {
+      "scrollPos": 500,
+      "transformedCount": 115,
+      "transformedSamples": [
+        {
+          "tag": "radialGradient",
+          "id": "mountain1_svg__a",
+          "className": "[object SVGAnimatedString]",
+          "transform": "matrix(1076.34, -233.349, 101.152, 466.57, 210.461, 548.704)"
+        },
+        {
+          "tag": "radialGradient",
+          "id": "mountain2_svg__a",
+          "className": "[object SVGAnimatedString]",
+          "transform": "matrix(811.453, -242.522, 139.298, 466.076, 314.093, 570.6)"
+        },
+        {
+          "tag": "radialGradient",
+          "id": "mountain3_svg__a",
+          "className": "[object SVGAnimatedString]",
+          "transform": "matrix(1152.47, 436.426, -132.947, 351.073, -3.28097, -109.931)"
+        },
+        {
+          "tag": "radialGradient",
+          "id": "mountain5_svg__a",
+          "className": "[object SVGAnimatedString]",
+          "transform": "matrix(-1660.67, 31.7415, -13.1155, -686.181, 1614.19, 244.603)"
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "",
+          "transform": "matrix(1, 0, 0, 1, 0, -50)"
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "w-full md:h-[800px] sm:h-[300px] h-[200px] absolute md:top-[",
+          "transform": "matrix(1, 0, 0, 1, 0, 100)"
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "",
+          "transform": "matrix(1, 0, 0, 1, 951, 400)"
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": " flex justify-center items-center w-full h-full flex-col z-3",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        {
+          "tag": "SPAN",
+          "id": "",
+          "className": "canvas-loader z-30 text-white",
+          "transform": "matrix(1, 0, 0, 1, 0, 0)"
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "w-3 h-3 rounded-full bg-[#aaa6c3] mb-1",
+          "transform": "matrix(1, 0, 0, 1, 0, 17.7648)"
+        }
+      ]
+    }
+  },
+  "mobile": {
+    "dimensions": {
+      "width": 390,
+      "height": 844,
+      "isMobile": true
+    },
+    "data": {
+      "title": "Portfolio | Deepak Gupta",
+      "bodyBg": "#000000 (0 alpha)",
+      "bodyColor": "#e5e6e9",
+      "canvases": 3,
+      "hasFramerMotion": false,
+      "headings": [
+        {
+          "tag": "H1",
+          "text": "Hi, I'm Deepak",
+          "color": "#6b21a8"
+        },
+        {
+          "tag": "H2",
+          "text": "Breaking Bugs & Building Dreams🔥",
+          "color": "#000000"
+        },
+        {
+          "tag": "H2",
+          "text": "Overview.",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Software Developer",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Frontend Developer",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Backend Developer",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Problem Solving",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Freelancer",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H2",
+          "text": "Work Experience.",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Frontend Developer",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Frontend Developer",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Frontend Developer Intern",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Project Admin",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Web Dev & Resume Building Mentor",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H2",
+          "text": "Skills.",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Languages",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Frameworks",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Libraries",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Databases",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Tools",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Environments",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Languages",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Frameworks",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Libraries",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Databases",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Tools",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H3",
+          "text": "Environments",
+          "color": "#7e8c9f"
+        },
+        {
+          "tag": "H2",
+          "text": "Projects.",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "IGDTUW3D",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "SheSync",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Thrive",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "RepoScout",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Kisaan Setu",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "ResQPlate",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Divios",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "InnerBloom",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Quake",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Disaster Management",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H3",
+          "text": "Mapify",
+          "color": "#e5e6e9"
+        },
+        {
+          "tag": "H2",
+          "text": "Certifications",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "Contributor",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "Full Stack Web Development",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "HACK-IT-UP Hackathon",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "DEVACATION'25 Hackathon",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "AGENT'S FEST 2k25",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "HACK FOR IMPACT",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "0 to 1 Hackathon",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "AM HACKS",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "BuildWithIndia",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "LEAN IN HACKS 6.0",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "WIEMPOWER 6.0",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "GLB Hackathon 4.0",
+          "color": "#ffffff"
+        },
+        {
+          "tag": "H3",
+          "text": "Contact.",
+          "color": "#e5e6e9"
+        }
+      ],
+      "sampledElements": [
+        {
+          "selector": "body",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "linear-gradient(90deg, rgb(24, 24, 38), rgb(32, 32, 50) 50%, rgb(24, 24, 38))"
+        },
+        {
+          "selector": "nav",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "section",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "button",
+          "bg": "#212134 (0.404 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "a",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "[class*=\"card\"]",
+          "bg": "#ffffff (0.05 alpha)",
+          "color": "#d1d5db",
+          "borderColor": "#ffffff (0.1 alpha)",
+          "borderWidth": "1px",
+          "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.1) 0px 8px 10px -6px",
+          "backgroundImage": "linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02))"
+        },
+        {
+          "selector": "[class*=\"bg-\"]",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "[class*=\"text-\"]",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "canvas",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "h1",
+          "bg": "#000000 (0 alpha)",
+          "color": "#6b21a8",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "h2",
+          "bg": "#000000 (0 alpha)",
+          "color": "#000000",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "h3",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        },
+        {
+          "selector": "p",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "borderWidth": "0px",
+          "boxShadow": "none",
+          "backgroundImage": "none"
+        }
+      ],
+      "sections": [
+        {
+          "id": "__next",
+          "tag": "div",
+          "className": "",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "main",
+          "tag": "main",
+          "className": "relative z-0 w-full h-full",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "section",
+          "tag": "section",
+          "className": "relative w-full h-[100svh] md:max-h-[800px] max-h-[600px] mx-auto flex flex-col",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "section",
+          "tag": "section",
+          "className": "relative z-0 flex md:flex-row flex-col-reverse w-full h-full overflow-hidden",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "about",
+          "tag": "section",
+          "className": "md:my-36 md:w-2/3 w-full h-full xl:ml-36 lg:ml-12 p-8 md:mt-[40svh] xl:mt-[150px] relative",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "section",
+          "tag": "section",
+          "className": "md:padding max-w-7xl mx-auto relative z-0",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "section",
+          "tag": "section",
+          "className": "w-full p-8 mt-20",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "div",
+          "tag": "div",
+          "className": "vertical-timeline-element",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "div",
+          "tag": "div",
+          "className": "vertical-timeline-element",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "div",
+          "tag": "div",
+          "className": "vertical-timeline-element",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "div",
+          "tag": "div",
+          "className": "vertical-timeline-element",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "div",
+          "tag": "div",
+          "className": "vertical-timeline-element",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "section",
+          "tag": "section",
+          "className": "md:padding max-w-7xl mx-auto relative z-0",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "skills",
+          "tag": "section",
+          "className": "w-full h-fit p-8 mt-20",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "projects",
+          "tag": "section",
+          "className": "xl:my-36 md:mx-36 p-8 relative",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "certifications",
+          "tag": "section",
+          "className": "paddingX py-16",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "section",
+          "tag": "section",
+          "className": "relative z-0 flex md:flex-row justify-between flex-col-reverse w-full h-full overflow-x-hidden sm:p-",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "none"
+        },
+        {
+          "id": "contact",
+          "tag": "div",
+          "className": "xl:my-36 md:w-2/5 w-full bg-bgSecondaryDark xl:ml-36 lg:ml-16 md:ml-10 p-8 rounded-2xl shadow-md sha",
+          "bg": "#000000 (0 alpha)",
+          "color": "#e5e6e9",
+          "borderColor": "#e5e7eb",
+          "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgb(128, 77, 238) 0px 4px 6px -1px, rgb(128, 77, 238) 0px 2px 4px -2px"
+        }
+      ],
+      "scrollY": 0
+    },
+    "scroll": {
+      "scrollPos": 500,
+      "transformedCount": 102,
+      "transformedSamples": [
+        {
+          "tag": "radialGradient",
+          "id": "mountain1_svg__a",
+          "className": "[object SVGAnimatedString]",
+          "transform": "matrix(1076.34, -233.349, 101.152, 466.57, 210.461, 548.704)"
+        },
+        {
+          "tag": "radialGradient",
+          "id": "mountain2_svg__a",
+          "className": "[object SVGAnimatedString]",
+          "transform": "matrix(811.453, -242.522, 139.298, 466.076, 314.093, 570.6)"
+        },
+        {
+          "tag": "radialGradient",
+          "id": "mountain3_svg__a",
+          "className": "[object SVGAnimatedString]",
+          "transform": "matrix(1152.47, 436.426, -132.947, 351.073, -3.28097, -109.931)"
+        },
+        {
+          "tag": "radialGradient",
+          "id": "mountain5_svg__a",
+          "className": "[object SVGAnimatedString]",
+          "transform": "matrix(-1660.67, 31.7415, -13.1155, -686.181, 1614.19, 244.603)"
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "absolute top-0 -left-10 w-72 h-72 bg-purple-500 rounded-full",
+          "transform": "matrix(0.990786, 0, 0, 0.990786, -1.84288, 1.84288)"
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "absolute top-0 -right-10 w-72 h-72 bg-blue-500 rounded-full ",
+          "transform": "matrix(0.905454, 0, 0, 0.905454, -18.6364, 18.091)"
+        },
+        {
+          "tag": "DIV",
+          "id": "",
+          "className": "absolute -bottom-10 left-1/2 w-72 h-72 bg-pink-500 rounded-f",
+          "transform": "matrix(1.09967, 0, 0, 1.09967, 29.9017, -49.8362)"
+        },
+        {
+          "tag": "linearGradient",
+          "id": "email_svg__a",
+          "className": "[object SVGAnimatedString]",
+          "transform": "matrix(0.0283, 0, 0, -0.0283, 248.36, 225.244)"
+        },
+        {
+          "tag": "linearGradient",
+          "id": "email_svg__b",
+          "className": "[object SVGAnimatedString]",
+          "transform": "matrix(0.0283, 0, 0, -0.0283, 248.36, 225.244)"
+        },
+        {
+          "tag": "linearGradient",
+          "id": "email_svg__c",
+          "className": "[object SVGAnimatedString]",
+          "transform": "matrix(0.0283, 0, 0, -0.0283, 248.36, 225.244)"
+        }
+      ]
+    }
+  }
+}

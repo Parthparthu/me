@@ -122,8 +122,8 @@ export function HeroRoom() {
       distortion: 0.04,
       distortionScale: 0.1,
       temporalDistortion: 0,
-      color: isDark ? '#f0f9ff' : '#ffffff',
-      attenuationColor: isDark ? '#0284c7' : '#0369a1',
+      color: isDark ? '#F2F5FA' : '#FFFFFF',
+      attenuationColor: isDark ? '#22D3EE' : '#0369A1',
       attenuationDistance: isDark ? 0.75 : 0.65,
     }),
     [quality, isDark]
@@ -144,7 +144,7 @@ export function HeroRoom() {
             <icosahedronGeometry args={[1.515, 0]} />
             <meshBasicMaterial
               wireframe
-              color={isDark ? '#38bdf8' : '#0284c7'}
+              color={isDark ? '#22D3EE' : '#0369A1'}
               transparent
               opacity={isDark ? 0.25 : 0.42}
             />
@@ -154,8 +154,8 @@ export function HeroRoom() {
           <mesh ref={coreRef}>
             <octahedronGeometry args={[0.6, 0]} />
             <meshStandardMaterial
-              color="#0284c7"
-              emissive={isDark ? '#0ea5e9' : '#0284c7'}
+              color={isDark ? '#0369A1' : '#075985'}
+              emissive={isDark ? '#22D3EE' : '#0369A1'}
               emissiveIntensity={isDark ? 1.2 : 1.0}
               roughness={0.15}
               metalness={0.8}
@@ -164,7 +164,7 @@ export function HeroRoom() {
 
           {/* Inner Core Radiant Glow */}
           <pointLight
-            color={isDark ? '#38bdf8' : '#0284c7'}
+            color={isDark ? '#22D3EE' : '#0369A1'}
             intensity={isDark ? 1.8 : 1.4}
             distance={5}
             decay={2}
@@ -174,8 +174,8 @@ export function HeroRoom() {
           <mesh ref={outerRingRef}>
             <torusGeometry args={[isPortrait ? 1.7 : 2.2, 0.018, 16, 80]} />
             <meshStandardMaterial
-              color={isDark ? '#7dd3fc' : '#0284c7'}
-              emissive={isDark ? '#0284c7' : '#0369a1'}
+              color={isDark ? '#67E8F9' : '#0369A1'}
+              emissive={isDark ? '#22D3EE' : '#075985'}
               emissiveIntensity={isDark ? 0.6 : 0.4}
               roughness={0.1}
               metalness={0.9}
@@ -186,8 +186,8 @@ export function HeroRoom() {
           <mesh ref={innerRingRef} rotation={[Math.PI / 3, 0, 0]}>
             <torusGeometry args={[isPortrait ? 2.0 : 2.5, 0.015, 16, 80]} />
             <meshStandardMaterial
-              color={isDark ? '#38bdf8' : '#0ea5e9'}
-              emissive={isDark ? '#0369a1' : '#0284c7'}
+              color={isDark ? '#22D3EE' : '#075985'}
+              emissive={isDark ? '#0369A1' : '#0284c7'}
               emissiveIntensity={isDark ? 0.5 : 0.4}
               roughness={0.12}
               metalness={0.9}
@@ -198,8 +198,8 @@ export function HeroRoom() {
           <mesh ref={satelliteRef}>
             <octahedronGeometry args={[0.2, 0]} />
             <meshStandardMaterial
-              color="#38bdf8"
-              emissive="#0284c7"
+              color={isDark ? '#67E8F9' : '#0369A1'}
+              emissive={isDark ? '#22D3EE' : '#075985'}
               emissiveIntensity={isDark ? 0.9 : 0.7}
               roughness={0.1}
               metalness={0.9}

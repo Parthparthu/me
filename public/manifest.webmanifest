@@ -4,8 +4,8 @@
   "description": "B.Tech CSE (AI/ML) student and software developer portfolio.",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#0b0f17",
-  "theme_color": "#0b0f17",
+  "background_color": "#060B18",
+  "theme_color": "#060B18",
   "icons": [
     {
       "src": "./icon-192.png",

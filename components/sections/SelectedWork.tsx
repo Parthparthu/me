@@ -18,37 +18,37 @@ import { POINTER_REACTIVE_3D } from '@/lib/config';
 import { cn } from '@/lib/utils';
 import type { Project } from '@/types/project';
 
-// Project visual color palettes using slate, cyan, emerald, amber (no purple)
+// Project visual color palettes using deep navy, cyan, emerald, amber (strictly non-purple)
 const PROJECT_ACCENTS: Record<string, { from: string; to: string; accent: string; pattern: string }> = {
   numora: {
-    from: '#07162c',
-    to: '#0c2e4e',
-    accent: '#38bdf8',
-    pattern: 'radial-gradient(circle at 70% 30%, rgba(56,189,248,0.2) 0%, transparent 60%)',
+    from: '#060B18',
+    to: '#0E1626',
+    accent: '#22D3EE',
+    pattern: 'radial-gradient(circle at 70% 30%, rgba(34,211,238,0.2) 0%, transparent 60%)',
   },
   oweo: {
-    from: '#052e16',
-    to: '#064e3b',
+    from: '#060B18',
+    to: '#0B2418',
     accent: '#10b981',
     pattern: 'radial-gradient(circle at 70% 30%, rgba(16,185,129,0.2) 0%, transparent 60%)',
   },
   insidertracker: {
-    from: '#2e1905',
-    to: '#451a03',
-    accent: '#f59e0b',
+    from: '#060B18',
+    to: '#1F140A',
+    accent: '#F59E0B',
     pattern: 'radial-gradient(circle at 70% 30%, rgba(245,158,11,0.2) 0%, transparent 60%)',
   },
   'codeclash-ai': {
-    from: '#082f49',
-    to: '#0f172a',
-    accent: '#0ea5e9',
-    pattern: 'radial-gradient(circle at 70% 30%, rgba(14,165,233,0.2) 0%, transparent 60%)',
+    from: '#060B18',
+    to: '#0E1626',
+    accent: '#67E8F9',
+    pattern: 'radial-gradient(circle at 70% 30%, rgba(103,232,249,0.2) 0%, transparent 60%)',
   },
   stockscreener: {
-    from: '#0b1d3a',
-    to: '#0f172a',
-    accent: '#0284c7',
-    pattern: 'radial-gradient(circle at 70% 30%, rgba(2,132,199,0.2) 0%, transparent 60%)',
+    from: '#060B18',
+    to: '#0E1626',
+    accent: '#0369A1',
+    pattern: 'radial-gradient(circle at 70% 30%, rgba(3,105,161,0.2) 0%, transparent 60%)',
   },
 };
 

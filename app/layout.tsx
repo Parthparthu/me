@@ -193,7 +193,7 @@ export default function RootLayout({
         />
 
         {/* Theme color and color-scheme */}
-        <meta name="theme-color" content="#0a0e1a" />
+        <meta name="theme-color" content="#060B18" />
         <meta name="color-scheme" content="dark light" />
 
         {/* Viewport: safe areas, never disable user zoom */}

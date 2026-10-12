@@ -19,10 +19,10 @@ const ICON_MAP: Record<string, LucideIcon> = {
 };
 
 const FOCUS_COLORS = [
-  { tint: 'cyan', icon: Code2, accent: '#0ea5e9' },
-  { tint: 'amber', icon: TrendingUp, accent: '#f59e0b' },
-  { tint: 'cyan', icon: Brain, accent: '#0284c7' },
-  { tint: 'amber', icon: Trophy, accent: '#d97706' },
+  { tint: 'cyan', icon: Code2, accentVar: 'var(--accent)' },
+  { tint: 'amber', icon: TrendingUp, accentVar: 'var(--warning)' },
+  { tint: 'cyan', icon: Brain, accentVar: 'var(--accent)' },
+  { tint: 'amber', icon: Trophy, accentVar: 'var(--warning)' },
 ] as const;
 
 export function AboutSection() {
@@ -128,13 +128,13 @@ export function AboutSection() {
                   <div
                     className="w-10 h-10 rounded-[var(--radius-sm)] flex items-center justify-center"
                     style={{
-                      background: `${cfg.accent}15`,
-                      border: `1px solid ${cfg.accent}30`,
+                      background: cfg.tint === 'amber' ? 'var(--warning-subtle)' : 'var(--accent-subtle)',
+                      border: `1px solid ${cfg.tint === 'amber' ? 'var(--warning-border)' : 'var(--accent-border)'}`,
                     }}
                   >
                     <Icon
                       size={20}
-                      style={{ color: cfg.accent }}
+                      style={{ color: cfg.accentVar }}
                       aria-hidden="true"
                     />
                   </div>

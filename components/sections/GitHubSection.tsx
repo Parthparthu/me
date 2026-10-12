@@ -159,7 +159,7 @@ export function GitHubSection() {
               />
             ))
           : repos.map((repo, i) => {
-              const langColor = LANG_COLORS[repo.language] || '#0ea5e9';
+              const langColor = LANG_COLORS[repo.language] || 'var(--accent)';
 
               return (
                 <motion.a

@@ -38,7 +38,7 @@ function DynamicPointerLight() {
   return (
     <pointLight
       ref={lightRef}
-      color="#38bdf8"
+      color="#22D3EE"
       intensity={1.4}
       distance={14}
       decay={2}
@@ -57,14 +57,14 @@ export function SceneLighting() {
 
   return (
     <>
-      {/* Base ambient illumination: luminous sky in light mode, deep obsidian in dark */}
-      <ambientLight intensity={isDark ? 0.65 : 1.1} color={isDark ? '#0b1329' : '#e0f2fe'} />
+      {/* Base ambient illumination: luminous sky in light mode, deep ink navy in dark */}
+      <ambientLight intensity={isDark ? 0.65 : 1.1} color={isDark ? '#060B18' : '#E0F2FE'} />
 
       {/* Primary Key light */}
       <directionalLight
         position={[6, 8, 6]}
         intensity={isDark ? 2.2 : 1.9}
-        color={isDark ? '#f0f9ff' : '#ffffff'}
+        color={isDark ? '#F2F5FA' : '#FFFFFF'}
         castShadow={quality === 'high'}
       />
 
@@ -72,14 +72,14 @@ export function SceneLighting() {
       <directionalLight
         position={[-6, -4, -3]}
         intensity={isDark ? 1.5 : 1.6}
-        color="#0284c7"
+        color="#0369A1"
       />
 
       {/* Soft warm fill light */}
       <directionalLight
         position={[0, -6, 4]}
         intensity={isDark ? 0.6 : 0.8}
-        color="#38bdf8"
+        color={isDark ? '#22D3EE' : '#38BDF8'}
       />
 
       {/* Interactive cursor tracking light */}
@@ -92,7 +92,7 @@ export function SceneLighting() {
           <Lightformer
             form="rect"
             intensity={isDark ? 2.5 : 2.0}
-            color={isDark ? '#f0f9ff' : '#ffffff'}
+            color={isDark ? '#F2F5FA' : '#FFFFFF'}
             position={[0, 6, -2]}
             scale={[10, 5, 1]}
             target={[0, 0, 0]}
@@ -101,16 +101,16 @@ export function SceneLighting() {
           <Lightformer
             form="rect"
             intensity={isDark ? 2.0 : 2.4}
-            color="#0ea5e9"
+            color="#22D3EE"
             position={[-5, 2, -1]}
             scale={[6, 3, 1]}
             target={[0, 0, 0]}
           />
-          {/* Sapphire fill */}
+          {/* Deep cyan-blue fill */}
           <Lightformer
             form="circle"
             intensity={isDark ? 1.5 : 1.8}
-            color="#0284c7"
+            color="#0369A1"
             position={[5, -2, 2]}
             scale={[5, 5, 1]}
             target={[0, 0, 0]}
@@ -119,7 +119,7 @@ export function SceneLighting() {
           <Lightformer
             form="ring"
             intensity={isDark ? 0.8 : 1.2}
-            color="#38bdf8"
+            color="#67E8F9"
             position={[0, -5, 0]}
             scale={[8, 8, 1]}
             target={[0, 0, 0]}
