@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="100%" height="auto">
+  <defs>
+    <!-- Background Gradients -->
+    <linearGradient id="bg-grad-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#040814" />
+      <stop offset="45%" stop-color="#080E1E" />
+      <stop offset="100%" stop-color="#03060D" />
+    </linearGradient>
+
+    <radialGradient id="cyan-glow" cx="80%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.22" />
+      <stop offset="60%" stop-color="#0284C7" stop-opacity="0.08" />
+      <stop offset="100%" stop-color="#040814" stop-opacity="0" />
+    </radialGradient>
+
+    <radialGradient id="violet-glow" cx="30%" cy="90%" r="50%">
+      <stop offset="0%" stop-color="#818CF8" stop-opacity="0.16" />
+      <stop offset="70%" stop-color="#6366F1" stop-opacity="0.04" />
+      <stop offset="100%" stop-color="#040814" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Liquid Ribbon Gradients -->
+    <linearGradient id="ribbon-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="40%" stop-color="#22D3EE" />
+      <stop offset="75%" stop-color="#818CF8" />
+      <stop offset="100%" stop-color="#C084FC" />
+    </linearGradient>
+
+    <linearGradient id="ribbon-grad-2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" />
+      <stop offset="30%" stop-color="#EC4899" />
+      <stop offset="70%" stop-color="#818CF8" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+
+    <linearGradient id="sculpture-core" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.9" />
+      <stop offset="50%" stop-color="#818CF8" stop-opacity="0.95" />
+      <stop offset="100%" stop-color="#F43F5E" stop-opacity="0.85" />
+    </linearGradient>
+
+    <!-- Border Glow -->
+    <linearGradient id="border-grad-dark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.4" />
+      <stop offset="35%" stop-color="#818CF8" stop-opacity="0.2" />
+      <stop offset="70%" stop-color="#38BDF8" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#22D3EE" stop-opacity="0.1" />
+    </linearGradient>
+
+    <!-- Filter for particle glow -->
+    <filter id="glow-blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <filter id="soft-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <style>
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    .display { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; font-weight: 800; }
+  </style>
+
+  <!-- Card Background with rounded corners -->
+  <rect width="1200" height="420" rx="16" fill="url(#bg-grad-dark)" />
+  <rect width="1200" height="420" rx="16" fill="url(#cyan-glow)" />
+  <rect width="1200" height="420" rx="16" fill="url(#violet-glow)" />
+
+  <!-- Subtle Grid Lines -->
+  <g stroke="#38BDF8" stroke-opacity="0.04" stroke-width="1">
+    <line x1="80" y1="0" x2="80" y2="420" />
+    <line x1="240" y1="0" x2="240" y2="420" />
+    <line x1="400" y1="0" x2="400" y2="420" />
+    <line x1="560" y1="0" x2="560" y2="420" />
+    <line x1="720" y1="0" x2="720" y2="420" />
+    <line x1="880" y1="0" x2="880" y2="420" />
+    <line x1="1040" y1="0" x2="1040" y2="420" />
+    <line x1="0" y1="80" x2="1200" y2="80" />
+    <line x1="0" y1="160" x2="1200" y2="160" />
+    <line x1="0" y1="240" x2="1200" y2="240" />
+    <line x1="0" y1="320" x2="1200" y2="320" />
+  </g>
+
+  <!-- RIGHT SIDE: Abstract 3D Liquid Sculpture Vector Artwork -->
+  <g id="sculpture-graphic" transform="translate(860, 210)">
+    <!-- Ambient Energy Rings -->
+    <ellipse cx="0" cy="0" rx="180" ry="85" fill="none" stroke="#22D3EE" stroke-opacity="0.12" stroke-width="1.5" stroke-dasharray="6 8" transform="rotate(-25)" />
+    <ellipse cx="0" cy="0" rx="140" ry="65" fill="none" stroke="#818CF8" stroke-opacity="0.18" stroke-width="1.5" transform="rotate(35)" />
+    <ellipse cx="0" cy="0" rx="95" ry="45" fill="none" stroke="#F43F5E" stroke-opacity="0.15" stroke-width="1" transform="rotate(-10)" />
+
+    <!-- Soft Core Glow -->
+    <circle cx="0" cy="0" r="80" fill="url(#cyan-glow)" filter="url(#glow-blur)" opacity="0.6" />
+
+    <!-- Outer Liquid Wave Strands (GPGPU Particle Ribbon Representation) -->
+    <path d="M-150,40 C-90,-120 40,-140 120,-60 C180,0 160,110 90,120 C-10,135 -110,80 -150,40 Z"
+          fill="none" stroke="url(#ribbon-grad-1)" stroke-width="3.5" opacity="0.85" filter="url(#soft-glow)" />
+
+    <path d="M-130,-40 C-50,-140 90,-110 140,-20 C180,60 110,140 20,130 C-60,120 -140,50 -130,-40 Z"
+          fill="none" stroke="url(#ribbon-grad-2)" stroke-width="2.5" opacity="0.75" />
+
+    <!-- Internal Liquid Volumes with Translucent Fills -->
+    <path d="M-90,20 C-50,-80 30,-90 80,-30 C120,20 90,90 40,80 C-20,70 -80,50 -90,20 Z"
+          fill="url(#sculpture-core)" opacity="0.25" />
+
+    <!-- High-Luminance Crests & Highlights -->
+    <path d="M-110,30 C-70,-60 10,-80 70,-40 C110,-10 90,50 50,60"
+          fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.6" />
+
+    <!-- Dispersed GPGPU Simulation Particle Nodes -->
+    <circle cx="-135" cy="-75" r="2.5" fill="#22D3EE" opacity="0.8" />
+    <circle cx="-95" cy="-115" r="3.5" fill="#38BDF8" opacity="0.9" />
+    <circle cx="-30" cy="-135" r="2.0" fill="#818CF8" opacity="0.7" />
+    <circle cx="50" cy="-125" r="4.0" fill="#C084FC" opacity="0.85" filter="url(#soft-glow)" />
+    <circle cx="115" cy="-90" r="2.5" fill="#F43F5E" opacity="0.75" />
+    <circle cx="155" cy="-35" r="3.0" fill="#F59E0B" opacity="0.8" />
+    <circle cx="160" cy="45" r="2.5" fill="#22D3EE" opacity="0.7" />
+    <circle cx="125" cy="105" r="3.5" fill="#38BDF8" opacity="0.85" />
+    <circle cx="45" cy="135" r="2.0" fill="#818CF8" opacity="0.7" />
+    <circle cx="-40" cy="120" r="3.0" fill="#22D3EE" opacity="0.8" />
+    <circle cx="-110" cy="85" r="2.5" fill="#C084FC" opacity="0.75" />
+    <circle cx="-160" cy="10" r="2.0" fill="#FFFFFF" opacity="0.9" />
+
+    <!-- Core Specular Spark -->
+    <circle cx="-15" cy="-20" r="5" fill="#FFFFFF" opacity="0.95" filter="url(#soft-glow)" />
+    <circle cx="-15" cy="-20" r="14" fill="#22D3EE" opacity="0.35" filter="url(#glow-blur)" />
+  </g>
+
+  <!-- LEFT SIDE: Project Identity & Typography -->
+  <g transform="translate(68, 60)">
+    <!-- Subtitle Pill / Status Badge -->
+    <g transform="translate(0, 0)">
+      <rect width="470" height="28" rx="14" fill="#0E172A" stroke="#1E293B" stroke-width="1" />
+      <circle cx="14" cy="14" r="4" fill="#22D3EE">
+        <animate attributeName="opacity" values="1;0.4;1" dur="2.5s" repeatCount="indefinite" />
+      </circle>
+      <text x="26" y="18" fill="#94A3B8" font-size="10.5" font-weight="700" letter-spacing="0.12em" class="mono">
+        PRADYUMNA SINGH · SOFTWARE SYSTEMS &amp; CREATIVE ENG.
+      </text>
+    </g>
+
+    <!-- Primary Title -->
+    <g transform="translate(0, 72)">
+      <text x="0" y="0" fill="#F8FAFC" font-size="44" font-weight="800" letter-spacing="-0.03em" class="display">
+        INTERACTIVE WEBGL &amp;
+      </text>
+      <text x="0" y="48" fill="url(#ribbon-grad-1)" font-size="44" font-weight="800" letter-spacing="-0.03em" class="display">
+        FRONT-END ARCHITECTURE
+      </text>
+    </g>
+
+    <!-- Description Paragraph -->
+    <g transform="translate(0, 160)">
+      <text x="0" y="0" fill="#94A3B8" font-size="14.5" line-height="1.6" class="sans">
+        Personal portfolio demonstrating production-grade graphics systems, GPU-accelerated
+      </text>
+      <text x="0" y="24" fill="#94A3B8" font-size="14.5" line-height="1.6" class="sans">
+        particle simulations, Apple-style liquid glass, and verified WAI-ARIA APG interfaces.
+      </text>
+    </g>
+
+    <!-- Key Metrics / Highlights Row -->
+    <g transform="translate(0, 222)">
+      <g transform="translate(0, 0)">
+        <text x="0" y="0" fill="#22D3EE" font-size="18" font-weight="700" class="mono">~100K</text>
+        <text x="0" y="16" fill="#64748B" font-size="10.5" font-weight="600" letter-spacing="0.08em" class="mono">GPGPU PARTICLES</text>
+      </g>
+      <g transform="translate(130, 0)">
+        <text x="0" y="0" fill="#F59E0B" font-size="18" font-weight="700" class="mono">IAM 2023</text>
+        <text x="0" y="16" fill="#64748B" font-size="10.5" font-weight="600" letter-spacing="0.08em" class="mono">WMC BRONZE MEDAL</text>
+      </g>
+      <g transform="translate(270, 0)">
+        <text x="0" y="0" fill="#818CF8" font-size="18" font-weight="700" class="mono">0-FOUC</text>
+        <text x="0" y="16" fill="#64748B" font-size="10.5" font-weight="600" letter-spacing="0.08em" class="mono">DUAL THEME ENGINE</text>
+      </g>
+      <g transform="translate(410, 0)">
+        <text x="0" y="0" fill="#10B981" font-size="18" font-weight="700" class="mono">WAI-ARIA</text>
+        <text x="0" y="16" fill="#64748B" font-size="10.5" font-weight="600" letter-spacing="0.08em" class="mono">APG ACCESSIBLE</text>
+      </g>
+    </g>
+
+    <!-- Tech Stack Pill Tags -->
+    <g transform="translate(0, 276)">
+      <rect x="0" y="0" width="70" height="22" rx="4" fill="#0B132B" stroke="#1E293B" stroke-width="1" />
+      <text x="11" y="15" fill="#38BDF8" font-size="10" font-weight="700" class="mono">Next 15</text>
+
+      <rect x="78" y="0" width="72" height="22" rx="4" fill="#0B132B" stroke="#1E293B" stroke-width="1" />
+      <text x="89" y="15" fill="#38BDF8" font-size="10" font-weight="700" class="mono">React 19</text>
+
+      <rect x="158" y="0" width="94" height="22" rx="4" fill="#0B132B" stroke="#1E293B" stroke-width="1" />
+      <text x="169" y="15" fill="#818CF8" font-size="10" font-weight="700" class="mono">TypeScript</text>
+
+      <rect x="260" y="0" width="80" height="22" rx="4" fill="#0B132B" stroke="#1E293B" stroke-width="1" />
+      <text x="271" y="15" fill="#22D3EE" font-size="10" font-weight="700" class="mono">Three.js</text>
+
+      <rect x="348" y="0" width="72" height="22" rx="4" fill="#0B132B" stroke="#1E293B" stroke-width="1" />
+      <text x="359" y="15" fill="#38BDF8" font-size="10" font-weight="700" class="mono">WebGL2</text>
+
+      <rect x="428" y="0" width="78" height="22" rx="4" fill="#0B132B" stroke="#1E293B" stroke-width="1" />
+      <text x="439" y="15" fill="#38BDF8" font-size="10" font-weight="700" class="mono">Tailwind</text>
+
+      <rect x="514" y="0" width="60" height="22" rx="4" fill="#0B132B" stroke="#1E293B" stroke-width="1" />
+      <text x="525" y="15" fill="#F59E0B" font-size="10" font-weight="700" class="mono">Lenis</text>
+    </g>
+  </g>
+
+  <!-- Ambient Specular Inset Border -->
+  <rect x="1" y="1" width="1198" height="418" rx="15" fill="none" stroke="url(#border-grad-dark)" stroke-width="1.5" />
+</svg>

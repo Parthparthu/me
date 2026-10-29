@@ -1,6 +1,7 @@
 /**
  * HeroSection: Clear, direct introduction with Apple-style restrained surfaces.
  * States plainly who I am, what I do, and what I am looking for.
+ * Integrates the interactive Liquid Sculpture in visual-only mode in place of the old 3D crystal.
  */
 'use client';
 
@@ -9,6 +10,8 @@ import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion
 import { ChevronDown, ArrowRight } from 'lucide-react';
 import { GlassButton } from '@/components/glass/GlassVariants';
 import { LiquidGlass } from '@/components/glass/LiquidGlass';
+import { SculptureHero } from '@/components/ui/liquid-sculpture-hero';
+import { useTheme } from '@/components/ui/ThemeProvider';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { useScrollStore } from '@/store/useScrollStore';
 import { PARALLAX_CONFIG } from '@/lib/parallax-config';
@@ -20,6 +23,7 @@ const TECH_BADGES = ['React', 'TypeScript', 'Python', 'Next.js', 'Three.js', 'Fa
 export function HeroSection() {
   const containerRef = useRef<HTMLElement>(null);
   const shouldReduceMotion = useReducedMotion();
+  const { theme } = useTheme();
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -35,6 +39,11 @@ export function HeroSection() {
   const midRate = shouldReduceMotion ? 0 : PARALLAX_CONFIG.hero.layer2MidField.rate;
   const midY = useTransform(scrollYProgress, [0, 1], [0, 180 * midRate]);
   const midOpacity = useTransform(scrollYProgress, [0, 0.7], [0.65, 0.1]);
+
+  // Layer 3: Liquid Sculpture Visual (0.38x scroll rate, replaces the old 3D crystal)
+  const sculptureRate = shouldReduceMotion ? 0 : 0.38;
+  const sculptureY = useTransform(scrollYProgress, [0, 1], [0, 160 * sculptureRate]);
+  const sculptureOpacity = useTransform(scrollYProgress, [0, 0.5, 0.8], [1, 0.7, 0]);
 
   // Layer 4: Foreground typography, badges & actions (0.88x scroll rate with exit scale)
   const fgRate = shouldReduceMotion ? 0 : PARALLAX_CONFIG.hero.layer4Foreground.rate;
@@ -95,6 +104,33 @@ export function HeroSection() {
         </div>
       </motion.div>
 
+      {/* Parallax Layer 3: Interactive Liquid Sculpture Visual (Replacing old 3D crystal) */}
+      <motion.div
+        style={{
+          y: sculptureY,
+          opacity: sculptureOpacity,
+          willChange: shouldReduceMotion ? 'auto' : 'transform',
+        }}
+        className="absolute inset-0 z-0 flex items-center justify-center overflow-hidden pointer-events-none"
+        aria-hidden="true"
+      >
+        <SculptureHero
+          visualOnly
+          eventTargetRef={containerRef}
+          theme={theme}
+          background={theme === 'dark' ? '#060B18' : '#F6F8FB'}
+          darkBackground="#060B18"
+          sculptureScale={0.92}
+          mobileSculptureScale={0.82}
+          ambient={true}
+          ambientIntensity={0.5}
+          speed={0.8}
+          liquid={1.1}
+          turbulence={0.9}
+          className="w-full h-full"
+        />
+      </motion.div>
+
       {/* Parallax Layer 4: Foreground Typography & Actions (0.88x with exit scale) */}
       <motion.div
         style={{
@@ -103,7 +139,7 @@ export function HeroSection() {
           scale: fgScale,
           willChange: shouldReduceMotion ? 'auto' : 'transform',
         }}
-        className="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto w-full"
+        className="relative z-10 flex flex-col items-center text-center px-4 max-w-4xl mx-auto w-full pointer-events-none"
       >
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -111,34 +147,35 @@ export function HeroSection() {
           transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col items-center gap-6"
         >
-
           {/* Status badge: 8px radius with emerald liquid glass */}
-          <LiquidGlass
-            elevation={2}
-            tint="emerald"
-            radius={8}
-            dynamicLight={POINTER_REACTIVE_3D}
-            className="p-0 border border-[var(--success-border)]"
-          >
-            <div className="relative z-10 inline-flex items-center gap-2.5 px-3.5 py-1.5">
-              <span className="relative flex h-2 w-2 shrink-0 items-center justify-center" aria-hidden="true">
+          <div className="pointer-events-auto">
+            <LiquidGlass
+              elevation={2}
+              tint="emerald"
+              radius={8}
+              dynamicLight={POINTER_REACTIVE_3D}
+              className="p-0 border border-[var(--success-border)]"
+            >
+              <div className="relative z-10 inline-flex items-center gap-2.5 px-3.5 py-1.5">
+                <span className="relative flex h-2 w-2 shrink-0 items-center justify-center" aria-hidden="true">
+                  <span
+                    className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                    style={{ backgroundColor: 'var(--success)' }}
+                  />
+                  <span
+                    className="relative inline-flex rounded-full h-2 w-2"
+                    style={{ backgroundColor: 'var(--success)' }}
+                  />
+                </span>
                 <span
-                  className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
-                  style={{ backgroundColor: 'var(--success)' }}
-                />
-                <span
-                  className="relative inline-flex rounded-full h-2 w-2"
-                  style={{ backgroundColor: 'var(--success)' }}
-                />
-              </span>
-              <span
-                className="text-xs font-medium leading-none"
-                style={{ color: 'var(--success)' }}
-              >
-                Open to Internships &middot; Greater Noida, Noida, Delhi NCR &amp; Remote
-              </span>
-            </div>
-          </LiquidGlass>
+                  className="text-xs font-medium leading-none"
+                  style={{ color: 'var(--success)' }}
+                >
+                  Open to Internships &middot; Greater Noida, Noida, Delhi NCR &amp; Remote
+                </span>
+              </div>
+            </LiquidGlass>
+          </div>
 
           {/* Name */}
           <h1
@@ -175,7 +212,7 @@ export function HeroSection() {
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row gap-3 items-center justify-center mt-2">
+          <div className="flex flex-col sm:flex-row gap-3 items-center justify-center mt-2 pointer-events-auto">
             <GlassButton
               variant="primary"
               className="group"
@@ -219,7 +256,7 @@ export function HeroSection() {
 
           {/* Tech badges: 6px radius liquid glass */}
           <div
-            className="hidden md:flex flex-wrap justify-center gap-2 mt-4"
+            className="hidden md:flex flex-wrap justify-center gap-2 mt-4 pointer-events-auto"
             aria-label="Core technologies"
           >
             {TECH_BADGES.map((badge) => (
@@ -237,7 +274,6 @@ export function HeroSection() {
               </LiquidGlass>
             ))}
           </div>
-
         </motion.div>
       </motion.div>
 

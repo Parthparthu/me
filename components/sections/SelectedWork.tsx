@@ -11,7 +11,8 @@
  */
 'use client';
 
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useMemo } from 'react';
+import { Tabs, type Tab } from '@/components/ui/vercel-tabs';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -523,9 +524,25 @@ function ExpandedProjectModal({
   );
 }
 
+
+const WORK_FILTER_TABS: Tab[] = [
+  { id: 'all', label: 'All Featured', count: projects.filter((p) => p.featured).length },
+  { id: 'flagship', label: 'Flagship', count: projects.filter((p) => p.tier === 'Flagship').length },
+  { id: 'web-pwa', label: 'Web & PWA', count: projects.filter((p) => p.category.includes('PWA') || p.category.includes('Web')).length },
+  { id: 'systems', label: 'Systems & Data', count: projects.filter((p) => p.category.includes('Systems') || p.category.includes('Analytics') || p.technologies.includes('Python')).length },
+];
+
 export function SelectedWork() {
-  const featuredProjects = projects.filter((p) => p.featured);
+  const [activeFilter, setActiveFilter] = useState('all');
   const [expandedProject, setExpandedProject] = useState<Project | null>(null);
+
+  const displayedProjects = useMemo(() => {
+    if (activeFilter === 'all') return projects.filter((p) => p.featured);
+    if (activeFilter === 'flagship') return projects.filter((p) => p.tier === 'Flagship');
+    if (activeFilter === 'web-pwa') return projects.filter((p) => p.category.includes('PWA') || p.category.includes('Web'));
+    if (activeFilter === 'systems') return projects.filter((p) => p.category.includes('Systems') || p.category.includes('Analytics') || p.technologies.includes('Python'));
+    return projects.filter((p) => p.featured);
+  }, [activeFilter]);
 
   return (
     <section
@@ -586,9 +603,18 @@ export function SelectedWork() {
           </Link>
         </motion.div>
 
+        {/* Interactive Category Filter Tabs */}
+        <div className="mb-8 flex justify-center md:justify-start">
+          <Tabs
+            tabs={WORK_FILTER_TABS}
+            activeTab={activeFilter}
+            onTabChange={(tabId) => setActiveFilter(tabId)}
+          />
+        </div>
+
         {/* Project Cards Grid */}
         <div className="grid grid-cols-1 gap-6">
-          {featuredProjects.map((project, index) => (
+          {displayedProjects.map((project, index) => (
             <ProjectTiltCard
               key={project.slug}
               project={project}

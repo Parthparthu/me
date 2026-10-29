@@ -1,12 +1,22 @@
 {
   "username": "Parthparthu",
-  "fetchedAt": "2026-10-12T22:21:12.933Z",
+  "fetchedAt": "2026-10-29T17:05:53.649Z",
   "user": {
-    "public_repos": 53,
+    "public_repos": 54,
     "followers": 2,
     "following": 3
   },
   "repos": [
+    {
+      "id": 1430970353,
+      "name": "ShopSolve",
+      "description": "ShopSolve is an open-innovation platform where small retailers post operational problems such as low repeat purchases, and student innovators submit solutions. Proposals are reviewed by reviewers using a transparent weighted rubric (impact, feasibility, originality, cost). Owner picks one for a pilot. Built with React and Appwrite. Not AI.",
+      "language": "TypeScript",
+      "stargazers_count": 0,
+      "forks_count": 0,
+      "updated_at": "2026-10-23T11:40:57Z",
+      "html_url": "https://github.com/Parthparthu/ShopSolve"
+    },
     {
       "id": 1343105984,
       "name": "Oweo",
@@ -56,16 +66,6 @@
       "forks_count": 0,
       "updated_at": "2026-08-02T11:35:53Z",
       "html_url": "https://github.com/Parthparthu/dentist"
-    },
-    {
-      "id": 1320095385,
-      "name": "StockScreener",
-      "description": "Public software repository on GitHub.",
-      "language": "JavaScript",
-      "stargazers_count": 0,
-      "forks_count": 0,
-      "updated_at": "2026-08-02T11:26:14Z",
-      "html_url": "https://github.com/Parthparthu/StockScreener"
     }
   ]
 }

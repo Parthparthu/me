@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { AwardBadge } from '@/components/ui/award-badge';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -173,6 +174,36 @@ export function AchievementsSection() {
                     <span>{featured.details}</span>
                   </div>
                 )}
+
+                {/* Interactive 3D Award Badges */}
+                <div className="mt-4 flex flex-wrap items-center gap-3">
+                  <AwardBadge
+                    type="wmc-medal"
+                    place={3}
+                    customTitle="World Memory Champ"
+                    customOrganization="IAM WORLD CHAMPIONSHIP"
+                    link="/#achievements"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const wmcCert = verifiedCertificates.find((c) => c.id === 'wmc-2023');
+                      if (wmcCert) openModal(wmcCert, e);
+                    }}
+                  />
+                  <AwardBadge
+                    type="logic-championship"
+                    place={1}
+                    customTitle="Logic Champion"
+                    customOrganization="WHITEHAT JR"
+                    link="/#achievements"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const logicCert = verifiedCertificates.find(
+                        (c) => c.issuer.toLowerCase().includes('whitehat') || c.id === 'certified-app-dev'
+                      );
+                      if (logicCert) openModal(logicCert, e);
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </LiquidGlass>

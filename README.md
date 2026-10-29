@@ -1,14 +1,12 @@
-<!-- Build Palette: Primary Sky Blue (#0ea5e9, #0284c7), Supporting Emerald (#10b981, #059669), Supporting Amber (#f59e0b, #d97706) -->
-
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/hero-banner-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="docs/assets/hero-banner-light.svg">
-    <img src="docs/assets/hero-banner-dark.svg" alt="Pradyumna Portfolio 2.0 Banner" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/readme/hero-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="docs/assets/readme/hero-light.svg">
+    <img src="docs/assets/readme/hero-dark.svg" alt="Pradyumna Portfolio: Interactive WebGL &amp; Front-End Architecture" width="100%">
   </picture>
 
   <p align="center">
-    <strong>Personal software engineering portfolio featuring a single persistent WebGL 3D canvas, Apple-inspired translucent surfaces, multi-layer depth parallax, and accessible WAI-ARIA interfaces.</strong>
+    <strong>Personal software engineering portfolio featuring GPU-accelerated liquid particle simulations, Apple-inspired translucent surfaces, mathematically exact 3D perspective transforms, and accessible WAI-ARIA interfaces.</strong>
   </p>
 
   <p align="center">
@@ -24,379 +22,279 @@
 
   <p align="center">
     <a href="https://parthparthu.github.io/me/">Live Demo</a> &bull;
-    <a href="#preview">Preview</a> &bull;
+    <a href="https://parthparthu.github.io/me/">Component Showcase</a> &bull;
+    <a href="#live-experience">Live Experience</a> &bull;
     <a href="#features">Features</a> &bull;
-    <a href="#tech-stack">Tech Stack</a> &bull;
-    <a href="#how-it-works">How It Works</a> &bull;
+    <a href="#system-architecture">System Architecture</a> &bull;
+    <a href="#technology-stack">Tech Stack</a> &bull;
     <a href="#getting-started">Getting Started</a>
   </p>
 </div>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/divider-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/assets/divider-light.svg">
-  <img src="docs/assets/divider-dark.svg" alt="" width="100%" height="4">
-</picture>
+<img src="docs/assets/readme/divider.svg" alt="" width="100%" height="8">
 
 ## Table of Contents
 
 - [Overview](#overview)
-- [Preview](#preview)
+- [Live Experience](#live-experience)
 - [Features](#features)
-- [Tech Stack](#tech-stack)
-- [How It Works](#how-it-works)
-  - [Architecture Overview](#architecture-overview)
-  - [Rendering Pipeline](#rendering-pipeline)
-  - [Theming System](#theming-system)
-  - [Interaction and Animation Layers](#interaction-and-animation-layers)
-  - [Performance and Quality Model](#performance-and-quality-model)
-  - [Contact Form Request and Data Flow](#contact-form-request-and-data-flow)
+- [System Architecture](#system-architecture)
+  - [App Router and Execution Shell](#app-router-and-execution-shell)
+  - [GPGPU Particle Simulation Engine](#gpgpu-particle-simulation-engine)
+  - [Euler 3D Perspective Matrix and Holographic Foil](#euler-3d-perspective-matrix-and-holographic-foil)
+  - [Translucent Surfaces and Lighting Refraction](#translucent-surfaces-and-lighting-refraction)
+  - [Independent Dual Theming Engine](#independent-dual-theming-engine)
+- [Verified Honours and Credentials](#verified-honours-and-credentials)
+- [Technology Stack](#technology-stack)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-  - [Environment Variables](#environment-variables)
   - [Development Server](#development-server)
   - [Production Build and Static Export](#production-build-and-static-export)
-  - [Deployment](#deployment)
-- [Configuration and Customization](#configuration-and-customization)
-- [Browser and Device Support](#browser-and-device-support)
-- [Accessibility and Performance](#accessibility-and-performance)
+  - [Verification and Automated Tests](#verification-and-automated-tests)
+- [Deployment](#deployment)
+- [Accessibility and Engineering Rigor](#accessibility-and-engineering-rigor)
 - [Roadmap](#roadmap)
 - [Contributing and Security](#contributing-and-security)
 - [License](#license)
 - [Contact](#contact)
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/divider-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/assets/divider-light.svg">
-  <img src="docs/assets/divider-dark.svg" alt="" width="100%" height="4">
-</picture>
+<img src="docs/assets/readme/divider.svg" alt="" width="100%" height="8">
 
 ## Overview
 
-This repository contains the complete source code for the personal engineering portfolio of **Pradyumna**, a First-Year Computer Science and Engineering student (Specialization: AI and Machine Learning) at GL Bajaj Institute of Technology and Management, Greater Noida. Pradyumna is also a Bronze Medalist at the 2023 World Memory Championship.
+This repository contains the complete production source code for the personal engineering portfolio of **Pradyumna Singh**, a First-Year Computer Science and Engineering student (Specialization: AI and Machine Learning) at GL Bajaj Institute of Technology and Management, Greater Noida. Pradyumna is also a Bronze Medalist at the 2023 World Memory Championship.
 
-The site is built to demonstrate production-grade front-end and graphics systems engineering:
-- **WebGL 3D Acceleration**: An ambient Three.js scene utilizing procedural glass geometries, real-time light calculation, and hardware capability tiers.
-- **Physics and Interpolation**: Custom virtual-time Lenis requestAnimationFrame loop preventing clock drift, frame dropping, or abrupt teleports during page scrolling.
-- **Universal Design Tokens**: Independent dark and light themes crafted with CSS custom properties, ensuring high-contrast readability without inverted color artifacts.
-- **Zero Hacks**: Complete compliance with WAI-ARIA Authoring Practices Guide (APG), native system cursor, predictable native wheel physics, and zero marketing filler.
+The website demonstrates production-grade creative engineering, graphics computation, and robust frontend systems architecture:
+
+- **GPGPU Liquid Particle Simulation**: Approximately 100,000 GPU-simulated particles rendered via WebGL2 shaders with continuous procedural noise fields, dynamic cursor wake dissipation, and complement cross-fades.
+- **Physical Perspective and Holographic Sheen**: Custom column-major Euler 3D matrix projection and VSYNC-synchronized `requestAnimationFrame` tracking for interactive award badges, featuring iridescent diffraction grating reflection overlays.
+- **Apple-Inspired Translucent Surfaces**: Layered specular borders, dynamic pointer-reactive refraction, and ambient drop shadows crafted with CSS custom properties.
+- **Virtual-Time Clamped Scrolling**: Clamped virtual-time Lenis requestAnimationFrame loop capping time steps to 33.33ms to eliminate frame skips or clock drift jumps during scrolling.
+- **Zero-FOUC Dual Theming**: An inline blocking theme script resolves user system preference before first paint, delivering independent color palettes for dark and light modes with zero flash of unstyled content.
+- **WAI-ARIA APG Compliance**: Full keyboard support (`Cmd+K` combobox with active descendant focus, escape key dismissals, visible `:focus-visible` rings, and native system wheel physics).
 
 > [!NOTE]
-> The portfolio is pre-rendered as a static export and deployed continuously via GitHub Actions to GitHub Pages. All project case studies, metrics, and achievements reflect verified codebases and competition records.
+> The portfolio is pre-rendered as an optimized static export (`output: 'export'`) and continuously deployed to GitHub Pages via automated GitHub Actions CI/CD workflows. Every project metric, achievement, and case study corresponds to genuine competition records and public repositories.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/divider-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/assets/divider-light.svg">
-  <img src="docs/assets/divider-dark.svg" alt="" width="100%" height="4">
-</picture>
+<img src="docs/assets/readme/divider.svg" alt="" width="100%" height="8">
 
-## Preview
+## Live Experience
 
-The screenshots below were captured directly from the running production export at `http://localhost:3000` via headless Chromium automation using [`scripts/capture-readme-assets.mjs`](scripts/capture-readme-assets.mjs).
+The animated preview below was captured directly from the running production static export via headless Chromium CDP automation at `1280x820` resolution. It demonstrates the liquid sculpture in motion as the cursor passes over its volume, liquefying the particle material into wake currents before elastically settling back into resting equilibrium.
+
+<div align="center">
+  <img src="docs/assets/readme/liquid-sculpture-demo.gif" alt="Continuous looping capture of the Liquid Sculpture hero simulation with cursor interaction" width="100%" style="border-radius: 10px; border: 1px solid rgba(34, 211, 238, 0.25);">
+  <p align="center"><em>Real-time WebGL2 GPGPU particle simulation with cursor wake currents (~100,000 particles)</em></p>
+</div>
 
 ### Desktop Interface (Dark and Light Modes)
 
-| Dark Mode (Default) | Light Mode (High Contrast) |
+The portfolio provides two distinct visual experiences: an Obsidian dark foundation (`#060B18`) accented by electric cyan and ultraviolet luminescence, and a high-contrast Slate light foundation (`#F8FAFC`) with crisp borders and soft glass shadows.
+
+| Obsidian Dark Mode (Default) | Clean Slate Light Mode |
 |:---:|:---:|
-| <img src="docs/assets/screenshot-dark-hero.png" alt="Desktop Dark Hero Section with 3D WebGL Background" width="100%"> | <img src="docs/assets/screenshot-light-hero.png" alt="Desktop Light Hero Section with Clean Slate Styling" width="100%"> |
-| *Hero section with ambient WebGL 3D glass and cyan glow* | *Clean slate light mode with crisp borders and soft glass shadows* |
+| <img src="docs/assets/readme/screenshot-hero-dark.png" alt="Desktop Dark Hero Section with Liquid Sculpture" width="100%"> | <img src="docs/assets/readme/screenshot-hero-light.png" alt="Desktop Light Hero Section with Liquid Sculpture" width="100%"> |
+| *Hero section with WebGL2 liquid sculpture and cyan illumination* | *High-contrast light mode with crisp borders and subtle glass diffusion* |
 
-### Accessible Command Palette (`Cmd + K` / `Ctrl + K`)
+### Dedicated Component Showcase Route (`/demos`)
 
-| Dark Command Palette | Light Command Palette |
-|:---:|:---:|
-| <img src="docs/assets/screenshot-dark-palette.png" alt="Command Palette Modal in Dark Mode" width="100%"> | <img src="docs/assets/screenshot-light-palette.png" alt="Command Palette Modal in Light Mode" width="100%"> |
-| *Fuzzy search across routes, case studies, and external links* | *High-contrast keyboard combobox with active descendant focus* |
+In addition to the primary portfolio homepage, the repository includes an interactive component showcase at `/demos` built with filterable tabs, highlighting individual UI implementations in isolation:
 
-### Selected Work and Case Studies
+- **Liquid Sculpture Hero**: Full-viewport WebGL2 particle simulation with customizable particle density, wake energy, and return speed controls.
+- **GSAP Horizontal Timeline**: Pinned ScrollTrigger storyline with animated SVG connection stems.
+- **Shiny CTA Button**: Radial cursor-following specular border reflection with physics damping.
+- **Floating Navigation Menu**: Framer Motion layout projection with active indicator transitions.
+- **3D Award Badges**: Euler matrix tilt and holographic diffraction grating foil reflections.
+- **Vercel Filter Tabs**: Sliding indicator tab bar with keyboard navigation.
 
-| Dark Projects Grid | Light Projects Grid |
-|:---:|:---:|
-| <img src="docs/assets/screenshot-dark-projects.png" alt="Selected Work Projects Grid in Dark Mode" width="100%"> | <img src="docs/assets/screenshot-light-projects.png" alt="Selected Work Projects Grid in Light Mode" width="100%"> |
-| *Interactive project cards with category tabs and metric badges* | *High-contrast cards with subtle liquid specular borders* |
+Explore the live showcase on the deployed site: [parthparthu.github.io/me](https://parthparthu.github.io/me/) (route: `/demos`).
 
-### Mobile Viewport (390 &times; 844)
-
-| Mobile Dark Interface | Mobile Light Interface |
-|:---:|:---:|
-| <img src="docs/assets/screenshot-mobile-dark.png" alt="Mobile Viewport Rendering in Dark Mode" width="300"> | <img src="docs/assets/screenshot-mobile-light.png" alt="Mobile Viewport Rendering in Light Mode" width="300"> |
-| *Responsive layout with touch targets &ge; 44px* | *Clean mobile navigation dock and stacked project cards* |
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/divider-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/assets/divider-light.svg">
-  <img src="docs/assets/divider-dark.svg" alt="" width="100%" height="4">
-</picture>
+<img src="docs/assets/readme/divider.svg" alt="" width="100%" height="8">
 
 ## Features
 
-All features in this repository are verified by source code and automated test suites.
+Every capability in this repository is substantiated by working source code, strict TypeScript types, and automated verification scripts.
 
-| Feature Area | Icon | Component | Technical Implementation |
-|:---|:---:|:---|:---|
-| **Theme-Reactive 3D Canvas** | <img src="docs/assets/icons/icon-3d.svg" alt="" width="24" height="24"> | [`SceneCanvas.tsx`](components/canvas/SceneCanvas.tsx) | Procedural glass polyhedron and torus rendered with Three.js 0.186, R3F, and Drei. Supports pointer-reactive tilt and adaptive quality tiers. |
-| **Apple-Inspired Surfaces** | <img src="docs/assets/icons/icon-glass.svg" alt="" width="24" height="24"> | [`LiquidGlass.tsx`](components/glass/LiquidGlass.tsx) | Translucent and solid surfaces with hairline specular borders, layered drop shadows, and pointer-reactive highlights. |
-| **Virtual-Time Scrolling** | <img src="docs/assets/icons/icon-scroll.svg" alt="" width="24" height="24"> | [`SmoothScrollProvider.tsx`](components/common/SmoothScrollProvider.tsx) | Clamped virtual-time RAF loop via Lenis 1.1.18. Caps time step to 33.33ms to eliminate clock drift jumps and frame skips. |
-| **Zero-FOUC Dual Theming** | <img src="docs/assets/icons/icon-theme.svg" alt="" width="24" height="24"> | [`layout.tsx`](app/layout.tsx) | Inline blocking script resolves user preference before first paint. Independent CSS custom property palettes for dark and light modes. |
-| **Accessible Command Palette** | <img src="docs/assets/icons/icon-palette.svg" alt="" width="24" height="24"> | [`CommandPalette.tsx`](components/ui/CommandPalette.tsx) | WAI-ARIA combobox activated via `Cmd+K` or `Ctrl+K`. Features fuzzy search across navigation targets, case studies, and theme toggles. |
-| **Project Catalog & Studies** | <img src="docs/assets/icons/icon-catalog.svg" alt="" width="24" height="24"> | [`ProjectsPageClient.tsx`](app/projects/ProjectsPageClient.tsx) | Filterable project directory with live category tabs, technical architecture briefs, source code links, and dedicated case study routes (`/projects/[slug]`). |
-| **Validated Contact System** | <img src="docs/assets/icons/icon-shield.svg" alt="" width="24" height="24"> | [`ContactSection.tsx`](components/sections/ContactSection.tsx) | React Hook Form with Zod schema validation. Includes a hidden honeypot bot trap, inline error focus, and automatic fallback to client `mailto:`. |
-| **APG Accessibility Standards** | <img src="docs/assets/icons/icon-a11y.svg" alt="" width="24" height="24"> | [`SkipLink.tsx`](components/ui/SkipLink.tsx) | Skip to main content link, minimum 44px mobile touch targets, high-contrast `:focus-visible` rings, native system cursor, and zero scroll-jacking. |
+| Feature Area | Component Source | Technical Implementation |
+|:---|:---|:---|
+| **Interactive Liquid Sculpture** | [`liquid-sculpture-hero.tsx`](components/ui/liquid-sculpture-hero.tsx) | GPU-accelerated GPGPU particle simulation sampling ~100k positions. Custom GLSL shaders calculate ambient Perlin noise displacement, cursor wake dissipation, and complement cross-fades. |
+| **Apple Liquid Glass Surfaces** | [`LiquidGlass.tsx`](components/glass/LiquidGlass.tsx) | Multi-layered translucent panels with hairline specular borders, layered drop shadows, and pointer-reactive light refraction based on pointer angle of incidence. |
+| **3D Euler Perspective Badges** | [`award-badge.tsx`](components/ui/award-badge.tsx) | Column-major Euler 3D matrix projection (`perspective(700px) matrix3d(...)`) with VSYNC-synchronized `requestAnimationFrame` tracking and 10 prismatic diffraction grating overlay slices. |
+| **Zero-FOUC Dual Theming** | [`layout.tsx`](app/layout.tsx) &amp; [`ThemeProvider.tsx`](components/ui/ThemeProvider.tsx) | Blocking inline script executes in `<head>` prior to first paint. Independent CSS custom property design tokens ensure zero flash of unstyled content. |
+| **Virtual-Time Clamped Scrolling** | [`SmoothScrollProvider.tsx`](components/common/SmoothScrollProvider.tsx) | Lenis 1.1.18 virtual-time scroll engine. RequestAnimationFrame loop clamps maximum time step to 33.33ms, preventing frame skips or clock drift jumps during scroll events. |
+| **Accessible Command Palette** | [`CommandPalette.tsx`](components/ui/CommandPalette.tsx) | WAI-ARIA APG compliant combobox modal triggered via `Cmd+K` / `Ctrl+K`. Features fuzzy search over routes, case studies, external destinations, and theme toggles. |
+| **GSAP Horizontal Storyline** | [`timeline.tsx`](components/ui/timeline.tsx) | GSAP 3.15 ScrollTrigger pinned horizontal milestone slider. SVG connection paths animate progressively as the user scrolls horizontally through milestones. |
+| **Project Catalog &amp; Case Studies** | [`ProjectsPageClient.tsx`](app/projects/ProjectsPageClient.tsx) | Filterable project directory with dynamic category tabs, technical architecture briefs, source code links, and dedicated slug routes (`/projects/[slug]`). |
+| **Substantiated Evidence Modals** | [`AchievementsSection.tsx`](components/sections/AchievementsSection.tsx) | Interactive credential modals showcasing original competition photographs and verified certificates with keyboard focus trapping and `Escape` dismissal. |
+| **Validated Contact System** | [`ContactSection.tsx`](components/sections/ContactSection.tsx) | React Hook Form with Zod schema validation. Includes honeypot bot prevention, inline field error focus, and automatic fallback to client `mailto:`. |
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/divider-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/assets/divider-light.svg">
-  <img src="docs/assets/divider-dark.svg" alt="" width="100%" height="4">
-</picture>
+<img src="docs/assets/readme/divider.svg" alt="" width="100%" height="8">
 
-## Tech Stack
+## System Architecture
 
-All package versions are pinned in [`package.json`](package.json) to guarantee reproducible builds:
-
-| Category | Package | Version | Documentation | Architectural Purpose |
-|:---|:---|:---|:---|:---|
-| **Core Framework** | `next` | `^15.0.3` | [nextjs.org](https://nextjs.org/) | App Router, Server Components, and static HTML export |
-| **UI Library** | `react` | `^19.0.0` | [react.dev](https://react.dev/) | Component architecture and React 19 concurrent features |
-| | `react-dom` | `^19.0.0` | [react.dev](https://react.dev/) | DOM rendering and modal portal mounting |
-| **Language** | `typescript` | `^5.7.2` | [typescriptlang.org](https://www.typescriptlang.org/) | Strict static typing and interface definitions |
-| **3D & Graphics** | `three` | `^0.186.1` | [threejs.org](https://threejs.org/) | WebGL 3D rendering engine, shaders, and materials |
-| | `@react-three/fiber` | `^9.8.1` | [docs.pmnd.rs/react-three-fiber](https://docs.pmnd.rs/react-three-fiber) | Declarative Three.js scene graph for React |
-| | `@react-three/drei` | `^10.7.9` | [docs.pmnd.rs/drei](https://docs.pmnd.rs/drei) | Shader utilities, cameras, and procedural geometry helpers |
-| | `@react-spring/three` | `^10.1.2` | [react-spring.dev](https://www.react-spring.dev/) | Spring physics for 3D coordinate transformations |
-| | `detect-gpu` | `^5.0.70` | [github.com/pmndrs/detect-gpu](https://github.com/pmndrs/detect-gpu) | GPU hardware capability benchmarking for quality tiers |
-| | `postprocessing` | `^6.39.5` | [github.com/pmndrs/postprocessing](https://github.com/pmndrs/postprocessing) | WebGL post-processing shaders and compositing passes |
-| | `@react-three/postprocessing` | `^3.1.3` | [docs.pmnd.rs](https://docs.pmnd.rs) | React Three Fiber bindings for postprocessing |
-| **Scroll & Motion** | `lenis` | `^1.1.18` | [lenis.darkroom.engineering](https://lenis.darkroom.engineering/) | Hardware-accelerated virtual smooth scrolling |
-| | `framer-motion` | `^11.11.0` | [motion.dev](https://motion.dev/) | Layout animations, page transitions, and drawer modals |
-| | `gsap` | `^3.15.0` | [greensock.com/gsap](https://greensock.com/gsap/) | High-performance animation timelines and interpolation |
-| | `@gsap/react` | `^2.1.2` | [greensock.com/react](https://greensock.com/react/) | Safe GSAP lifecycle integration with React |
-| **Styling & Icons** | `tailwindcss` | `^3.4.15` | [tailwindcss.com](https://tailwindcss.com/) | Utility-first CSS engine with design token extensions |
-| | `@tailwindcss/typography` | `^0.5.15` | [tailwindcss.com](https://tailwindcss.com/) | Typographic prose styling for long-form case studies |
-| | `lucide-react` | `^0.454.0` | [lucide.dev](https://lucide.dev/) | Accessible, consistent vector SVG icon set |
-| | `clsx` | `^2.1.1` | [github.com/lukeed/clsx](https://github.com/lukeed/clsx) | Conditional class name concatenation |
-| **State & Forms** | `zustand` | `^5.0.15` | [zustand-demo.pmnd.rs](https://zustand-demo.pmnd.rs/) | Lightweight reactive client state store |
-| | `react-hook-form` | `^7.53.2` | [react-hook-form.com](https://react-hook-form.com/) | High-performance form state and event validation |
-| | `zod` | `^3.23.8` | [zod.dev](https://zod.dev/) | TypeScript-first schema declaration and input validation |
-| **Forms & Inquiries** | Client-side API | N/A | [web3forms.com](https://web3forms.com/) | Static client submission via Web3Forms/Formspree or direct mailto |
-| | `postcss` | `^8.4.49` | [postcss.org](https://postcss.org/) | CSS transformation and prefix pipeline |
-| | `autoprefixer` | `^10.4.20` | [github.com/postcss/autoprefixer](https://github.com/postcss/autoprefixer) | Vendor prefix automation for cross-browser support |
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/divider-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/assets/divider-light.svg">
-  <img src="docs/assets/divider-dark.svg" alt="" width="100%" height="4">
-</picture>
-
-## How It Works
-
-### Architecture Overview
-
-The application architecture coordinates a persistent WebGL 3D canvas with the Next.js DOM tree via decoupled stores and a virtual-time synchronization loop:
+The following diagram illustrates the verified component hierarchy, simulation pipeline, surface rendering, and build workflow of the portfolio:
 
 <div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/architecture-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="docs/assets/architecture-light.svg">
-    <img src="docs/assets/architecture-dark.svg" alt="System Architecture Diagram" width="100%">
-  </picture>
+  <img src="docs/assets/readme/architecture.svg" alt="System Architecture and Component Execution Pipeline" width="100%">
 </div>
 
-### Architectural Data Flow
+### App Router and Execution Shell
 
-```mermaid
-sequenceDiagram
-    autonumber
-    actor User as Browser / Visitor
-    participant Init as Inline Init Script
-    participant Root as Next.js Root Layout
-    participant Engine as Hardware Capabilities (detect-gpu)
-    participant Scene as Three.js WebGL Canvas
-    participant Lenis as Virtual-Time Lenis Loop
-    participant DOM as LiquidGlass UI & Components
+The application is structured around Next.js 15 App Router:
 
-    User->>Init: Request HTML document
-    Init->>Init: Resolve stored theme or system prefers-color-scheme
-    Init->>Root: Inject theme class before first paint (Zero FOUC)
-    Root->>Engine: Initialize GPU tier detection and motion check
-    Engine-->>Scene: Set quality profile (Tier 0 to Tier 3, DPR <= 2.0)
-    Scene->>Scene: Mount WebGL meshes (Polyhedron, Torus, Prism)
-    Root->>Lenis: Start clamped RAF loop (delta <= 33.33ms)
-    User->>Lenis: Wheel or Navigation Link Click
-    Lenis->>Lenis: Compute cubic bezier interpolation
-    Lenis-->>Scene: Update camera position and scene depth
-    Lenis-->>DOM: Update scroll position and active navigation highlights
-```
+1. **`app/layout.tsx`**: Injects an inline blocking script that checks `localStorage` and `window.matchMedia('(prefers-color-scheme: dark)')` prior to rendering. It applies `.dark` or `.light` class to `<html>` to guarantee zero flash of unstyled content.
+2. **`components/common/SmoothScrollProvider.tsx`**: Instantiates the Lenis smooth scroll engine. It decouples window scrolling from frame rate stutter by maintaining a virtual scroll accumulator with lerp damping (`lerp: 0.1`).
+3. **`components/layout/Header.tsx`**: Provides accessible sticky header navigation with blur backdrop, keyboard trigger for the command palette (`Cmd+K`), and animated theme toggle button.
 
----
+### GPGPU Particle Simulation Engine
 
-### Rendering Pipeline
+The hero liquid sculpture ([`liquid-sculpture-hero.tsx`](components/ui/liquid-sculpture-hero.tsx)) operates via a dual-buffer GPGPU simulation running on WebGL2:
 
-The WebGL rendering pipeline runs parallel to standard DOM rendering:
-1. **Z-Index Layering**: `<SceneCanvas />` is mounted at `z-index: 0` in a `position: fixed` full-screen container. DOM sections and UI surfaces reside in relative stacking contexts starting at `z-index: 10`.
-2. **Spline Camera Motion**: The camera position in [`CameraRig.tsx`](components/canvas/CameraRig.tsx) follows a 3D CatmullRom spline path parameterized by normalized scroll progress `progress = scrollY / maxScroll`. As the user navigates down the page, the camera orbits smoothly through the 3D space.
-3. **Adaptive Pixel Ratio**: To prevent thermal throttling, device pixel ratio is capped at 1.5 with adaptive quality monitoring.
-4. **Direct First Paint & Progressive 3D Loading**: Visitors land immediately on the fully rendered hero text and navigation with zero blocking intro screens or preloader gates. The 3D canvas loads asynchronously in the background over a lightweight static gradient fallback (`<SceneFallback />`), smoothly fading in over 500ms once initialized.
+- **Particle Sampling**: High-density coordinate grids (~100,000 points) are sampled directly from source imagery.
+- **Ambient Noise Field**: GLSL fragment shaders compute multi-octave 2D value noise to produce organic undulating drift across the resting sculpture.
+- **Cursor Wake Current**: Pointer velocity generates localized energy impulses (`energyAt(rectPx, mouse, radius, presence, wakeEnergy)`). Particles displace outward along the wake vector and elastically return to resting anchor positions over time.
+- **Hardware Fallback**: On environments lacking WebGL2 acceleration, the engine displays the crisp source image fallback.
 
----
+### Euler 3D Perspective Matrix and Holographic Foil
 
-### Theming System
+The award badges ([`award-badge.tsx`](components/ui/award-badge.tsx)) use a mathematical Euler 3D projection model:
 
-Theming operates with two deliberate design identities:
-- **Zero-FOUC Initialization**: An inline `<script>` tag in [`app/layout.tsx`](app/layout.tsx) executes before any stylesheet loads. It inspects `localStorage.getItem('theme')` and the `(prefers-color-scheme: dark)` media query, immediately appending `theme-dark` or `theme-light` to the root `<html>` element.
-- **Dynamic 3D Lighting Adaptation**: When the theme changes, [`SceneLighting.tsx`](components/canvas/SceneLighting.tsx) recalculates Three.js light intensities and colors:
-  - Dark Mode: Cyan key light (`#0891b2`), emerald fill (`#059669`), and amber rim reflections.
-  - Light Mode: Soft sky blue key light (`#0284c7`), mint emerald fill (`#10b981`), and warm specular highlights.
-- **Meta Theme Color**: The `<meta name="theme-color">` dynamically synchronizes with `#080c14` (dark) and `#f8fafc` (light) to tint mobile browser chrome.
+- **Coordinate Normalization**: Cursor coordinates are normalized relative to the badge center:
+  $$\text{normX} = \frac{\text{clientX} - (\text{left} + \text{width}/2)}{\text{width}/2}, \quad \text{normY} = \frac{\text{clientY} - (\text{top} + \text{height}/2)}{\text{height}/2}$$
+- **Exact Column-Major 3D Matrix**: Pitch ($\text{rx} = -\text{normY} \cdot 0.175$) and yaw ($\text{ry} = \text{normX} \cdot 0.245$) angles generate a column-major 4x4 matrix applied via CSS `perspective(700px) matrix3d(...)`. At rest or on mouse leave, the matrix returns to identity (`1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1`).
+- **VSYNC Synchronization**: Updates are batched via `requestAnimationFrame`, preventing React render lag or frame drops.
+- **Diffraction Grating Sheen**: 10 SVG polygon slices with `mixBlendMode: overlay` and Gaussian blur rotate dynamically based on cursor angle of incidence ($\text{angle} = \text{normX} \cdot 32^\circ + \text{normY} \cdot 12^\circ$), reproducing the optical reflection of authentic metallic foil.
 
----
+### Translucent Surfaces and Lighting Refraction
 
-### Interaction and Animation Layers
+UI cards across the application utilize [`LiquidGlass.tsx`](components/glass/LiquidGlass.tsx):
 
-- **Pointer-Reactive 3D Tilt**: Controlled by `export const POINTER_REACTIVE_3D = true;` in [`lib/config.ts`](lib/config.ts). When enabled, pointer coordinates on the window apply an inertial torque to the 3D meshes without modifying the system cursor.
-- **Unified Navigation Anchors**: Anchor clicks are intercepted by [`hooks/useSmoothScroll.ts`](hooks/useSmoothScroll.ts). It computes the target element offset minus the floating navigation header dock height (-60px) and delegates scrolling to the Lenis virtual-time engine. Browser history updates via `pushState` are deferred until the scroll animation completes (`onComplete`).
+- **Hairline Specular Borders**: Gradient border strokes simulate direct specular light glinting on glass edges.
+- **Dynamic Light Refraction**: Pointer movements compute an angle of reflection that shifts radial highlight coordinates in real-time.
+- **Layered Shadows**: Ambient room occlusion shadows combined with tight direct drop shadows create authentic elevation tiers.
 
----
+### Independent Dual Theming Engine
 
-### Performance and Quality Model
+Theme colors are defined through CSS custom properties in [`app/globals.css`](app/globals.css):
 
-- **Clamped RAF Virtual-Time**: Prevents large frame delta spikes during background tab throttling:
-  ```typescript
-  // components/common/SmoothScrollProvider.tsx
-  const elapsed = Math.max(0, now - lastTimeRef.current);
-  const clampedDelta = Math.min(elapsed, 33.33); // Enforce max 30 FPS step
-  virtualTimeRef.current += clampedDelta;
-  lenisRef.current.raf(virtualTimeRef.current);
-  ```
-- **Visibility Throttling**: The WebGL animation loop automatically reduces to 0 FPS when the browser tab is hidden or when the user scrolls past WebGL-dependent sections.
-- **Motion Preference**: When `prefers-reduced-motion: reduce` is detected, animations and smooth scrolling are disabled, providing instantaneous state changes.
+- **Obsidian Dark**: `--bg-primary: #060B18`, `--bg-secondary: #0A1020`, `--text-primary: #F8FAFC`, `--accent: #22D3EE`.
+- **Clean Slate Light**: `--bg-primary: #F8FAFC`, `--bg-secondary: #F1F5F9`, `--text-primary: #0F172A`, `--accent: #0284C7`.
+- **System Synchronization**: Theme switches propagate through `useTheme` context, dynamically re-skinning Three.js scene clear colors, SVG stroke palettes, and UI glass cards.
 
----
+<img src="docs/assets/readme/divider.svg" alt="" width="100%" height="8">
 
-### Contact Form Request and Data Flow
+## Verified Honours and Credentials
 
-```mermaid
-flowchart TD
-    A[Visitor Submits Contact Form] --> B[Zod Client-Side Validation]
-    B -->|Validation Errors| C[Focus First Invalid Field & Show ARIA Inline Errors]
-    B -->|Valid Data| D{Check Honeypot Trap}
-    D -->|Honeypot Filled| E[Silently Drop Submission (Bot Rejected)]
-    D -->|Honeypot Empty| F{Is RESEND_API_KEY Configured?}
-    F -->|Yes| G[POST /api/contact Payload]
-    G --> H[Resend Serverless Email Dispatch]
-    H --> I[Show Polite Success Notification]
-    F -->|No| J[Trigger Pre-filled Client mailto: Fallback]
-    J --> I
-```
+All awards and certifications presented on the portfolio are corroborated by official documentation and high-resolution photographs available in [`public/certificates/`](public/certificates/):
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/divider-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/assets/divider-light.svg">
-  <img src="docs/assets/divider-dark.svg" alt="" width="100%" height="4">
-</picture>
+| Honour / Credential | Organization &amp; Year | Verification Details | Evidence Modal |
+|:---|:---|:---|:---:|
+| **Bronze Medal &amp; Top Amateur** | International Association of Memory (IAM), 2023 | Awarded at the 2023 IAM World Memory Championship held at Cidco Exhibition Centre, Navi Mumbai, India (Nov 25-26, 2023). Arbiters: Charifa Souissi, Corinna Draschl, Amrut Jadhav. | [`wmc-2023-bronze-medal.jpg`](public/certificates/wmc-2023-bronze-medal.jpg) |
+| **Certified App Developer** | WhiteHat Jr, 2020 | Certificate of Appreciation for exceptional performance in Core Programming, Design Thinking, and Advanced Application Development. | [`certified-app-developer-2020.pdf`](public/certificates/certified-app-developer-2020.pdf) |
+| **Certified Game Developer** | WhiteHat Jr, 2020 | Professional game development curriculum certification in 2D physics, coordinate geometry, and event-driven game logic. | [`certified-game-developer-2020.pdf`](public/certificates/certified-game-developer-2020.pdf) |
+| **Generative AI Mastermind** | Outskill, 2024 | Certificate of Completion for advanced generative AI and LLM workflows, awarded by Founder Vaibhav Sisinty. | [`generative-ai-outskill.pdf`](public/certificates/generative-ai-outskill.pdf) |
+
+<img src="docs/assets/readme/divider.svg" alt="" width="100%" height="8">
+
+## Technology Stack
+
+The project relies on a modern, strictly typed dependency tree verified from [`package.json`](package.json):
+
+### Framework and Core Architecture
+
+| Technology | Version | Purpose | Documentation |
+|:---|:---|:---|:---|
+| **Next.js** | `15.0.3` | App Router, static SSG page pre-rendering, code splitting | [nextjs.org](https://nextjs.org/) |
+| **React** | `19.0.0` | Component composition, Concurrent React, hooks architecture | [react.dev](https://react.dev/) |
+| **React DOM** | `19.0.0` | Client-side DOM mounting and hydration | [react.dev](https://react.dev/) |
+| **TypeScript** | `5.7.2` | Static typing, interface definitions, compiler typecheck | [typescriptlang.org](https://www.typescriptlang.org/) |
+
+### 3D Graphics and Simulation
+
+| Technology | Version | Purpose | Documentation |
+|:---|:---|:---|:---|
+| **WebGL2** | Native | GPGPU liquid particle physics and GLSL noise shaders | [khronos.org](https://www.khronos.org/webgl/) |
+| **Three.js** | `0.186.1` | Scene graph management, 3D math, and ambient lighting | [threejs.org](https://threejs.org/) |
+| **@react-three/fiber** | `9.8.1` | Declarative Three.js scene composition in React | [docs.pmnd.rs/react-three-fiber](https://docs.pmnd.rs/react-three-fiber) |
+| **@react-three/drei** | `10.7.9` | R3F helpers, cameras, and procedural geometry primitives | [docs.pmnd.rs/drei](https://docs.pmnd.rs/drei) |
+| **detect-gpu** | `5.0.70` | Client GPU tier classification for adaptive performance | [github.com/pmndrs/detect-gpu](https://github.com/pmndrs/detect-gpu) |
+
+### Animation and Motion
+
+| Technology | Version | Purpose | Documentation |
+|:---|:---|:---|:---|
+| **Framer Motion** | `11.11.0` | UI component transitions, layout projection, scroll transforms | [motion.dev](https://motion.dev/) |
+| **Lenis** | `1.1.18` | Virtual-time clamped smooth scrolling engine | [lenis.darkroom.engineering](https://lenis.darkroom.engineering/) |
+| **GSAP** | `3.15.0` | ScrollTrigger timeline, pinned horizontal slider | [greensock.com/gsap](https://greensock.com/gsap/) |
+| **@gsap/react** | `2.1.2` | React integration hooks for safe GSAP lifecycle cleanup | [greensock.com/react](https://greensock.com/react/) |
+
+### Styling, Components, and Forms
+
+| Technology | Version | Purpose | Documentation |
+|:---|:---|:---|:---|
+| **Tailwind CSS** | `3.4.15` | Utility-first styling with custom design tokens | [tailwindcss.com](https://tailwindcss.com/) |
+| **Radix UI Dialog** | `1.3.1` | Accessible modal dialog primitives with focus trapping | [radix-ui.com](https://www.radix-ui.com/) |
+| **Lucide React** | `0.454.0` | Accessible iconography system | [lucide.dev](https://lucide.dev/) |
+| **React Hook Form** | `7.53.2` | High-performance uncontrolled form state management | [react-hook-form.com](https://react-hook-form.com/) |
+| **Zod** | `3.23.8` | Schema declaration and form input data validation | [zod.dev](https://zod.dev/) |
+| **Zustand** | `5.0.15` | Lightweight client state store for scroll and UI status | [zustand-demo.pmnd.rs](https://zustand-demo.pmnd.rs/) |
+
+<img src="docs/assets/readme/divider.svg" alt="" width="100%" height="8">
 
 ## Project Structure
 
-```text
-Portfolio/
-├── app/
-│   ├── api/contact/route.ts      # Serverless email dispatch handler
-│   ├── privacy/page.tsx          # Privacy Policy compliance page
-│   ├── projects/                 # Projects catalog and individual case studies
-│   │   ├── page.tsx
-│   │   ├── ProjectsPageClient.tsx
-│   │   └── [slug]/page.tsx
-│   ├── resume/page.tsx           # Curriculum Vitae and experience brief
-│   ├── terms/page.tsx            # Terms of Service compliance page
-│   ├── globals.css               # Design tokens, CSS variables, utilities
-│   ├── icon.svg                  # Dynamic vector favicon
-│   ├── layout.tsx                # Root layout, theme script, typography
-│   ├── loading.tsx               # Route suspension fallback
-│   ├── not-found.tsx             # 404 error page with navigation recovery
-│   ├── page.tsx                  # Single-page portfolio composition
-│   ├── robots.ts                 # Search engine crawler instructions
-│   ├── sitemap.ts                # Dynamic XML sitemap generator
-│   └── template.tsx              # Page transition animator
-├── components/
-│   ├── canvas/                   # WebGL Three.js background canvas and shaders
-│   │   ├── SceneCanvas.tsx
-│   │   ├── LiquidGlassScene.tsx
-│   │   ├── CameraRig.tsx
-│   │   ├── SceneLighting.tsx
-│   │   └── AdaptivePixelRatio.tsx
-│   ├── common/                   # Providers and client overlays
-│   │   ├── ClientOverlays.tsx
-│   │   └── SmoothScrollProvider.tsx
-│   ├── glass/                    # Apple-inspired surface components
-│   │   ├── LiquidGlass.tsx
-│   │   └── GlassVariants.tsx
-│   ├── layout/                   # Header dock, mobile drawers, and Footer
-│   │   ├── Header.tsx
-│   │   └── Footer.tsx
-│   ├── sections/                 # Main portfolio content rooms
-│   │   ├── HeroSection.tsx
-│   │   ├── SelectedWork.tsx
-│   │   ├── CurrentlyBuilding.tsx
-│   │   ├── SkillsSection.tsx
-│   │   ├── AchievementsSection.tsx
-│   │   ├── JourneySection.tsx
-│   │   ├── AboutSection.tsx
-│   │   └── ContactSection.tsx
-│   └── ui/                       # Reusable UI controls and dialogs
-│       ├── CommandPalette.tsx
-│       ├── ThemeProvider.tsx
-│       ├── ScrollProgress.tsx
-│       ├── BackToTop.tsx
-│       └── SkipLink.tsx
-├── data/                         # Verified portfolio facts and case studies
-│   ├── achievements.ts
-│   ├── journey.ts
-│   ├── profile.ts
-│   ├── projects.ts
-│   ├── skills.ts
-│   └── socials.ts
-├── docs/assets/                  # Self-hosted SVG diagrams, banners, and screenshots
-│   ├── icons/                    # Feature grid SVG vector icons
-│   ├── architecture-dark.svg
-│   ├── architecture-light.svg
-│   ├── divider-dark.svg
-│   ├── divider-light.svg
-│   ├── hero-banner-dark.svg
-│   └── hero-banner-light.svg
-├── hooks/
-│   └── useSmoothScroll.ts        # Unified Lenis smooth-scroll orchestration
-├── lib/
-│   ├── config.ts                 # Global feature flags and performance limits
-│   └── utils.ts                  # Classname merging and formatting helpers
-├── public/                       # Static public assets, fonts, icons
-├── scripts/                      # Automated browser verification and QA test suites
-│   ├── capture-readme-assets.mjs # Headless Chromium screenshot generator
-│   ├── verify-standards.cjs      # Lint check for zero em dashes and forbidden tokens
-│   ├── verify-nav-scroll.mjs     # CDP smooth-scroll animation verification
-│   └── verify-responsive-matrix.mjs # Responsive touch target verification
-├── .env.example                  # Environment configuration template
-├── package.json                  # Dependencies, scripts, and engine metadata
-├── tailwind.config.ts            # Tailwind CSS design system configuration
-└── tsconfig.json                 # TypeScript compiler configuration
+```
+me/
+├── app/                              # Next.js 15 App Router
+│   ├── layout.tsx                    # Root layout with 0-FOUC theme resolver
+│   ├── page.tsx                      # Main homepage composed of core sections
+│   ├── globals.css                   # Design tokens, CSS custom properties, utility rules
+│   ├── demos/page.tsx                # Dedicated interactive UI component showcase
+│   └── projects/                     # Project index and dynamic case study routes
+│       ├── page.tsx                  # Filterable project catalog page
+│       └── [slug]/page.tsx           # Individual project case study dynamic page
+├── components/                       # Modular UI and architectural components
+│   ├── canvas/                       # Three.js 3D persistent canvas and scene container
+│   ├── common/                       # SmoothScrollProvider (Lenis RAF loop)
+│   ├── glass/                        # LiquidGlass translucent surfaces and GlassButtons
+│   ├── layout/                       # Header, navigation drawer, theme toggle, footer
+│   ├── sections/                     # Section components (Hero, Projects, Achievements, Contact)
+│   └── ui/                           # Primitive UI components
+│       ├── award-badge.tsx           # Euler 3D perspective badge with holographic foil
+│       ├── CommandPalette.tsx        # WAI-ARIA APG combobox modal (Cmd+K)
+│       ├── liquid-sculpture-hero.tsx # WebGL2 GPGPU particle simulation centerpiece
+│       ├── timeline.tsx              # GSAP ScrollTrigger horizontal milestone slider
+│       └── vercel-tabs.tsx           # Vercel-style sliding indicator filter tabs
+├── data/                             # Verified static data models
+│   ├── achievements.ts               # Competition medals, arbiters, and certificate records
+│   ├── projects.ts                   # Projects, technical case studies, and live URLs
+│   └── skills.ts                     # Engineering competencies and technical toolchains
+├── docs/                             # Documentation and verification assets
+│   └── assets/readme/                # Dedicated README visual assets and diagrams
+├── hooks/                            # Custom React hooks (useSmoothScroll, useMediaQuery)
+├── lib/                              # Utility helpers, cn class merge, parallax configs
+├── public/                           # Static public assets, certificates, and WebP models
+│   ├── certificates/                 # Original medal photographs and verification PDFs
+│   └── images/sculpture/             # WebP sculpture reference imagery
+├── scripts/                          # Automated CDP testing, capture, and verification suites
+└── next.config.ts                    # Static export configuration and basePath settings
 ```
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/divider-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/assets/divider-light.svg">
-  <img src="docs/assets/divider-dark.svg" alt="" width="100%" height="4">
-</picture>
+<img src="docs/assets/readme/divider.svg" alt="" width="100%" height="8">
 
 ## Getting Started
 
 ### Prerequisites
 
-- **Node.js**: `v18.18.0` or higher (Node.js 20+ LTS recommended)
-- **Package Manager**: `npm` (v9 or v10)
+- **Node.js**: `20.x` or higher (verified on Node `22.x` and `24.x`).
+- **Package Manager**: `npm` (v10+).
+- **Modern Browser**: Chrome, Edge, Firefox, or Safari with WebGL2 support.
 
 ### Installation
 
-Clone the repository and install all dependencies:
+Clone the repository and install dependencies:
 
 ```bash
 git clone https://github.com/Parthparthu/me.git
@@ -404,24 +302,9 @@ cd me
 npm install
 ```
 
-### Environment Variables
-
-Copy the template file to `.env.local`:
-
-```bash
-cp .env.example .env.local
-```
-
-| Variable | Required | Description | Default in Code |
-|:---|:---:|:---|:---|
-| `NEXT_PUBLIC_SITE_URL` | No | Base URL for metadata and Open Graph links | `https://parthparthu.github.io/me` |
-| `NEXT_PUBLIC_FORMSPREE_ID` | No | Formspree form ID for client-side submissions | `""` (falls back to Web3Forms/mailto) |
-| `NEXT_PUBLIC_WEB3FORMS_KEY` | No | Web3Forms access key for client-side submissions | `""` (falls back to `mailto:`) |
-| `CONTACT_EMAIL` | No | Target recipient email for direct inquiries or mailto fallback | `pradyumna05@outlook.in` |
-
 ### Development Server
 
-Start the local development server with Next.js Turbopack:
+Start the Next.js local development server with Turbopack:
 
 ```bash
 npm run dev
@@ -431,177 +314,112 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Production Build and Static Export
 
-Generate the optimized production static export bundle:
+The project pre-renders all 22 routes into a standalone static HTML export in the `out/` directory:
 
 ```bash
 npm run build
 ```
 
-The compiled output will be generated in the `out/` directory, ready for hosting on any static edge CDN.
+This execution runs `scripts/fetch-github-activity.mjs` during `prebuild` to cache real GitHub commit metrics, followed by `next build` static page generation.
 
-### Deployment
+### Verification and Automated Tests
 
-This repository is configured for automated static deployment to GitHub Pages via GitHub Actions:
-- **Workflow File**: [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
-- **Target Branch**: `gh-pages`
-- **Output Directory**: `./out`
-- **Base Path**: `/me` (configured via `NEXT_PUBLIC_BASE_PATH`)
+The repository contains automated test suites that run via headless Chrome CDP to verify 3D transforms, accessibility interactions, and rendering integrity:
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/divider-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/assets/divider-light.svg">
-  <img src="docs/assets/divider-dark.svg" alt="" width="100%" height="4">
-</picture>
+```bash
+# Run TypeScript compilation check
+npm run typecheck
 
-## Configuration and Customization
+# Run Next.js and ESLint code quality checks
+npm run lint
 
-Content, appearance, and runtime behaviors are configured in dedicated data and configuration modules:
+# Verify Award Badge 3D Euler matrix tilt and modal interactions
+node scripts/verify-award-badge.mjs
 
-| Customization Goal | File Path | Description |
-|:---|:---|:---|
-| **Feature Flags** | [`lib/config.ts`](lib/config.ts) | Toggle `POINTER_REACTIVE_3D`, `ALLOW_CAPSULE`, and `QUALITY_CONFIG` |
-| **Personal Bio & Profile** | [`data/profile.ts`](data/profile.ts) | Author identity, university details, degree, and verified bio |
-| **Project Case Studies** | [`data/projects.ts`](data/projects.ts) | Project briefs, problem statements, architecture, tags, and repo links |
-| **Technical Skills** | [`data/skills.ts`](data/skills.ts) | Categorized skills taxonomy across Languages, Frameworks, and Tools |
-| **Achievements & Awards** | [`data/achievements.ts`](data/achievements.ts) | World Memory Championship and Olympiad competition records |
-| **Journey Milestones** | [`data/journey.ts`](data/journey.ts) | Career milestones, education timeline, and technical progression |
-| **Social Links** | [`data/socials.ts`](data/socials.ts) | GitHub, LinkedIn, Instagram, and verified contact addresses |
-| **Color Tokens & Design** | [`app/globals.css`](app/globals.css) | Independent dark and light CSS custom properties and surface tokens |
-
-```typescript
-// lib/config.ts
-export const POINTER_REACTIVE_3D = true;
-export const ALLOW_CAPSULE = false;
-
-export const QUALITY_CONFIG = {
-  defaultDesktop: 'high' as const,
-  defaultMobile: 'high' as const,
-  maxPixelRatio: 2,
-  enablePostProcessing: true,
-};
+# Verify Achievements section photo modals and document links
+node scripts/smoke-test-achievements.mjs
 ```
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/divider-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/assets/divider-light.svg">
-  <img src="docs/assets/divider-dark.svg" alt="" width="100%" height="4">
-</picture>
+<img src="docs/assets/readme/divider.svg" alt="" width="100%" height="8">
 
-## Browser and Device Support
+## Deployment
 
-The portfolio is tested across modern desktop and mobile browser rendering engines:
+The portfolio is deployed to GitHub Pages: [parthparthu.github.io/me](https://parthparthu.github.io/me/)
 
-| Browser / Environment | Engine | Supported | Notes |
-|:---|:---|:---:|:---|
-| **Google Chrome / Chromium** | Blink | Yes | Full WebGL 2.0 acceleration, backdrop filter support |
-| **Apple Safari (macOS & iOS)** | WebKit | Yes | Hardware-accelerated CSS filters, `-webkit-backdrop-filter` |
-| **Mozilla Firefox** | Gecko | Yes | WebGL 2.0 support, standard CSS custom properties |
-| **Microsoft Edge** | Blink | Yes | Full WebGL 2.0 acceleration and native smooth scrolling |
-| **Mobile Safari (iOS 15+)** | WebKit | Yes | Touch action manipulation, minimum 44px hit targets |
-| **Android Chrome (v90+)** | Blink | Yes | Adaptive DPR scaling, dynamic viewport height (`dvh`) |
-| **Ultrawide Displays (&ge; 2560px)** | Any | Yes | Maximum container constraints, fluid typography scaling |
+### Automated Continuous Deployment Pipeline
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/divider-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/assets/divider-light.svg">
-  <img src="docs/assets/divider-dark.svg" alt="" width="100%" height="4">
-</picture>
+Production deployment is fully automated via GitHub Actions in [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml):
 
-## Accessibility and Performance
+1. **Trigger**: Pushes to the `main` branch automatically dispatch the deployment workflow.
+2. **Build Stage**: Node.js environment is configured, dependencies installed, and `npm run build` generates the static `out/` export.
+3. **Artifact Upload**: The generated static directory is bundled and uploaded via `actions/upload-pages-artifact@v3`.
+4. **Pages Release**: The artifact is deployed directly to GitHub Pages via `actions/deploy-pages@v4`.
 
-### Accessibility Implementations
+### Base Path Configuration
 
-- **WAI-ARIA APG Compliance**: Modal dialogs and command palette implement keyboard focus traps, active descendant management (`aria-activedescendant`), and return focus to trigger buttons on dismiss.
-- **Skip Navigation**: Keyboard users can jump immediately to main content using the skip link at the top of the document.
-- **Touch Target Sizes**: All interactive elements (buttons, links, inputs) maintain touch hit areas &ge; 44px on mobile viewports.
-- **Focus Indicators**: Unobscured high-contrast `:focus-visible` rings styled via `var(--focus-ring)` ensure keyboard orientation.
-- **Native Cursor and Scroll Physics**: Zero artificial cursor follower lag, zero magnetic distortion, and zero scroll-jacking.
+In [`next.config.ts`](next.config.ts), the base path is conditionally set to `/me` when building for GitHub Pages production:
 
-### Real Measured Lighthouse Scores
+```typescript
+const isProd = process.env.NODE_ENV === 'production';
+const basePath = isProd ? '/me' : '';
+```
 
-The following metrics were measured on a local production static build (`http://localhost:3000/`) using Google Lighthouse 13.5.0 on Headless Chrome on October 11, 2026:
+All asset references and routing links use the `getAssetPath()` utility in [`lib/utils.ts`](lib/utils.ts) to guarantee portability between local root development (`http://localhost:3000/`) and GitHub Pages hosting: [parthparthu.github.io/me](https://parthparthu.github.io/me/)
 
-| Category | Score | Audit Status |
-|:---|:---:|:---:|
-| **Accessibility** | **96 / 100** | PASS (WAI-ARIA compliance, landmarks, color contrast) |
-| **Best Practices** | **100 / 100** | PASS (Zero console errors, secure CSP headers, modern APIs) |
-| **SEO** | **100 / 100** | PASS (Valid meta tags, structured data, canonical URLs, sitemap) |
-| **Performance** | **98 / 100** | PASS (Optimized static bundle, lazy WebGL initialization) |
+<img src="docs/assets/readme/divider.svg" alt="" width="100%" height="8">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/divider-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/assets/divider-light.svg">
-  <img src="docs/assets/divider-dark.svg" alt="" width="100%" height="4">
-</picture>
+## Accessibility and Engineering Rigor
+
+The application adheres strictly to the WAI-ARIA Authoring Practices Guide (APG) and web engineering best practices:
+
+- **Keyboard Trapping and Navigation**: Modal dialogs trap focus upon opening, return focus to the originating trigger upon closure, and dismiss immediately on `Escape`. The command palette (`Cmd+K`) functions as an accessible combobox with keyboard arrow selection.
+- **Visible Focus Replacement**: Zero `outline: none` occurrences without visible high-contrast focus rings (`:focus-visible`). Focus rings use `--focus-ring: #22D3EE` with offset contrast rings.
+- **Motion Accessibility (`prefers-reduced-motion`)**: When a user enables reduced motion in their operating system, the liquid sculpture particle simulation disables displacement, the award badge 3D perspective matrix is suppressed, and parallax scroll rates collapse to zero.
+- **Mobile Touch Targets**: All interactive elements (buttons, links, badges, form controls) enforce a minimum hit target of 44 &times; 44 pixels.
+- **Typography and Contrast**: Text elements exceed WCAG AA contrast standards across both dark and light modes, avoiding dark gradient banding and color-only status indicators.
+
+<img src="docs/assets/readme/divider.svg" alt="" width="100%" height="8">
 
 ## Roadmap
 
-No speculative or unverified roadmap items are listed. Feature additions are guided strictly by production requirements and open issues.
+Development milestones are tracked honestly according to repository commits and real development goals:
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/divider-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/assets/divider-light.svg">
-  <img src="docs/assets/divider-dark.svg" alt="" width="100%" height="4">
-</picture>
+- [x] **Liquid Sculpture Centerpiece**: Implement WebGL2 GPGPU particle simulation in place of the old 3D crystal.
+- [x] **Euler 3D Matrix Badges**: Mathematical 4x4 matrix tilt and holographic foil reflection for competitive honours.
+- [x] **Dedicated `/demos` Route**: Isolated interactive showcase for UI components, GSAP timeline, and buttons.
+- [x] **Static SSG Export**: 22 statically exported pages with zero-FOUC dual theming on GitHub Pages.
+- [ ] **Interactive Case Study Benchmarks**: Add live interactive performance telemetry graphs inside individual project pages.
+- [ ] **Automated Playwright CI Matrix**: Integrate end-to-end multi-browser test coverage into the GitHub Actions pipeline.
+
+<img src="docs/assets/readme/divider.svg" alt="" width="100%" height="8">
 
 ## Contributing and Security
 
-### Contributing Guidelines
+Contributions, bug reports, and suggestions are welcome:
 
-Contributions, issues, and feature suggestions are welcome. Before submitting a Pull Request, please ensure all automated verification suites pass:
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature/improvement`).
+3. Commit your changes with clear messages (`git commit -m "feat: improve liquid particle damping"`).
+4. Run validation checks (`npm run typecheck && npm run lint`).
+5. Push to the branch and open a Pull Request.
 
-```bash
-# 1. Typecheck the codebase
-npm run typecheck
+To report security vulnerabilities or configuration defects, please open a private GitHub issue or contact Pradyumna directly.
 
-# 2. Run ESLint checks
-npm run lint
-
-# 3. Verify standards compliance (zero em dashes, zero prohibited tokens)
-node scripts/verify-standards.cjs
-```
-
-### Security Policy
-
-If you discover a potential security vulnerability within this repository, please report it privately:
-- **Security Contact**: `pradyumna05@outlook.in`
-- Please include steps to reproduce the issue. Do not open public issues for sensitive security vulnerabilities.
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/divider-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/assets/divider-light.svg">
-  <img src="docs/assets/divider-dark.svg" alt="" width="100%" height="4">
-</picture>
+<img src="docs/assets/readme/divider.svg" alt="" width="100%" height="8">
 
 ## License
 
-This project is licensed under the **MIT License**. See the [`LICENSE`](LICENSE) file for details.
+This project is licensed under the MIT License -- see the [LICENSE](LICENSE) file for details.
 
-```text
-Copyright (c) 2026 Pradyumna
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-```
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/divider-dark.svg">
-  <source media="(prefers-color-scheme: light)" srcset="docs/assets/divider-light.svg">
-  <img src="docs/assets/divider-dark.svg" alt="" width="100%" height="4">
-</picture>
+<img src="docs/assets/readme/divider.svg" alt="" width="100%" height="8">
 
 ## Contact
 
-- **Author**: [Pradyumna](https://github.com/Parthparthu)
-- **Institution**: GL Bajaj Institute of Technology and Management, Greater Noida
+- **Name**: Pradyumna Singh
+- **Website**: [parthparthu.github.io/me](https://parthparthu.github.io/me/)
 - **GitHub**: [@Parthparthu](https://github.com/Parthparthu)
 - **LinkedIn**: [linkedin.com/in/pradyumna05](https://www.linkedin.com/in/pradyumna05)
-- **Email**: `pradyumna05@outlook.in`
-- **Live Portfolio**: [parthparthu.github.io/me](https://parthparthu.github.io/me/)
+
+<p align="center">
+  <a href="#table-of-contents">Back to top &uarr;</a>
+</p>

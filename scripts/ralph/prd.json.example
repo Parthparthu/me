@@ -1,0 +1,48 @@
+{
+  "project": "pradyumna-portfolio",
+  "branchName": "ralph/interactive-timeline",
+  "description": "Interactive Timeline Feature - Add interactive milestone timeline to Experience section",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Define Timeline Data Structure and Types",
+      "description": "As a developer, I need TypeScript interfaces and sample timeline data so the UI components have well-typed models.",
+      "acceptanceCriteria": [
+        "Create types in types/timeline.ts with id, date, title, role, company, description, and tags",
+        "Add sample timeline data in data/timeline.ts",
+        "Typecheck passes"
+      ],
+      "priority": 1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-002",
+      "title": "Create Timeline Card Component",
+      "description": "As a user, I want to see individual timeline entries displayed with clear visual hierarchy and accessible focus states.",
+      "acceptanceCriteria": [
+        "Create components/timeline/TimelineCard.tsx",
+        "Ensure hit targets are >= 24px and keyboard focus rings are visible per AGENTS.md",
+        "Typecheck passes",
+        "Lint passes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-003",
+      "title": "Integrate Timeline into Experience Section",
+      "description": "As a user, I want the interactive timeline embedded in the main page experience view.",
+      "acceptanceCriteria": [
+        "Render timeline component inside Experience section",
+        "Responsive layout verified on mobile and desktop",
+        "Typecheck passes",
+        "Lint passes"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": ""
+    }
+  ]
+}

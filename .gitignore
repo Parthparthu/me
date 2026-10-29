@@ -43,4 +43,9 @@ lerna-debug.log*
 scripts/screenshots/
 *.png
 !docs/assets/*.png
+!docs/assets/**/*.png
 
+
+# Ralph autonomous loop state
+.last-branch
+archive/

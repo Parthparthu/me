@@ -26,11 +26,6 @@ if (typeof window !== 'undefined') {
 }
 
 // Dynamically load room components
-const HeroRoom = dynamic(
-  () => import('./HeroRoom').then((m) => ({ default: m.HeroRoom })),
-  { ssr: false }
-);
-
 const WorkRoom = dynamic(
   () => import('./WorkRoom').then((m) => ({ default: m.WorkRoom })),
   { ssr: false }
@@ -64,7 +59,6 @@ function SceneInner() {
       <CameraRig />
       <SceneLighting />
       <Suspense fallback={null}>
-        <HeroRoom />
         <WorkRoom />
         <SkillsRoom />
         <ContactRoom />

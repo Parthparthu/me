@@ -22,7 +22,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
-import { Menu, X, Command, House, Folder, User, BookOpen, Mail, FileText } from 'lucide-react';
+import { Menu, X, Command, House, Folder, User, BookOpen, Mail, FileText, Sparkles } from 'lucide-react';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { useScrollStore, type RoomId } from '@/store/useScrollStore';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
@@ -37,6 +37,7 @@ const NAV_LINKS = [
   { name: 'Journey', href: '/#journey',   icon: BookOpen, section: 'journey' },
   { name: 'Resume',  href: '/resume',     icon: FileText, section: ''        },
   { name: 'Contact', href: '/#contact',   icon: Mail,     section: 'contact' },
+  { name: 'Demos',   href: '/demos',      icon: Sparkles, section: ''        },
 ];
 
 /* Hysteresis thresholds in px */

@@ -4,7 +4,8 @@
  */
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { Timeline } from '@/components/ui/timeline';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { Calendar, ChevronRight } from 'lucide-react';
 import { milestones, type Milestone } from '@/data/journey';
@@ -22,6 +23,7 @@ const SPRING = { type: 'spring', stiffness: 280, damping: 28 } as const;
 
 export function JourneySection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [viewMode, setViewMode] = useState<'vertical' | 'horizontal'>('vertical');
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -58,8 +60,24 @@ export function JourneySection() {
         <p className="section-subtitle mt-2">
           Milestones shaping my engineering discipline, problem-solving mindset, and systems work.
         </p>
+
+        {/* View Mode Switcher */}
+        <div className="mt-4 flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setViewMode(viewMode === 'vertical' ? 'horizontal' : 'vertical')}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-medium text-[var(--accent)] bg-[var(--accent-subtle)] border border-[var(--accent-border)] hover:bg-[var(--accent)]/20 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus-ring)]"
+          >
+            <span>{viewMode === 'vertical' ? '⚡ Switch to Horizontal Scroll Timeline' : '📋 Switch to Vertical Cards View'}</span>
+          </button>
+        </div>
       </motion.div>
 
+      {viewMode === 'horizontal' ? (
+        <div className="w-full -mx-4 md:-mx-8">
+          <Timeline />
+        </div>
+      ) : (
       <div ref={containerRef} className="relative">
         {/* Timeline spine */}
         <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-[var(--border-subtle)] -translate-x-1/2">
@@ -176,6 +194,7 @@ export function JourneySection() {
           })}
         </div>
       </div>
+      )}
     </section>
   );
 }

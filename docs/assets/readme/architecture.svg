@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" width="100%" height="auto">
+  <defs>
+    <!-- Background & Card Gradients -->
+    <linearGradient id="arch-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#040814" />
+      <stop offset="50%" stop-color="#080E1E" />
+      <stop offset="100%" stop-color="#03060D" />
+    </linearGradient>
+
+    <linearGradient id="card-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#0B132B" stop-opacity="0.9" />
+    </linearGradient>
+
+    <linearGradient id="card-border-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#0284C7" stop-opacity="0.15" />
+    </linearGradient>
+
+    <linearGradient id="card-border-violet" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818CF8" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#4F46E5" stop-opacity="0.15" />
+    </linearGradient>
+
+    <linearGradient id="card-border-amber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#D97706" stop-opacity="0.15" />
+    </linearGradient>
+
+    <linearGradient id="card-border-emerald" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#059669" stop-opacity="0.15" />
+    </linearGradient>
+
+    <!-- Connector Line Gradients -->
+    <linearGradient id="conn-cyan" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22D3EE" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.2" />
+    </linearGradient>
+
+    <filter id="box-shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <style>
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    .title { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; font-weight: 700; }
+  </style>
+
+  <!-- Canvas Outer Background -->
+  <rect width="1200" height="560" rx="14" fill="url(#arch-bg)" stroke="#1E293B" stroke-width="1" />
+
+  <!-- Title Header -->
+  <g transform="translate(50, 42)">
+    <text x="0" y="0" fill="#22D3EE" font-size="11" font-weight="700" letter-spacing="0.14em" class="mono">
+      VERIFIED CODEBASE TOPOLOGY
+    </text>
+    <text x="0" y="24" fill="#F8FAFC" font-size="22" font-weight="700" class="title">
+      System Architecture &amp; Execution Pipeline
+    </text>
+  </g>
+
+  <!-- Connectors (Vertical Trunk Lines) -->
+  <path d="M 600, 160 L 600, 200" stroke="url(#conn-cyan)" stroke-width="2" stroke-dasharray="4 4" />
+  <path d="M 230, 200 L 970, 200" stroke="url(#conn-cyan)" stroke-width="1.5" />
+  <path d="M 230, 200 L 230, 230" stroke="url(#conn-cyan)" stroke-width="1.5" />
+  <path d="M 600, 200 L 600, 230" stroke="url(#conn-cyan)" stroke-width="1.5" />
+  <path d="M 970, 200 L 970, 230" stroke="url(#conn-cyan)" stroke-width="1.5" />
+
+  <path d="M 600, 370 L 600, 410" stroke="url(#conn-cyan)" stroke-width="2" stroke-dasharray="4 4" />
+
+  <!-- ──────────────────────────────────────────────────────────── -->
+  <!-- LAYER 1: Core Next.js 15 App Shell (Top Center) -->
+  <!-- ──────────────────────────────────────────────────────────── -->
+  <g transform="translate(200, 85)" filter="url(#box-shadow)">
+    <rect width="800" height="74" rx="10" fill="url(#card-grad)" stroke="url(#card-border-cyan)" stroke-width="1.5" />
+    <text x="24" y="26" fill="#38BDF8" font-size="11" font-weight="700" letter-spacing="0.1em" class="mono">
+      LAYER 1 · APP ROUTER &amp; PERSISTENT SHELL
+    </text>
+    <text x="24" y="50" fill="#F1F5F9" font-size="15" font-weight="600" class="sans">
+      Next.js 15 App Router (`app/layout.tsx`)
+    </text>
+    <text x="320" y="50" fill="#94A3B8" font-size="13" class="sans">
+      Zero-FOUC Blocking Theme Resolver · Lenis Clamped RAF Loop · WAI-ARIA APG Nav
+    </text>
+  </g>
+
+  <!-- ──────────────────────────────────────────────────────────── -->
+  <!-- LAYER 2: 3 Subsystems (Middle Row) -->
+  <!-- ──────────────────────────────────────────────────────────── -->
+
+  <!-- Card 2A: Graphics & GPGPU Engine -->
+  <g transform="translate(50, 230)" filter="url(#box-shadow)">
+    <rect width="345" height="140" rx="10" fill="url(#card-grad)" stroke="url(#card-border-cyan)" stroke-width="1.5" />
+    <circle cx="24" cy="24" r="5" fill="#22D3EE" />
+    <text x="36" y="28" fill="#22D3EE" font-size="11" font-weight="700" letter-spacing="0.08em" class="mono">
+      GRAPHICS &amp; SIMULATION
+    </text>
+    <text x="24" y="54" fill="#F8FAFC" font-size="15" font-weight="700" class="sans">
+      SculptureHero &amp; WebGL2
+    </text>
+    <text x="24" y="78" fill="#94A3B8" font-size="12.5" class="sans">
+      • ~100k GPGPU simulated particles
+    </text>
+    <text x="24" y="98" fill="#94A3B8" font-size="12.5" class="sans">
+      • Real-time cursor wake &amp; noise field
+    </text>
+    <text x="24" y="118" fill="#94A3B8" font-size="12.5" class="sans">
+      • Three.js R3F ambient lighting fallback
+    </text>
+  </g>
+
+  <!-- Card 2B: Translucent Surfaces & 3D Badges -->
+  <g transform="translate(425, 230)" filter="url(#box-shadow)">
+    <rect width="350" height="140" rx="10" fill="url(#card-grad)" stroke="url(#card-border-violet)" stroke-width="1.5" />
+    <circle cx="24" cy="24" r="5" fill="#818CF8" />
+    <text x="36" y="28" fill="#818CF8" font-size="11" font-weight="700" letter-spacing="0.08em" class="mono">
+      SURFACES &amp; PERSPECTIVE
+    </text>
+    <text x="24" y="54" fill="#F8FAFC" font-size="15" font-weight="700" class="sans">
+      LiquidGlass &amp; AwardBadge
+    </text>
+    <text x="24" y="78" fill="#94A3B8" font-size="12.5" class="sans">
+      • Apple liquid-glass specular borders
+    </text>
+    <text x="24" y="98" fill="#94A3B8" font-size="12.5" class="sans">
+      • Euler 3D matrix3d mouse tracking
+    </text>
+    <text x="24" y="118" fill="#94A3B8" font-size="12.5" class="sans">
+      • Holographic diffraction sheen &amp; modal triggers
+    </text>
+  </g>
+
+  <!-- Card 2C: Accessible Motion & Interaction -->
+  <g transform="translate(805, 230)" filter="url(#box-shadow)">
+    <rect width="345" height="140" rx="10" fill="url(#card-grad)" stroke="url(#card-border-amber)" stroke-width="1.5" />
+    <circle cx="24" cy="24" r="5" fill="#F59E0B" />
+    <text x="36" y="28" fill="#F59E0B" font-size="11" font-weight="700" letter-spacing="0.08em" class="mono">
+      INTERACTION &amp; ACCESSIBILITY
+    </text>
+    <text x="24" y="54" fill="#F8FAFC" font-size="15" font-weight="700" class="sans">
+      APG Combobox &amp; GSAP
+    </text>
+    <text x="24" y="78" fill="#94A3B8" font-size="12.5" class="sans">
+      • CommandPalette (`Cmd+K`) combobox
+    </text>
+    <text x="24" y="98" fill="#94A3B8" font-size="12.5" class="sans">
+      • GSAP ScrollTrigger horizontal slider
+    </text>
+    <text x="24" y="118" fill="#94A3B8" font-size="12.5" class="sans">
+      • Full `prefers-reduced-motion` compliance
+    </text>
+  </g>
+
+  <!-- ──────────────────────────────────────────────────────────── -->
+  <!-- LAYER 3: Output & Continuous Delivery (Bottom Row) -->
+  <!-- ──────────────────────────────────────────────────────────── -->
+  <g transform="translate(200, 410)" filter="url(#box-shadow)">
+    <rect width="800" height="96" rx="10" fill="url(#card-grad)" stroke="url(#card-border-emerald)" stroke-width="1.5" />
+    <circle cx="24" cy="24" r="5" fill="#10B981" />
+    <text x="36" y="28" fill="#10B981" font-size="11" font-weight="700" letter-spacing="0.1em" class="mono">
+      LAYER 3 · BUILD TARGET &amp; GITHUB PAGES DEPLOYMENT
+    </text>
+    <g transform="translate(24, 46)">
+      <text x="0" y="16" fill="#F8FAFC" font-size="14" font-weight="600" class="sans">
+        Next.js Static Export (`output: 'export'`)
+      </text>
+      <text x="0" y="36" fill="#94A3B8" font-size="12" class="mono">
+        Pre-rendered HTML, SSG Case Studies, JSON Data Hydration
+      </text>
+      <path d="M 380, 20 L 415, 20" stroke="#10B981" stroke-width="2" marker-end="url(#arrow)" />
+      <text x="430" y="16" fill="#F8FAFC" font-size="14" font-weight="600" class="sans">
+        GitHub Actions CI/CD (`.github/workflows/deploy.yml`)
+      </text>
+      <text x="430" y="36" fill="#94A3B8" font-size="12" class="mono">
+        Automated build, verification &amp; deployment to GitHub Pages
+      </text>
+    </g>
+  </g>
+</svg>
